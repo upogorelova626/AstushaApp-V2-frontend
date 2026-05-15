@@ -1,0 +1,78 @@
+<header class="header">
+    <div class="header__left">
+        <button
+            tuiIconButton
+            class="header__menu-button"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.text-align-justify"
+        >
+            Открыть меню
+        </button>
+
+        <div class="header__title-block">
+            <h1 class="header__title">Дашборд</h1>
+
+            <tui-breadcrumbs class="header__breadcrumbs">
+                <!-- хлебные крошки потом заполним -->
+            </tui-breadcrumbs>
+        </div>
+    </div>
+
+    <div class="header__right">
+        <tui-textfield class="header__search" iconStart="@tui.search">
+            <input
+                tuiInput
+                type="text"
+                placeholder="Поиск задач, проектов, людей..."
+            />
+        </tui-textfield>
+
+        <button
+            tuiButton
+            class="header__create-button"
+            type="button"
+            appearance="primary"
+            size="m"
+            iconStart="@tui.plus"
+        >
+            Создать
+        </button>
+
+        <button
+            tuiIconButton
+            class="header__icon-button"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.bell"
+        >
+            Уведомления
+        </button>
+
+        <button
+            tuiIconButton
+            class="header__icon-button"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.circle-question-mark"
+        >
+            Помощь
+        </button>
+
+        <button
+            tuiButton
+            class="header__profile-button"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconEnd="@tui.chevron-down"
+        >
+            <div class="header__avatar" tuiAvatar="@tui.user"></div>
+
+            <span class="header__profile-name"> Астюша Астюшьевич </span>
+        </button>
+    </div>
+</header>
