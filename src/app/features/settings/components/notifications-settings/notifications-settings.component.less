@@ -1,0 +1,180 @@
+.notifications-card {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: auto;
+    margin: 10px;
+    padding: 20px 24px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+
+    background: var(--color-page-bg-start);
+    box-shadow: 0 20px 60px var(--color-shadow-dark);
+}
+
+.notifications-card__header {
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.notifications-card__icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    color: var(--color-primary-light);
+    background: var(--color-gradient-primary-soft);
+}
+
+.notifications-card__header-text,
+.notifications-card__item-text {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.notifications-card__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.notifications-card__description,
+.notifications-card__item-description {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.notifications-card__list {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notifications-card__item {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 64px;
+    padding: 12px 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+
+    background: var(--color-card-bg);
+    cursor: pointer;
+}
+
+.notifications-card__item-title {
+    color: var(--color-text-primary);
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.notifications-card__item input[tuiSwitch] {
+    flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+    .notifications-card {
+        margin: 0;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .notifications-card {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .notifications-card__header {
+        margin-bottom: 18px;
+        gap: 14px;
+    }
+
+    .notifications-card__title {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .notifications-card__description,
+    .notifications-card__item-description {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .notifications-card__item {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .notifications-card__item-title {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .notifications-card {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .notifications-card__header {
+        margin-bottom: 16px;
+        gap: 12px;
+    }
+
+    .notifications-card__icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .notifications-card__title {
+        font-size: 17px;
+        line-height: 22px;
+    }
+
+    .notifications-card__description,
+    .notifications-card__item-description {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .notifications-card__item {
+        min-height: auto;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .notifications-card__item-title {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

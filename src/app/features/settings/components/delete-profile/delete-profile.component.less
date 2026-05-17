@@ -1,0 +1,210 @@
+.delete-profile {
+    box-sizing: border-box;
+    width: min(100%, 800px);
+    min-height: 213px;
+    margin: 10px;
+    padding: 24px;
+
+    border: 1px solid var(--color-danger-border-soft);
+    border-radius: 24px;
+
+    background: var(--color-card-bg);
+    box-shadow: 0 20px 60px var(--color-shadow-dark);
+}
+
+.delete-profile__header {
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.delete-profile__icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-danger-border-soft);
+    border-radius: 12px;
+
+    color: var(--color-danger);
+    background: var(--color-danger-bg-soft);
+
+    tui-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.delete-profile__header-text {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.delete-profile__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.delete-profile__description {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.delete-profile__content {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.delete-profile__warning {
+    min-width: 0;
+    max-width: 500px;
+}
+
+.delete-profile__warning-title {
+    margin: 0 0 6px;
+
+    color: var(--color-text-primary);
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.delete-profile__warning-text {
+    margin: 0;
+
+    color: var(--color-text-muted);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.delete-profile__button {
+    min-width: 168px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px !important;
+}
+
+@media (max-width: 1024px) {
+    .delete-profile {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 22px;
+    }
+
+    .delete-profile__content {
+        gap: 20px;
+    }
+
+    .delete-profile__warning {
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .delete-profile {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .delete-profile__header {
+        margin-bottom: 22px;
+        gap: 14px;
+    }
+
+    .delete-profile__title {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .delete-profile__description {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .delete-profile__content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .delete-profile__warning {
+        width: 100%;
+    }
+
+    .delete-profile__button {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .delete-profile {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .delete-profile__header {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .delete-profile__icon {
+        width: 36px;
+        height: 36px;
+
+        tui-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .delete-profile__title {
+        font-size: 17px;
+        line-height: 22px;
+    }
+
+    .delete-profile__description {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .delete-profile__warning-title {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .delete-profile__warning-text {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .delete-profile__button {
+        height: 42px;
+    }
+}

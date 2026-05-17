@@ -1,0 +1,165 @@
+<div class="edit-card">
+    <div class="profile-settings__header">
+        <div class="profile-settings__header-left">
+            <div tuiAvatar="@tui.user" class="profile-settings__icon"></div>
+
+            <div class="profile-settings__header-text">
+                <h2 class="profile-settings__title">
+                    Профиль и личная информация
+                </h2>
+
+                <p class="profile-settings__description">
+                    Эти данные видны вашей команде и могут быть изменены в любое
+                    время
+                </p>
+            </div>
+        </div>
+
+        <button
+            tuiButton
+            class="profile-settings__edit-button"
+            type="button"
+            appearance="outline"
+            size="s"
+            iconStart="@tui.pencil"
+            [disabled]="isEditing() || isSaving()"
+            (click)="startEditing()"
+        >
+            Редактировать
+        </button>
+    </div>
+
+    <div class="edit">
+        <div class="edit-photo">
+            <div class="edit-photo__avatar">
+                <img class="edit-photo__img" src="" alt="" />
+
+                <button
+                    tuiIconButton
+                    class="edit-photo__camera"
+                    type="button"
+                    appearance="primary"
+                    size="s"
+                    iconStart="@tui.camera"
+                >
+                    Изменить фото
+                </button>
+            </div>
+
+            <button
+                tuiButton
+                class="edit-photo__button"
+                type="button"
+                appearance="outline"
+                size="m"
+            >
+                Изменить фото
+            </button>
+
+            <p class="edit-photo__hint">
+                JPG, PNG или WEBP<br />
+                до 5 МБ
+            </p>
+        </div>
+
+        <form class="edit-info" [formGroup]="form">
+            <div class="edit-name-and-family">
+                <label class="edit-info__field">
+                    <span class="edit-info__label">Имя</span>
+
+                    <tui-textfield class="edit-info__input">
+                        <input
+                            tuiInput
+                            type="text"
+                            placeholder="Введите имя"
+                            formControlName="firstName"
+                        />
+                    </tui-textfield>
+                </label>
+
+                <label class="edit-info__field">
+                    <span class="edit-info__label">Фамилия</span>
+
+                    <tui-textfield class="edit-info__input">
+                        <input
+                            tuiInput
+                            type="text"
+                            placeholder="Введите фамилию"
+                            formControlName="lastName"
+                        />
+                    </tui-textfield>
+                </label>
+            </div>
+
+            <label class="edit-info__field">
+                <span class="edit-info__label">Email</span>
+
+                <tui-textfield class="edit-info__input">
+                    <input
+                        tuiInput
+                        type="email"
+                        placeholder="Введите email"
+                        formControlName="email"
+                    />
+                </tui-textfield>
+            </label>
+
+            <label class="edit-info__field">
+                <span class="edit-info__label">Должность</span>
+
+                <tui-textfield class="edit-info__input">
+                    <input
+                        tuiInput
+                        type="text"
+                        placeholder="Введите должность"
+                        formControlName="position"
+                    />
+                </tui-textfield>
+            </label>
+
+            <label class="edit-info__field">
+                <span class="edit-info__label">О себе</span>
+
+                <tui-textfield class="edit-info__textarea">
+                    <textarea
+                        tuiTextarea
+                        placeholder="Расскажите немного о себе"
+                        formControlName="about"
+                    ></textarea>
+                </tui-textfield>
+            </label>
+
+            <div class="edit-info__actions">
+                <button
+                    tuiButton
+                    class="edit-info__save"
+                    type="button"
+                    appearance="primary"
+                    size="m"
+                    iconStart="@tui.check"
+                    [disabled]="
+                        !isEditing() ||
+                        isSaving() ||
+                        form.invalid ||
+                        form.pristine
+                    "
+                    (click)="saveProfile()"
+                >
+                    Сохранить изменения
+                </button>
+
+                <button
+                    tuiButton
+                    class="edit-info__cancel"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    [disabled]="!isEditing() || isSaving()"
+                    (click)="cancelEditing()"
+                >
+                    Отменить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

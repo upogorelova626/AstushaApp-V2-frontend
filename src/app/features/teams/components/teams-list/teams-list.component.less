@@ -1,0 +1,272 @@
+.teams-list {
+    width: 420px;
+    padding: 20px;
+    margin-left: 10px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+
+    background: var(--color-page-bg-start);
+}
+
+.teams-list__header {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.teams-list__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 600;
+}
+
+.teams-list__toolbar {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.teams-list__search {
+    flex: 1;
+}
+
+.teams-list__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.teams-list__item {
+    width: 100%;
+    min-height: 128px;
+    padding: 16px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+
+    text-align: left;
+    background: var(--color-card-bg);
+}
+
+.teams-list__item_active {
+    border-color: var(--color-primary);
+}
+
+.teams-list__avatar {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    color: var(--color-text-primary);
+    background: var(--color-stat-blue-bg);
+
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.teams-list__content {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.teams-list__top {
+    margin-bottom: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.teams-list__name {
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.teams-list__badge {
+    padding: 3px 9px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 999px;
+
+    color: var(--color-primary-light);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+}
+
+.teams-list__description {
+    margin: 0 0 10px;
+
+    overflow: hidden;
+
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+}
+
+.teams-list__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+
+    tui-icon {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.teams-list__show-more {
+    width: 100%;
+    margin-top: 12px;
+}
+
+@media (max-width: 1280px) {
+    .teams-list {
+        width: 360px;
+        padding: 18px;
+    }
+
+    .teams-list__item {
+        min-height: 118px;
+        padding: 14px;
+    }
+
+    .teams-list__avatar {
+        width: 44px;
+        height: 44px;
+
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .teams-list__name {
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .teams-list {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .teams-list__items {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .teams-list__show-more {
+        margin-top: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .teams-list {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .teams-list__header {
+        align-items: flex-start;
+    }
+
+    .teams-list__toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .teams-list__items {
+        grid-template-columns: 1fr;
+    }
+
+    .teams-list__item {
+        min-height: 112px;
+        padding: 12px;
+    }
+
+    .teams-list__top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .teams-list__badge {
+        width: max-content;
+    }
+}
+
+.create-team-dialog {
+    width: 100%;
+    padding: 4px 0 0;
+}
+
+.create-team-dialog__header {
+    margin-bottom: 24px;
+}
+
+.create-team-dialog__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+.create-team-dialog__description {
+    margin: 6px 0 0;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.create-team-dialog__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-team-dialog__footer {
+    margin-top: 24px;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}

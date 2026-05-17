@@ -61,7 +61,7 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/teams"
+            routerLink="/dashboard/teams"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -100,7 +100,7 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/settings"
+            routerLink="/dashboard/settings"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -194,44 +194,28 @@
             type="button"
             appearance="flat"
         >
-            @if (isLoading()) {
-                <div class="sidebar__avatar">
-                    <span>...</span>
-                </div>
+            @let profile = profile$ | async;
 
-                <div class="sidebar__profile-info">
-                    <span class="sidebar__profile-name">Загрузка...</span>
-                </div>
-            } @else if (user(); as user) {
+            @if (profile) {
                 <div class="sidebar__avatar">
-                    <span>
-                        {{ user.firstName ? user.firstName[0] : user.login[0] }}
-                    </span>
+                    <span>А</span>
                     <div class="sidebar__avatar-status"></div>
                 </div>
 
                 <div class="sidebar__profile-info">
-                    <span class="sidebar__profile-name">
-                        @if (user.firstName || user.lastName) {
-                            {{ user.firstName || '' }} {{ user.lastName || '' }}
-                        } @else {
-                            {{ user.login }}
-                        }
-                    </span>
+                    @if (profile.firstName) {
+                        <span class="sidebar__profile-name">
+                            {{ profile.firstName }} {{ profile.lastName }}
+                        </span>
 
-                    <span class="sidebar__profile-role">
-                        {{ user.position || 'Профиль не заполнен' }}
-                    </span>
-                </div>
-            } @else {
-                <div class="sidebar__avatar">
-                    <span>?</span>
-                </div>
-
-                <div class="sidebar__profile-info">
-                    <span class="sidebar__profile-name"
-                        >Профиль не загружен</span
-                    >
+                        <span class="sidebar__profile-role">
+                            {{ profile.position }}
+                        </span>
+                    } @else {
+                        <span class="sidebar__profile-name">
+                            {{ profile.login }}
+                        </span>
+                    }
                 </div>
             }
 

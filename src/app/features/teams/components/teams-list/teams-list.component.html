@@ -1,0 +1,145 @@
+<section class="teams-list">
+    <header class="teams-list__header">
+        <h2 class="teams-list__title">Мои команды</h2>
+
+        <button
+            tuiIconButton
+            type="button"
+            appearance="outline"
+            size="xs"
+            iconStart="@tui.plus"
+            tuiHint="Создайте новую команду"
+            tuiHintDirection="end"
+            (click)="openCreateTeamDialog()"
+        >
+        </button>
+    </header>
+
+    <div class="teams-list__toolbar">
+        <tui-textfield
+            class="teams-list__search"
+            iconStart="@tui.search"
+            tuiTextfieldSize="s"
+        >
+            <input tuiInput type="text" placeholder="Поиск по командам..." />
+        </tui-textfield>
+
+        <button
+            tuiIconButton
+            type="button"
+            appearance="outline"
+            size="s"
+            iconStart="@tui.list-filter"
+        >
+            Фильтры
+        </button>
+    </div>
+
+    <div class="teams-list__items">
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            class="teams-list__item teams-list__item_active"
+        >
+            <div class="teams-list__avatar">AI</div>
+
+            <div class="teams-list__content">
+                <div class="teams-list__top">
+                    <span class="teams-list__name">AI-Платформа</span>
+
+                    <span class="teams-list__badge">Создатель</span>
+                </div>
+
+                <p class="teams-list__description">
+                    Разработка платформы на базе машинного обучения
+                </p>
+
+                <div class="teams-list__meta">
+                    <tui-icon icon="@tui.users-round" />
+
+                    <span>12 участников</span>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    <button
+        tuiButton
+        type="button"
+        appearance="flat"
+        size="s"
+        class="teams-list__show-more"
+        iconEnd="@tui.chevron-down"
+    >
+        Показать ещё 3 команды
+    </button>
+
+    <ng-template
+        [(tuiDialog)]="isCreateTeamDialogOpen"
+        [tuiDialogOptions]="{size: 'm'}"
+    >
+        <form class="create-team-dialog" [formGroup]="form">
+            <header class="create-team-dialog__header">
+                <h2 class="create-team-dialog__title">Создать команду</h2>
+
+                <p class="create-team-dialog__description">
+                    Укажите название и краткое описание новой команды.
+                </p>
+            </header>
+
+            <div class="create-team-dialog__fields">
+                <tui-textfield tuiTextfieldSize="m">
+                    <label tuiLabel>Название команды</label>
+
+                    <input
+                        tuiInput
+                        type="text"
+                        placeholder="Например, AI-Платформа"
+                        formControlName="name"
+                    />
+                </tui-textfield>
+                <tui-error
+                    [formControl]="form.controls.name"
+                    [order]="['maxlength', 'required']"
+                />
+
+                <tui-textfield tuiTextfieldSize="m">
+                    <label tuiLabel>Описание команды</label>
+
+                    <textarea
+                        tuiTextarea
+                        placeholder="Расскажите, чем занимается команда"
+                        formControlName="description"
+                    ></textarea>
+                </tui-textfield>
+                <tui-error
+                    [formControl]="form.controls.description"
+                    [order]="['maxlength']"
+                />
+            </div>
+
+            <footer class="create-team-dialog__footer">
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    (click)="closeCreateTeamDialog()"
+                >
+                    Отмена
+                </button>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="primary"
+                    size="m"
+                    (click)="createTeam()"
+                >
+                    Создать команду
+                </button>
+            </footer>
+        </form>
+    </ng-template>
+</section>

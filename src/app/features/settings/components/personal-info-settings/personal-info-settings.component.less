@@ -1,0 +1,379 @@
+.edit-card {
+    box-sizing: border-box;
+    width: min(100%, 800px);
+    min-height: 560px;
+    margin-left: 10px;
+    padding: 24px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+
+    background: var(--color-page-bg-start);
+    box-shadow: 0 20px 60px var(--color-shadow-dark);
+}
+
+.profile-settings__header {
+    min-height: 48px;
+    margin-bottom: 32px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.profile-settings__header-left {
+    min-width: 0;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.profile-settings__icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+}
+
+.profile-settings__header-text {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-settings__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.profile-settings__description {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.profile-settings__edit-button {
+    flex-shrink: 0;
+}
+
+.edit {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+}
+
+.edit-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-photo__avatar {
+    position: relative;
+
+    width: 128px;
+    height: 128px;
+    margin-bottom: 20px;
+}
+
+.edit-photo__img {
+    width: 128px;
+    height: 128px;
+
+    display: block;
+
+    border: 3px solid var(--color-card-border);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        var(--color-card-bg),
+        var(--color-page-bg-start)
+    );
+    object-fit: cover;
+}
+
+.edit-photo__camera {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+
+    width: 32px !important;
+    height: 32px !important;
+
+    border-radius: 50% !important;
+}
+
+.edit-photo__button {
+    width: 144px;
+    height: 40px;
+    margin-bottom: 12px;
+
+    border-radius: 10px !important;
+}
+
+.edit-photo__hint {
+    margin: 0;
+
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.edit-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-name-and-family {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+}
+
+.edit-info__field {
+    min-width: 0;
+    margin-bottom: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-info__label {
+    margin-bottom: 8px;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.edit-info__input {
+    width: 100%;
+    min-width: 0;
+
+    --tui-height-m: 48px;
+    --tui-height-l: 48px;
+}
+
+.edit-info__textarea {
+    width: 100%;
+    min-width: 0;
+
+    --tui-height-m: 100px;
+    --tui-height-l: 100px;
+}
+
+.edit-info__textarea textarea {
+    min-height: 100px;
+    resize: none;
+}
+
+.edit-info__actions {
+    margin-top: 8px;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.edit-info__save {
+    min-width: 184px;
+    height: 48px;
+
+    border-radius: 12px !important;
+}
+
+.edit-info__cancel {
+    min-width: 104px;
+    height: 48px;
+
+    border-radius: 12px !important;
+}
+
+@media (max-width: 1024px) {
+    .edit-card {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 22px;
+    }
+
+    .profile-settings__header {
+        margin-bottom: 28px;
+        gap: 20px;
+    }
+
+    .edit {
+        grid-template-columns: 160px minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .edit-name-and-family {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .edit-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .profile-settings__header {
+        margin-bottom: 24px;
+
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profile-settings__header-left {
+        gap: 14px;
+    }
+
+    .profile-settings__title {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .profile-settings__description {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .profile-settings__edit-button {
+        width: 100%;
+    }
+
+    .edit {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .edit-photo {
+        align-items: center;
+    }
+
+    .edit-photo__avatar {
+        width: 112px;
+        height: 112px;
+        margin-bottom: 16px;
+    }
+
+    .edit-photo__img {
+        width: 112px;
+        height: 112px;
+    }
+
+    .edit-name-and-family {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .edit-info__input {
+        --tui-height-m: 44px;
+        --tui-height-l: 44px;
+    }
+
+    .edit-info__textarea {
+        --tui-height-m: 92px;
+        --tui-height-l: 92px;
+    }
+
+    .edit-info__textarea textarea {
+        min-height: 92px;
+    }
+
+    .edit-info__actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .edit-info__save,
+    .edit-info__cancel {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-card {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .profile-settings__header-left {
+        align-items: flex-start;
+    }
+
+    .profile-settings__icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .profile-settings__title {
+        font-size: 17px;
+        line-height: 22px;
+    }
+
+    .profile-settings__description {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .edit {
+        gap: 24px;
+    }
+
+    .edit-photo__avatar {
+        width: 96px;
+        height: 96px;
+    }
+
+    .edit-photo__img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .edit-photo__camera {
+        width: 28px !important;
+        height: 28px !important;
+        bottom: 4px;
+    }
+
+    .edit-photo__button {
+        width: 100%;
+        height: 40px;
+    }
+
+    .edit-info__field {
+        margin-bottom: 14px;
+    }
+
+    .edit-info__label {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .edit-info__input {
+        --tui-height-m: 42px;
+        --tui-height-l: 42px;
+    }
+}

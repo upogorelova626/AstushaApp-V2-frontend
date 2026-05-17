@@ -1,0 +1,256 @@
+.team-details {
+    min-width: 0;
+    padding: 24px;
+    margin-left: 10px;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+
+    background: var(--color-page-bg-start);
+}
+
+.team-details__header {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+.team-details__team {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.team-details__avatar {
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 16px;
+
+    color: var(--color-text-primary);
+    background: var(--color-stat-blue-bg);
+
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+.team-details__info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.team-details__title {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+}
+
+.team-details__subtitle {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.team-details__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-details__toolbar {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-details__search {
+    width: 380px;
+}
+
+.team-details__control {
+    min-width: 140px;
+}
+
+.team-details__sort {
+    min-width: 260px;
+}
+
+.team-details__table-wrapper {
+    overflow: hidden;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+}
+
+.team-details__table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.team-details__table th {
+    height: 44px;
+    padding: 0 16px;
+
+    color: var(--color-text-muted);
+    background: var(--color-card-bg);
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.team-details__table td {
+    height: 64px;
+    padding: 0 16px;
+
+    border-top: 1px solid var(--color-card-border);
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.team-details__member {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-details__member-avatar {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+}
+
+.team-details__member-name {
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.team-details__email {
+    color: var(--color-text-secondary);
+}
+
+.team-details__role {
+    width: max-content;
+    padding: 4px 10px;
+
+    display: inline-flex;
+    align-items: center;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+
+    color: var(--color-primary-light);
+    background: var(--color-card-bg);
+
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+.team-details__role_creator {
+    color: var(--color-primary-light);
+    border-color: var(--color-primary);
+}
+
+.team-details__projects-count {
+    color: var(--color-text-primary);
+}
+
+.team-details__footer {
+    padding-top: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.team-details__counter {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.team-details__pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 1280px) {
+    .team-details__toolbar {
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .team-details__search {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-details {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .team-details__header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .team-details__actions {
+        width: 100%;
+    }
+
+    .team-details__actions button:first-child {
+        flex: 1;
+    }
+
+    .team-details__table-wrapper {
+        overflow-x: auto;
+    }
+
+    .team-details__table {
+        min-width: 760px;
+    }
+
+    .team-details__footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .team-details__pagination {
+        justify-content: center;
+    }
+}
