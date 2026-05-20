@@ -1,4 +1,10 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+    signal
+} from '@angular/core';
 import {
     TuiButton,
     TuiInput,
@@ -37,7 +43,8 @@ type ProfileFormValue = {
         ReactiveFormsModule
     ],
     templateUrl: './personal-info-settings.component.html',
-    styleUrl: './personal-info-settings.component.less'
+    styleUrl: './personal-info-settings.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonalInfoSettinsComponent implements OnInit {
     private readonly usersService = inject(UsersService);

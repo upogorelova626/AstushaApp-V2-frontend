@@ -1,4 +1,9 @@
-import {Component, inject, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    signal
+} from '@angular/core';
 import {TuiTextfield, TuiButton, TuiInput, TuiIcon} from '@taiga-ui/core';
 import {AuthService} from '../../services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -17,7 +22,8 @@ import {TuiPassword} from '@taiga-ui/kit';
         TuiPassword
     ],
     templateUrl: './login-page.component.html',
-    styleUrl: './login-page.component.less'
+    styleUrl: './login-page.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
     private readonly authService = inject(AuthService);

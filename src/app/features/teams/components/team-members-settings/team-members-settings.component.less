@@ -1,0 +1,152 @@
+.team-members-settings-card {
+    padding: 24px;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    background: var(--color-page-bg-start);
+}
+
+.team-members-settings-card__header {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.team-members-settings-card__title-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.team-members-settings-card__title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.team-members-settings-card__count {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.team-members-settings-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-members-settings-card__search {
+    width: 260px;
+}
+
+.team-members-settings-card__role-filter {
+    min-width: 120px;
+    justify-content: space-between;
+}
+
+.team-members-settings-card__table {
+    overflow: hidden;
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+}
+
+.team-members-settings-card__table-header,
+.team-members-settings-card__row {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 1.7fr) minmax(130px, 1fr)
+        90px 100px 72px;
+    align-items: center;
+    gap: 16px;
+}
+
+.team-members-settings-card__table-header {
+    min-height: 44px;
+    padding: 0 16px;
+    color: var(--color-text-muted);
+    background: var(--color-card-bg);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.team-members-settings-card__row {
+    min-height: 64px;
+    padding: 0 16px;
+    border-top: 1px solid var(--color-card-border);
+}
+
+.team-members-settings-card__member {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-members-settings-card__avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.team-members-settings-card__member-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-members-settings-card__member-name {
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.team-members-settings-card__email {
+    overflow: hidden;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.team-members-settings-card__role,
+.team-members-settings-card__status {
+    width: max-content;
+    padding: 4px 10px;
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+}
+
+.team-members-settings-card__role_creator {
+    color: var(--color-primary-light);
+    border-color: var(--color-primary);
+}
+
+.team-members-settings-card__status {
+    color: var(--color-stat-green);
+    border-color: var(--color-stat-green);
+}
+
+.team-members-settings-card__projects-count {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.team-members-settings-card__footer {
+    padding-top: 14px;
+    display: flex;
+    justify-content: flex-start;
+}

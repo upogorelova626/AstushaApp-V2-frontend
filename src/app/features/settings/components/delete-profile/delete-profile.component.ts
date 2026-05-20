@@ -1,4 +1,9 @@
-import {Component, inject, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    signal
+} from '@angular/core';
 import {
     TuiIcon,
     TuiButton,
@@ -15,6 +20,7 @@ import {UsersService} from '../../../users/services/users.service';
     imports: [TuiIcon, TuiButton, TuiTitle, TuiDialog],
     templateUrl: './delete-profile.component.html',
     styleUrl: './delete-profile.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: TUI_DIALOGS_CLOSE,

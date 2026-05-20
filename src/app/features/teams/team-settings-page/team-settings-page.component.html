@@ -1,0 +1,23 @@
+@if (isLoading()) {
+    <p class="team-settings-page__state">Загрузка настроек команды...</p>
+} @else {}
+@if (team(); as currentTeam) {
+    <section class="team-settings-page">
+        <div class="team-settings-page__grid">
+            <app-team-main-settings
+                [team]="currentTeam"
+                class="team-settings-page__card"
+            />
+            <app-team-invite-member class="team-settings-page__card" />
+        </div>
+        <div class="team-settings-page__grid">
+            <app-team-members-settings />
+            <app-team-roles-settings class="team-settings-page__card" />
+        </div>
+        @if (currentTeam.myRole === 'OWNER') {
+            <app-team-danger-zone />
+        }
+    </section>
+} @else {
+    <p class="team-settings-page__state">Команда не найдена</p>
+}

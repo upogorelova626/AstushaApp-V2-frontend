@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {
     TUI_VALIDATION_ERRORS,
     TuiButton,
@@ -18,6 +18,7 @@ import {
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
+import {Team} from '../../interfaces/team.interface';
 
 @Component({
     selector: 'app-teams-list',
@@ -46,10 +47,14 @@ import {
         }
     ]
 })
-export class TeamsListComponent {
+export class TeamsListComponent implements OnInit {
     private readonly teamsService = inject(TeamsService);
 
     protected isCreateTeamDialogOpen = false;
+
+    protected readonly isLoading = signal(false);
+
+    teams = signal<Team[]>([]);
 
     protected openCreateTeamDialog(): void {
         this.isCreateTeamDialogOpen = true;
@@ -94,7 +99,23 @@ export class TeamsListComponent {
             next: () => {
                 this.closeCreateTeamDialog();
                 this.form.reset();
-                this.teamsService.getTeams();
+                this.teamsService.getTeams().subscribe();
+                this.loadTeams();
+            }
+        });
+    }
+
+    ngOnInit(): void {
+        this.loadTeams();
+    }
+
+    private loadTeams() {
+        this.isLoading.set(true);
+
+        this.teamsService.getTeams().subscribe({
+            next: teams => {
+                this.teams.set(teams);
+                this.isLoading.set(false);
             }
         });
     }

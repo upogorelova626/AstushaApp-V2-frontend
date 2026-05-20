@@ -1,0 +1,41 @@
+:host {
+    width: 100%;
+    min-width: 0;
+}
+
+.team-settings-page {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+}
+
+.team-settings-page__grid {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 10px;
+    align-items: stretch;
+}
+
+.team-settings-page__card {
+    min-width: 0;
+    display: block;
+}
+
+@media (max-width: 1200px) {
+    .team-settings-page__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-settings-page {
+        padding: 8px;
+    }
+
+    .team-settings-page__grid {
+        gap: 8px;
+    }
+}

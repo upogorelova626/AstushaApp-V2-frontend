@@ -1,0 +1,85 @@
+<div class="team-main-settings-card">
+    <header class="team-main-settings-card__header">
+        <h2 class="team-main-settings-card__title"> Информация о команде </h2>
+
+        <button
+            tuiButton
+            class="team-main-settings-card__edit-button"
+            type="button"
+            appearance="outline"
+            size="s"
+            iconStart="@tui.pencil"
+            (click)="startEditing()"
+        >
+            Редактировать
+        </button>
+    </header>
+
+    <div class="team-main-settings-card__content">
+        <div class="team-main-settings-card__avatar-wrapper">
+            <div class="team-main-settings-card__avatar">AI</div>
+
+            <button
+                tuiIconButton
+                class="team-main-settings-card__avatar-button"
+                type="button"
+                appearance="primary"
+                size="s"
+                iconStart="@tui.camera"
+            >
+                Изменить аватар
+            </button>
+        </div>
+
+        <form class="team-main-settings-card__form" [formGroup]="form">
+            <label class="team-main-settings-card__field">
+                <span class="team-main-settings-card__label">
+                    Название команды
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m">
+                    <input
+                        tuiInput
+                        type="text"
+                        formControlName="name"
+                        placeholder="Введите название команды"
+                    />
+                </tui-textfield>
+            </label>
+
+            <label class="team-main-settings-card__field">
+                <span class="team-main-settings-card__label"> Описание </span>
+
+                <tui-textfield tuiTextfieldSize="m">
+                    <textarea
+                        tuiTextarea
+                        placeholder="Расскажите, чем занимается команда"
+                        formControlName="description"
+                    ></textarea>
+                </tui-textfield>
+            </label>
+
+            <footer class="team-main-settings-card__footer">
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="primary"
+                    size="m"
+                    (click)="saveTeam()"
+                >
+                    Сохранить изменения
+                </button>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    (click)="cancelEditing()"
+                >
+                    Отменить
+                </button>
+            </footer>
+        </form>
+    </div>
+</div>

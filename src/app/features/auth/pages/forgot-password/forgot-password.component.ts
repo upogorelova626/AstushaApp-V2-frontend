@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {
     TuiTextfieldComponent,
@@ -11,6 +11,7 @@ import {
     selector: 'app-forgot-password',
     imports: [TuiTextfieldComponent, TuiIcon, TuiButton, TuiInput, RouterLink],
     templateUrl: './forgot-password.component.html',
-    styleUrl: './forgot-password.component.less'
+    styleUrl: './forgot-password.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ForgotPasswordComponent {}

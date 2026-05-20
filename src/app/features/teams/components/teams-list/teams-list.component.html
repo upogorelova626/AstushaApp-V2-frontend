@@ -35,34 +35,42 @@
         </button>
     </div>
 
-    <div class="teams-list__items">
-        <button
-            tuiButton
-            type="button"
-            appearance="flat"
-            class="teams-list__item teams-list__item_active"
-        >
-            <div class="teams-list__avatar">AI</div>
+    @if (teams().length) {
+        @for (team of teams(); track team.id) {
+            <div class="teams-list__items">
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="flat"
+                    class="teams-list__item teams-list__item_active"
+                >
+                    <div class="teams-list__avatar">AI</div>
 
-            <div class="teams-list__content">
-                <div class="teams-list__top">
-                    <span class="teams-list__name">AI-Платформа</span>
+                    <div class="teams-list__content">
+                        <div class="teams-list__top">
+                            <span class="teams-list__name">{{
+                                team.name
+                            }}</span>
 
-                    <span class="teams-list__badge">Создатель</span>
-                </div>
+                            <span class="teams-list__badge">{{
+                                team.myRole
+                            }}</span>
+                        </div>
 
-                <p class="teams-list__description">
-                    Разработка платформы на базе машинного обучения
-                </p>
+                        <p class="teams-list__description">
+                            {{ team.description }}
+                        </p>
 
-                <div class="teams-list__meta">
-                    <tui-icon icon="@tui.users-round" />
+                        <div class="teams-list__meta">
+                            <tui-icon icon="@tui.users-round" />
 
-                    <span>12 участников</span>
-                </div>
+                            <span>{{ team.membersCount }} участников</span>
+                        </div>
+                    </div>
+                </button>
             </div>
-        </button>
-    </div>
+        }
+    }
 
     <button
         tuiButton

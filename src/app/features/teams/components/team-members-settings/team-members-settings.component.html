@@ -1,0 +1,109 @@
+<section class="team-members-settings-card">
+    <header class="team-members-settings-card__header">
+        <div class="team-members-settings-card__title-wrapper">
+            <h2 class="team-members-settings-card__title">
+                Участники команды
+            </h2>
+
+            <span class="team-members-settings-card__count">
+                12 участников
+            </span>
+        </div>
+
+        <div class="team-members-settings-card__actions">
+            <tui-textfield
+                class="team-members-settings-card__search"
+                tuiTextfieldSize="s"
+                iconStart="@tui.search"
+            >
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по участникам..."
+                />
+            </tui-textfield>
+
+            <button
+                tuiButton
+                tuiChevron
+                class="team-members-settings-card__role-filter"
+                type="button"
+                appearance="outline"
+                size="s"
+            >
+                Все роли
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="primary"
+                size="s"
+                iconStart="@tui.user-plus"
+            >
+                Пригласить
+            </button>
+        </div>
+    </header>
+
+    <div class="team-members-settings-card__table">
+        <div class="team-members-settings-card__table-header">
+            <span>Участник</span>
+            <span>Роль</span>
+            <span>Проектов</span>
+            <span>Статус</span>
+            <span>Действия</span>
+        </div>
+
+        <div class="team-members-settings-card__row">
+            <div class="team-members-settings-card__member">
+                <div
+                    tuiAvatar="@tui.user"
+                    class="team-members-settings-card__avatar"
+                ></div>
+
+                <div class="team-members-settings-card__member-info">
+                    <span class="team-members-settings-card__member-name">
+                        Иван Петров
+                    </span>
+
+                    <span class="team-members-settings-card__email">
+                        ivan.petrov&#64;astushaapp.ru
+                    </span>
+                </div>
+            </div>
+
+            <span
+                class="team-members-settings-card__role team-members-settings-card__role_creator"
+            >
+                Создатель
+            </span>
+
+            <span class="team-members-settings-card__projects-count"> 5 </span>
+
+            <span class="team-members-settings-card__status"> Активен </span>
+
+            <button
+                tuiIconButton
+                type="button"
+                appearance="flat"
+                size="xs"
+                iconStart="@tui.ellipsis-vertical"
+            >
+                Действия
+            </button>
+        </div>
+    </div>
+
+    <footer class="team-members-settings-card__footer">
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="s"
+            iconEnd="@tui.chevron-down"
+        >
+            Показать ещё 7 участников
+        </button>
+    </footer>
+</section>

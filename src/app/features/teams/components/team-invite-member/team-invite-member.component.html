@@ -1,0 +1,71 @@
+<div class="team-invite-member-card">
+    <header class="team-invite-member-card__header">
+        <div>
+            <h2 class="team-invite-member-card__title">
+                Пригласить участника
+            </h2>
+
+            <p class="team-invite-member-card__description">
+                Добавьте человека в команду по email или логину.
+            </p>
+        </div>
+
+        <div class="team-invite-member-card__icon">
+            <tui-icon icon="@tui.user-plus" />
+        </div>
+    </header>
+
+    <form class="team-invite-member-card__form">
+        <label class="team-invite-member-card__field">
+            <span class="team-invite-member-card__label">
+                Email или логин
+            </span>
+
+            <tui-textfield tuiTextfieldSize="m" iconStart="@tui.mail">
+                <input tuiInput type="text" placeholder="example@astusha.com" />
+            </tui-textfield>
+        </label>
+
+        <label class="team-invite-member-card__field">
+            <span class="team-invite-member-card__label"> Роль в команде </span>
+
+            <button
+                tuiButton
+                tuiChevron
+                class="team-invite-member-card__select"
+                type="button"
+                appearance="outline"
+                size="m"
+            >
+                Участник
+            </button>
+        </label>
+
+        <label class="team-invite-member-card__field">
+            <span class="team-invite-member-card__label"> Сообщение </span>
+
+            <tui-textfield tuiTextfieldSize="m">
+                <textarea
+                    tuiTextarea
+                    placeholder="Напишите короткое сообщение для приглашения"
+                ></textarea>
+            </tui-textfield>
+        </label>
+
+        <footer class="team-invite-member-card__footer">
+            <button tuiButton type="button" appearance="outline" size="m">
+                Очистить
+            </button>
+
+            <button
+                tuiButton
+                type="submit"
+                appearance="primary"
+                size="m"
+                iconStart="@tui.send"
+            >
+                Отправить приглашение
+            </button>
+        </footer>
+    </form>
+</div>

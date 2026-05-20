@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -35,6 +35,7 @@ import {passwordMatchValidator} from '../../validators/password-match.validator'
     ],
     templateUrl: './create-account.component.html',
     styleUrl: './create-account.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: TUI_VALIDATION_ERRORS,

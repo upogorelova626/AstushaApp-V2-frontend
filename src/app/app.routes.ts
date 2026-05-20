@@ -9,6 +9,7 @@ import {ForgotPasswordComponent} from './features/auth/pages/forgot-password/for
 import {DashboardPageComponent} from './features/dashboard/dashboard-page/dashboard-page.component';
 import {SettingsPageComponent} from './features/settings/settings-page/settings-page.component';
 import {TeamsPageComponent} from './features/teams/teams-page/teams-page.component';
+import {TeamSettingsPageComponent} from './features/teams/team-settings-page/team-settings-page.component';
 
 export const routes: Routes = [
     {
@@ -45,7 +46,16 @@ export const routes: Routes = [
             },
             {
                 path: 'teams',
-                component: TeamsPageComponent
+                children: [
+                    {
+                        path: '',
+                        component: TeamsPageComponent
+                    },
+                    {
+                        path: ':teamId/settings',
+                        component: TeamSettingsPageComponent
+                    }
+                ]
             },
 
             {

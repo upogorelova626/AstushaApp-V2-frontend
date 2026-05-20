@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {PersonalInfoSettinsComponent} from '../components/personal-info-settings/personal-info-settings.component';
 import {DeleteProfileComponent} from '../components/delete-profile/delete-profile.component';
 import {SecuritySettingsComponent} from '../components/security-settings/security-settings.component';
@@ -15,6 +15,7 @@ import {NotificationsSettingsComponent} from '../components/notifications-settin
         NotificationsSettingsComponent
     ],
     templateUrl: './settings-page.component.html',
-    styleUrl: './settings-page.component.less'
+    styleUrl: './settings-page.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {}

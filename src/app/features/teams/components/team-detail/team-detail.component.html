@@ -1,193 +1,244 @@
-<section class="team-details">
-    <header class="team-details__header">
-        <div class="team-details__team">
-            <div class="team-details__avatar">AI</div>
+@if (teams().length) {
+    @for (team of teams(); track team.id) {
+        <section class="team-details">
+            <header class="team-details__header">
+                <div class="team-details__team">
+                    <div class="team-details__avatar">{{ team.avatarUrl }}</div>
 
-            <div class="team-details__info">
-                <h2 class="team-details__title">AI-Платформа</h2>
-                <span class="team-details__subtitle">12 участников</span>
+                    <div class="team-details__info">
+                        <h2 class="team-details__title">{{ team.name }}</h2>
+                        <span class="team-details__subtitle"
+                            >{{ team.membersCount }} участников</span
+                        >
+                    </div>
+                </div>
+
+                <div class="team-details__actions">
+                    <button
+                        tuiButton
+                        type="button"
+                        appearance="primary"
+                        size="m"
+                        iconStart="@tui.user-plus"
+                    >
+                        Пригласить участника
+                    </button>
+
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="outline"
+                        size="m"
+                        iconStart="@tui.ellipsis-vertical"
+                        tuiHint="Перейти к настройкам команды"
+                        tuiHintDirection="top-start"
+                        (click)="openTeamSettings(team)"
+                    ></button>
+                </div>
+            </header>
+
+            <div class="team-details__toolbar">
+                <tui-textfield
+                    class="team-details__search"
+                    iconStart="@tui.search"
+                    tuiTextfieldSize="m"
+                >
+                    <input
+                        tuiInput
+                        type="text"
+                        placeholder="Поиск по участникам..."
+                    />
+                </tui-textfield>
+
+                <button
+                    tuiButton
+                    class="team-details__control"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconEnd="@tui.chevron-down"
+                >
+                    Все роли
+                </button>
+
+                <button
+                    tuiButton
+                    class="team-details__sort"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconEnd="@tui.chevron-down"
+                >
+                    Сортировка: По имени (А–Я)
+                </button>
+
+                <button
+                    tuiIconButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.arrow-up-down"
+                >
+                    Порядок сортировки
+                </button>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.list-filter"
+                >
+                    Фильтры
+                </button>
             </div>
+
+            <div class="team-details__table-wrapper">
+                <table class="team-details__table">
+                    <thead>
+                        <tr>
+                            <th>Участник</th>
+                            <th>Email</th>
+                            <th>Роль в команде</th>
+                            <th>Проектов</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="team-details__member">
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="team-details__member-avatar"
+                                    ></div>
+
+                                    <span class="team-details__member-name">
+                                        Иван Петров
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="team-details__email">
+                                    ivan.petrov&#64;astushaapp.ru
+                                </span>
+                            </td>
+
+                            <td>
+                                <span
+                                    class="team-details__role team-details__role_creator"
+                                >
+                                    Создатель
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="team-details__projects-count"
+                                    >5</span
+                                >
+                            </td>
+
+                            <td>
+                                <button
+                                    tuiIconButton
+                                    type="button"
+                                    appearance="flat"
+                                    size="s"
+                                    iconStart="@tui.ellipsis-vertical"
+                                >
+                                    Действия
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <footer class="team-details__footer">
+                <span class="team-details__counter">
+                    Показано 1–1 из 12 участников
+                </span>
+
+                <div class="team-details__pagination">
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="outline"
+                        size="s"
+                        iconStart="@tui.chevron-left"
+                    >
+                        Назад
+                    </button>
+
+                    <button
+                        tuiButton
+                        type="button"
+                        appearance="primary"
+                        size="s"
+                    >
+                        1
+                    </button>
+
+                    <button tuiButton type="button" appearance="flat" size="s">
+                        2
+                    </button>
+
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="outline"
+                        size="s"
+                        iconStart="@tui.chevron-right"
+                    >
+                        Вперёд
+                    </button>
+                </div>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="s"
+                    iconEnd="@tui.chevron-down"
+                >
+                    Показывать: 10
+                </button>
+            </footer>
+        </section>
+    }
+}
+
+<ng-template
+    [tuiDialog]="isNoAccessDialogOpen()"
+    (tuiDialogChange)="isNoAccessDialogOpen.set($event)"
+    [tuiDialogOptions]="{size: 's'}"
+>
+    <div class="no-access-dialog">
+        <div class="no-access-dialog__icon">
+            <tui-icon icon="@tui.lock-keyhole" />
         </div>
 
-        <div class="team-details__actions">
+        <div class="no-access-dialog__content">
+            <h2 class="no-access-dialog__title">Недостаточно прав</h2>
+
+            <p class="no-access-dialog__text">
+                Редактировать настройки команды могут только создатель или
+                администратор команды.
+            </p>
+        </div>
+
+        <div class="no-access-dialog__footer">
             <button
                 tuiButton
                 type="button"
                 appearance="primary"
                 size="m"
-                iconStart="@tui.user-plus"
+                (click)="isNoAccessDialogOpen.set(false)"
             >
-                Пригласить участника
-            </button>
-
-            <button
-                tuiIconButton
-                type="button"
-                appearance="outline"
-                size="m"
-                iconStart="@tui.ellipsis-vertical"
-            >
-                Действия
+                Понятно
             </button>
         </div>
-    </header>
-
-    <div class="team-details__toolbar">
-        <tui-textfield
-            class="team-details__search"
-            iconStart="@tui.search"
-            tuiTextfieldSize="m"
-        >
-            <input tuiInput type="text" placeholder="Поиск по участникам..." />
-        </tui-textfield>
-
-        <button
-            tuiButton
-            class="team-details__control"
-            type="button"
-            appearance="outline"
-            size="m"
-            iconEnd="@tui.chevron-down"
-        >
-            Все роли
-        </button>
-
-        <button
-            tuiButton
-            class="team-details__sort"
-            type="button"
-            appearance="outline"
-            size="m"
-            iconEnd="@tui.chevron-down"
-        >
-            Сортировка: По имени (А–Я)
-        </button>
-
-        <button
-            tuiIconButton
-            type="button"
-            appearance="outline"
-            size="m"
-            iconStart="@tui.arrow-up-down"
-        >
-            Порядок сортировки
-        </button>
-
-        <button
-            tuiButton
-            type="button"
-            appearance="outline"
-            size="m"
-            iconStart="@tui.list-filter"
-        >
-            Фильтры
-        </button>
     </div>
-
-    <div class="team-details__table-wrapper">
-        <table class="team-details__table">
-            <thead>
-                <tr>
-                    <th>Участник</th>
-                    <th>Email</th>
-                    <th>Роль в команде</th>
-                    <th>Проектов</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="team-details__member">
-                            <div
-                                tuiAvatar="@tui.user"
-                                class="team-details__member-avatar"
-                            ></div>
-
-                            <span class="team-details__member-name">
-                                Иван Петров
-                            </span>
-                        </div>
-                    </td>
-
-                    <td>
-                        <span class="team-details__email">
-                            ivan.petrov&#64;astushaapp.ru
-                        </span>
-                    </td>
-
-                    <td>
-                        <span
-                            class="team-details__role team-details__role_creator"
-                        >
-                            Создатель
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="team-details__projects-count">5</span>
-                    </td>
-
-                    <td>
-                        <button
-                            tuiIconButton
-                            type="button"
-                            appearance="flat"
-                            size="s"
-                            iconStart="@tui.ellipsis-vertical"
-                        >
-                            Действия
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <footer class="team-details__footer">
-        <span class="team-details__counter">
-            Показано 1–1 из 12 участников
-        </span>
-
-        <div class="team-details__pagination">
-            <button
-                tuiIconButton
-                type="button"
-                appearance="outline"
-                size="s"
-                iconStart="@tui.chevron-left"
-            >
-                Назад
-            </button>
-
-            <button tuiButton type="button" appearance="primary" size="s">
-                1
-            </button>
-
-            <button tuiButton type="button" appearance="flat" size="s">
-                2
-            </button>
-
-            <button
-                tuiIconButton
-                type="button"
-                appearance="outline"
-                size="s"
-                iconStart="@tui.chevron-right"
-            >
-                Вперёд
-            </button>
-        </div>
-
-        <button
-            tuiButton
-            type="button"
-            appearance="outline"
-            size="s"
-            iconEnd="@tui.chevron-down"
-        >
-            Показывать: 10
-        </button>
-    </footer>
-</section>
+</ng-template>

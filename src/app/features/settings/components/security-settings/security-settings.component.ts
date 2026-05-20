@@ -1,4 +1,9 @@
-import {Component, inject, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    signal
+} from '@angular/core';
 import {
     TuiButton,
     TuiDialog,
@@ -33,7 +38,8 @@ import {
         ReactiveFormsModule
     ],
     templateUrl: './security-settings.component.html',
-    styleUrl: './security-settings.component.less'
+    styleUrl: './security-settings.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SecuritySettingsComponent {
     protected readonly usersService = inject(UsersService);
