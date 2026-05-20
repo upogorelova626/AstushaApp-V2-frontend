@@ -36,8 +36,15 @@
                 type="button"
                 appearance="outline"
                 size="m"
+                [attr.aria-expanded]="open()"
+                [tuiDropdown]="dropdownContent"
+                [tuiDropdownManual]="open()"
+                [tuiObscuredEnabled]="open()"
+                (click)="onClick()"
+                (tuiActiveZoneChange)="onActiveZone($event)"
+                (tuiObscured)="onObscured($event)"
             >
-                Участник
+                {{ buttonLabel() }}
             </button>
         </label>
 
@@ -68,4 +75,17 @@
             </button>
         </footer>
     </form>
+
+    <ng-template #dropdownContent>
+        <tui-data-list>
+            @for (role of roles; track role.title) {
+                <button tuiOption type="button" (click)="onSelect(role)">
+                    <span tuiTitle>
+                        {{ role.title }}
+                        <span tuiSubtitle>{{ role.description }}</span>
+                    </span>
+                </button>
+            }
+        </tui-data-list>
+    </ng-template>
 </div>

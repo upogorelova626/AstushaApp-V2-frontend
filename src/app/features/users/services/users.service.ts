@@ -3,7 +3,8 @@ import {inject, Injectable, signal} from '@angular/core';
 import {
     ChangePassword,
     UpdateProfileRequest,
-    SuccessResponse
+    SuccessResponse,
+    UserLookupResult
 } from '../models/interfaces/user.interface';
 import {AuthUser} from '../../auth/models/interfaces/auth.interface';
 import {shareReplay, startWith, Subject, switchMap, tap} from 'rxjs';
@@ -45,6 +46,17 @@ export class UsersService {
         return this.http.patch<SuccessResponse>(
             `${this.baseApiUrl}/users/profile/password`,
             payload
+        );
+    }
+
+    lookupUser(identifier: string) {
+        return this.http.get<UserLookupResult | null>(
+            `${this.baseApiUrl}/users/lookup`,
+            {
+                params: {
+                    identifier
+                }
+            }
         );
     }
 }

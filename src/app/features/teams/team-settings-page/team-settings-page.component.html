@@ -8,10 +8,10 @@
                 [team]="currentTeam"
                 class="team-settings-page__card"
             />
-            <app-team-invite-member class="team-settings-page__card" />
+            <app-team-members-settings />
         </div>
         <div class="team-settings-page__grid">
-            <app-team-members-settings />
+            <app-team-invite-member class="team-settings-page__card" />
             <app-team-roles-settings class="team-settings-page__card" />
         </div>
         @if (currentTeam.myRole === 'OWNER') {

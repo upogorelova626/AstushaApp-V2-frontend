@@ -1,3 +1,24 @@
+.flex-center() {
+    display: flex;
+    align-items: center;
+}
+
+.text-ellipsis() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge() {
+    width: max-content;
+    padding: 4px 10px;
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+}
+
 .team-members-settings-card {
     padding: 24px;
     border: 1px solid var(--color-card-border);
@@ -7,15 +28,14 @@
 
 .team-members-settings-card__header {
     margin-bottom: 18px;
-    display: flex;
-    align-items: center;
+    .flex-center();
     justify-content: space-between;
     gap: 16px;
 }
 
 .team-members-settings-card__title-wrapper {
-    display: flex;
-    align-items: baseline;
+    .flex-center();
+    flex-shrink: 0;
     gap: 10px;
 }
 
@@ -34,18 +54,27 @@
 }
 
 .team-members-settings-card__actions {
-    display: flex;
-    align-items: center;
+    min-width: 0;
+    .flex-center();
+    flex: 1;
+    justify-content: flex-end;
     gap: 10px;
 }
 
 .team-members-settings-card__search {
-    width: 260px;
+    min-width: 0;
+    max-width: 260px;
+    flex: 1;
 }
 
 .team-members-settings-card__role-filter {
     min-width: 120px;
+    flex-shrink: 0;
     justify-content: space-between;
+}
+
+.team-members-settings-card__actions button {
+    flex-shrink: 0;
 }
 
 .team-members-settings-card__table {
@@ -58,10 +87,10 @@
 .team-members-settings-card__row {
     display: grid;
     grid-template-columns:
-        minmax(220px, 1.7fr) minmax(130px, 1fr)
-        90px 100px 72px;
+        minmax(180px, 1.7fr) minmax(110px, 1fr)
+        72px 88px 48px;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .team-members-settings-card__table-header {
@@ -82,8 +111,7 @@
 
 .team-members-settings-card__member {
     min-width: 0;
-    display: flex;
-    align-items: center;
+    .flex-center();
     gap: 12px;
 }
 
@@ -100,33 +128,23 @@
 }
 
 .team-members-settings-card__member-name {
-    overflow: hidden;
+    .text-ellipsis();
     color: var(--color-text-primary);
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .team-members-settings-card__email {
-    overflow: hidden;
+    .text-ellipsis();
     color: var(--color-text-muted);
     font-size: 12px;
     line-height: 16px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .team-members-settings-card__role,
 .team-members-settings-card__status {
-    width: max-content;
-    padding: 4px 10px;
-    border: 1px solid var(--color-card-border);
-    border-radius: 8px;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 500;
+    .badge();
 }
 
 .team-members-settings-card__role_creator {
