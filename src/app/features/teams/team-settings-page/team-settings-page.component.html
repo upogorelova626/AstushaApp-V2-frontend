@@ -8,10 +8,17 @@
                 [team]="currentTeam"
                 class="team-settings-page__card"
             />
-            <app-team-members-settings />
+            @if (teamId(); as teamId) {
+                <app-team-members-settings [teamId]="teamId" />
+            }
         </div>
         <div class="team-settings-page__grid">
-            <app-team-invite-member class="team-settings-page__card" />
+            @if (teamId(); as teamId) {
+                <app-team-invite-member
+                    class="team-settings-page__card"
+                    [teamId]="teamId"
+                />
+            }
             <app-team-roles-settings class="team-settings-page__card" />
         </div>
         @if (currentTeam.myRole === 'OWNER') {

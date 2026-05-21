@@ -13,6 +13,9 @@ import {TuiAvatar} from '@taiga-ui/kit';
 
 import {Team} from '../../interfaces/team.interface';
 import {TeamsService} from '../../services/teams.service';
+import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
+import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
+import {TeamMembersService} from '../../services/team-members.service';
 
 @Component({
     selector: 'app-team-detail',
@@ -24,13 +27,16 @@ import {TeamsService} from '../../services/teams.service';
         TuiHint,
         TuiDialog,
         TuiIcon,
-        TuiAvatar
+        TuiAvatar,
+        PluralizeRuPipe,
+        TeamRoleLabelPipe
     ],
     templateUrl: './team-detail.component.html',
     styleUrl: './team-detail.component.less'
 })
 export class TeamDetailComponent implements OnInit {
     private readonly teamsService = inject(TeamsService);
+    private readonly teamMembersService = inject(TeamMembersService);
     private readonly router = inject(Router);
 
     protected readonly isLoading = signal(false);

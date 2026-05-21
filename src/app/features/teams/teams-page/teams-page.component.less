@@ -1,3 +1,25 @@
 .team-page__content {
-    display: flex;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 420px minmax(0, 1fr);
+    gap: 10px;
+}
+
+.team-page__list,
+.team-page__detail {
+    min-width: 0;
+}
+
+@media (max-width: 1024px) {
+    .team-page__content {
+        grid-template-columns: 360px minmax(0, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-page__content {
+        grid-template-columns: 1fr;
+    }
 }

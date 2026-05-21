@@ -1,15 +1,24 @@
-@if (teams().length) {
+@if (teams()[0]; as team) {
     @for (team of teams(); track team.id) {
         <section class="team-details">
             <header class="team-details__header">
                 <div class="team-details__team">
-                    <div class="team-details__avatar">{{ team.avatarUrl }}</div>
+                    <div class="team-details__avatar">
+                        {{ team.name.slice(0, 2).toUpperCase() }}
+                    </div>
 
                     <div class="team-details__info">
                         <h2 class="team-details__title">{{ team.name }}</h2>
-                        <span class="team-details__subtitle"
-                            >{{ team.membersCount }} участников</span
-                        >
+
+                        <span class="team-details__subtitle">
+                            {{
+                                team.membersCount
+                                    | pluralizeRu
+                                        : 'участник'
+                                        : 'участника'
+                                        : 'участников'
+                            }}
+                        </span>
                     </div>
                 </div>
 
@@ -158,7 +167,7 @@
 
             <footer class="team-details__footer">
                 <span class="team-details__counter">
-                    Показано 1–1 из 12 участников
+                    Показано 1–1 из {{ team.membersCount }} участников
                 </span>
 
                 <div class="team-details__pagination">

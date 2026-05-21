@@ -34,6 +34,7 @@ export class TeamSettingsPageComponent implements OnInit {
 
     protected readonly team = signal<Team | null>(null);
     protected readonly isLoading = signal(false);
+    protected readonly teamId = signal<string | null>(null);
 
     ngOnInit() {
         this.loadTeam();
@@ -48,6 +49,7 @@ export class TeamSettingsPageComponent implements OnInit {
             return;
         }
 
+        this.teamId.set(teamId);
         this.isLoading.set(true);
 
         this.teamsService.getOneTeam(teamId).subscribe({

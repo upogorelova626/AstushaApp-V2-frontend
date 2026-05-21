@@ -19,6 +19,7 @@ import {
     Validators
 } from '@angular/forms';
 import {Team} from '../../interfaces/team.interface';
+import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
 
 @Component({
     selector: 'app-teams-list',
@@ -32,7 +33,8 @@ import {Team} from '../../interfaces/team.interface';
         TuiLabel,
         TuiTextarea,
         TuiError,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TeamRoleLabelPipe
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',

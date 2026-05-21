@@ -21,9 +21,65 @@
                 Email или логин
             </span>
 
-            <tui-textfield tuiTextfieldSize="m" iconStart="@tui.mail">
-                <input tuiInput type="text" placeholder="example@astusha.com" />
-            </tui-textfield>
+            <div class="team-invite-member-card__search-row">
+                <tui-textfield
+                    class="team-invite-member-card__search-input"
+                    tuiTextfieldSize="m"
+                    iconStart="@tui.mail"
+                >
+                    <input
+                        tuiInput
+                        type="text"
+                        placeholder="example@astusha.com"
+                        [formControl]="lookupForm"
+                        (input)="resetFoundUser()"
+                    />
+                </tui-textfield>
+
+                <button
+                    tuiButton
+                    class="team-invite-member-card__search-button"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.search"
+                    [disabled]="isSearching()"
+                    (click)="searchUser()"
+                >
+                    {{ isSearching() ? 'Ищем...' : 'Найти' }}
+                </button>
+            </div>
+
+            <tui-error
+                [formControl]="lookupForm"
+                [order]="[
+                    'required',
+                    'notBlank',
+                    'minlength',
+                    'maxlength',
+                    'spacesNotAllowed'
+                ]"
+            />
+
+            <tui-error [error]="lookupError()" />
+
+            @if (foundUser(); as user) {
+                <div class="team-invite-member-card__found-user">
+                    <div class="team-invite-member-card__found-user-icon">
+                        <tui-icon icon="@tui.check" />
+                    </div>
+
+                    <div class="team-invite-member-card__found-user-content">
+                        <span class="team-invite-member-card__found-user-title">
+                            Пользователь найден
+                        </span>
+
+                        <span class="team-invite-member-card__found-user-meta">
+                            {{ user.login }} · {{ user.email }}
+                        </span>
+                    </div>
+                </div>
+            }
         </label>
 
         <label class="team-invite-member-card__field">
@@ -46,6 +102,8 @@
             >
                 {{ buttonLabel() }}
             </button>
+
+            <tui-error [error]="roleError()" />
         </label>
 
         <label class="team-invite-member-card__field">
@@ -55,23 +113,34 @@
                 <textarea
                     tuiTextarea
                     placeholder="Напишите короткое сообщение для приглашения"
+                    [formControl]="messageControl"
                 ></textarea>
             </tui-textfield>
+
+            <tui-error [formControl]="messageControl" [order]="['maxlength']" />
         </label>
 
         <footer class="team-invite-member-card__footer">
-            <button tuiButton type="button" appearance="outline" size="m">
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                (click)="clearForm()"
+            >
                 Очистить
             </button>
 
             <button
                 tuiButton
-                type="submit"
+                type="button"
                 appearance="primary"
                 size="m"
                 iconStart="@tui.send"
+                [disabled]="!foundUser() || !selected() || isSubmitting()"
+                (click)="addMember()"
             >
-                Отправить приглашение
+                {{ isSubmitting() ? 'Добавляем...' : 'Добавить участника' }}
             </button>
         </footer>
     </form>
@@ -82,7 +151,10 @@
                 <button tuiOption type="button" (click)="onSelect(role)">
                     <span tuiTitle>
                         {{ role.title }}
-                        <span tuiSubtitle>{{ role.description }}</span>
+
+                        <span tuiSubtitle>
+                            {{ role.description }}
+                        </span>
                     </span>
                 </button>
             }

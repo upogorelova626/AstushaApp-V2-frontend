@@ -6,7 +6,10 @@
             </h2>
 
             <span class="team-members-settings-card__count">
-                12 участников
+                {{
+                    teamMembers().length
+                        | pluralizeRu: 'участник' : 'участника' : 'участников'
+                }}
             </span>
         </div>
 
@@ -33,16 +36,6 @@
             >
                 Все роли
             </button>
-
-            <button
-                tuiButton
-                type="button"
-                appearance="primary"
-                size="s"
-                iconStart="@tui.user-plus"
-            >
-                Пригласить
-            </button>
         </div>
     </header>
 
@@ -54,45 +47,93 @@
             <span>Статус</span>
             <span>Действия</span>
         </div>
+        @if (isLoading()) {
+            <p> Загружаем участников... </p>
+        }
 
-        <div class="team-members-settings-card__row">
-            <div class="team-members-settings-card__member">
-                <div
-                    tuiAvatar="@tui.user"
-                    class="team-members-settings-card__avatar"
-                ></div>
+        @if (isError()) {
+            <p> Не удалось загрузить участников </p>
+        }
 
-                <div class="team-members-settings-card__member-info">
-                    <span class="team-members-settings-card__member-name">
-                        Иван Петров
+        @if (!isError() && !isLoading()) {
+            @for (member of teamMembers(); track member.id) {
+                <div class="team-members-settings-card__row">
+                    <div class="team-members-settings-card__member">
+                        <div
+                            tuiAvatar="@tui.user"
+                            class="team-members-settings-card__avatar"
+                        ></div>
+
+                        <div class="team-members-settings-card__member-info">
+                            <span
+                                class="team-members-settings-card__member-name"
+                            >
+                                {{ member.user.firstName }}
+                                {{ member.user.lastName }}
+                            </span>
+
+                            <span class="team-members-settings-card__email">
+                                {{ member.user.email }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <span
+                        class="team-members-settings-card__role team-members-settings-card__role_creator"
+                    >
+                        {{ member.role | teamRoleLabel }}
                     </span>
 
-                    <span class="team-members-settings-card__email">
-                        ivan.petrov&#64;astushaapp.ru
+                    <span class="team-members-settings-card__projects-count">
+                        5
                     </span>
+
+                    <span class="team-members-settings-card__status">
+                        Активен
+                    </span>
+
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.ellipsis-vertical"
+                        [attr.aria-expanded]="openedMemberId() === member.id"
+                        [tuiDropdown]="dropdownContent"
+                        [tuiDropdownManual]="openedMemberId() === member.id"
+                        [tuiObscuredEnabled]="openedMemberId() === member.id"
+                        (click)="toggleMemberActions(member.id)"
+                        (tuiObscured)="onMemberObscured($event, member.id)"
+                    ></button>
+
+                    <ng-template #dropdownContent>
+                        <tui-data-list>
+                            @for (action of memberActions; track action.value) {
+                                @if (canShowAction(action, member)) {
+                                    <button
+                                        tuiOption
+                                        type="button"
+                                        (click)="
+                                            onMemberAction(action.value, member)
+                                        "
+                                    >
+                                        <span tuiTitle>
+                                            {{ action.title }}
+
+                                            @if (action.description) {
+                                                <span tuiSubtitle>
+                                                    {{ action.description }}
+                                                </span>
+                                            }
+                                        </span>
+                                    </button>
+                                }
+                            }
+                        </tui-data-list>
+                    </ng-template>
                 </div>
-            </div>
-
-            <span
-                class="team-members-settings-card__role team-members-settings-card__role_creator"
-            >
-                Создатель
-            </span>
-
-            <span class="team-members-settings-card__projects-count"> 5 </span>
-
-            <span class="team-members-settings-card__status"> Активен </span>
-
-            <button
-                tuiIconButton
-                type="button"
-                appearance="flat"
-                size="xs"
-                iconStart="@tui.ellipsis-vertical"
-            >
-                Действия
-            </button>
-        </div>
+            }
+        }
     </div>
 
     <footer class="team-members-settings-card__footer">
@@ -103,7 +144,7 @@
             size="s"
             iconEnd="@tui.chevron-down"
         >
-            Показать ещё 7 участников
+            Показать ещё
         </button>
     </footer>
 </section>

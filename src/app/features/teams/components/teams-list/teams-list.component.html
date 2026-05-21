@@ -11,8 +11,7 @@
             tuiHint="Создайте новую команду"
             tuiHintDirection="end"
             (click)="openCreateTeamDialog()"
-        >
-        </button>
+        ></button>
     </header>
 
     <div class="teams-list__toolbar">
@@ -23,21 +22,11 @@
         >
             <input tuiInput type="text" placeholder="Поиск по командам..." />
         </tui-textfield>
-
-        <button
-            tuiIconButton
-            type="button"
-            appearance="outline"
-            size="s"
-            iconStart="@tui.list-filter"
-        >
-            Фильтры
-        </button>
     </div>
 
     @if (teams().length) {
-        @for (team of teams(); track team.id) {
-            <div class="teams-list__items">
+        <div class="teams-list__items">
+            @for (team of teams(); track team.id) {
                 <button
                     tuiButton
                     type="button"
@@ -48,13 +37,13 @@
 
                     <div class="teams-list__content">
                         <div class="teams-list__top">
-                            <span class="teams-list__name">{{
-                                team.name
-                            }}</span>
+                            <span class="teams-list__name">
+                                {{ team.name }}
+                            </span>
 
-                            <span class="teams-list__badge">{{
-                                team.myRole
-                            }}</span>
+                            <span class="teams-list__badge">
+                                {{ team.myRole | teamRoleLabel }}
+                            </span>
                         </div>
 
                         <p class="teams-list__description">
@@ -68,8 +57,8 @@
                         </div>
                     </div>
                 </button>
-            </div>
-        }
+            }
+        </div>
     }
 
     <button
@@ -107,6 +96,7 @@
                         formControlName="name"
                     />
                 </tui-textfield>
+
                 <tui-error
                     [formControl]="form.controls.name"
                     [order]="['maxlength', 'required']"
@@ -121,6 +111,7 @@
                         formControlName="description"
                     ></textarea>
                 </tui-textfield>
+
                 <tui-error
                     [formControl]="form.controls.description"
                     [order]="['maxlength']"

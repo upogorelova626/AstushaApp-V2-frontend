@@ -1,10 +1,7 @@
-export enum TeamRole {
-    Admin = 'ADMIN',
-    Member = 'MEMBER'
-}
+import {TeamRole} from './team-members.interface';
 
 export interface Roles {
     title: string;
     description: string;
-    value: TeamRole;
+    value: TeamRole.Admin | TeamRole.Member;
 }
