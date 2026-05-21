@@ -1,0 +1,248 @@
+.projects-table {
+    max-width: 1600px;
+    min-height: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+
+    background: var(--color-page-bg-start);
+    box-shadow: 0 20px 60px var(--color-shadow-dark);
+}
+
+.projects-table__table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.projects-table__table th {
+    padding: 16px 20px;
+
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.projects-table__table td {
+    padding: 16px 20px;
+
+    border-top: 1px solid var(--color-card-border);
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.projects-table__project,
+.projects-table__owner,
+.projects-table__team {
+    display: flex;
+    align-items: center;
+}
+
+.projects-table__project {
+    gap: 14px;
+}
+
+.projects-table__owner {
+    gap: 10px;
+}
+
+.projects-table__project-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+}
+
+.projects-table__project-icon_blue {
+    color: var(--color-stat-blue);
+    background: var(--color-stat-blue-bg);
+}
+
+.projects-table__project-icon_green {
+    color: var(--color-stat-green);
+    background: var(--color-stat-green-bg);
+}
+
+.projects-table__project-icon_violet {
+    color: var(--color-stat-violet);
+    background: var(--color-stat-violet-bg);
+}
+
+.projects-table__project-info {
+    min-width: 0;
+}
+
+.projects-table__project-title {
+    color: var(--color-text-primary);
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.projects-table__project-description {
+    max-width: 260px;
+    overflow: hidden;
+
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.projects-table__owner-avatar,
+.projects-table__team-avatar {
+    width: 28px;
+    height: 28px;
+}
+
+.projects-table__team-avatar {
+    margin-right: -8px;
+
+    border: 2px solid var(--color-page-bg-start);
+}
+
+.projects-table__team-count {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: var(--color-primary-light);
+    background: var(--color-stat-blue-bg);
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.projects-table__progress {
+    width: 180px;
+}
+
+.projects-table__progress-value {
+    margin-bottom: 6px;
+
+    color: var(--color-text-primary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.projects-table__progress-bar {
+    width: 100%;
+    height: 6px;
+
+    display: block;
+
+    overflow: hidden;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: var(--color-card-border);
+}
+
+.projects-table__progress-bar::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--color-card-border);
+}
+
+.projects-table__progress-bar::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--color-primary);
+}
+
+.projects-table__progress-description {
+    margin-top: 6px;
+
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.projects-table__status {
+    padding: 4px 10px;
+
+    display: inline-flex;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+.projects-table__status_active {
+    color: var(--color-stat-green);
+    background: var(--color-stat-green-bg);
+}
+
+.projects-table__deadline-date {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.projects-table__deadline-warning {
+    color: var(--color-stat-orange);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.projects-table__deadline-muted {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.projects-table__footer {
+    padding: 16px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid var(--color-card-border);
+}
+
+.projects-table__footer-text {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.projects-table__pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.loading,
+.no-projects {
+    margin: 40px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-text-secondary);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    text-align: center;
+}

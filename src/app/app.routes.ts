@@ -10,6 +10,7 @@ import {DashboardPageComponent} from './features/dashboard/dashboard-page/dashbo
 import {SettingsPageComponent} from './features/settings/settings-page/settings-page.component';
 import {TeamsPageComponent} from './features/teams/teams-page/teams-page.component';
 import {TeamSettingsPageComponent} from './features/teams/team-settings-page/team-settings-page.component';
+import {ProjectsPageComponent} from './features/projects/pages/projects-page/projects-page.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +57,10 @@ export const routes: Routes = [
                         component: TeamSettingsPageComponent
                     }
                 ]
+            },
+            {
+                path: 'projects',
+                component: ProjectsPageComponent
             },
 
             {

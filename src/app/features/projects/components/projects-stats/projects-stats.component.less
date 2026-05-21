@@ -1,0 +1,79 @@
+.stats-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.stats-card {
+    width: 392.5px;
+    min-height: 150px;
+    margin-left: 10px;
+    padding: 24px;
+
+    display: flex;
+    gap: 20px;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+
+    background: var(--color-page-bg-start);
+    box-shadow: 0 20px 60px var(--color-shadow-dark);
+}
+
+.stats-card__icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+}
+
+.stats-card__content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card__title {
+    margin-bottom: 8px;
+
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.stats-card__value {
+    margin-bottom: 8px;
+
+    color: var(--color-text-primary);
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 700;
+}
+
+.stats-card__description {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.all-projects {
+    color: var(--color-stat-blue);
+    background-color: var(--color-stat-blue-bg);
+}
+
+.active-projects {
+    color: var(--color-stat-green);
+    background-color: var(--color-stat-green-bg);
+}
+
+.closed-projects {
+    color: var(--color-stat-violet);
+    background-color: var(--color-stat-violet-bg);
+}
+
+.deadlines {
+    color: var(--color-stat-orange);
+    background-color: var(--color-stat-orange-bg);
+}

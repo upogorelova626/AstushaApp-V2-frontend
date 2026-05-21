@@ -1,0 +1,58 @@
+<div class="projects-searching-wrapper">
+    <div class="searching-and-sort">
+        <tui-textfield
+            class="projects-searching-wrapper__search"
+            iconStart="@tui.search"
+            tuiTextfieldSize="m"
+        >
+            <input tuiInput type="text" placeholder="Поиск проектов..." />
+        </tui-textfield>
+
+        <button
+            tuiButton
+            class="projects-searching-wrapper__control"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.list-filter"
+            iconEnd="@tui.chevron-down"
+        >
+            Фильтры
+        </button>
+
+        <button
+            tuiButton
+            class="projects-searching-wrapper__control"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconEnd="@tui.chevron-down"
+        >
+            Статус: Все
+        </button>
+
+        <button
+            tuiButton
+            class="projects-searching-wrapper__sort"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconEnd="@tui.chevron-down"
+        >
+            Сортировка: По дате обновления
+        </button>
+    </div>
+
+    <a
+        tuiButton
+        class="projects-searching-wrapper__create-button"
+        appearance="primary"
+        size="m"
+        iconStart="@tui.plus"
+        routerLink="create"
+    >
+        Создать проект
+    </a>
+</div>
+
+<router-outlet />

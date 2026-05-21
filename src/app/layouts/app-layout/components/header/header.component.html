@@ -62,6 +62,8 @@
             Помощь
         </button>
 
+        @let profile = profile$ | async;
+
         <button
             tuiButton
             class="header__profile-button"
@@ -69,10 +71,38 @@
             appearance="outline"
             size="m"
             iconEnd="@tui.chevron-down"
+            [attr.aria-expanded]="open()"
+            [tuiDropdown]="userMenuDropdown"
+            [tuiDropdownManual]="open()"
+            (click)="toggleUserMenu($event)"
         >
-            <div class="header__avatar" tuiAvatar="@tui.user"></div>
+            @if (profile) {
+                <div class="header__avatar" tuiAvatar="@tui.user"></div>
 
-            <span class="header__profile-name"> Астюша Астюшьевич </span>
+                @if (profile.firstName && profile.lastName) {
+                    <span class="header__profile-name">
+                        {{ profile.firstName }} {{ profile.lastName }}
+                    </span>
+                } @else {
+                    <span class="header__profile-name">
+                        {{ profile.login }}
+                    </span>
+                }
+            }
         </button>
+
+        <ng-template #userMenuDropdown>
+            <tui-data-list>
+                @for (action of userMenuActions; track action.value) {
+                    <button
+                        tuiOption
+                        type="button"
+                        (click)="onUserMenuAction(action.value)"
+                    >
+                        {{ action.title }}
+                    </button>
+                }
+            </tui-data-list>
+        </ng-template>
     </div>
 </header>

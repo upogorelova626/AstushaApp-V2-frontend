@@ -11,3 +11,11 @@ export enum TeamMemberAction {
 }
 
 export type TeamMemberActionOption = DropdownOption<TeamMemberAction>;
+
+export enum UserMenuAction {
+    OpenProfile = 'OPEN_PROFILE',
+    OpenSettings = 'OPEN_SETTINGS',
+    Logout = 'LOGOUT'
+}
+
+export type UserMenuActionOption = DropdownOption<UserMenuAction>;
