@@ -1,204 +1,176 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
 .teams-list {
     box-sizing: border-box;
     width: 420px;
     min-width: 420px;
     padding: 20px;
-    margin-left: 10px;
-
     border: 1px solid var(--color-card-border);
     border-radius: 20px;
-
     background: var(--color-page-bg-start);
-}
-
-.teams-list__header,
-.teams-list__toolbar,
-.teams-list__top,
-.teams-list__meta {
-    display: flex;
-    align-items: center;
-}
-
-.teams-list__header {
-    margin-bottom: 16px;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.teams-list__title {
-    margin: 0;
-
-    color: var(--color-text-primary);
-    font-size: 20px;
-    line-height: 26px;
-    font-weight: 600;
-}
-
-.teams-list__toolbar {
-    margin-bottom: 16px;
-}
-
-.teams-list__search {
-    width: 100%;
-    min-width: 0;
-}
-
-.teams-list__items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.teams-list__item {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
-    min-height: 128px;
-    padding: 16px;
-
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-
-    border: 1px solid var(--color-card-border);
-    border-radius: 16px;
-
-    text-align: left;
-    background: var(--color-card-bg);
-}
-
-.teams-list__item_active {
-    border-color: var(--color-primary);
-}
-
-.teams-list__avatar {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    color: var(--color-text-primary);
-    background: var(--color-stat-blue-bg);
-
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 700;
-}
-
-.teams-list__content {
-    min-width: 0;
-    flex: 1;
-}
-
-.teams-list__top {
-    margin-bottom: 6px;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.teams-list__name,
-.teams-list__description {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.teams-list__name {
-    color: var(--color-text-primary);
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.teams-list__badge {
-    padding: 3px 9px;
-
-    flex-shrink: 0;
-
-    border: 1px solid var(--color-primary);
-    border-radius: 999px;
-
-    color: var(--color-primary-light);
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 500;
-}
-
-.teams-list__description {
-    margin: 0 0 10px;
-
-    display: -webkit-box;
-
-    color: var(--color-text-secondary);
-    font-size: 13px;
-    line-height: 18px;
-
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.teams-list__meta {
-    gap: 6px;
-
-    color: var(--color-text-muted);
-    font-size: 13px;
-    line-height: 18px;
-
-    tui-icon {
-        width: 14px;
-        height: 14px;
+    &__header,
+    &__toolbar,
+    &__top,
+    &__meta {
+        display: flex;
+        align-items: center;
     }
-}
+    &__header {
+        margin-bottom: 16px;
 
-.teams-list__show-more {
-    width: 100%;
-    margin-top: 12px;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+    &__toolbar {
+        margin-bottom: 16px;
+    }
+    &__search {
+        width: 100%;
+        min-width: 0;
+    }
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    &__item {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        min-height: 128px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        border: 1px solid var(--color-card-border);
+        border-radius: 16px;
+        text-align: left;
+        background: var(--color-card-bg);
+        cursor: pointer;
+        &_active {
+            border-color: var(--color-primary);
+        }
+    }
+
+    &__avatar {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 50%;
+        color: var(--color-text-primary);
+        background: var(--color-stat-blue-bg);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__content {
+        min-width: 0;
+
+        flex: 1;
+    }
+
+    &__top {
+        margin-bottom: 6px;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    &__name,
+    &__description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__name {
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h6);
+        white-space: nowrap;
+    }
+
+    &__badge {
+        padding: 3px 9px;
+
+        flex-shrink: 0;
+
+        border: 1px solid var(--color-primary);
+        border-radius: 999px;
+
+        color: var(--color-primary-light);
+        font: var(--tui-typography-heading-h8);
+    }
+
+    &__description {
+        margin: 0 0 10px;
+
+        display: -webkit-box;
+
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__meta {
+        gap: 6px;
+
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h7);
+
+        tui-icon {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    &__show-more {
+        width: 100%;
+        margin-top: 12px;
+    }
 }
 
 .create-team-dialog {
     width: 100%;
     padding-top: 4px;
-}
 
-.create-team-dialog__header {
-    margin-bottom: 24px;
-}
+    &__header {
+        margin-bottom: 24px;
+    }
 
-.create-team-dialog__title {
-    margin: 0;
+    &__title {
+        margin: 0;
 
-    color: var(--color-text-primary);
-    font-size: 22px;
-    line-height: 28px;
-    font-weight: 700;
-}
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
 
-.create-team-dialog__description {
-    margin: 6px 0 0;
+    &__description {
+        margin: 6px 0 0;
 
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-}
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-heading-h7);
+    }
 
-.create-team-dialog__fields {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
+    &__fields {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 
-.create-team-dialog__footer {
-    margin-top: 24px;
+    &__footer {
+        margin-top: 24px;
 
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
 }
 
 @media (max-width: 1280px) {
@@ -214,5 +186,17 @@
         width: 100%;
         min-width: 0;
         margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .create-team-dialog {
+        &__footer {
+            flex-direction: column-reverse;
+
+            button {
+                width: 100%;
+            }
+        }
     }
 }

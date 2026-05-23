@@ -1,0 +1,44 @@
+@for (member of teamMembers(); track member.id) {
+    <body class="team-members_list">
+        <td>
+            <div class="team-member-row__member">
+                <div
+                    tuiAvatar="@tui.user"
+                    class="team-member-row__avatar"
+                ></div>
+
+                <span class="team-member-row__name"
+                    >{{ member.user.firstName }}
+                    {{ member.user.lastName }}</span
+                >
+            </div>
+        </td>
+
+        <td>
+            <span class="team-member-row__email">
+                {{ member.user.email }}
+            </span>
+        </td>
+
+        <td>
+            <span class="team-member-row__role team-member-row__role_creator">
+                {{ member.role | teamRoleLabel }}
+            </span>
+        </td>
+
+        <td>
+            <span class="team-member-row__projects-count"> 5 </span>
+        </td>
+
+        <td>
+            <button
+                tuiIconButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconStart="@tui.ellipsis-vertical"
+            >
+            </button>
+        </td>
+    </body>
+}

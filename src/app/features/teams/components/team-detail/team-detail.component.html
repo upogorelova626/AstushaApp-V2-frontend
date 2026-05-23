@@ -1,16 +1,39 @@
-@if (teams()[0]; as team) {
-    @for (team of teams(); track team.id) {
-        <section class="team-details">
-            <header class="team-details__header">
-                <div class="team-details__team">
-                    <div class="team-details__avatar">
+@if (isError()) {
+    <section class="team-details team-details_state">
+        <p class="team-details__state-text">
+            Не удалось загрузить данные команды.
+        </p>
+    </section>
+} @else if (!isLoading() && !team()) {
+    <section class="team-details team-details_state">
+        <p class="team-details__state-text"> Выберите команду слева. </p>
+    </section>
+} @else {
+    <section class="team-details">
+        <header class="team-details__header">
+            <div class="team-details__team">
+                <div class="team-details__avatar" [tuiSkeleton]="isLoading()">
+                    @if (team(); as team) {
                         {{ team.name.slice(0, 2).toUpperCase() }}
-                    </div>
+                    } @else {
+                        КО
+                    }
+                </div>
 
-                    <div class="team-details__info">
-                        <h2 class="team-details__title">{{ team.name }}</h2>
+                <div class="team-details__info">
+                    <h2 class="team-details__title" [tuiSkeleton]="isLoading()">
+                        @if (team(); as team) {
+                            {{ team.name }}
+                        } @else {
+                            Название команды
+                        }
+                    </h2>
 
-                        <span class="team-details__subtitle">
+                    <span
+                        class="team-details__subtitle"
+                        [tuiSkeleton]="isLoading()"
+                    >
+                        @if (team(); as team) {
                             {{
                                 team.membersCount
                                     | pluralizeRu
@@ -18,67 +41,23 @@
                                         : 'участника'
                                         : 'участников'
                             }}
-                        </span>
-                    </div>
+                        } @else {
+                            0 участников
+                        }
+                    </span>
                 </div>
+            </div>
 
-                <div class="team-details__actions">
-                    <button
-                        tuiButton
-                        type="button"
-                        appearance="primary"
-                        size="m"
-                        iconStart="@tui.user-plus"
-                    >
-                        Пригласить участника
-                    </button>
-
-                    <button
-                        tuiIconButton
-                        type="button"
-                        appearance="outline"
-                        size="m"
-                        iconStart="@tui.ellipsis-vertical"
-                        tuiHint="Перейти к настройкам команды"
-                        tuiHintDirection="top-start"
-                        (click)="openTeamSettings(team)"
-                    ></button>
-                </div>
-            </header>
-
-            <div class="team-details__toolbar">
-                <tui-textfield
-                    class="team-details__search"
-                    iconStart="@tui.search"
-                    tuiTextfieldSize="m"
-                >
-                    <input
-                        tuiInput
-                        type="text"
-                        placeholder="Поиск по участникам..."
-                    />
-                </tui-textfield>
-
+            <div class="team-details__actions">
                 <button
                     tuiButton
-                    class="team-details__control"
                     type="button"
-                    appearance="outline"
+                    appearance="primary"
                     size="m"
-                    iconEnd="@tui.chevron-down"
+                    iconStart="@tui.user-plus"
+                    [tuiSkeleton]="isLoading()"
                 >
-                    Все роли
-                </button>
-
-                <button
-                    tuiButton
-                    class="team-details__sort"
-                    type="button"
-                    appearance="outline"
-                    size="m"
-                    iconEnd="@tui.chevron-down"
-                >
-                    Сортировка: По имени (А–Я)
+                    Пригласить участника
                 </button>
 
                 <button
@@ -86,137 +65,151 @@
                     type="button"
                     appearance="outline"
                     size="m"
-                    iconStart="@tui.arrow-up-down"
-                >
-                    Порядок сортировки
-                </button>
-
-                <button
-                    tuiButton
-                    type="button"
-                    appearance="outline"
-                    size="m"
-                    iconStart="@tui.list-filter"
-                >
-                    Фильтры
-                </button>
+                    iconStart="@tui.ellipsis-vertical"
+                    tuiHint="Перейти к настройкам команды"
+                    tuiHintDirection="top-start"
+                    [tuiSkeleton]="isLoading()"
+                    (click)="team() && openTeamSettings(team()!)"
+                ></button>
             </div>
+        </header>
 
-            <div class="team-details__table-wrapper">
-                <table class="team-details__table">
-                    <thead>
-                        <tr>
-                            <th>Участник</th>
-                            <th>Email</th>
-                            <th>Роль в команде</th>
-                            <th>Проектов</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
+        <div class="team-details__toolbar">
+            <tui-textfield
+                class="team-details__search"
+                iconStart="@tui.search"
+                tuiTextfieldSize="m"
+                [tuiSkeleton]="isLoading()"
+            >
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по участникам..."
+                />
+            </tui-textfield>
 
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="team-details__member">
-                                    <div
-                                        tuiAvatar="@tui.user"
-                                        class="team-details__member-avatar"
-                                    ></div>
+            <button
+                tuiButton
+                class="team-details__control"
+                type="button"
+                appearance="outline"
+                size="m"
+                iconEnd="@tui.chevron-down"
+                [tuiSkeleton]="isLoading()"
+            >
+                Все роли
+            </button>
 
-                                    <span class="team-details__member-name">
-                                        Иван Петров
-                                    </span>
-                                </div>
-                            </td>
+            <button
+                tuiButton
+                class="team-details__sort"
+                type="button"
+                appearance="outline"
+                size="m"
+                iconEnd="@tui.chevron-down"
+                [tuiSkeleton]="isLoading()"
+            >
+                Сортировка: По имени (А–Я)
+            </button>
 
-                            <td>
-                                <span class="team-details__email">
-                                    ivan.petrov&#64;astushaapp.ru
-                                </span>
-                            </td>
+            <button
+                tuiIconButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.arrow-up-down"
+                [tuiSkeleton]="isLoading()"
+            >
+                Порядок сортировки
+            </button>
 
-                            <td>
-                                <span
-                                    class="team-details__role team-details__role_creator"
-                                >
-                                    Создатель
-                                </span>
-                            </td>
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.list-filter"
+                [tuiSkeleton]="isLoading()"
+            >
+                Фильтры
+            </button>
+        </div>
+        <div class="team-details__table-wrapper" [tuiSkeleton]="isLoading()">
+            <table class="team-details__table">
+                <thead>
+                    <tr>
+                        <th>Участник</th>
+                        <th>Email</th>
+                        <th>Роль в команде</th>
+                        <th>Проектов</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
 
-                            <td>
-                                <span class="team-details__projects-count"
-                                    >5</span
-                                >
-                            </td>
+                @if (team(); as team) {
+                    <tbody app-team-members-list [teamId]="team.id"></tbody>
+                }
+            </table>
+        </div>
 
-                            <td>
-                                <button
-                                    tuiIconButton
-                                    type="button"
-                                    appearance="flat"
-                                    size="s"
-                                    iconStart="@tui.ellipsis-vertical"
-                                >
-                                    Действия
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <footer class="team-details__footer">
+            <span class="team-details__counter" [tuiSkeleton]="isLoading()">
+                @if (team(); as team) {
+                    Показано 1–1 из
+                    {{
+                        team.membersCount
+                            | pluralizeRu
+                                : 'участник'
+                                : 'участника'
+                                : 'участников'
+                    }}
+                } @else {
+                    Показано 1–1 из 1 участников
+                }
+            </span>
 
-            <footer class="team-details__footer">
-                <span class="team-details__counter">
-                    Показано 1–1 из {{ team.membersCount }} участников
-                </span>
-
-                <div class="team-details__pagination">
-                    <button
-                        tuiIconButton
-                        type="button"
-                        appearance="outline"
-                        size="s"
-                        iconStart="@tui.chevron-left"
-                    >
-                        Назад
-                    </button>
-
-                    <button
-                        tuiButton
-                        type="button"
-                        appearance="primary"
-                        size="s"
-                    >
-                        1
-                    </button>
-
-                    <button tuiButton type="button" appearance="flat" size="s">
-                        2
-                    </button>
-
-                    <button
-                        tuiIconButton
-                        type="button"
-                        appearance="outline"
-                        size="s"
-                        iconStart="@tui.chevron-right"
-                    >
-                        Вперёд
-                    </button>
-                </div>
-
+            <div class="team-details__pagination" [tuiSkeleton]="isLoading()">
                 <button
-                    tuiButton
+                    tuiIconButton
                     type="button"
                     appearance="outline"
                     size="s"
-                    iconEnd="@tui.chevron-down"
+                    iconStart="@tui.chevron-left"
                 >
-                    Показывать: 10
+                    Назад
                 </button>
-            </footer>
-        </section>
-    }
+
+                <button tuiButton type="button" appearance="primary" size="s">
+                    1
+                </button>
+
+                <button tuiButton type="button" appearance="flat" size="s">
+                    2
+                </button>
+
+                <button
+                    tuiIconButton
+                    type="button"
+                    appearance="outline"
+                    size="s"
+                    iconStart="@tui.chevron-right"
+                >
+                    Вперёд
+                </button>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="s"
+                iconEnd="@tui.chevron-down"
+                [tuiSkeleton]="isLoading()"
+            >
+                Показывать: 10
+            </button>
+        </footer>
+    </section>
 }
 
 <ng-template
@@ -230,7 +223,7 @@
         </div>
 
         <div class="no-access-dialog__content">
-            <h2 class="no-access-dialog__title">Недостаточно прав</h2>
+            <h2 class="no-access-dialog__title"> Недостаточно прав </h2>
 
             <p class="no-access-dialog__text">
                 Редактировать настройки команды могут только создатель или

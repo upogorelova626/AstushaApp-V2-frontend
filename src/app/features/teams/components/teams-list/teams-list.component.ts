@@ -1,45 +1,54 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
 import {
-    TUI_VALIDATION_ERRORS,
-    TuiButton,
-    TuiDialog,
-    TuiHint,
-    TuiIcon,
-    TuiInput,
-    TuiLabel,
-    TuiTextfield,
-    TuiError
-} from '@taiga-ui/core';
-import {TuiTextarea} from '@taiga-ui/kit';
-import {TeamsService} from '../../services/teams.service';
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+    output,
+    signal
+} from '@angular/core';
 import {
     FormControl,
     FormGroup,
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
-import {Team} from '../../interfaces/team.interface';
-import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
+import {
+    TUI_VALIDATION_ERRORS,
+    TuiButton,
+    TuiDialog,
+    TuiError,
+    TuiHint,
+    TuiIcon,
+    TuiInput,
+    TuiLabel,
+    TuiTextfield
+} from '@taiga-ui/core';
+import {TuiTextarea} from '@taiga-ui/kit';
+
 import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
+import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
+import {Team} from '../../interfaces/team.interface';
+import {TeamsService} from '../../services/teams.service';
 
 @Component({
     selector: 'app-teams-list',
     imports: [
-        TuiTextfield,
-        TuiIcon,
+        ReactiveFormsModule,
         TuiButton,
-        TuiInput,
-        TuiHint,
         TuiDialog,
+        TuiError,
+        TuiHint,
+        TuiIcon,
+        TuiInput,
         TuiLabel,
         TuiTextarea,
-        TuiError,
-        ReactiveFormsModule,
+        TuiTextfield,
         TeamRoleLabelPipe,
         PluralizeRuPipe
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: TUI_VALIDATION_ERRORS,
@@ -51,24 +60,17 @@ import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
         }
     ]
 })
-export class TeamsListComponent implements OnInit {
+export class TeamListComponent implements OnInit {
     private readonly teamsService = inject(TeamsService);
+
+    readonly teamSelected = output<string>();
+
+    protected readonly teams = signal<Team[]>([]);
+    protected readonly isLoading = signal(false);
 
     protected isCreateTeamDialogOpen = false;
 
-    protected readonly isLoading = signal(false);
-
-    teams = signal<Team[]>([]);
-
-    protected openCreateTeamDialog(): void {
-        this.isCreateTeamDialogOpen = true;
-    }
-
-    protected closeCreateTeamDialog(): void {
-        this.isCreateTeamDialogOpen = false;
-    }
-
-    form = new FormGroup({
+    protected readonly form = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
             validators: [Validators.required, Validators.maxLength(100)]
@@ -78,6 +80,18 @@ export class TeamsListComponent implements OnInit {
             validators: [Validators.maxLength(500)]
         })
     });
+
+    ngOnInit() {
+        this.loadTeams();
+    }
+
+    protected openCreateTeamDialog() {
+        this.isCreateTeamDialogOpen = true;
+    }
+
+    protected closeCreateTeamDialog() {
+        this.isCreateTeamDialogOpen = false;
+    }
 
     protected createTeam() {
         if (this.form.invalid) {
@@ -99,24 +113,29 @@ export class TeamsListComponent implements OnInit {
 
             return;
         }
+
         this.teamsService.createTeam(payload).subscribe(() => {
             this.closeCreateTeamDialog();
             this.form.reset();
-            this.teamsService.getTeams().subscribe();
             this.loadTeams();
         });
     }
 
-    ngOnInit(): void {
-        this.loadTeams();
+    protected selectTeam(teamId: string) {
+        this.teamSelected.emit(teamId);
     }
 
     private loadTeams() {
         this.isLoading.set(true);
 
-        this.teamsService.getTeams().subscribe(teams => {
-            this.teams.set(teams);
-            this.isLoading.set(false);
+        this.teamsService.getTeams().subscribe({
+            next: teams => {
+                this.teams.set(teams);
+                this.isLoading.set(false);
+            },
+            error: () => {
+                this.isLoading.set(false);
+            }
         });
     }
 }

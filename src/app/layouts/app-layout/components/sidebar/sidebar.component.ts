@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiHintDirective, TuiIcon} from '@taiga-ui/core';
 import {TuiSkeleton} from '@taiga-ui/kit';
@@ -17,7 +17,8 @@ import {UsersService} from '../../../../features/users/services/users.service';
         AsyncPipe
     ],
     templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.less'
+    styleUrl: './sidebar.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
     private readonly usersService = inject(UsersService);

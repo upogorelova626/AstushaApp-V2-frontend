@@ -16,12 +16,12 @@
     </header>
 
     <form class="team-invite-member-card__form">
-        <label class="team-invite-member-card__field">
+        <div class="team-invite-member-card__field">
             <span class="team-invite-member-card__label">
                 Email или логин
             </span>
 
-            <div class="team-invite-member-card__search-row">
+            <div class="team-invite-member-card__control">
                 <tui-textfield
                     class="team-invite-member-card__search-input"
                     tuiTextfieldSize="m"
@@ -32,93 +32,106 @@
                         type="text"
                         placeholder="example@astusha.com"
                         [formControl]="lookupForm"
-                        (input)="resetFoundUser()"
                     />
                 </tui-textfield>
 
+                <tui-error
+                    [formControl]="lookupForm"
+                    [order]="[
+                        'required',
+                        'notBlank',
+                        'minlength',
+                        'maxlength',
+                        'spacesNotAllowed'
+                    ]"
+                />
+
+                <tui-error [error]="lookupError()" />
+
+                @if (isSearching()) {
+                    <div class="team-invite-member-card__lookup-status">
+                        Ищем пользователя...
+                    </div>
+                }
+
+                @if (foundUser(); as user) {
+                    <div class="team-invite-member-card__found-user">
+                        <div class="team-invite-member-card__found-user-avatar">
+                            @if (user.avatarUrl) {
+                                <img
+                                    class="team-invite-member-card__found-user-img"
+                                    [src]="user.avatarUrl"
+                                    [alt]="user.login"
+                                />
+                            } @else {
+                                <tui-icon icon="@tui.user" />
+                            }
+                        </div>
+
+                        <div
+                            class="team-invite-member-card__found-user-content"
+                        >
+                            <span
+                                class="team-invite-member-card__found-user-login"
+                            >
+                                {{ user.login }}
+                            </span>
+
+                            <span
+                                class="team-invite-member-card__found-user-email"
+                            >
+                                {{ user.email }}
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="team-invite-member-card__field">
+            <span class="team-invite-member-card__label"> Роль в команде </span>
+
+            <div class="team-invite-member-card__control">
                 <button
                     tuiButton
-                    class="team-invite-member-card__search-button"
+                    tuiChevron
+                    class="team-invite-member-card__select"
                     type="button"
                     appearance="outline"
                     size="m"
-                    iconStart="@tui.search"
-                    [disabled]="isSearching()"
-                    (click)="searchUser()"
+                    [attr.aria-expanded]="open()"
+                    [tuiDropdown]="dropdownContent"
+                    [tuiDropdownManual]="open()"
+                    [tuiObscuredEnabled]="open()"
+                    (click)="onClick()"
+                    (tuiActiveZoneChange)="onActiveZone($event)"
+                    (tuiObscured)="onObscured($event)"
                 >
-                    {{ isSearching() ? 'Ищем...' : 'Найти' }}
+                    {{ buttonLabel() }}
                 </button>
+
+                <tui-error [error]="roleError()" />
             </div>
+        </div>
 
-            <tui-error
-                [formControl]="lookupForm"
-                [order]="[
-                    'required',
-                    'notBlank',
-                    'minlength',
-                    'maxlength',
-                    'spacesNotAllowed'
-                ]"
-            />
-
-            <tui-error [error]="lookupError()" />
-
-            @if (foundUser(); as user) {
-                <div class="team-invite-member-card__found-user">
-                    <div class="team-invite-member-card__found-user-icon">
-                        <tui-icon icon="@tui.check" />
-                    </div>
-
-                    <div class="team-invite-member-card__found-user-content">
-                        <span class="team-invite-member-card__found-user-title">
-                            Пользователь найден
-                        </span>
-
-                        <span class="team-invite-member-card__found-user-meta">
-                            {{ user.login }} · {{ user.email }}
-                        </span>
-                    </div>
-                </div>
-            }
-        </label>
-
-        <label class="team-invite-member-card__field">
-            <span class="team-invite-member-card__label"> Роль в команде </span>
-
-            <button
-                tuiButton
-                tuiChevron
-                class="team-invite-member-card__select"
-                type="button"
-                appearance="outline"
-                size="m"
-                [attr.aria-expanded]="open()"
-                [tuiDropdown]="dropdownContent"
-                [tuiDropdownManual]="open()"
-                [tuiObscuredEnabled]="open()"
-                (click)="onClick()"
-                (tuiActiveZoneChange)="onActiveZone($event)"
-                (tuiObscured)="onObscured($event)"
-            >
-                {{ buttonLabel() }}
-            </button>
-
-            <tui-error [error]="roleError()" />
-        </label>
-
-        <label class="team-invite-member-card__field">
+        <div class="team-invite-member-card__field">
             <span class="team-invite-member-card__label"> Сообщение </span>
 
-            <tui-textfield tuiTextfieldSize="m">
-                <textarea
-                    tuiTextarea
-                    placeholder="Напишите короткое сообщение для приглашения"
-                    [formControl]="messageControl"
-                ></textarea>
-            </tui-textfield>
+            <div class="team-invite-member-card__control">
+                <tui-textfield tuiTextfieldSize="m">
+                    <textarea
+                        tuiTextarea
+                        placeholder="Напишите короткое сообщение для приглашения"
+                        [formControl]="messageControl"
+                    ></textarea>
+                </tui-textfield>
 
-            <tui-error [formControl]="messageControl" [order]="['maxlength']" />
-        </label>
+                <tui-error
+                    [formControl]="messageControl"
+                    [order]="['maxlength']"
+                />
+            </div>
+        </div>
 
         <footer class="team-invite-member-card__footer">
             <button
@@ -147,7 +160,7 @@
 
     <ng-template #dropdownContent>
         <tui-data-list>
-            @for (role of roles; track role.title) {
+            @for (role of roles; track role.value) {
                 <button tuiOption type="button" (click)="onSelect(role)">
                     <span tuiTitle>
                         {{ role.title }}

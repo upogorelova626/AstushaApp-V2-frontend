@@ -1,94 +1,212 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
 .team-invite-member-card {
-    padding: 24px;
     margin-bottom: 10px;
+    padding: 24px;
+
     border: 1px solid var(--color-card-border);
     border-radius: 20px;
+
     background: var(--color-page-bg-start);
+
+    &__header {
+        margin-bottom: 24px;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    &__title {
+        margin: 0;
+
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+
+    &__description {
+        margin: 4px 0 0;
+
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        border-radius: 12px;
+
+        color: var(--color-primary-light);
+        background: var(--color-card-bg);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__field {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    &__label {
+        padding-top: 10px;
+
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__select {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    &__footer {
+        margin-top: 8px;
+
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    &__search-row {
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__search-input {
+        min-width: 0;
+
+        flex: 1;
+    }
+
+    &__search-button {
+        flex-shrink: 0;
+    }
+
+    &__lookup-status {
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__found-user {
+        padding: 12px;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        border: 1px solid var(--color-success-border-soft);
+        border-radius: 14px;
+
+        background: var(--color-success-bg-soft);
+    }
+
+    &__found-user-icon {
+        width: 32px;
+        height: 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        color: var(--color-success);
+        background: var(--color-card-bg);
+    }
+
+    &__found-user-content {
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__found-user-title {
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__found-user-meta {
+        overflow: hidden;
+
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h7);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
-.team-invite-member-card__header {
-    margin-bottom: 24px;
+@media (max-width: 768px) {
+    .team-invite-member-card {
+        padding: 20px;
+        border-radius: 18px;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
+        &__header {
+            gap: 16px;
+        }
+
+        &__field {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        &__label {
+            padding-top: 0;
+        }
+
+        &__footer {
+            flex-direction: column-reverse;
+        }
+
+        &__footer button {
+            width: 100%;
+        }
+    }
 }
 
-.team-invite-member-card__title {
-    margin: 0;
-    color: var(--color-text-primary);
-    font-size: 20px;
-    line-height: 26px;
-    font-weight: 700;
-}
+@media (max-width: 480px) {
+    .team-invite-member-card {
+        padding: 16px;
+        border-radius: 16px;
 
-.team-invite-member-card__description {
-    margin: 4px 0 0;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-}
+        &__header {
+            margin-bottom: 20px;
+        }
 
-.team-invite-member-card__icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border-radius: 12px;
-    color: var(--color-primary-light);
-    background: var(--color-card-bg);
-}
+        &__title {
+            font: var(--tui-typography-heading-h6);
+        }
 
-.team-invite-member-card__form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
+        &__description {
+            font: var(--tui-typography-heading-h7);
+        }
 
-.team-invite-member-card__field {
-    display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    align-items: flex-start;
-    gap: 16px;
-}
-
-.team-invite-member-card__label {
-    padding-top: 10px;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-}
-
-.team-invite-member-card__select {
-    width: 100%;
-    justify-content: space-between;
-}
-
-.team-invite-member-card__footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.team-invite-member-card__search-row {
-    min-width: 0;
-
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.team-invite-member-card__search-input {
-    min-width: 0;
-
-    flex: 1;
-}
-
-.team-invite-member-card__search-button {
-    flex-shrink: 0;
+        &__icon {
+            width: 36px;
+            height: 36px;
+        }
+    }
 }

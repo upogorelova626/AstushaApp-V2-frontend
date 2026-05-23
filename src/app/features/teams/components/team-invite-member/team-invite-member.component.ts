@@ -2,25 +2,36 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {
     ChangeDetectionStrategy,
     Component,
+    DestroyRef,
     computed,
     inject,
     input,
+    OnInit,
     signal
 } from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {finalize} from 'rxjs';
-
+import {
+    catchError,
+    debounceTime,
+    distinctUntilChanged,
+    EMPTY,
+    finalize,
+    map,
+    switchMap,
+    tap
+} from 'rxjs';
 import {TuiActiveZone} from '@taiga-ui/cdk/directives/active-zone';
 import {TuiObscured} from '@taiga-ui/cdk/directives/obscured';
 import {
     TuiButton,
     TuiDataList,
     TuiDropdown,
+    TuiError,
     TuiIcon,
     TuiInput,
     TuiTextfield,
-    TuiTitle,
-    TuiError
+    TuiTitle
 } from '@taiga-ui/core';
 import {TuiChevron, TuiTextarea} from '@taiga-ui/kit';
 
@@ -44,32 +55,23 @@ import {
         TuiChevron,
         TuiDataList,
         TuiDropdown,
+        TuiError,
         TuiIcon,
         TuiInput,
         TuiObscured,
         TuiTextarea,
         TuiTextfield,
-        TuiTitle,
-        TuiError
+        TuiTitle
     ],
     templateUrl: './team-invite-member.component.html',
     styleUrl: './team-invite-member.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamInviteMemberComponent {
+export class TeamInviteMemberComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     private readonly teamMemberService = inject(TeamMembersService);
 
     readonly teamId = input.required<string>();
-
-    protected readonly open = signal(false);
-    protected readonly selected = signal<Roles | null>(null);
-
-    protected readonly isSearching = signal(false);
-    protected readonly isSubmitting = signal(false);
-
-    protected readonly lookupError = signal<string | null>(null);
-    protected readonly roleError = signal<string | null>(null);
-    protected readonly foundUser = signal<TeamMemberCandidate | null>(null);
 
     protected readonly roles: readonly Roles[] = [
         {
@@ -100,9 +102,61 @@ export class TeamInviteMemberComponent {
         validators: [Validators.maxLength(500)]
     });
 
+    protected readonly open = signal(false);
+    protected readonly selected = signal<Roles | null>(null);
+    protected readonly foundUser = signal<TeamMemberCandidate | null>(null);
+
+    protected readonly isSearching = signal(false);
+    protected readonly isSubmitting = signal(false);
+
+    protected readonly lookupError = signal<string | null>(null);
+    protected readonly roleError = signal<string | null>(null);
+
     protected readonly buttonLabel = computed(
         () => this.selected()?.title ?? 'Выберите роль для участника'
     );
+
+    ngOnInit(): void {
+        this.lookupForm.valueChanges
+            .pipe(
+                debounceTime(500),
+                map(identifier => identifier.trim()),
+                distinctUntilChanged(),
+                tap(() => {
+                    this.foundUser.set(null);
+                    this.lookupError.set(null);
+                }),
+                switchMap(identifier => {
+                    if (this.lookupForm.invalid) {
+                        this.isSearching.set(false);
+
+                        return EMPTY;
+                    }
+
+                    this.isSearching.set(true);
+
+                    return this.teamMemberService
+                        .lookupTeamMemberCandidate(this.teamId(), identifier)
+                        .pipe(
+                            finalize(() => {
+                                this.isSearching.set(false);
+                            }),
+                            catchError((error: HttpErrorResponse) => {
+                                this.lookupError.set(
+                                    this.getLookupErrorMessage(error)
+                                );
+
+                                return EMPTY;
+                            })
+                        );
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe(user => {
+                this.foundUser.set(user);
+                this.lookupForm.setValue(user.login, {emitEvent: false});
+            });
+    }
 
     protected onClick(): void {
         this.open.update(open => !open);
@@ -123,47 +177,7 @@ export class TeamInviteMemberComponent {
     protected onSelect(role: Roles): void {
         this.selected.set(role);
         this.roleError.set(null);
-        this.lookupError.set(null);
         this.open.set(false);
-    }
-
-    protected resetFoundUser(): void {
-        this.foundUser.set(null);
-        this.lookupError.set(null);
-    }
-
-    protected searchUser(): void {
-        if (this.isSearching()) {
-            return;
-        }
-
-        this.lookupForm.markAsTouched();
-
-        if (this.lookupForm.invalid) {
-            this.foundUser.set(null);
-            this.lookupError.set('Введите корректный email или логин');
-
-            return;
-        }
-
-        const identifier = this.lookupForm.value.trim();
-
-        this.isSearching.set(true);
-        this.lookupError.set(null);
-        this.foundUser.set(null);
-
-        this.teamMemberService
-            .lookupTeamMemberCandidate(this.teamId(), identifier)
-            .pipe(finalize(() => this.isSearching.set(false)))
-            .subscribe({
-                next: user => {
-                    this.foundUser.set(user);
-                    this.lookupForm.setValue(user.login, {emitEvent: false});
-                },
-                error: (error: HttpErrorResponse) => {
-                    this.lookupError.set(this.getLookupErrorMessage(error));
-                }
-            });
     }
 
     protected addMember(): void {
@@ -191,10 +205,6 @@ export class TeamInviteMemberComponent {
         }
 
         if (this.messageControl.invalid) {
-            this.lookupError.set(
-                'Сообщение не должно быть длиннее 500 символов'
-            );
-
             return;
         }
 
@@ -205,7 +215,11 @@ export class TeamInviteMemberComponent {
                 userId: user.id,
                 role
             })
-            .pipe(finalize(() => this.isSubmitting.set(false)))
+            .pipe(
+                finalize(() => {
+                    this.isSubmitting.set(false);
+                })
+            )
             .subscribe({
                 next: () => {
                     this.clearForm();
@@ -217,12 +231,14 @@ export class TeamInviteMemberComponent {
     }
 
     protected clearForm(): void {
-        this.foundUser.set(null);
-        this.selected.set(null);
         this.lookupForm.reset();
         this.messageControl.reset();
+
+        this.selected.set(null);
+        this.foundUser.set(null);
         this.lookupError.set(null);
         this.roleError.set(null);
+        this.isSearching.set(false);
     }
 
     private getLookupErrorMessage(error: HttpErrorResponse): string {

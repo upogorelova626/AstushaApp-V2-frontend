@@ -1,4 +1,11 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    effect,
+    inject,
+    input,
+    signal
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {
     TuiButton,
@@ -9,13 +16,11 @@ import {
     TuiInput,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiAvatar} from '@taiga-ui/kit';
-
+import {TuiSkeleton} from '@taiga-ui/kit';
+import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
 import {Team} from '../../interfaces/team.interface';
 import {TeamsService} from '../../services/teams.service';
-import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
-import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
-import {TeamMembersService} from '../../services/team-members.service';
+import {TeamMembersListComponent} from './team-members-list/team-members-list.component';
 
 @Component({
     selector: 'app-team-detail',
@@ -27,29 +32,49 @@ import {TeamMembersService} from '../../services/team-members.service';
         TuiHint,
         TuiDialog,
         TuiIcon,
-        TuiAvatar,
         PluralizeRuPipe,
-        TeamRoleLabelPipe
+        TuiSkeleton,
+        TeamMembersListComponent
     ],
     templateUrl: './team-detail.component.html',
-    styleUrl: './team-detail.component.less'
+    styleUrl: './team-detail.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamDetailComponent implements OnInit {
+export class TeamDetailComponent {
     private readonly teamsService = inject(TeamsService);
-    private readonly teamMembersService = inject(TeamMembersService);
     private readonly router = inject(Router);
 
+    readonly teamId = input<string | null>(null);
+
+    protected readonly team = signal<Team | null>(null);
     protected readonly isLoading = signal(false);
-    protected readonly teams = signal<Team[]>([]);
+    protected readonly isError = signal(false);
     protected readonly isNoAccessDialogOpen = signal(false);
 
-    ngOnInit(): void {
-        this.loadTeams();
+    constructor() {
+        effect(() => {
+            const teamId = this.teamId();
+
+            if (!teamId) {
+                this.team.set(null);
+                this.isError.set(false);
+                this.isLoading.set(false);
+
+                return;
+            }
+
+            this.loadTeam(teamId);
+        });
     }
 
-    protected openTeamSettings(team: Team): void {
+    protected openTeamSettings(team: Team) {
         if (team.myRole === 'OWNER' || team.myRole === 'ADMIN') {
-            this.router.navigate(['/dashboard', 'teams', team.id, 'settings']);
+            void this.router.navigate([
+                '/dashboard',
+                'teams',
+                team.id,
+                'settings'
+            ]);
 
             return;
         }
@@ -57,16 +82,18 @@ export class TeamDetailComponent implements OnInit {
         this.isNoAccessDialogOpen.set(true);
     }
 
-    private loadTeams(): void {
+    private loadTeam(teamId: string) {
         this.isLoading.set(true);
+        this.isError.set(false);
 
-        this.teamsService.getTeams().subscribe({
-            next: teams => {
-                this.teams.set(teams);
+        this.teamsService.getOneTeam(teamId).subscribe({
+            next: team => {
+                this.team.set(team);
                 this.isLoading.set(false);
             },
-            error: error => {
-                console.error('Не удалось загрузить команды', error);
+            error: () => {
+                this.team.set(null);
+                this.isError.set(true);
                 this.isLoading.set(false);
             }
         });

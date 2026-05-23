@@ -1,4 +1,7 @@
 <main class="team-page__content">
-    <app-teams-list class="team-page__list" />
-    <app-team-detail class="team-page__detail" />
+    <app-teams-list
+        class="team-page__list"
+        (teamSelected)="selectTeam($event)"
+    />
+    <app-team-detail class="team-page__detail" [teamId]="selectedTeamId()" />
 </main>
