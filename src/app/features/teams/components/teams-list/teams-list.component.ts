@@ -20,6 +20,7 @@ import {
 } from '@angular/forms';
 import {Team} from '../../interfaces/team.interface';
 import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
+import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
 
 @Component({
     selector: 'app-teams-list',
@@ -34,7 +35,8 @@ import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
         TuiTextarea,
         TuiError,
         ReactiveFormsModule,
-        TeamRoleLabelPipe
+        TeamRoleLabelPipe,
+        PluralizeRuPipe
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',
@@ -77,7 +79,7 @@ export class TeamsListComponent implements OnInit {
         })
     });
 
-    createTeam() {
+    protected createTeam() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
 
@@ -97,13 +99,11 @@ export class TeamsListComponent implements OnInit {
 
             return;
         }
-        this.teamsService.createTeam(payload).subscribe({
-            next: () => {
-                this.closeCreateTeamDialog();
-                this.form.reset();
-                this.teamsService.getTeams().subscribe();
-                this.loadTeams();
-            }
+        this.teamsService.createTeam(payload).subscribe(() => {
+            this.closeCreateTeamDialog();
+            this.form.reset();
+            this.teamsService.getTeams().subscribe();
+            this.loadTeams();
         });
     }
 
@@ -114,11 +114,9 @@ export class TeamsListComponent implements OnInit {
     private loadTeams() {
         this.isLoading.set(true);
 
-        this.teamsService.getTeams().subscribe({
-            next: teams => {
-                this.teams.set(teams);
-                this.isLoading.set(false);
-            }
+        this.teamsService.getTeams().subscribe(teams => {
+            this.teams.set(teams);
+            this.isLoading.set(false);
         });
     }
 }

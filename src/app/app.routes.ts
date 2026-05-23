@@ -11,6 +11,7 @@ import {SettingsPageComponent} from './features/settings/settings-page/settings-
 import {TeamsPageComponent} from './features/teams/teams-page/teams-page.component';
 import {TeamSettingsPageComponent} from './features/teams/team-settings-page/team-settings-page.component';
 import {ProjectsPageComponent} from './features/projects/pages/projects-page/projects-page.component';
+import {NotFoundPageComponent} from './features/not-found/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
     {
@@ -40,13 +41,22 @@ export const routes: Routes = [
         path: 'dashboard',
         component: AppLayoutComponent,
         canActivate: [authGuard],
+        data: {
+            breadcrumb: 'AstushaApp'
+        },
         children: [
             {
                 path: 'settings',
-                component: SettingsPageComponent
+                component: SettingsPageComponent,
+                data: {
+                    breadcrumb: 'Настройки'
+                }
             },
             {
                 path: 'teams',
+                data: {
+                    breadcrumb: 'Команды'
+                },
                 children: [
                     {
                         path: '',
@@ -54,18 +64,27 @@ export const routes: Routes = [
                     },
                     {
                         path: ':teamId/settings',
-                        component: TeamSettingsPageComponent
+                        component: TeamSettingsPageComponent,
+                        data: {
+                            breadcrumb: 'Настройки команды'
+                        }
                     }
                 ]
             },
             {
                 path: 'projects',
-                component: ProjectsPageComponent
+                component: ProjectsPageComponent,
+                data: {
+                    breadcrumb: 'Проекты'
+                }
             },
 
             {
                 path: '',
-                component: DashboardPageComponent
+                component: DashboardPageComponent,
+                data: {
+                    breadcrumb: 'AstushaApp'
+                }
             }
         ]
     },
@@ -76,6 +95,6 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'dashboard'
+        component: NotFoundPageComponent
     }
 ];

@@ -7,21 +7,29 @@
             appearance="outline"
             size="m"
             iconStart="@tui.text-align-justify"
+            [tuiSkeleton]="skeleton"
         >
             Открыть меню
         </button>
 
         <div class="header__title-block">
-            <h1 class="header__title">Дашборд</h1>
+            <h1 class="header__title" [tuiSkeleton]="skeleton"> Дашборд </h1>
 
-            <tui-breadcrumbs class="header__breadcrumbs">
+            <tui-breadcrumbs
+                class="header__breadcrumbs"
+                [tuiSkeleton]="skeleton"
+            >
                 <!-- хлебные крошки потом заполним -->
             </tui-breadcrumbs>
         </div>
     </div>
 
     <div class="header__right">
-        <tui-textfield class="header__search" iconStart="@tui.search">
+        <tui-textfield
+            class="header__search"
+            iconStart="@tui.search"
+            [tuiSkeleton]="skeleton"
+        >
             <input
                 tuiInput
                 type="text"
@@ -36,6 +44,7 @@
             appearance="primary"
             size="m"
             iconStart="@tui.plus"
+            [tuiSkeleton]="skeleton"
         >
             Создать
         </button>
@@ -47,6 +56,7 @@
             appearance="outline"
             size="m"
             iconStart="@tui.bell"
+            [tuiSkeleton]="skeleton"
         >
             Уведомления
         </button>
@@ -58,6 +68,7 @@
             appearance="outline"
             size="m"
             iconStart="@tui.circle-question-mark"
+            [tuiSkeleton]="skeleton"
         >
             Помощь
         </button>
@@ -71,6 +82,7 @@
             appearance="outline"
             size="m"
             iconEnd="@tui.chevron-down"
+            [tuiSkeleton]="!profile"
             [attr.aria-expanded]="open()"
             [tuiDropdown]="userMenuDropdown"
             [tuiDropdownManual]="open()"
@@ -88,9 +100,10 @@
                         {{ profile.login }}
                     </span>
                 }
+            } @else {
+                <span class="header__profile-name"> Загрузка </span>
             }
         </button>
-
         <ng-template #userMenuDropdown>
             <tui-data-list>
                 @for (action of userMenuActions; track action.value) {

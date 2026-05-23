@@ -30,6 +30,7 @@
                     appearance="outline"
                     size="s"
                     iconStart="@tui.sun"
+                    (click)="changeTheme('light')"
                 >
                     Светлая
                 </button>
@@ -40,6 +41,7 @@
                     appearance="primary"
                     size="s"
                     iconStart="@tui.moon"
+                    (click)="changeTheme('dark')"
                 >
                     Тёмная
                 </button>
@@ -50,6 +52,7 @@
                     appearance="outline"
                     size="s"
                     iconStart="@tui.monitor"
+                    (click)="changeTheme('funny')"
                 >
                     Системная
                 </button>

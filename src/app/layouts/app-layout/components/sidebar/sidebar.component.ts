@@ -2,6 +2,7 @@ import {AsyncPipe} from '@angular/common';
 import {Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiHintDirective, TuiIcon} from '@taiga-ui/core';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 import {UsersService} from '../../../../features/users/services/users.service';
 
@@ -20,6 +21,7 @@ import {UsersService} from '../../../../features/users/services/users.service';
 })
 export class SidebarComponent {
     private readonly usersService = inject(UsersService);
-
     protected readonly profile$ = this.usersService.profile$;
+
+    protected skeleton = false;
 }

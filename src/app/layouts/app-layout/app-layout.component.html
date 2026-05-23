@@ -1,7 +1,14 @@
-<div class="app-layout">
+<div
+    class="app-layout"
+    [class.app-layout_background-light]="background() === 'light'"
+    [class.app-layout_background-dark]="background() === 'dark'"
+    [class.app-layout_background-funny]="background() === 'funny'"
+>
     <app-sidebar />
+
     <div class="app-layout__main">
         <app-header />
+
         <main class="app-layout__content">
             <router-outlet />
         </main>

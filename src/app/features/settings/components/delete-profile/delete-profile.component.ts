@@ -33,11 +33,11 @@ export class DeleteProfileComponent {
     protected readonly isDeleteDialogOpen = signal(false);
     private readonly router = inject(Router);
 
-    protected openDeleteDialog(): void {
+    protected openDeleteDialog() {
         this.isDeleteDialogOpen.set(true);
     }
 
-    protected closeDeleteDialog(): void {
+    protected closeDeleteDialog() {
         this.isDeleteDialogOpen.set(false);
     }
 

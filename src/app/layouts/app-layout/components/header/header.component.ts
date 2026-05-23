@@ -15,7 +15,7 @@ import {
     TuiOption,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiAvatar, TuiBreadcrumbs} from '@taiga-ui/kit';
+import {TuiAvatar, TuiBreadcrumbs, TuiSkeleton} from '@taiga-ui/kit';
 
 import {
     UserMenuAction,
@@ -36,7 +36,8 @@ import {AuthService} from '../../../../features/auth/services/auth.service';
         TuiTextfield,
         TuiDataList,
         TuiDropdown,
-        TuiOption
+        TuiOption,
+        TuiSkeleton
     ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.less',
@@ -49,6 +50,8 @@ export class HeaderComponent {
 
     protected readonly profile$ = this.usersService.profile$;
     protected readonly open = signal(false);
+
+    protected skeleton = false;
 
     protected readonly userMenuActions: readonly UserMenuActionOption[] = [
         {
