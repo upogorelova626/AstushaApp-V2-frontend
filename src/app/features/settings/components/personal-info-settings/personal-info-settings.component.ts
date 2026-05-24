@@ -19,7 +19,6 @@ import {
     Validators
 } from '@angular/forms';
 import {finalize, take} from 'rxjs';
-
 import {UsersService} from '../../../users/services/users.service';
 
 type ProfileFormValue = {
@@ -85,42 +84,36 @@ export class PersonalInfoSettinsComponent implements OnInit {
         })
     });
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.form.disable();
-
         this.usersService
             .getMyProfile()
             .pipe(take(1))
-            .subscribe({
-                next: profile => {
-                    const formValue: ProfileFormValue = {
-                        email: profile.email,
-                        firstName: profile.firstName ?? '',
-                        lastName: profile.lastName ?? '',
-                        position: profile.position ?? '',
-                        about: profile.about ?? '',
-                        avatarUrl: profile.avatarUrl ?? ''
-                    };
+            .subscribe(profile => {
+                const formValue: ProfileFormValue = {
+                    email: profile.email,
+                    firstName: profile.firstName ?? '',
+                    lastName: profile.lastName ?? '',
+                    position: profile.position ?? '',
+                    about: profile.about ?? '',
+                    avatarUrl: profile.avatarUrl ?? ''
+                };
 
-                    this.form.patchValue(formValue);
-                    this.initialFormValue = formValue;
+                this.form.patchValue(formValue);
+                this.initialFormValue = formValue;
 
-                    this.form.markAsPristine();
-                    this.form.markAsUntouched();
-                },
-                error: error => {
-                    console.error('Не удалось загрузить профиль', error);
-                }
+                this.form.markAsPristine();
+                this.form.markAsUntouched();
             });
     }
 
-    protected startEditing(): void {
+    protected startEditing() {
         this.isEditing.set(true);
         this.form.enable();
         this.form.controls.email.disable();
     }
 
-    protected cancelEditing(): void {
+    protected cancelEditing() {
         if (this.initialFormValue) {
             this.form.patchValue(this.initialFormValue);
         }
@@ -131,7 +124,7 @@ export class PersonalInfoSettinsComponent implements OnInit {
         this.isEditing.set(false);
     }
 
-    protected saveProfile(): void {
+    protected saveProfile() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
 
@@ -158,29 +151,23 @@ export class PersonalInfoSettinsComponent implements OnInit {
                     this.isSaving.set(false);
                 })
             )
-            .subscribe({
-                next: profile => {
-                    const formValue: ProfileFormValue = {
-                        email: profile.email,
-                        firstName: profile.firstName ?? '',
-                        lastName: profile.lastName ?? '',
-                        position: profile.position ?? '',
-                        about: profile.about ?? '',
-                        avatarUrl: profile.avatarUrl ?? ''
-                    };
+            .subscribe(profile => {
+                const formValue: ProfileFormValue = {
+                    email: profile.email,
+                    firstName: profile.firstName ?? '',
+                    lastName: profile.lastName ?? '',
+                    position: profile.position ?? '',
+                    about: profile.about ?? '',
+                    avatarUrl: profile.avatarUrl ?? ''
+                };
+                this.form.patchValue(formValue);
+                this.initialFormValue = formValue;
 
-                    this.form.patchValue(formValue);
-                    this.initialFormValue = formValue;
+                this.form.markAsPristine();
+                this.form.markAsUntouched();
+                this.form.disable();
 
-                    this.form.markAsPristine();
-                    this.form.markAsUntouched();
-                    this.form.disable();
-
-                    this.isEditing.set(false);
-                },
-                error: error => {
-                    console.error('Не удалось обновить профиль', error);
-                }
+                this.isEditing.set(false);
             });
     }
 }

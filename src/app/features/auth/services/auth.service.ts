@@ -14,7 +14,7 @@ import {
 export class AuthService {
     private readonly http = inject(HttpClient);
 
-    readonly baseApiUrl = 'http://localhost:3000';
+    private readonly baseApiUrl = 'http://localhost:3000';
 
     createAccount(payload: RegisterRequest) {
         return this.http.post<AuthResponse>(

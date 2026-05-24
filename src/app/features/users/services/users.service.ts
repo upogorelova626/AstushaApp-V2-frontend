@@ -14,7 +14,7 @@ import {shareReplay, startWith, Subject, switchMap, tap} from 'rxjs';
 })
 export class UsersService {
     private readonly http = inject(HttpClient);
-    readonly baseApiUrl = 'http://localhost:3000';
+    private readonly baseApiUrl = 'http://localhost:3000';
 
     private readonly refreshProfile$ = new Subject<void>();
 

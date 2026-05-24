@@ -43,16 +43,16 @@
         </button>
     </div>
 
-    <a
+    <button
         tuiButton
         class="projects-searching-wrapper__create-button"
         appearance="primary"
         size="m"
         iconStart="@tui.plus"
-        routerLink="create"
+        (click)="click()"
     >
         Создать проект
-    </a>
+    </button>
 </div>
 
 <router-outlet />

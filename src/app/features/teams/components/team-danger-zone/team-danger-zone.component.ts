@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TuiButton, TuiDialog, TuiIcon} from '@taiga-ui/core';
-
 import {TeamsService} from '../../services/teams.service';
 
 @Component({
@@ -18,26 +17,24 @@ export class TeamDangerZoneComponent {
 
     protected isDeleteTeamDialogOpen = false;
 
-    protected openDeleteTeamDialog(): void {
+    protected openDeleteTeamDialog() {
         this.isDeleteTeamDialogOpen = true;
     }
 
-    protected closeDeleteTeamDialog(): void {
+    protected closeDeleteTeamDialog() {
         this.isDeleteTeamDialogOpen = false;
     }
 
-    protected deleteTeam(): void {
+    protected deleteTeam() {
         const teamId = this.route.snapshot.paramMap.get('teamId');
 
         if (!teamId) {
             return;
         }
 
-        this.teamsService.deleteTeam(teamId).subscribe({
-            next: () => {
-                this.isDeleteTeamDialogOpen = false;
-                this.router.navigate(['/dashboard/teams']);
-            }
+        this.teamsService.deleteTeam(teamId).subscribe(() => {
+            this.isDeleteTeamDialogOpen = false;
+            this.router.navigate(['/dashboard/teams']);
         });
     }
 }

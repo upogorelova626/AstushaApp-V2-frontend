@@ -13,7 +13,7 @@ import {
 export class TeamsService {
     private readonly http = inject(HttpClient);
 
-    readonly baseApiUrl = 'http://localhost:3000';
+    private readonly baseApiUrl = 'http://localhost:3000';
 
     createTeam(payload: CreateTeamRequest) {
         return this.http.post<Team>(`${this.baseApiUrl}/teams`, payload);

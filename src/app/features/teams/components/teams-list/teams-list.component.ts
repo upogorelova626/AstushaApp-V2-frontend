@@ -29,6 +29,7 @@ import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
 import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../interfaces/team.interface';
 import {TeamsService} from '../../services/teams.service';
+import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
 
 @Component({
     selector: 'app-teams-list',
@@ -52,11 +53,7 @@ import {TeamsService} from '../../services/teams.service';
     providers: [
         {
             provide: TUI_VALIDATION_ERRORS,
-            useValue: {
-                required: 'Поле обязательно для заполнения',
-                maxlength: ({requiredLength}: {requiredLength: number}) =>
-                    `Максимальная длина — ${requiredLength} символов`
-            }
+            useValue: VALIDATION_ERRORS
         }
     ]
 })

@@ -14,7 +14,7 @@ import {
 export class TeamMembersService {
     private readonly http = inject(HttpClient);
 
-    readonly baseApiUrl = 'http://localhost:3000';
+    private readonly baseApiUrl = 'http://localhost:3000';
 
     lookupTeamMemberCandidate(teamId: string, identifier: string) {
         return this.http.get<TeamMemberCandidate>(

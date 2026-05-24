@@ -1,0 +1,139 @@
+<form class="create-project-dialog" [formGroup]="form">
+    <tui-textfield>
+        <label tuiLabel>Добавьте название</label>
+        <input tuiAutoFocus tuiInput formControlName="title" />
+    </tui-textfield>
+    <tui-error
+        [formControl]="form.controls.title"
+        [order]="['required', 'minlength', 'maxlength']"
+    />
+
+    <tui-textfield>
+        <label tuiLabel
+            >Добавьте короткий ключ проекта. Например: AST, CRM, BOOKME</label
+        >
+        <input tuiInput formControlName="key" />
+    </tui-textfield>
+    <tui-error
+        [formControl]="form.controls.key"
+        [order]="['required', 'minlength', 'maxlength']"
+    />
+
+    <tui-textfield>
+        <label tuiLabel>Добавьте описание проекта</label>
+        <input tuiInput formControlName="description" />
+    </tui-textfield>
+    <tui-error
+        [formControl]="form.controls.description"
+        [order]="['required', 'maxlength']"
+    />
+
+    <button
+        class="select-button"
+        tuiButton
+        tuiChevron
+        type="button"
+        appearance="floating"
+        [attr.aria-expanded]="isWorkflowDropdownOpen()"
+        [tuiDropdown]="workflowDropdownContent"
+        [tuiDropdownManual]="isWorkflowDropdownOpen()"
+        [tuiObscuredEnabled]="isWorkflowDropdownOpen()"
+        (click)="toggleWorkflowDropdown()"
+        (tuiActiveZoneChange)="onWorkflowActiveZoneChange($event)"
+        (tuiObscured)="onWorkflowObscured($event)"
+    >
+        {{ workflowButtonLabel() }}
+
+        <ng-template #workflowDropdownContent>
+            <tui-data-list>
+                @for (type of workflowTypeOptions; track type.value) {
+                    <button
+                        tuiOption
+                        type="button"
+                        (click)="selectWorkflowType(type)"
+                    >
+                        <span tuiTitle>
+                            {{ type.title }}
+                            <span tuiSubtitle>{{ type.description }}</span>
+                        </span>
+                    </button>
+                }
+            </tui-data-list>
+        </ng-template>
+    </button>
+
+    <button
+        class="select-button"
+        tuiButton
+        tuiChevron
+        type="button"
+        appearance="floating"
+        [attr.aria-expanded]="isPriorityDropdownOpen()"
+        [tuiDropdown]="priorityDropdownContent"
+        [tuiDropdownManual]="isPriorityDropdownOpen()"
+        [tuiObscuredEnabled]="isPriorityDropdownOpen()"
+        (click)="togglePriorityDropdown()"
+        (tuiActiveZoneChange)="onPriorityActiveZoneChange($event)"
+        (tuiObscured)="onPriorityObscured($event)"
+    >
+        {{ priorityButtonLabel() }}
+
+        <ng-template #priorityDropdownContent>
+            <tui-data-list>
+                @for (priority of priorityOptions; track priority.value) {
+                    <button
+                        tuiOption
+                        type="button"
+                        (click)="selectPriority(priority)"
+                    >
+                        <span tuiTitle>
+                            {{ priority.title }}
+                            <span tuiSubtitle>{{ priority.description }}</span>
+                        </span>
+                    </button>
+                }
+            </tui-data-list>
+        </ng-template>
+    </button>
+
+    <tui-textfield>
+        <label tuiLabel>Дата начала</label>
+        <input tuiInputDate formControlName="startDate" />
+        <tui-calendar *tuiDropdown />
+    </tui-textfield>
+    <tui-error
+        [formControl]="form.controls.startDate"
+        [order]="['notPastDateValidator']"
+    />
+
+    <tui-textfield>
+        <label tuiLabel>Дедлайн</label>
+        <input tuiInputDate tuiUnfinishedValidator formControlName="deadline" />
+        <tui-calendar *tuiDropdown />
+    </tui-textfield>
+    <tui-error
+        [formControl]="form.controls.deadline"
+        [order]="['notPastDateValidator']"
+    />
+    @if (
+        form.hasError('deadlineBeforeStartDate') &&
+        form.controls.deadline.touched
+    ) {
+        <div class="form-error"> Дедлайн не может быть раньше даты старта </div>
+    }
+
+    <footer class="buttons">
+        <button
+            appearance="secondary"
+            tuiButton
+            type="button"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button tuiButton type="submit" (click)="createProject()"
+            >Создать</button
+        >
+    </footer>
+</form>

@@ -17,9 +17,9 @@ import {
     TuiTextfieldComponent
 } from '@taiga-ui/core';
 import {TuiPassword} from '@taiga-ui/kit';
-
 import {AuthService} from '../../services/auth.service';
 import {passwordMatchValidator} from '../../validators/password-match.validator';
+import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
 
 @Component({
     selector: 'app-create-account',
@@ -39,15 +39,7 @@ import {passwordMatchValidator} from '../../validators/password-match.validator'
     providers: [
         {
             provide: TUI_VALIDATION_ERRORS,
-            useValue: {
-                required: 'Поле обязательно для заполнения',
-                email: 'Введите корректный email',
-                minlength: ({requiredLength}: {requiredLength: number}) =>
-                    `Минимальная длина — ${requiredLength} символов`,
-                maxlength: ({requiredLength}: {requiredLength: number}) =>
-                    `Максимальная длина — ${requiredLength} символов`,
-                passwordMismatch: 'Пароли не совпадают'
-            }
+            useValue: VALIDATION_ERRORS
         }
     ]
 })
