@@ -3,7 +3,8 @@ import {inject, Injectable} from '@angular/core';
 import {
     Project,
     CreateProjectRequest,
-    UpdateProjectRequest
+    UpdateProjectRequest,
+    ProjectListItem
 } from '../interfaces/projects.interface';
 
 @Injectable({
@@ -19,7 +20,7 @@ export class ProjectsService {
     }
 
     getProjects() {
-        return this.http.get<Project[]>(`${this.baseApiUrl}/projects`);
+        return this.http.get<ProjectListItem[]>(`${this.baseApiUrl}/projects`);
     }
 
     getOneProject(projectId: string) {

@@ -12,17 +12,55 @@ export enum ProjectPriority {
     CRITICAL = 'CRITICAL'
 }
 
+export enum ProjectStatus {
+    ACTIVE = 'ACTIVE',
+    PAUSED = 'PAUSED',
+    COMPLETED = 'COMPLETED',
+    ARCHIVED = 'ARCHIVED'
+}
+
+export interface ProjectCreator {
+    id: string;
+    login: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+    avatarUrl: string | null;
+    position: string | null;
+    about: string | null;
+}
+
+export interface ProjectCounts {
+    members: number;
+    teams: number;
+    tasks: number;
+}
+
 export interface Project {
     id: string;
     title: string;
     key: string;
-    description: string;
+    description: string | null;
+
+    status: ProjectStatus;
     workflowType: ProjectWorkflowType;
     priority: ProjectPriority;
-    startDate: string;
-    deadline: string;
+
+    startDate: string | null;
+    deadline: string | null;
+    completedAt: string | null;
+    archivedAt: string | null;
+
+    creatorId: string;
+
     createdAt: string;
     updatedAt: string;
+}
+
+export interface ProjectListItem extends Project {
+    creator: ProjectCreator;
+
+    _count: ProjectCounts;
 }
 
 export interface CreateProjectRequest {

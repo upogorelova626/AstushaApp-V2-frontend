@@ -6,12 +6,14 @@ import {
     signal
 } from '@angular/core';
 import {
+    TUI_VALIDATION_ERRORS,
     TuiButton,
     TuiInput,
     TuiTextfield,
-    TuiTextfieldComponent
+    TuiTextfieldComponent,
+    TuiError
 } from '@taiga-ui/core';
-import {TuiAvatar, TuiTextarea} from '@taiga-ui/kit';
+import {TuiAvatar, TuiSkeleton, TuiTextarea} from '@taiga-ui/kit';
 import {
     FormControl,
     FormGroup,
@@ -20,6 +22,7 @@ import {
 } from '@angular/forms';
 import {finalize, take} from 'rxjs';
 import {UsersService} from '../../../users/services/users.service';
+import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
 
 type ProfileFormValue = {
     email: string;
@@ -39,17 +42,26 @@ type ProfileFormValue = {
         TuiInput,
         TuiTextfield,
         TuiTextarea,
+        TuiSkeleton,
+        TuiError,
         ReactiveFormsModule
     ],
     templateUrl: './personal-info-settings.component.html',
     styleUrl: './personal-info-settings.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: VALIDATION_ERRORS
+        }
+    ]
 })
 export class PersonalInfoSettinsComponent implements OnInit {
     private readonly usersService = inject(UsersService);
 
     protected readonly isEditing = signal(false);
     protected readonly isSaving = signal(false);
+    protected readonly isProfileLoading = signal(true);
 
     private initialFormValue: ProfileFormValue | null = null;
 
@@ -86,9 +98,14 @@ export class PersonalInfoSettinsComponent implements OnInit {
 
     ngOnInit() {
         this.form.disable();
+        this.isProfileLoading.set(true);
+
         this.usersService
             .getMyProfile()
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                finalize(() => this.isProfileLoading.set(false))
+            )
             .subscribe(profile => {
                 const formValue: ProfileFormValue = {
                     email: profile.email,
@@ -160,6 +177,7 @@ export class PersonalInfoSettinsComponent implements OnInit {
                     about: profile.about ?? '',
                     avatarUrl: profile.avatarUrl ?? ''
                 };
+
                 this.form.patchValue(formValue);
                 this.initialFormValue = formValue;
 

@@ -7,8 +7,21 @@
 
         <div class="stats-card__content">
             <div class="stats-card__title">Всего проектов</div>
-            <div class="stats-card__value">24</div>
-            <div class="stats-card__description">+3 за последний месяц</div>
+
+            <div class="stats-card__value" [tuiSkeleton]="isProjectsLoading()">
+                @if (!isProjectsLoading()) {
+                    {{ totalProjectsCount() }}
+                }
+            </div>
+
+            <div
+                class="stats-card__description"
+                [tuiSkeleton]="isProjectsLoading()"
+            >
+                @if (!isProjectsLoading()) {
+                    +{{ projectsCreatedLastMonthCount() }} за последний месяц
+                }
+            </div>
         </div>
     </div>
 
@@ -20,8 +33,21 @@
 
         <div class="stats-card__content">
             <div class="stats-card__title">Активные проекты</div>
-            <div class="stats-card__value">18</div>
-            <div class="stats-card__description">75% от общего числа</div>
+
+            <div class="stats-card__value" [tuiSkeleton]="isProjectsLoading()">
+                @if (!isProjectsLoading()) {
+                    {{ activeProjects() }}
+                }
+            </div>
+
+            <div
+                class="stats-card__description"
+                [tuiSkeleton]="isProjectsLoading()"
+            >
+                @if (!isProjectsLoading()) {
+                    {{ activeProjectsPercent() }}% от общего числа
+                }
+            </div>
         </div>
     </div>
 
@@ -33,8 +59,21 @@
 
         <div class="stats-card__content">
             <div class="stats-card__title">Завершённые проекты</div>
-            <div class="stats-card__value">6</div>
-            <div class="stats-card__description">+2 за последний месяц</div>
+
+            <div class="stats-card__value" [tuiSkeleton]="isProjectsLoading()">
+                @if (!isProjectsLoading()) {
+                    {{ completedProjectsCount() }}
+                }
+            </div>
+
+            <div
+                class="stats-card__description"
+                [tuiSkeleton]="isProjectsLoading()"
+            >
+                @if (!isProjectsLoading()) {
+                    +{{ projectsCompletedLastMonthCount() }} за последний месяц
+                }
+            </div>
         </div>
     </div>
 
@@ -43,8 +82,21 @@
 
         <div class="stats-card__content">
             <div class="stats-card__title">Скоро дедлайн</div>
-            <div class="stats-card__value">5</div>
-            <div class="stats-card__description">В течение 14 дней</div>
+
+            <div class="stats-card__value" [tuiSkeleton]="isProjectsLoading()">
+                @if (!isProjectsLoading()) {
+                    {{ projectsWithUpcomingDeadlineCount() }}
+                }
+            </div>
+
+            <div
+                class="stats-card__description"
+                [tuiSkeleton]="isProjectsLoading()"
+            >
+                @if (!isProjectsLoading()) {
+                    В течение 14 дней
+                }
+            </div>
         </div>
     </div>
 </div>
