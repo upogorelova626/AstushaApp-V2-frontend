@@ -1,0 +1,129 @@
+.project-info-card {
+    min-height: 320px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    background: var(--color-page-bg-start);
+
+    &__header {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__header-icon {
+        width: 22px;
+        height: 22px;
+        color: var(--color-primary-light);
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 700;
+    }
+
+    &__content {
+        flex: 1;
+    }
+
+    &__list {
+        margin: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: minmax(120px, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__label {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+    }
+
+    &__value {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+    }
+
+    &__priority {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__priority-dot {
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: var(--color-danger);
+    }
+
+    &__stats {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    &__stat {
+        min-width: 0;
+        min-height: 64px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--color-card-border);
+        border-radius: 14px;
+        background: var(--color-card-bg);
+    }
+
+    &__stat-icon {
+        width: 24px;
+        height: 24px;
+
+        flex-shrink: 0;
+
+        color: var(--color-primary-light);
+    }
+
+    &__stat-content {
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__stat-label {
+        color: var(--color-text-secondary);
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
+    }
+
+    &__stat-value {
+        color: var(--color-text-primary);
+        font-size: 22px;
+        line-height: 28px;
+        font-weight: 700;
+    }
+}

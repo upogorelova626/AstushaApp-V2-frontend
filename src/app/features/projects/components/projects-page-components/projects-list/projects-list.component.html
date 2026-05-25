@@ -118,13 +118,16 @@
                         </td>
 
                         <td>
-                            <button
+                            <a
                                 tuiIconButton
                                 type="button"
                                 appearance="outline"
                                 size="s"
                                 iconStart="@tui.ellipsis"
-                            ></button>
+                                tuiHint="Подробнее о проекте"
+                                tuiHintDirection="top-end"
+                                [routerLink]="[project.id]"
+                            ></a>
                         </td>
                     </tr>
                 }

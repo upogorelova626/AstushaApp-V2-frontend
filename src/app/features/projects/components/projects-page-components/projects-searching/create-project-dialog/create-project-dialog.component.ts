@@ -32,23 +32,23 @@ import {injectContext} from '@taiga-ui/polymorpheus';
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
-} from '../../../validators/project-dates.validator';
+} from '../../../../validators/project-dates.validator';
 import {
     WorkflowTypeOption,
     ProjectPriorityOption
-} from '../../../interfaces/workflow-and-priority.interface';
+} from '../../../../interfaces/workflow-and-priority.interface';
 import {
     CreateProjectRequest,
     ProjectPriority,
     ProjectWorkflowType
-} from '../../../interfaces/projects.interface';
-import {ProjectsService} from '../../../services/projects.service';
-import {tuiDayToDateString} from '../../../../../shared/utils/tui-day-to-date-string';
+} from '../../../../interfaces/projects.interface';
+import {ProjectsService} from '../../../../services/projects.service';
+import {tuiDayToDateString} from '../../../../../../shared/utils/tui-day-to-date-string';
 import {
     PROJECT_WORKFLOW_TYPE_OPTIONS,
     PROJECT_PRIORITY_OPTIONS
-} from '../../../constants/project-options';
-import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
+} from '../../../../constants/project-options';
+import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-errors';
 import {Router} from '@angular/router';
 
 @Component({
@@ -217,7 +217,7 @@ export class CreateProjectDialogComponent {
         };
         this.projectsService.createProject(payload).subscribe(project => {
             this.context.$implicit.complete();
-            this.router.navigate(['/projects', project.id]);
+            this.router.navigate(['dashboard/projects', project.id]);
         });
     }
 }

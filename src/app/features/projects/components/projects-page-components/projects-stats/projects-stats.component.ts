@@ -9,10 +9,10 @@ import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
 
 import {
-    ProjectListItem,
-    ProjectStatus
-} from '../../interfaces/projects.interface';
-import {ProjectsService} from '../../services/projects.service';
+    ProjectStatus,
+    ProjectListItem
+} from '../../../interfaces/projects.interface';
+import {ProjectsService} from '../../../services/projects.service';
 
 @Component({
     selector: 'app-projects-stats',

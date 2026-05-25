@@ -1,0 +1,126 @@
+<section class="project-info-card" [tuiSkeleton]="isLoading()">
+    @if (project(); as projectData) {
+        <header class="project-info-card__header">
+            <tui-icon class="project-info-card__header-icon" icon="@tui.info" />
+
+            <h2 class="project-info-card__title">О проекте</h2>
+        </header>
+
+        <main class="project-info-card__content">
+            <div class="project-info-card__list">
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Ключ проекта</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.key }}
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Создатель</div>
+                    <div class="project-info-card__value">
+                        @if (
+                            projectData.creator.firstName ||
+                            projectData.creator.lastName
+                        ) {
+                            {{ projectData.creator.firstName }}
+                            {{ projectData.creator.lastName }}
+                        } @else {
+                            {{ projectData.creator.login }}
+                        }
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Приоритет</div>
+                    <div class="project-info-card__value">
+                        <span class="project-info-card__priority">
+                            <span
+                                class="project-info-card__priority-dot"
+                            ></span>
+                            {{ projectData.priority | projectPriority }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Тип процесса</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.workflowType | projectWorkflowType }}
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Дата старта</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.startDate | date }}
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Дедлайн</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.deadline | date }}
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Создан</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.createdAt | date }}
+                    </div>
+                </div>
+
+                <div class="project-info-card__row">
+                    <div class="project-info-card__label">Обновлён</div>
+                    <div class="project-info-card__value">
+                        {{ projectData.updatedAt | date }}
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="project-info-card__stats">
+            <div class="project-info-card__stat">
+                <tui-icon
+                    class="project-info-card__stat-icon"
+                    icon="@tui.clipboard-list"
+                />
+
+                <div class="project-info-card__stat-content">
+                    <span class="project-info-card__stat-label">Задачи</span>
+                    <span class="project-info-card__stat-value">
+                        {{ projectData._count.tasks }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="project-info-card__stat">
+                <tui-icon
+                    class="project-info-card__stat-icon"
+                    icon="@tui.users"
+                />
+
+                <div class="project-info-card__stat-content">
+                    <span class="project-info-card__stat-label">Участники</span>
+                    <span class="project-info-card__stat-value">
+                        {{ projectData._count.members }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="project-info-card__stat">
+                <tui-icon
+                    class="project-info-card__stat-icon"
+                    icon="@tui.activity"
+                />
+
+                <div class="project-info-card__stat-content">
+                    <span class="project-info-card__stat-label">Команда</span>
+                    <span class="project-info-card__stat-value">
+                        {{ projectData._count.teams }}
+                    </span>
+                </div>
+            </div>
+        </footer>
+    }
+</section>

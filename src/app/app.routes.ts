@@ -12,6 +12,7 @@ import {TeamsPageComponent} from './features/teams/teams-page/teams-page.compone
 import {TeamSettingsPageComponent} from './features/teams/team-settings-page/team-settings-page.component';
 import {ProjectsPageComponent} from './features/projects/pages/projects-page/projects-page.component';
 import {NotFoundPageComponent} from './features/not-found/not-found-page/not-found-page.component';
+import {ProjectDetailPageComponent} from './features/projects/pages/project-detail-page/project-detail-page.component';
 
 export const routes: Routes = [
     {
@@ -73,10 +74,22 @@ export const routes: Routes = [
             },
             {
                 path: 'projects',
-                component: ProjectsPageComponent,
                 data: {
                     breadcrumb: 'Проекты'
-                }
+                },
+                children: [
+                    {
+                        path: '',
+                        component: ProjectsPageComponent
+                    },
+                    {
+                        path: ':projectId',
+                        component: ProjectDetailPageComponent,
+                        data: {
+                            breadcrumb: 'Проект'
+                        }
+                    }
+                ]
             },
 
             {

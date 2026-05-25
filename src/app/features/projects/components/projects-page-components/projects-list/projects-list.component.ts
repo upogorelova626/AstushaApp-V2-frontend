@@ -5,18 +5,27 @@ import {
     OnInit,
     signal
 } from '@angular/core';
-import {TuiButton} from '@taiga-ui/core';
+import {TuiButton, TuiHint} from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
-import {ProjectsService} from '../../services/projects.service';
-import {ProjectListItem} from '../../interfaces/projects.interface';
+import {ProjectsService} from '../../../services/projects.service';
+import {ProjectListItem} from '../../../interfaces/projects.interface';
 import {DatePipe} from '@angular/common';
-import {ProjectStatusPipe} from '../../../../shared/pipes/project-status.pipe';
+import {ProjectStatusPipe} from '../../../../../shared/pipes/project-status.pipe';
 import {finalize} from 'rxjs';
 import {TuiSkeleton} from '@taiga-ui/kit';
+import {RouterLink} from '@angular/router';
 
 @Component({
     selector: 'app-projects-list',
-    imports: [TuiButton, TuiAvatar, DatePipe, ProjectStatusPipe, TuiSkeleton],
+    imports: [
+        TuiButton,
+        TuiAvatar,
+        TuiSkeleton,
+        TuiHint,
+        RouterLink,
+        DatePipe,
+        ProjectStatusPipe
+    ],
     templateUrl: './projects-list.component.html',
     styleUrl: './projects-list.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

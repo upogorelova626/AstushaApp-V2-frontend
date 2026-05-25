@@ -1,0 +1,66 @@
+.project-team-card {
+    min-height: 320px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    background: var(--color-page-bg-start);
+}
+
+.project-team-card__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.project-team-card__header-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary-light);
+}
+
+.project-team-card__title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-heading-h6);
+}
+
+.project-team-card__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.project-team-card__empty-icon {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-primary-light);
+    background: var(--color-card-bg);
+}
+
+.project-team-card__empty-title {
+    margin: 0 0 8px;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-heading-h6);
+}
+
+.project-team-card__empty-description {
+    max-width: 320px;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-ui-m);
+}
+
+.project-team-card__footer {
+    display: flex;
+    justify-content: center;
+}

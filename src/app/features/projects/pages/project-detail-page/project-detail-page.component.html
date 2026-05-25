@@ -1,0 +1,31 @@
+<div class="project-detail-page">
+    <div class="project-detail-page__top">
+        <app-project-card
+            class="project-detail-page__card"
+            [project]="project()"
+            [isLoading]="isProjectLoading()"
+        />
+
+        <app-project-team-card
+            class="project-detail-page__card"
+            [tuiSkeleton]="isProjectLoading()"
+        />
+
+        <app-project-quick-actions
+            class="project-detail-page__card"
+            [tuiSkeleton]="isProjectLoading()"
+        />
+    </div>
+
+    <div class="project-detail-page__bottom">
+        <app-project-last-tasks
+            class="project-detail-page__card"
+            [tuiSkeleton]="isProjectLoading()"
+        />
+
+        <app-project-activity
+            class="project-detail-page__card"
+            [tuiSkeleton]="isProjectLoading()"
+        />
+    </div>
+</div>
