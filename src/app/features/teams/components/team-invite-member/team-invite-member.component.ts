@@ -116,7 +116,7 @@ export class TeamInviteMemberComponent implements OnInit {
         () => this.selected()?.title ?? 'Выберите роль для участника'
     );
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.lookupForm.valueChanges
             .pipe(
                 debounceTime(500),
@@ -158,29 +158,29 @@ export class TeamInviteMemberComponent implements OnInit {
             });
     }
 
-    protected onClick(): void {
+    protected onClick() {
         this.open.update(open => !open);
     }
 
-    protected onObscured(obscured: boolean): void {
+    protected onObscured(obscured: boolean) {
         if (obscured) {
             this.open.set(false);
         }
     }
 
-    protected onActiveZone(active: boolean): void {
+    protected onActiveZone(active: boolean) {
         if (!active) {
             this.open.set(false);
         }
     }
 
-    protected onSelect(role: Roles): void {
+    protected onSelect(role: Roles) {
         this.selected.set(role);
         this.roleError.set(null);
         this.open.set(false);
     }
 
-    protected addMember(): void {
+    protected addMember() {
         if (this.isSubmitting()) {
             return;
         }
@@ -230,7 +230,7 @@ export class TeamInviteMemberComponent implements OnInit {
             });
     }
 
-    protected clearForm(): void {
+    protected clearForm() {
         this.lookupForm.reset();
         this.messageControl.reset();
 

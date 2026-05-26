@@ -36,7 +36,7 @@ export class ProjectsSearchingComponent {
     private readonly dialogs = inject(TuiDialogService);
     private readonly injector = inject(Injector);
 
-    protected click(): void {
+    protected click() {
         this.dialogs
             .open<string>(
                 new PolymorpheusComponent(

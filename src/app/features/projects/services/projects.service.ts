@@ -6,6 +6,7 @@ import {
     UpdateProjectRequest,
     ProjectListItem
 } from '../interfaces/projects.interface';
+import {Team} from '../../teams/interfaces/team.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -38,5 +39,23 @@ export class ProjectsService {
 
     deleteProject(projectId: string) {
         return this.http.delete(`${this.baseApiUrl}/projects/${projectId}`);
+    }
+
+    getProjectTeamCandidates(projectId: string, search: string) {
+        return this.http.get<Team[]>(
+            `${this.baseApiUrl}/projects/${projectId}/team-candidates`,
+            {
+                params: {
+                    search
+                }
+            }
+        );
+    }
+
+    addTeamToProject(projectId: string, payload: {teamId: string}) {
+        return this.http.post(
+            `${this.baseApiUrl}/projects/${projectId}/teams`,
+            payload
+        );
     }
 }

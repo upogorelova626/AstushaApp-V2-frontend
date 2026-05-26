@@ -71,12 +71,12 @@ export class TeamMainSettingsComponent {
         });
     }
 
-    protected startEditing(): void {
+    protected startEditing() {
         this.isEditing.set(true);
         this.form.enable();
     }
 
-    protected saveTeam(): void {
+    protected saveTeam() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
 
@@ -123,7 +123,7 @@ export class TeamMainSettingsComponent {
         });
     }
 
-    protected cancelEditing(): void {
+    protected cancelEditing() {
         const team = this.team();
 
         this.form.patchValue({

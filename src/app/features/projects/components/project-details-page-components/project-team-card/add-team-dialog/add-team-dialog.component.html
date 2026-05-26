@@ -1,0 +1,57 @@
+<form tuiForm class="form" (ngSubmit)="submit()">
+    <tui-textfield class="textfield" iconStart="@tui.search">
+        <input
+            tuiAutoFocus
+            tuiInput
+            placeholder="Введите название команды"
+            [formControl]="form"
+        />
+    </tui-textfield>
+
+    @if (isSearching()) {
+        <div class="team-search-state">Ищем команды...</div>
+    }
+
+    @if (!isSearching() && foundTeams().length > 0) {
+        <div class="team-results">
+            @for (team of foundTeams(); track team.id) {
+                <button
+                    class="team-results__item"
+                    type="button"
+                    [class.team-results__item_selected]="
+                        selectedTeam()?.id === team.id
+                    "
+                    (click)="selectTeam(team)"
+                >
+                    {{ team.name }}
+                </button>
+            }
+        </div>
+    }
+
+    @if (!isSearching() && form.value.trim() && foundTeams().length === 0) {
+        <div class="team-search-state">Команда не найдена</div>
+    }
+
+    <footer class="buttons">
+        <button
+            appearance="secondary"
+            tuiButton
+            type="button"
+            size="m"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button
+            tuiButton
+            type="submit"
+            size="m"
+            iconStart="@tui.plus"
+            [disabled]="!selectedTeam()"
+        >
+            Добавить
+        </button>
+    </footer>
+</form>

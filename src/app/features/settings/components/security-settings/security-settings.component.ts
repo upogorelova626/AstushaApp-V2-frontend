@@ -82,16 +82,16 @@ export class SecuritySettingsComponent {
         }
     );
 
-    protected openChangePasswordDialog(): void {
+    protected openChangePasswordDialog() {
         this.isChangeDialogOpen.set(true);
     }
 
-    protected closeChangePasswordDialog(): void {
+    protected closeChangePasswordDialog() {
         this.isChangeDialogOpen.set(false);
         this.form.reset();
     }
 
-    protected changePassword(): void {
+    protected changePassword() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
 

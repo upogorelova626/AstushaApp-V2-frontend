@@ -73,11 +73,11 @@ export class TeamMembersSettingsComponent implements OnInit {
         }
     ];
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.loadMembers();
     }
 
-    protected loadMembers(): void {
+    protected loadMembers() {
         this.isError.set(false);
         this.isLoading.set(true);
 
@@ -93,22 +93,19 @@ export class TeamMembersSettingsComponent implements OnInit {
         });
     }
 
-    protected toggleMemberActions(memberId: string): void {
+    protected toggleMemberActions(memberId: string) {
         this.openedMemberId.update(openedMemberId =>
             openedMemberId === memberId ? null : memberId
         );
     }
 
-    protected onMemberObscured(obscured: boolean, memberId: string): void {
+    protected onMemberObscured(obscured: boolean, memberId: string) {
         if (obscured && this.openedMemberId() === memberId) {
             this.openedMemberId.set(null);
         }
     }
 
-    protected onMemberAction(
-        action: TeamMemberAction,
-        member: TeamMember
-    ): void {
+    protected onMemberAction(action: TeamMemberAction, member: TeamMember) {
         this.openedMemberId.set(null);
 
         switch (action) {
@@ -150,7 +147,7 @@ export class TeamMembersSettingsComponent implements OnInit {
         }
     }
 
-    protected changeMemberRole(member: TeamMember): void {
+    protected changeMemberRole(member: TeamMember) {
         if (member.role === TeamRole.Owner) {
             return;
         }
@@ -175,7 +172,7 @@ export class TeamMembersSettingsComponent implements OnInit {
             });
     }
 
-    protected deleteMember(member: TeamMember): void {
+    protected deleteMember(member: TeamMember) {
         if (member.role === TeamRole.Owner) {
             return;
         }
@@ -202,7 +199,7 @@ export class TeamMembersSettingsComponent implements OnInit {
             : TeamRole.Admin;
     }
 
-    private openProfile(member: TeamMember): void {
+    private openProfile(member: TeamMember) {
         void member;
     }
 }

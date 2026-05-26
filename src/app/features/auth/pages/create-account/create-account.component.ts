@@ -92,7 +92,7 @@ export class CreateAccountComponent {
         }
     );
 
-    createAccount(): void {
+    createAccount() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
 

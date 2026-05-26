@@ -68,13 +68,13 @@ export class HeaderComponent {
         }
     ];
 
-    protected toggleUserMenu(event: MouseEvent): void {
+    protected toggleUserMenu(event: MouseEvent) {
         event.stopPropagation();
 
         this.open.update(open => !open);
     }
 
-    protected onUserMenuAction(action: UserMenuAction): void {
+    protected onUserMenuAction(action: UserMenuAction) {
         this.open.set(false);
 
         switch (action) {
@@ -92,7 +92,7 @@ export class HeaderComponent {
         }
     }
 
-    protected logout(): void {
+    protected logout() {
         this.authService.logout().subscribe({
             next: () => {
                 this.router.navigate(['/auth/login']);
@@ -100,5 +100,5 @@ export class HeaderComponent {
         });
     }
 
-    protected openUserPage(): void {}
+    protected openUserPage() {}
 }

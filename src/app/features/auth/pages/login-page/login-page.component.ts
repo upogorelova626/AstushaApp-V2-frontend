@@ -53,7 +53,7 @@ export class LoginPageComponent {
         })
     });
 
-    login(): void {
+    login() {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
