@@ -27,7 +27,10 @@ import {
     tap
 } from 'rxjs';
 
-import {Team} from '../../../../../teams/interfaces/team.interface';
+import {
+    ProjectTeam,
+    Team
+} from '../../../../../teams/interfaces/team.interface';
 import {ProjectsService} from '../../../../services/projects.service';
 
 @Component({
@@ -46,7 +49,7 @@ import {ProjectsService} from '../../../../services/projects.service';
 })
 export class AddTeamDialogComponent implements OnInit {
     protected readonly context =
-        injectContext<TuiDialogContext<string, string>>();
+        injectContext<TuiDialogContext<ProjectTeam, string>>();
 
     protected readonly projectId = this.context.data;
 
@@ -56,6 +59,7 @@ export class AddTeamDialogComponent implements OnInit {
     protected readonly foundTeams = signal<Team[]>([]);
     protected readonly selectedTeam = signal<Team | null>(null);
     protected readonly isSearching = signal(false);
+    protected readonly isAdding = signal(false);
 
     protected readonly form = new FormControl('', {
         nonNullable: true,
@@ -104,10 +108,19 @@ export class AddTeamDialogComponent implements OnInit {
     protected submit() {
         const team = this.selectedTeam();
 
-        if (!team) {
+        if (!team || this.isAdding()) {
             return;
         }
 
-        this.context.completeWith(team.id);
+        this.isAdding.set(true);
+
+        this.projectsService
+            .addTeamToProject(this.projectId, {
+                teamId: team.id
+            })
+            .pipe(finalize(() => this.isAdding.set(false)))
+            .subscribe(addedTeam => {
+                this.context.completeWith(addedTeam);
+            });
     }
 }

@@ -14,6 +14,7 @@ import {ProjectsPageComponent} from './features/projects/pages/projects-page/pro
 import {NotFoundPageComponent} from './features/not-found/not-found-page/not-found-page.component';
 import {ProjectDetailPageComponent} from './features/projects/pages/project-detail-page/project-detail-page.component';
 import {ProjectMembersPageComponent} from './features/projects/pages/project-members-page/project-members-page.component';
+import {ProjectSettingsPageComponent} from './features/projects/pages/project-settings-page/project-settings-page.component';
 
 export const routes: Routes = [
     {
@@ -43,6 +44,7 @@ export const routes: Routes = [
         path: 'dashboard',
         component: AppLayoutComponent,
         canActivate: [authGuard],
+        canActivateChild: [authGuard],
         data: {
             breadcrumb: 'AstushaApp'
         },
@@ -95,6 +97,13 @@ export const routes: Routes = [
                         component: ProjectMembersPageComponent,
                         data: {
                             breadcrumb: 'Участники проекта'
+                        }
+                    },
+                    {
+                        path: ':projectId/settings',
+                        component: ProjectSettingsPageComponent,
+                        data: {
+                            breadcrumb: 'Настройки проекта'
                         }
                     }
                 ]

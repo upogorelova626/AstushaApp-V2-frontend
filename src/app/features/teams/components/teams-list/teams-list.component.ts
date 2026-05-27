@@ -24,7 +24,6 @@ import {
     TuiTextfield
 } from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
-
 import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
 import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../interfaces/team.interface';

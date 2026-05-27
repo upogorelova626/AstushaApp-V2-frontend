@@ -1,15 +1,38 @@
-<nav class="project-navigate">
-    <a tuiButton appearance="flat" class="project-navigate__link"> Обзор </a>
-
-    <a tuiButton appearance="flat" class="project-navigate__link">Задачи</a>
+<tui-tabs class="project-navigate">
+    <a
+        tuiTab
+        class="project-navigate__link"
+        [routerLink]="['/dashboard/projects', projectId()]"
+        routerLinkActive="project-navigate__link_active"
+        [routerLinkActiveOptions]="{exact: true}"
+    >
+        Обзор
+    </a>
 
     <a
-        tuiButton
-        appearance="flat"
+        tuiTab
         class="project-navigate__link"
-        [routerLink]="['members']"
-        >Участники</a
+        [routerLink]="['/dashboard/projects', projectId(), 'tasks']"
+        routerLinkActive="project-navigate__link_active"
     >
+        Задачи
+    </a>
 
-    <a tuiButton appearance="flat" class="project-navigate__link">Настройки</a>
-</nav>
+    <a
+        tuiTab
+        class="project-navigate__link"
+        [routerLink]="['/dashboard/projects', projectId(), 'members']"
+        routerLinkActive="project-navigate__link_active"
+    >
+        Участники
+    </a>
+
+    <a
+        tuiTab
+        class="project-navigate__link"
+        [routerLink]="['/dashboard/projects', projectId(), 'settings']"
+        routerLinkActive="project-navigate__link_active"
+    >
+        Настройки
+    </a>
+</tui-tabs>

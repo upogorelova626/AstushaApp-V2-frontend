@@ -1,15 +1,14 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
-import {Team} from '../../teams/interfaces/team.interface';
-import {
-    Project,
-    CreateProjectRequest,
-    UpdateProjectRequest,
-    ProjectListItem
-} from '../interfaces/project.interface';
 
-import {ProjectTeam} from '../../teams/interfaces/team.interface';
 import {ProjectMember} from '../interfaces/project-member.interface';
+import {
+    CreateProjectRequest,
+    Project,
+    ProjectListItem,
+    UpdateProjectRequest
+} from '../interfaces/project.interface';
+import {ProjectTeam, Team} from '../../teams/interfaces/team.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -44,6 +43,12 @@ export class ProjectsService {
         return this.http.delete(`${this.baseApiUrl}/projects/${projectId}`);
     }
 
+    getProjectTeam(projectId: string) {
+        return this.http.get<Team | null>(
+            `${this.baseApiUrl}/projects/${projectId}/team`
+        );
+    }
+
     getProjectTeamCandidates(projectId: string, search: string) {
         return this.http.get<Team[]>(
             `${this.baseApiUrl}/projects/${projectId}/team-candidates`,
@@ -59,12 +64,6 @@ export class ProjectsService {
         return this.http.post<ProjectTeam>(
             `${this.baseApiUrl}/projects/${projectId}/teams`,
             payload
-        );
-    }
-
-    getProjectTeam(projectId: string) {
-        return this.http.get<Team | null>(
-            `${this.baseApiUrl}/projects/${projectId}/team`
         );
     }
 

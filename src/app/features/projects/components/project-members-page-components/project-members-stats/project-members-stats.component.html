@@ -5,7 +5,9 @@
         <div class="project-members-summary__content">
             <div class="project-members-summary__title">Всего участников</div>
 
-            <div class="project-members-summary__value">7</div>
+            <div class="project-members-summary__value">{{
+                projectMembersCount()
+            }}</div>
 
             <div class="project-members-summary__description">
                 В команде проекта
@@ -38,7 +40,9 @@
                 Руководители проекта
             </div>
 
-            <div class="project-members-summary__value">1</div>
+            <div class="project-members-summary__value">{{
+                projectManagersCount()
+            }}</div>
 
             <div class="project-members-summary__description">
                 Отвечают за успех проекта
