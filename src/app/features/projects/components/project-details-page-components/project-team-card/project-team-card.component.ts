@@ -1,14 +1,22 @@
-import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    effect,
+    inject,
+    input,
+    signal
+} from '@angular/core';
 import {
     TuiButton,
     TuiDialogService,
+    TuiIcon,
     TuiNotificationService
 } from '@taiga-ui/core';
-import {TuiIcon} from '@taiga-ui/core';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {switchMap} from 'rxjs';
+import {switchMap, tap} from 'rxjs';
 
-import {ProjectListItem} from '../../../interfaces/projects.interface';
+import {Team} from '../../../../teams/interfaces/team.interface';
+import {ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {AddTeamDialogComponent} from './add-team-dialog/add-team-dialog.component';
 
@@ -26,6 +34,22 @@ export class ProjectTeamCardComponent {
 
     readonly project = input<ProjectListItem | null>(null);
 
+    protected readonly team = signal<Team | null>(null);
+
+    constructor() {
+        effect(() => {
+            const project = this.project();
+
+            if (!project) {
+                this.team.set(null);
+
+                return;
+            }
+
+            this.getTeam(project.id).subscribe();
+        });
+    }
+
     protected click() {
         const project = this.project();
 
@@ -41,6 +65,9 @@ export class ProjectTeamCardComponent {
             })
             .pipe(
                 switchMap(teamId => this.addTeamToProject(project.id, teamId)),
+                tap(projectTeam => {
+                    this.team.set(projectTeam.team);
+                }),
                 switchMap(() => this.alerts.open('Команда добавлена в проект'))
             )
             .subscribe();
@@ -50,5 +77,13 @@ export class ProjectTeamCardComponent {
         return this.projectsService.addTeamToProject(projectId, {
             teamId
         });
+    }
+
+    private getTeam(projectId: string) {
+        return this.projectsService.getProjectTeam(projectId).pipe(
+            tap(team => {
+                this.team.set(team);
+            })
+        );
     }
 }

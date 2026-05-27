@@ -1,0 +1,7 @@
+<div class="project-members__page">
+    <app-project-navigate />
+    <app-project-members-stats />
+    @if (projectId(); as projectId) {
+        <app-project-members [projectId]="projectId" />
+    }
+</div>

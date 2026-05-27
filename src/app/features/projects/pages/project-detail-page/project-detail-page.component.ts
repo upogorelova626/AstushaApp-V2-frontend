@@ -14,8 +14,9 @@ import {ProjectCardComponent} from '../../components/project-details-page-compon
 import {ProjectLastTasksComponent} from '../../components/project-details-page-components/project-last-tasks/project-last-tasks.component';
 import {ProjectQuickActionsComponent} from '../../components/project-details-page-components/project-quick-actions/project-quick-actions.component';
 import {ProjectTeamCardComponent} from '../../components/project-details-page-components/project-team-card/project-team-card.component';
-import {ProjectListItem} from '../../interfaces/projects.interface';
+import {ProjectListItem} from '../../interfaces/project.interface';
 import {ProjectsService} from '../../services/projects.service';
+import {ProjectNavigateComponent} from '../../components/project-details-page-components/project-navigate/project-navigate.component';
 
 @Component({
     selector: 'app-project-detail-page',
@@ -25,7 +26,8 @@ import {ProjectsService} from '../../services/projects.service';
         ProjectTeamCardComponent,
         ProjectQuickActionsComponent,
         ProjectLastTasksComponent,
-        ProjectActivityComponent
+        ProjectActivityComponent,
+        ProjectNavigateComponent
     ],
     templateUrl: './project-detail-page.component.html',
     styleUrl: './project-detail-page.component.less',

@@ -5,31 +5,116 @@
         <h2 class="project-team-card__title">Команда проекта</h2>
     </header>
 
-    <main class="project-team-card__content">
-        <div class="project-team-card__empty-icon">
-            <tui-icon icon="@tui.users-round" />
-        </div>
+    @if (team(); as teamData) {
+        <main class="project-team-card__team">
+            <div class="project-team-card__team-top">
+                <div class="project-team-card__avatar">
+                    @if (teamData.avatarUrl) {
+                        <img
+                            class="project-team-card__avatar-img"
+                            [src]="teamData.avatarUrl"
+                            [alt]="teamData.name"
+                        />
+                    } @else {
+                        <tui-icon icon="@tui.users" />
+                    }
+                </div>
 
-        <h3 class="project-team-card__empty-title">
-            К проекту пока не привязана команда
-        </h3>
+                <div class="project-team-card__team-info">
+                    <h3 class="project-team-card__team-name">
+                        {{ teamData.name }}
+                    </h3>
 
-        <p class="project-team-card__empty-description">
-            Пригласите команду, чтобы участники могли работать над задачами
-            проекта
-        </p>
-    </main>
+                    <p class="project-team-card__team-description">
+                        {{
+                            teamData.description ||
+                                'У команды пока нет описания'
+                        }}
+                    </p>
+                </div>
+            </div>
 
-    <footer class="project-team-card__footer">
-        <button
-            tuiButton
-            type="button"
-            appearance="outline"
-            size="m"
-            iconStart="@tui.plus"
-            (click)="click()"
+            <div class="project-team-card__meta">
+                <div class="project-team-card__meta-item">
+                    <tui-icon icon="@tui.users" />
+
+                    <div>
+                        <div class="project-team-card__meta-label">
+                            Участники
+                        </div>
+
+                        <div class="project-team-card__meta-value">
+                            Команда проекта
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-team-card__meta-item">
+                    <tui-icon icon="@tui.folder-kanban" />
+
+                    <div>
+                        <div class="project-team-card__meta-label">
+                            Статус
+                        </div>
+
+                        <div class="project-team-card__meta-value">
+                            Привязана к проекту
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer
+            class="project-team-card__footer project-team-card__footer_team"
         >
-            Добавить команду
-        </button>
-    </footer>
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.external-link"
+            >
+                Открыть команду
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary-destructive"
+                size="m"
+                iconStart="@tui.unlink"
+            >
+                Отвязать
+            </button>
+        </footer>
+    } @else {
+        <main class="project-team-card__content">
+            <div class="project-team-card__empty-icon">
+                <tui-icon icon="@tui.users-round" />
+            </div>
+
+            <h3 class="project-team-card__empty-title">
+                К проекту пока не привязана команда
+            </h3>
+
+            <p class="project-team-card__empty-description">
+                Пригласите команду, чтобы участники могли работать над задачами
+                проекта
+            </p>
+        </main>
+
+        <footer class="project-team-card__footer">
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.plus"
+                (click)="click()"
+            >
+                Добавить команду
+            </button>
+        </footer>
+    }
 </section>

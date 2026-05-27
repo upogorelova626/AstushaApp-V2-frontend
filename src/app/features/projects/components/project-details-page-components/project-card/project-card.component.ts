@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {TuiIcon} from '@taiga-ui/core';
 import {TuiSkeleton} from '@taiga-ui/kit';
 
-import {ProjectListItem} from '../../../interfaces/projects.interface';
+import {ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectWorkflowPipe} from '../../../../../shared/pipes/project-workflow.pipe';
 import {ProjectPriorityPipe} from '../../../../../shared/pipes/project-priority.pipe';
 

@@ -13,7 +13,8 @@ import {
     TuiButton,
     type TuiDialogContext,
     TuiInput,
-    TuiTextfield
+    TuiTextfield,
+    TuiIcon
 } from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {
@@ -36,7 +37,8 @@ import {ProjectsService} from '../../../../services/projects.service';
         TuiAutoFocus,
         TuiButton,
         TuiInput,
-        TuiTextfield
+        TuiTextfield,
+        TuiIcon
     ],
     templateUrl: './add-team-dialog.component.html',
     styleUrl: './add-team-dialog.component.less',
@@ -106,7 +108,6 @@ export class AddTeamDialogComponent implements OnInit {
             return;
         }
 
-        this.context.$implicit.next(team.id);
-        this.context.$implicit.complete();
+        this.context.completeWith(team.id);
     }
 }

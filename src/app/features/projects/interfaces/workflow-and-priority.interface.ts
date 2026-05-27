@@ -1,5 +1,5 @@
-import {ProjectWorkflowType} from './projects.interface';
-import {ProjectPriority} from './projects.interface';
+import {ProjectWorkflowType} from './project.enums';
+import {ProjectPriority} from './project.enums';
 
 export interface WorkflowTypeOption {
     title: string;

@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ProjectPriority} from '../../features/projects/interfaces/projects.interface';
+import {ProjectPriority} from '../../features/projects/interfaces/project.enums';
 
 @Pipe({
     name: 'projectPriority'

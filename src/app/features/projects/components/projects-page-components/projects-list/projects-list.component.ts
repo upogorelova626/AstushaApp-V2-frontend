@@ -8,7 +8,7 @@ import {
 import {TuiButton, TuiHint} from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
 import {ProjectsService} from '../../../services/projects.service';
-import {ProjectListItem} from '../../../interfaces/projects.interface';
+import {ProjectListItem} from '../../../interfaces/project.interface';
 import {DatePipe} from '@angular/common';
 import {ProjectStatusPipe} from '../../../../../shared/pipes/project-status.pipe';
 import {finalize} from 'rxjs';

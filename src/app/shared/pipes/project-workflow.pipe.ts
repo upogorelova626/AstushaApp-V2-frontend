@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ProjectWorkflowType} from '../../features/projects/interfaces/projects.interface';
+import {ProjectWorkflowType} from '../../features/projects/interfaces/project.enums';
 
 @Pipe({
     name: 'projectWorkflowType'

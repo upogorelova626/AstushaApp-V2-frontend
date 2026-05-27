@@ -1,0 +1,131 @@
+<div class="project-members-card">
+    <header class="project-members-card__header">
+        <div class="project-members-card__title-block">
+            <div class="project-members-card__title-row">
+                <tui-icon
+                    class="project-members-card__title-icon"
+                    icon="@tui.users"
+                />
+
+                <h2 class="project-members-card__title">Команда проекта</h2>
+            </div>
+
+            <p class="project-members-card__description">
+                Эти участники работают над задачами проекта и участвуют в его
+                развитии
+            </p>
+        </div>
+
+        <div class="project-members-card__actions">
+            <tui-textfield
+                class="project-members-card__search"
+                tuiTextfieldSize="s"
+                iconStart="@tui.search"
+            >
+                <input tuiInput type="text" placeholder="Поиск участника" />
+            </tui-textfield>
+
+            <button
+                tuiButton
+                tuiChevron
+                class="project-members-card__role-filter"
+                type="button"
+                appearance="outline"
+                size="s"
+            >
+                Все роли
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="primary"
+                size="s"
+                iconStart="@tui.plus"
+            >
+                Пригласить участника
+            </button>
+        </div>
+    </header>
+
+    <div class="project-members-card__table-wrapper">
+        <table class="project-members-card__table">
+            <thead>
+                <tr>
+                    <th>Участник</th>
+                    <th>Роль в проекте</th>
+                    <th>Должность</th>
+                    <th>E-mail</th>
+                    <th>Задачи</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (
+                    projectMember of projectMembers();
+                    track projectMember.id
+                ) {
+                    <tr>
+                        <td>
+                            <div class="project-members-card__member">
+                                <div
+                                    tuiAvatar="@tui.user"
+                                    class="project-members-card__avatar"
+                                ></div>
+
+                                <div class="project-members-card__member-info">
+                                    <span
+                                        class="project-members-card__member-name"
+                                    >
+                                        {{ projectMember.user.firstName }}
+                                        {{ projectMember.user.lastName }}
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="project-members-card__role">
+                                {{ projectMember.role }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="project-members-card__position">
+                                {{
+                                    projectMember.user.position || 'Не указана'
+                                }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="project-members-card__email">
+                                {{ projectMember.user.email }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="project-members-card__tasks">
+                                <tui-icon icon="@tui.clipboard-list" />
+                                <span>12</span>
+                            </div>
+                        </td>
+
+                        <td class="project-members-card__actions-cell">
+                            <button
+                                tuiIconButton
+                                type="button"
+                                appearance="flat"
+                                size="xs"
+                                iconStart="@tui.ellipsis-vertical"
+                            >
+                                Действия
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

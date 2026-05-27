@@ -28,7 +28,6 @@ import {
 } from '@taiga-ui/core';
 import {TuiChevron, TuiInputDate, TuiUnfinishedValidator} from '@taiga-ui/kit';
 import {injectContext} from '@taiga-ui/polymorpheus';
-
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
@@ -37,11 +36,11 @@ import {
     WorkflowTypeOption,
     ProjectPriorityOption
 } from '../../../../interfaces/workflow-and-priority.interface';
+import {CreateProjectRequest} from '../../../../interfaces/project.interface';
 import {
-    CreateProjectRequest,
     ProjectPriority,
     ProjectWorkflowType
-} from '../../../../interfaces/projects.interface';
+} from '../../../../interfaces/project.enums';
 import {ProjectsService} from '../../../../services/projects.service';
 import {tuiDayToDateString} from '../../../../../../shared/utils/tui-day-to-date-string';
 import {

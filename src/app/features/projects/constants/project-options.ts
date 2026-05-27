@@ -1,7 +1,7 @@
 import {
     ProjectPriority,
     ProjectWorkflowType
-} from '../interfaces/projects.interface';
+} from '../interfaces/project.enums';
 import {
     ProjectPriorityOption,
     WorkflowTypeOption

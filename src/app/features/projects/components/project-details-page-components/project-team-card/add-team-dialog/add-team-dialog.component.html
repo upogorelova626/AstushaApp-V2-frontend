@@ -1,4 +1,4 @@
-<form tuiForm class="form" (ngSubmit)="submit()">
+<form tuiForm class="form">
     <tui-textfield class="textfield" iconStart="@tui.search">
         <input
             tuiAutoFocus
@@ -7,10 +7,6 @@
             [formControl]="form"
         />
     </tui-textfield>
-
-    @if (isSearching()) {
-        <div class="team-search-state">Ищем команды...</div>
-    }
 
     @if (!isSearching() && foundTeams().length > 0) {
         <div class="team-results">
@@ -22,8 +18,21 @@
                         selectedTeam()?.id === team.id
                     "
                     (click)="selectTeam(team)"
+                    (click)="submit()"
                 >
-                    {{ team.name }}
+                    <div class="team-results__avatar">
+                        <tui-icon icon="@tui.users" />
+                    </div>
+
+                    <div class="team-results__content">
+                        <div class="team-results__name">
+                            {{ team.name }}
+                        </div>
+
+                        <div class="team-results__description">
+                            {{ team.description || 'Без описания' }}
+                        </div>
+                    </div>
                 </button>
             }
         </div>
