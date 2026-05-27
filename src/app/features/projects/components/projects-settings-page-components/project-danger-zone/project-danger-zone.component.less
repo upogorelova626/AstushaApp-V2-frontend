@@ -1,0 +1,192 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.project-danger-zone {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 245px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    background: var(--color-page-bg-start);
+
+    &__header {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    &__header-icon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        color: var(--color-danger);
+    }
+
+    &__title {
+        margin: 0;
+        overflow: hidden;
+        color: var(--color-danger);
+        font: var(--tui-typography-heading-h5);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    &__delete-card {
+        width: 100%;
+        min-width: 0;
+        min-height: 136px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        box-sizing: border-box;
+        border: 1px solid var(--color-danger);
+        border-radius: 16px;
+        background: var(--color-card-bg);
+    }
+
+    &__delete-info {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+    }
+
+    &__delete-icon {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border: 1px solid var(--color-danger);
+        border-radius: 50%;
+        color: var(--color-danger);
+        background: var(--color-danger-bg-soft);
+
+        tui-icon {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    &__delete-text {
+        min-width: 0;
+    }
+
+    &__delete-title {
+        margin: 0;
+        overflow: hidden;
+        color: var(--color-danger);
+        font: var(--tui-typography-heading-h6);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__delete-description {
+        max-width: 520px;
+        margin: 8px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__delete-card > button {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        min-height: auto;
+        padding: 16px;
+        border-radius: 16px;
+
+        &__delete-card {
+            align-items: stretch;
+            flex-direction: column;
+            padding: 16px;
+        }
+
+        &__delete-info {
+            align-items: flex-start;
+        }
+
+        &__delete-card > button {
+            width: 100%;
+        }
+    }
+}
+
+.delete-project-dialog {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding-top: 4px;
+    box-sizing: border-box;
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        min-width: 0;
+    }
+
+    &__icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border: 1px solid var(--color-danger);
+        border-radius: 14px;
+        color: var(--color-danger);
+        background: var(--color-danger-bg-soft);
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+
+    &__description {
+        margin: 8px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__footer {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+        &__footer {
+            flex-direction: column-reverse;
+        }
+
+        &__footer button {
+            width: 100%;
+        }
+    }
+}

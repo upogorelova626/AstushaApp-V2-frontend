@@ -1,0 +1,91 @@
+<section class="project-danger-zone">
+    <header class="project-danger-zone__header">
+        <tui-icon
+            class="project-danger-zone__header-icon"
+            icon="@tui.triangle-alert"
+        />
+
+        <h2 class="project-danger-zone__title">Опасная зона</h2>
+    </header>
+
+    <main class="project-danger-zone__content">
+        <div class="project-danger-zone__delete-card">
+            <div class="project-danger-zone__delete-info">
+                <div class="project-danger-zone__delete-icon">
+                    <tui-icon icon="@tui.trash-2" />
+                </div>
+
+                <div class="project-danger-zone__delete-text">
+                    <h3 class="project-danger-zone__delete-title">
+                        Удалить проект
+                    </h3>
+
+                    <p class="project-danger-zone__delete-description">
+                        Это действие нельзя отменить. Все данные проекта,
+                        включая задачи, комментарии и файлы, будут безвозвратно
+                        удалены.
+                    </p>
+                </div>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.trash-2"
+                (click)="openDeleteProjectDialog()"
+            >
+                Удалить проект
+            </button>
+        </div>
+    </main>
+
+    <ng-template
+        [(tuiDialog)]="isDeleteProjectDialogOpen"
+        [tuiDialogOptions]="{size: 'm'}"
+    >
+        <div class="delete-project-dialog">
+            <header class="delete-project-dialog__header">
+                <div class="delete-project-dialog__icon">
+                    <tui-icon icon="@tui.trash-2" />
+                </div>
+
+                <div>
+                    <h2 class="delete-project-dialog__title">
+                        Удалить проект?
+                    </h2>
+
+                    <p class="delete-project-dialog__description">
+                        Это действие нельзя отменить. Проект, задачи,
+                        комментарии и связанные данные будут удалены
+                        безвозвратно.
+                    </p>
+                </div>
+            </header>
+
+            <footer class="delete-project-dialog__footer">
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="negative"
+                    size="m"
+                    iconStart="@tui.trash-2"
+                    (click)="deleteProject()"
+                >
+                    Удалить проект
+                </button>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    (click)="closeDeleteProjectDialog()"
+                >
+                    Отмена
+                </button>
+            </footer>
+        </div>
+    </ng-template>
+</section>

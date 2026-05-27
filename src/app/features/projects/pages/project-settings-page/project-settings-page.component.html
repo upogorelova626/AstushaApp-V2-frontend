@@ -1,1 +1,21 @@
-<p>project-settings-page works!</p>
+<div class="project-settings-page">
+    @if (projectId(); as projectId) {
+        <app-project-navigate
+            class="project-settings-page__navigation"
+            [projectId]="projectId"
+            [tuiSkeleton]="isProjectLoading()"
+        />
+
+        <div class="project-settings-page__content">
+            <div class="project-settings-page__column">
+                <app-project-main-settings />
+                <app-project-team-settings />
+            </div>
+
+            <div class="project-settings-page__column">
+                <app-project-workflow-settings />
+                <app-project-danger-zone />
+            </div>
+        </div>
+    }
+</div>

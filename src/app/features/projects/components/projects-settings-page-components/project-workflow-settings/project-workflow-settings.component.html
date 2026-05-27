@@ -1,0 +1,191 @@
+<section class="project-workflow-settings">
+    <header class="project-workflow-settings__header">
+        <div class="project-workflow-settings__title-wrapper">
+            <tui-icon
+                class="project-workflow-settings__title-icon"
+                icon="@tui.workflow"
+            />
+
+            <h2 class="project-workflow-settings__title"> Рабочий процесс </h2>
+        </div>
+    </header>
+
+    <main class="project-workflow-settings__content">
+        <label class="project-workflow-settings__field">
+            <span class="project-workflow-settings__label">
+                Шаблон процесса
+            </span>
+
+            <div class="project-workflow-settings__control">
+                <button
+                    tuiButton
+                    tuiChevron
+                    class="project-workflow-settings__select"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                >
+                    Разработка
+                </button>
+
+                <span class="project-workflow-settings__hint">
+                    Выберите шаблон или настройте этапы вручную.
+                </span>
+            </div>
+        </label>
+
+        <div class="project-workflow-settings__stages">
+            <div class="project-workflow-settings__stage">
+                <div class="project-workflow-settings__stage-actions">
+                    <tui-icon icon="@tui.grip-vertical" />
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.pencil"
+                    >
+                        Редактировать
+                    </button>
+                </div>
+
+                <div class="project-workflow-settings__stage-number"> 1 </div>
+
+                <span class="project-workflow-settings__stage-name">
+                    Backlog
+                </span>
+            </div>
+
+            <tui-icon
+                class="project-workflow-settings__arrow"
+                icon="@tui.arrow-right"
+            />
+
+            <div class="project-workflow-settings__stage">
+                <div class="project-workflow-settings__stage-actions">
+                    <tui-icon icon="@tui.grip-vertical" />
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.pencil"
+                    >
+                        Редактировать
+                    </button>
+                </div>
+
+                <div class="project-workflow-settings__stage-number"> 2 </div>
+
+                <span class="project-workflow-settings__stage-name">
+                    To Do
+                </span>
+            </div>
+
+            <tui-icon
+                class="project-workflow-settings__arrow"
+                icon="@tui.arrow-right"
+            />
+
+            <div class="project-workflow-settings__stage">
+                <div class="project-workflow-settings__stage-actions">
+                    <tui-icon icon="@tui.grip-vertical" />
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.pencil"
+                    >
+                        Редактировать
+                    </button>
+                </div>
+
+                <div
+                    class="project-workflow-settings__stage-number project-workflow-settings__stage-number_progress"
+                >
+                    3
+                </div>
+
+                <span class="project-workflow-settings__stage-name">
+                    In Progress
+                </span>
+            </div>
+
+            <tui-icon
+                class="project-workflow-settings__arrow"
+                icon="@tui.arrow-right"
+            />
+
+            <div class="project-workflow-settings__stage">
+                <div class="project-workflow-settings__stage-actions">
+                    <tui-icon icon="@tui.grip-vertical" />
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.pencil"
+                    >
+                        Редактировать
+                    </button>
+                </div>
+
+                <div
+                    class="project-workflow-settings__stage-number project-workflow-settings__stage-number_review"
+                >
+                    4
+                </div>
+
+                <span class="project-workflow-settings__stage-name">
+                    Review
+                </span>
+            </div>
+
+            <tui-icon
+                class="project-workflow-settings__arrow"
+                icon="@tui.arrow-right"
+            />
+
+            <div class="project-workflow-settings__stage">
+                <div class="project-workflow-settings__stage-actions">
+                    <tui-icon icon="@tui.grip-vertical" />
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="xs"
+                        iconStart="@tui.pencil"
+                    >
+                        Редактировать
+                    </button>
+                </div>
+
+                <div
+                    class="project-workflow-settings__stage-number project-workflow-settings__stage-number_done"
+                >
+                    5
+                </div>
+
+                <span class="project-workflow-settings__stage-name">
+                    Done
+                </span>
+            </div>
+        </div>
+
+        <button
+            tuiButton
+            class="project-workflow-settings__add-button"
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.plus"
+        >
+            Добавить этап
+        </button>
+
+        <p class="project-workflow-settings__description">
+            Перетаскивайте этапы для изменения порядка.
+        </p>
+    </main>
+</section>
