@@ -9,12 +9,18 @@
         <div class="project-settings-page__content">
             <div class="project-settings-page__column">
                 <app-project-main-settings />
-                <app-project-team-settings />
+                <app-project-team-settings
+                    [projectId]="projectId"
+                    [tuiSkeleton]="isProjectLoading()"
+                />
             </div>
 
             <div class="project-settings-page__column">
                 <app-project-workflow-settings />
-                <app-project-danger-zone />
+                <app-project-danger-zone
+                    [projectId]="projectId"
+                    [tuiSkeleton]="isProjectLoading()"
+                />
             </div>
         </div>
     }

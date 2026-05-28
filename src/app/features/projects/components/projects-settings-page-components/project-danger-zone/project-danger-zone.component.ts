@@ -1,5 +1,19 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TuiButton, TuiDialog, TuiIcon} from '@taiga-ui/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    input,
+    signal
+} from '@angular/core';
+import {
+    TuiButton,
+    TuiDialog,
+    TuiIcon,
+    TuiNotificationService
+} from '@taiga-ui/core';
+import {ProjectsService} from '../../../services/projects.service';
+import {Router} from '@angular/router';
+import {finalize} from 'rxjs';
 
 @Component({
     selector: 'app-project-danger-zone',
@@ -9,17 +23,43 @@ import {TuiButton, TuiDialog, TuiIcon} from '@taiga-ui/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectDangerZoneComponent {
+    readonly projectId = input.required<string>();
+
+    private readonly projectsService = inject(ProjectsService);
+    private readonly router = inject(Router);
+    private readonly alerts = inject(TuiNotificationService);
+
+    protected readonly isDeleting = signal(false);
+
     protected isDeleteProjectDialogOpen = false;
 
-    protected openDeleteProjectDialog(): void {
+    protected openDeleteProjectDialog() {
         this.isDeleteProjectDialogOpen = true;
     }
 
-    protected closeDeleteProjectDialog(): void {
+    protected closeDeleteProjectDialog() {
         this.isDeleteProjectDialogOpen = false;
     }
 
-    protected deleteProject(): void {
-        // потом сюда подключим удаление проекта
+    protected deleteProject() {
+        const projectId = this.projectId();
+        if (!projectId) {
+            return;
+        }
+
+        this.isDeleting.set(true);
+
+        this.projectsService
+            .deleteProject(projectId)
+            .pipe(
+                finalize(() => {
+                    this.isDeleting.set(false);
+                })
+            )
+            .subscribe(() => {
+                this.isDeleteProjectDialogOpen = false;
+                this.router.navigate(['/dashboard/projects']);
+                this.alerts.open('Проект успешно удален');
+            });
     }
 }

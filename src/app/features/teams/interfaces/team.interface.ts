@@ -20,7 +20,10 @@ export interface Team {
     createdAt: string;
     updatedAt: string;
     myRole: TeamRole | null;
-    membersCount: number;
+    _count: {
+        members: number;
+        projects: number;
+    };
     projectsCount: number;
 }
 

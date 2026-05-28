@@ -31,9 +31,10 @@
             <button
                 tuiButton
                 type="button"
-                appearance="outline"
+                appearance="secondary-destructive"
                 size="m"
                 iconStart="@tui.trash-2"
+                [disabled]="isDeleting()"
                 (click)="openDeleteProjectDialog()"
             >
                 Удалить проект
@@ -68,7 +69,7 @@
                 <button
                     tuiButton
                     type="button"
-                    appearance="negative"
+                    appearance="outline"
                     size="m"
                     iconStart="@tui.trash-2"
                     (click)="deleteProject()"
@@ -79,7 +80,6 @@
                 <button
                     tuiButton
                     type="button"
-                    appearance="outline"
                     size="m"
                     (click)="closeDeleteProjectDialog()"
                 >

@@ -38,6 +38,7 @@
             class="project-quick-actions__button"
             type="button"
             appearance="flat"
+            [routerLink]="['/dashboard/projects', project()?.id, 'settings']"
         >
             <tui-icon
                 class="project-quick-actions__button-icon"

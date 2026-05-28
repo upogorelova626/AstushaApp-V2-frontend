@@ -5,51 +5,116 @@
                 <tui-icon icon="@tui.users" />
             </div>
 
-            <h2 class="project-team-settings__title">Команда проекта</h2>
-        </div>
+            <div>
+                <h2 class="project-team-settings__title">Команда проекта</h2>
 
-        <span class="project-team-settings__badge">Подключена</span>
-    </header>
-
-    <main class="project-team-settings__main">
-        <div class="project-team-settings__team">
-            <div class="project-team-settings__avatar">AC</div>
-
-            <div class="project-team-settings__info">
-                <h3 class="project-team-settings__team-name">Astusha Core</h3>
-
-                <p class="project-team-settings__description">
-                    Основная команда разработки проекта
+                <p class="project-team-settings__subtitle">
+                    Управление командой, которая работает над этим проектом
                 </p>
-
-                <div class="project-team-settings__meta">
-                    <span>8 участников</span>
-                    <span>·</span>
-                    <span>3 администратора</span>
-                </div>
             </div>
         </div>
 
-        <div class="project-team-settings__actions">
-            <button
-                tuiButton
-                type="button"
-                appearance="outline"
-                size="m"
-                iconStart="@tui.replace"
+        @if (team()) {
+            <span class="project-team-settings__badge">Подключена</span>
+        } @else {
+            <span
+                class="project-team-settings__badge project-team-settings__badge_empty"
             >
-                Изменить команду
-            </button>
+                Не подключена
+            </span>
+        }
+    </header>
 
-            <button
-                tuiButton
-                type="button"
-                appearance="outline"
-                size="m"
-                iconStart="@tui.unlink"
-            >
-                Отвязать команду
-            </button>
-        </div>
+    <main class="project-team-settings__main" [tuiSkeleton]="isLoading()">
+        @if (team(); as team) {
+            <div class="project-team-settings__team">
+                <div class="project-team-settings__avatar">
+                    @if (team.avatarUrl) {
+                        <img
+                            class="project-team-settings__avatar-image"
+                            [src]="team.avatarUrl"
+                            [alt]="team.name"
+                        />
+                    } @else {
+                        <tui-icon icon="@tui.users" />
+                    }
+                </div>
+
+                <div class="project-team-settings__info">
+                    <h3 class="project-team-settings__team-name">
+                        {{ team.name }}
+                    </h3>
+
+                    <p class="project-team-settings__description">
+                        {{ team.description || 'У команды пока нет описания' }}
+                    </p>
+
+                    <div class="project-team-settings__meta">
+                        <span>
+                            {{
+                                team._count.members
+                                    | pluralizeRu
+                                        : 'участник'
+                                        : 'участника'
+                                        : 'участников'
+                            }}
+                        </span>
+                        <span>·</span>
+                        <span>Команда подключена к проекту</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-team-settings__actions">
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.users"
+                >
+                    Просмотреть команду
+                </button>
+
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="secondary-destructive"
+                    size="m"
+                    iconStart="@tui.unlink"
+                    (click)="removeProjectTeam()"
+                >
+                    Отвязать команду
+                </button>
+            </div>
+        } @else {
+            <div class="project-team-settings__empty">
+                <div class="project-team-settings__empty-icon">
+                    <tui-icon icon="@tui.users-round" />
+                </div>
+
+                <h3 class="project-team-settings__empty-title">
+                    Команда ещё не подключена
+                </h3>
+
+                <p class="project-team-settings__empty-description">
+                    Подключите команду, чтобы участники могли работать над
+                    задачами проекта.
+                </p>
+
+                <a
+                    tuiButton
+                    tuiHint="Перейдите к добавлению команды"
+                    tuiHintDirection="top"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.plus"
+                    [routerLink]="['/dashboard/projects', projectId()]"
+                >
+                    Добавить команду
+                </a>
+            </div>
+        }
     </main>
 </section>
