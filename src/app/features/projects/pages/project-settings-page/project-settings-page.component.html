@@ -1,27 +1,31 @@
 <div class="project-settings-page">
-    @if (projectId(); as projectId) {
+    @if (project(); as project) {
         <app-project-navigate
             class="project-settings-page__navigation"
-            [projectId]="projectId"
+            [projectId]="project.id"
             [tuiSkeleton]="isProjectLoading()"
         />
 
         <div class="project-settings-page__content">
             <div class="project-settings-page__column">
                 <app-project-main-settings
-                    [projectId]="projectId"
+                    [project]="project"
                     [tuiSkeleton]="isProjectLoading()"
+                    (projectUpdated)="updateProject($event)"
                 />
                 <app-project-team-settings
-                    [projectId]="projectId"
+                    [projectId]="project.id"
                     [tuiSkeleton]="isProjectLoading()"
                 />
             </div>
 
             <div class="project-settings-page__column">
-                <app-project-workflow-settings />
+                <app-project-workflow-settings
+                    [project]="project"
+                    [tuiSkeleton]="isProjectLoading()"
+                />
                 <app-project-danger-zone
-                    [projectId]="projectId"
+                    [projectId]="project.id"
                     [tuiSkeleton]="isProjectLoading()"
                 />
             </div>

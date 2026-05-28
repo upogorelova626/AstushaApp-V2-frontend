@@ -71,16 +71,30 @@
     &__control {
         width: 100%;
         min-width: 0;
-        max-width: 360px;
+        max-width: 520px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        align-items: flex-start;
+        gap: 8px;
     }
 
-    &__select {
-        width: 100%;
-        min-width: 0;
-        justify-content: space-between;
+    &__workflow-badge {
+        min-height: 40px;
+        padding: 0 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--color-card-border);
+        border-radius: 999px;
+        color: var(--color-text-primary);
+        background: var(--color-card-bg);
+        font: var(--tui-typography-body-m);
+
+        tui-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--color-primary-light);
+        }
     }
 
     &__hint,
@@ -88,6 +102,7 @@
         margin: 0;
         color: var(--color-text-muted);
         font: var(--tui-typography-body-s);
+        line-height: 1.4;
     }
 
     &__stages {
@@ -96,81 +111,17 @@
         max-width: 100%;
         padding-bottom: 4px;
         display: flex;
-        align-items: center;
+        align-items: stretch;
         gap: 12px;
         overflow-x: auto;
         overflow-y: hidden;
-    }
-
-    &__stage {
-        width: 128px;
-        min-height: 128px;
-        padding: 12px;
-        display: flex;
-        align-items: center;
-        flex: 0 0 128px;
-        flex-direction: column;
-        justify-content: space-between;
-        box-sizing: border-box;
-        border: 1px solid var(--color-card-border);
-        border-radius: 14px;
-        background: var(--color-card-bg);
-    }
-
-    &__stage-actions {
-        width: 100%;
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: var(--color-text-muted);
-
-        tui-icon {
-            width: 16px;
-            height: 16px;
-        }
-    }
-
-    &__stage-number {
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        border-radius: 50%;
-        color: var(--color-text-primary);
-        background: var(--color-stat-blue-bg);
-        font: var(--tui-typography-body-m);
-        font-weight: 700;
-
-        &_progress {
-            background: var(--color-stat-violet-bg);
-        }
-
-        &_review {
-            background: var(--color-stat-yellow-bg);
-        }
-
-        &_done {
-            background: var(--color-stat-green-bg);
-        }
-    }
-
-    &__stage-name {
-        max-width: 100%;
-        overflow: hidden;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-body-m);
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     &__arrow {
         width: 18px;
         height: 18px;
         flex-shrink: 0;
+        align-self: center;
         color: var(--color-text-muted);
     }
 
@@ -196,6 +147,11 @@
 
         &__control {
             max-width: none;
+        }
+
+        &__workflow-badge {
+            width: 100%;
+            justify-content: center;
         }
 
         &__add-button {

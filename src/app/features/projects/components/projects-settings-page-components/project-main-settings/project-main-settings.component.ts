@@ -4,6 +4,7 @@ import {
     inject,
     input,
     OnInit,
+    output,
     signal
 } from '@angular/core';
 import {
@@ -38,6 +39,7 @@ import {
     ProjectWorkflowType
 } from '../../../interfaces/project.enums';
 import {
+    ProjectListItem,
     ProjectSettingsFormValue,
     UpdateProjectRequest
 } from '../../../interfaces/project.interface';
@@ -81,7 +83,8 @@ interface SelectOption<T> {
     ]
 })
 export class ProjectMainSettingsComponent implements OnInit {
-    readonly projectId = input.required<string>();
+    readonly project = input.required<ProjectListItem>();
+    readonly projectUpdated = output<ProjectListItem>();
 
     private readonly projectsService = inject(ProjectsService);
 
@@ -145,34 +148,8 @@ export class ProjectMainSettingsComponent implements OnInit {
 
     ngOnInit() {
         this.form.disable();
-        this.isFormLoading.set(true);
-
-        this.projectsService
-            .getOneProject(this.projectId())
-            .pipe(
-                take(1),
-                finalize(() => this.isFormLoading.set(false))
-            )
-            .subscribe(project => {
-                const formValue: ProjectSettingsFormValue = {
-                    title: project.title,
-                    description: project.description ?? '',
-                    workflowType: project.workflowType,
-                    workflowTypeTitle: this.getWorkflowTypeTitle(
-                        project.workflowType
-                    ),
-                    priority: project.priority,
-                    priorityTitle: this.getPriorityTitle(project.priority),
-                    startDate: this.toTuiDay(project.startDate),
-                    deadline: this.toTuiDay(project.deadline)
-                };
-
-                this.form.patchValue(formValue);
-                this.initialFormValue = formValue;
-
-                this.form.markAsPristine();
-                this.form.markAsUntouched();
-            });
+        this.patchFormFromProject(this.project());
+        this.isFormLoading.set(false);
     }
 
     protected startEditing() {
@@ -182,13 +159,10 @@ export class ProjectMainSettingsComponent implements OnInit {
 
     protected cancelEditing() {
         if (this.initialFormValue) {
-            this.form.patchValue(this.initialFormValue);
+            this.patchForm(this.initialFormValue);
         }
 
-        this.form.markAsPristine();
-        this.form.markAsUntouched();
-        this.form.disable();
-        this.isEditing.set(false);
+        this.disableEditingMode();
     }
 
     protected saveChanges() {
@@ -223,7 +197,7 @@ export class ProjectMainSettingsComponent implements OnInit {
         this.isSaving.set(true);
 
         this.projectsService
-            .updateProject(this.projectId(), payload)
+            .updateProject(this.project().id, payload)
             .pipe(
                 take(1),
                 finalize(() => {
@@ -242,51 +216,87 @@ export class ProjectMainSettingsComponent implements OnInit {
                     deadline: rawValue.deadline
                 };
 
-                this.initialFormValue = formValue;
-                this.form.patchValue(formValue);
+                const updatedProject: ProjectListItem = {
+                    ...this.project(),
+                    ...payload
+                };
 
-                this.form.markAsPristine();
-                this.form.markAsUntouched();
-                this.form.disable();
-                this.isEditing.set(false);
+                this.initialFormValue = formValue;
+                this.patchForm(formValue);
+                this.disableEditingMode();
+
+                this.projectUpdated.emit(updatedProject);
             });
     }
 
     protected selectWorkflowType(option: SelectOption<ProjectWorkflowType>) {
-        this.form.controls.workflowType.setValue(option.value);
-        this.form.controls.workflowTypeTitle.setValue(option.title);
-
-        this.form.controls.workflowType.markAsDirty();
-        this.form.controls.workflowType.markAsTouched();
-
-        this.form.controls.workflowTypeTitle.markAsDirty();
-        this.form.controls.workflowTypeTitle.markAsTouched();
+        this.setSelectValue(
+            this.form.controls.workflowType,
+            this.form.controls.workflowTypeTitle,
+            option
+        );
     }
 
     protected selectPriority(option: SelectOption<ProjectPriority>) {
-        this.form.controls.priority.setValue(option.value);
-        this.form.controls.priorityTitle.setValue(option.title);
-
-        this.form.controls.priority.markAsDirty();
-        this.form.controls.priority.markAsTouched();
-
-        this.form.controls.priorityTitle.markAsDirty();
-        this.form.controls.priorityTitle.markAsTouched();
-    }
-
-    private getWorkflowTypeTitle(workflowType: ProjectWorkflowType) {
-        return (
-            this.workflowTypeOptions.find(
-                option => option.value === workflowType
-            )?.title ?? ''
+        this.setSelectValue(
+            this.form.controls.priority,
+            this.form.controls.priorityTitle,
+            option
         );
     }
 
-    private getPriorityTitle(priority: ProjectPriority) {
-        return (
-            this.priorityOptions.find(option => option.value === priority)
-                ?.title ?? ''
-        );
+    private patchFormFromProject(project: ProjectListItem) {
+        const formValue: ProjectSettingsFormValue = {
+            title: project.title,
+            description: project.description ?? '',
+            workflowType: project.workflowType,
+            workflowTypeTitle: this.getOptionTitle(
+                this.workflowTypeOptions,
+                project.workflowType
+            ),
+            priority: project.priority,
+            priorityTitle: this.getOptionTitle(
+                this.priorityOptions,
+                project.priority
+            ),
+            startDate: this.toTuiDay(project.startDate),
+            deadline: this.toTuiDay(project.deadline)
+        };
+
+        this.initialFormValue = formValue;
+        this.patchForm(formValue);
+    }
+
+    private patchForm(value: ProjectSettingsFormValue) {
+        this.form.patchValue(value);
+        this.form.markAsPristine();
+        this.form.markAsUntouched();
+    }
+
+    private disableEditingMode() {
+        this.form.markAsPristine();
+        this.form.markAsUntouched();
+        this.form.disable();
+        this.isEditing.set(false);
+    }
+
+    private setSelectValue<T>(
+        valueControl: FormControl<T | null>,
+        titleControl: FormControl<string>,
+        option: SelectOption<T>
+    ) {
+        valueControl.setValue(option.value);
+        titleControl.setValue(option.title);
+
+        valueControl.markAsDirty();
+        valueControl.markAsTouched();
+
+        titleControl.markAsDirty();
+        titleControl.markAsTouched();
+    }
+
+    private getOptionTitle<T>(options: readonly SelectOption<T>[], value: T) {
+        return options.find(option => option.value === value)?.title ?? '';
     }
 
     private toTuiDay(date: string | null): TuiDay | null {
