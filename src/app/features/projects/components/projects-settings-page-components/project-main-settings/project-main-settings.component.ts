@@ -39,6 +39,7 @@ import {
     ProjectWorkflowType
 } from '../../../interfaces/project.enums';
 import {
+    Project,
     ProjectListItem,
     ProjectSettingsFormValue,
     UpdateProjectRequest
@@ -48,6 +49,7 @@ import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
 } from '../../../validators/project-dates.validator';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 interface SelectOption<T> {
     value: T;
@@ -70,7 +72,8 @@ interface SelectOption<T> {
         TuiOption,
         TuiTextarea,
         TuiTextfield,
-        TuiTitle
+        TuiTitle,
+        TuiSkeleton
     ],
     templateUrl: './project-main-settings.component.html',
     styleUrl: './project-main-settings.component.less',
@@ -83,8 +86,8 @@ interface SelectOption<T> {
     ]
 })
 export class ProjectMainSettingsComponent implements OnInit {
-    readonly project = input.required<ProjectListItem>();
-    readonly projectUpdated = output<ProjectListItem>();
+    readonly project = input.required<Project>();
+    readonly projectUpdated = output<Project>();
 
     private readonly projectsService = inject(ProjectsService);
 

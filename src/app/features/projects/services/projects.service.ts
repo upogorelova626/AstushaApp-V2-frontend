@@ -27,7 +27,7 @@ export class ProjectsService {
     }
 
     getOneProject(projectId: string) {
-        return this.http.get<ProjectListItem>(
+        return this.http.get<Project>(
             `${this.baseApiUrl}/projects/${projectId}`
         );
     }

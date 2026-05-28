@@ -1,20 +1,21 @@
-<div class="project-workflow-settings__stage">
-    <div class="project-workflow-settings__stage-actions">
-        <tui-icon icon="@tui.grip-vertical" />
-        <button
-            tuiIconButton
-            type="button"
-            appearance="flat"
-            size="xs"
-            iconStart="@tui.pencil"
-        >
-            Редактировать
-        </button>
+<div class="project-workflow-stage-card">
+    <div class="project-workflow-stage-card__number">
+        {{ workflowStage().position + 1 }}
     </div>
 
-    <div class="project-workflow-settings__stage-number"> 2 </div>
+    <div class="project-workflow-stage-card__content">
+        <span class="project-workflow-stage-card__name">
+            {{ workflowStage().name }}
+        </span>
 
-    <span class="project-workflow-settings__stage-name"> To Do </span>
+        <div class="project-workflow-stage-card__badges">
+            @if (workflowStage().isStart) {
+                <span class="project-workflow-stage-card__badge"> Старт </span>
+            }
+
+            @if (workflowStage().isFinal) {
+                <span class="project-workflow-stage-card__badge"> Финал </span>
+            }
+        </div>
+    </div>
 </div>
-
-<tui-icon class="project-workflow-settings__arrow" icon="@tui.arrow-right" />

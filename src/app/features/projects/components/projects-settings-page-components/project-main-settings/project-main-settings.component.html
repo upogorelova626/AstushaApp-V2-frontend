@@ -1,6 +1,11 @@
 <div class="project-main-settings">
     <header class="project-main-settings__header">
-        <h2 class="project-main-settings__title">Основная информация</h2>
+        <h2
+            class="project-main-settings__title"
+            [tuiSkeleton]="isFormLoading()"
+        >
+            Основная информация
+        </h2>
 
         <button
             tuiButton
@@ -8,6 +13,8 @@
             appearance="outline"
             size="s"
             iconStart="@tui.pencil"
+            [disabled]="isFormLoading()"
+            [tuiSkeleton]="isFormLoading()"
             (click)="startEditing()"
         >
             Редактировать
@@ -16,9 +23,14 @@
 
     <form [formGroup]="form" class="project-main-settings__content">
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Название проекта</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Название проекта
+            </span>
 
-            <tui-textfield tuiTextfieldSize="m">
+            <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isFormLoading()">
                 <input
                     tuiInput
                     type="text"
@@ -28,15 +40,22 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.title"
-            [order]="['required', 'maxlength', 'minlength']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.title"
+                [order]="['required', 'maxlength', 'minlength']"
+            />
+        }
 
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Описание</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Описание
+            </span>
 
-            <tui-textfield tuiTextfieldSize="m">
+            <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isFormLoading()">
                 <textarea
                     tuiTextarea
                     placeholder="Кратко опишите цель проекта"
@@ -45,18 +64,26 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.description"
-            [order]="['required', 'maxlength']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.description"
+                [order]="['maxlength']"
+            />
+        }
 
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Тип workflow</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Тип workflow
+            </span>
 
             <tui-textfield
                 tuiTextfieldSize="m"
                 iconStart="@tui.workflow"
                 tuiChevron
+                [tuiSkeleton]="isFormLoading()"
             >
                 <input
                     tuiInput
@@ -86,18 +113,26 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.workflowTypeTitle"
-            [order]="['required']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.workflowTypeTitle"
+                [order]="['required']"
+            />
+        }
 
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Приоритет</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Приоритет
+            </span>
 
             <tui-textfield
                 tuiTextfieldSize="m"
                 iconStart="@tui.flag"
                 tuiChevron
+                [tuiSkeleton]="isFormLoading()"
             >
                 <input
                     tuiInput
@@ -127,15 +162,26 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.priorityTitle"
-            [order]="['required']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.priorityTitle"
+                [order]="['required']"
+            />
+        }
 
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Дата старта</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Дата старта
+            </span>
 
-            <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
+            <tui-textfield
+                tuiTextfieldSize="m"
+                iconStart="@tui.calendar"
+                [tuiSkeleton]="isFormLoading()"
+            >
                 <input
                     tuiInputDate
                     placeholder="Выберите дату"
@@ -146,15 +192,26 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.startDate"
-            [order]="['required', 'pastDate']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.startDate"
+                [order]="['pastDate']"
+            />
+        }
 
         <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Дедлайн</span>
+            <span
+                class="project-main-settings__label"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Дедлайн
+            </span>
 
-            <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
+            <tui-textfield
+                tuiTextfieldSize="m"
+                iconStart="@tui.calendar"
+                [tuiSkeleton]="isFormLoading()"
+            >
                 <input
                     tuiInputDate
                     placeholder="Выберите дату"
@@ -165,13 +222,15 @@
             </tui-textfield>
         </label>
 
-        <tui-error
-            [formControl]="form.controls.deadline"
-            [order]="['required', 'pastDate', 'deadlineBeforeStartDate']"
-        />
+        @if (!isFormLoading()) {
+            <tui-error
+                [formControl]="form.controls.deadline"
+                [order]="['pastDate', 'deadlineBeforeStartDate']"
+            />
+        }
     </form>
 
-    @if (isEditing()) {
+    @if (isEditing() && !isFormLoading()) {
         <footer class="project-main-settings__footer">
             <button
                 tuiButton

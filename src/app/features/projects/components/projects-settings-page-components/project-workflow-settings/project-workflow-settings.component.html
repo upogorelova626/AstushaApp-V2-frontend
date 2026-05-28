@@ -6,74 +6,126 @@
                 icon="@tui.workflow"
             />
 
-            <h2 class="project-workflow-settings__title">Рабочий процесс</h2>
+            <h2
+                class="project-workflow-settings__title"
+                [tuiSkeleton]="isLoading()"
+            >
+                Рабочий процесс
+            </h2>
         </div>
     </header>
 
     <main class="project-workflow-settings__content">
         <div class="project-workflow-settings__field">
-            <span class="project-workflow-settings__label">
+            <span
+                class="project-workflow-settings__label"
+                [tuiSkeleton]="isLoading()"
+            >
                 Шаблон процесса
             </span>
 
             <div class="project-workflow-settings__control">
-                @if (workflowType(); as workflowTypeData) {
-                    <div class="project-workflow-settings__workflow-badge">
+                @if (isLoading()) {
+                    <div
+                        class="project-workflow-settings__workflow-badge"
+                        [tuiSkeleton]="true"
+                    >
                         <tui-icon icon="@tui.workflow" />
 
-                        <span>
-                            {{ workflowTypeData | projectWorkflowType }}
-                        </span>
+                        <span>Загрузка</span>
                     </div>
 
-                    @if (canEditWorkflowStages()) {
-                        <span class="project-workflow-settings__hint">
-                            Кастомный workflow. Вы можете добавлять,
-                            редактировать и менять порядок этапов.
-                        </span>
+                    <span
+                        class="project-workflow-settings__hint"
+                        [tuiSkeleton]="true"
+                    >
+                        Загружаем рабочий процесс проекта
+                    </span>
+                } @else {
+                    @if (workflowType(); as workflowTypeData) {
+                        <div class="project-workflow-settings__workflow-badge">
+                            <tui-icon icon="@tui.workflow" />
+
+                            <span>
+                                {{ workflowTypeData | projectWorkflowType }}
+                            </span>
+                        </div>
+
+                        @if (canEditWorkflowStages()) {
+                            <span class="project-workflow-settings__hint">
+                                Кастомный workflow. Вы можете добавлять,
+                                редактировать и менять порядок этапов.
+                            </span>
+                        } @else {
+                            <span class="project-workflow-settings__hint">
+                                Предустановленный workflow. Этапы доступны
+                                только для просмотра.
+                            </span>
+                        }
                     } @else {
+                        <div class="project-workflow-settings__workflow-badge">
+                            <tui-icon icon="@tui.workflow" />
+
+                            <span>Не выбран</span>
+                        </div>
+
                         <span class="project-workflow-settings__hint">
-                            Предустановленный workflow. Этапы доступны только
-                            для просмотра.
+                            Не удалось определить шаблон рабочего процесса.
                         </span>
                     }
-                } @else {
-                    <div class="project-workflow-settings__workflow-badge">
-                        <tui-icon icon="@tui.workflow" />
-
-                        <span>Не выбран</span>
-                    </div>
-
-                    <span class="project-workflow-settings__hint">
-                        Не удалось определить шаблон рабочего процесса.
-                    </span>
                 }
             </div>
         </div>
 
         <div class="project-workflow-settings__stages">
-            <!-- Тут дальше будут карточки этапов workflow -->
+            @if (isLoading()) {
+                @for (item of [1, 2, 3, 4, 5]; track item) {
+                    <div
+                        class="project-workflow-settings__stage-skeleton"
+                        [tuiSkeleton]="true"
+                    >
+                        Загрузка стадии
+                    </div>
+                }
+            } @else {
+                @for (stage of workflowStages(); track stage.id) {
+                    <app-project-workflow-stage-card [workflowStage]="stage" />
+                } @empty {
+                    <div class="project-workflow-settings__empty">
+                        Стадии workflow не найдены
+                    </div>
+                }
+            }
         </div>
 
-        @if (canEditWorkflowStages()) {
-            <button
-                tuiButton
-                class="project-workflow-settings__add-button"
-                type="button"
-                appearance="outline"
-                size="m"
-                iconStart="@tui.plus"
-            >
-                Добавить этап
-            </button>
+        @if (!isLoading()) {
+            @if (canEditWorkflowStages()) {
+                <button
+                    tuiButton
+                    class="project-workflow-settings__add-button"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.plus"
+                >
+                    Добавить этап
+                </button>
 
-            <p class="project-workflow-settings__description">
-                Перетаскивайте этапы для изменения порядка.
-            </p>
+                <p class="project-workflow-settings__description">
+                    Перетаскивайте этапы для изменения порядка.
+                </p>
+            } @else {
+                <p class="project-workflow-settings__description">
+                    Для предустановленного workflow этапы нельзя изменять. Чтобы
+                    настраивать этапы вручную, используйте кастомный workflow.
+                </p>
+            }
         } @else {
-            <p class="project-workflow-settings__description">
-                Для предустановленного workflow этапы нельзя изменять. Чтобы
-                настраивать этапы вручную, используйте кастомный workflow.
+            <p
+                class="project-workflow-settings__description"
+                [tuiSkeleton]="true"
+            >
+                Загружаем описание рабочего процесса
             </p>
         }
     </main>

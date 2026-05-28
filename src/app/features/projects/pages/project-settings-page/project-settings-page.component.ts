@@ -14,7 +14,7 @@ import {ProjectDangerZoneComponent} from '../../components/projects-settings-pag
 import {ProjectMainSettingsComponent} from '../../components/projects-settings-page-components/project-main-settings/project-main-settings.component';
 import {ProjectTeamSettingsComponent} from '../../components/projects-settings-page-components/project-team-settings/project-team-settings.component';
 import {ProjectWorkflowSettingsComponent} from '../../components/projects-settings-page-components/project-workflow-settings/project-workflow-settings.component';
-import {ProjectListItem} from '../../interfaces/project.interface';
+import {Project} from '../../interfaces/project.interface';
 import {ProjectsService} from '../../services/projects.service';
 
 @Component({
@@ -33,7 +33,7 @@ import {ProjectsService} from '../../services/projects.service';
 })
 export class ProjectSettingsPageComponent implements OnInit {
     protected readonly projectId = signal<string | null>(null);
-    protected readonly project = signal<ProjectListItem | null>(null);
+    protected readonly project = signal<Project | null>(null);
     protected readonly isProjectLoading = signal(false);
 
     private readonly route = inject(ActivatedRoute);
@@ -61,7 +61,7 @@ export class ProjectSettingsPageComponent implements OnInit {
             });
     }
 
-    protected updateProject(project: ProjectListItem) {
+    protected updateProject(project: Project) {
         this.project.set(project);
     }
 }

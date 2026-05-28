@@ -1,11 +1,14 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {TuiIcon} from '@taiga-ui/core';
+import {ProjectWorkflowStage} from '../../../../interfaces/project.interface';
 
 @Component({
     selector: 'app-project-workflow-stage-card',
-    imports: [TuiIcon],
+    imports: [],
     templateUrl: './project-workflow-stage-card.component.html',
     styleUrl: './project-workflow-stage-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectWorkflowStageCardComponent {}
+export class ProjectWorkflowStageCardComponent {
+    readonly workflowStage = input.required<ProjectWorkflowStage>();
+}

@@ -4,24 +4,31 @@ import {
     computed,
     inject,
     input,
-    OnInit,
     signal
 } from '@angular/core';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-import {ProjectListItem} from '../../../interfaces/project.interface';
+import {Project} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {ProjectWorkflowPipe} from '../../../../../shared/pipes/project-workflow.pipe';
 import {ProjectWorkflowType} from '../../../interfaces/project.enums';
+import {ProjectWorkflowStageCardComponent} from './project-workflow-stage-card/project-workflow-stage-card.component';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-project-workflow-settings',
-    imports: [TuiButton, TuiIcon, ProjectWorkflowPipe],
+    imports: [
+        TuiButton,
+        TuiIcon,
+        TuiSkeleton,
+        ProjectWorkflowPipe,
+        ProjectWorkflowStageCardComponent
+    ],
     templateUrl: './project-workflow-settings.component.html',
     styleUrl: './project-workflow-settings.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectWorkflowSettingsComponent {
-    readonly project = input.required<ProjectListItem>();
+    readonly project = input.required<Project>();
 
     private readonly projectsService = inject(ProjectsService);
 
@@ -33,5 +40,9 @@ export class ProjectWorkflowSettingsComponent {
 
     protected readonly canEditWorkflowStages = computed(() => {
         return this.workflowType() === ProjectWorkflowType.CUSTOM;
+    });
+
+    protected readonly workflowStages = computed(() => {
+        return this.project().workflowStages;
     });
 }
