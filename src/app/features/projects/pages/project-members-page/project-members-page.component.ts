@@ -28,7 +28,7 @@ export class ProjectMembersPageComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     protected readonly isProjectLoading = signal(false);
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.isProjectLoading.set(true);
         const projectId = this.route.snapshot.paramMap.get('projectId');
         if (!projectId) {

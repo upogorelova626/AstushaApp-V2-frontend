@@ -52,7 +52,7 @@
                     <div class="project-team-settings__meta">
                         <span>
                             {{
-                                team._count.members
+                                team._count?.members ?? 0
                                     | pluralizeRu
                                         : 'участник'
                                         : 'участника'

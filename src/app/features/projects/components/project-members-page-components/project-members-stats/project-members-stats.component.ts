@@ -40,7 +40,7 @@ export class ProjectMembersStatsComponent implements OnInit {
         return this.projectMembers().length;
     });
 
-    ngOnInit(): void {
+    ngOnInit() {
         const projectId = this.projectId();
 
         if (!projectId) {

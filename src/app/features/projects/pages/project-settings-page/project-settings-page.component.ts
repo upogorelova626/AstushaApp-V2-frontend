@@ -39,7 +39,7 @@ export class ProjectSettingsPageComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly projectsService = inject(ProjectsService);
 
-    ngOnInit(): void {
+    ngOnInit() {
         const projectId = this.route.snapshot.paramMap.get('projectId');
 
         if (!projectId) {

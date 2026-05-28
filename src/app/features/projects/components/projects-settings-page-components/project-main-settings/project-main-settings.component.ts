@@ -110,21 +110,26 @@ export class ProjectMainSettingsComponent implements OnInit {
 
             description: new FormControl('', {
                 nonNullable: true,
-                validators: [Validators.required, Validators.maxLength(1000)]
+                validators: [Validators.maxLength(1000)]
             }),
 
-            workflowType: new FormControl<ProjectWorkflowType | null>(null, [
-                Validators.required
-            ]),
+            workflowType: new FormControl<ProjectWorkflowType>(
+                ProjectWorkflowType.SIMPLE,
+                {
+                    nonNullable: true,
+                    validators: [Validators.required]
+                }
+            ),
 
             workflowTypeTitle: new FormControl('', {
                 nonNullable: true,
                 validators: [Validators.required]
             }),
 
-            priority: new FormControl<ProjectPriority | null>(null, [
-                Validators.required
-            ]),
+            priority: new FormControl<ProjectPriority>(ProjectPriority.MEDIUM, {
+                nonNullable: true,
+                validators: [Validators.required]
+            }),
 
             priorityTitle: new FormControl('', {
                 nonNullable: true,
@@ -132,12 +137,10 @@ export class ProjectMainSettingsComponent implements OnInit {
             }),
 
             startDate: new FormControl<TuiDay | null>(null, [
-                Validators.required,
                 notPastDateValidator
             ]),
 
             deadline: new FormControl<TuiDay | null>(null, [
-                Validators.required,
                 notPastDateValidator
             ])
         },
@@ -174,24 +177,17 @@ export class ProjectMainSettingsComponent implements OnInit {
 
         const rawValue = this.form.getRawValue();
 
-        if (
-            !rawValue.workflowType ||
-            !rawValue.priority ||
-            !rawValue.startDate ||
-            !rawValue.deadline
-        ) {
-            this.form.markAllAsTouched();
-
-            return;
-        }
-
         const payload: UpdateProjectRequest = {
             title: rawValue.title.trim(),
-            description: rawValue.description.trim(),
+            description: rawValue.description.trim() || undefined,
             workflowType: rawValue.workflowType,
             priority: rawValue.priority,
-            startDate: this.toBackendDate(rawValue.startDate),
-            deadline: this.toBackendDate(rawValue.deadline)
+            startDate: rawValue.startDate
+                ? this.toBackendDate(rawValue.startDate)
+                : undefined,
+            deadline: rawValue.deadline
+                ? this.toBackendDate(rawValue.deadline)
+                : undefined
         };
 
         this.isSaving.set(true);
@@ -204,21 +200,22 @@ export class ProjectMainSettingsComponent implements OnInit {
                     this.isSaving.set(false);
                 })
             )
-            .subscribe(() => {
+            .subscribe(updatedProject => {
                 const formValue: ProjectSettingsFormValue = {
-                    title: payload.title,
-                    description: payload.description,
-                    workflowType: payload.workflowType,
-                    workflowTypeTitle: rawValue.workflowTypeTitle,
-                    priority: payload.priority,
-                    priorityTitle: rawValue.priorityTitle,
-                    startDate: rawValue.startDate,
-                    deadline: rawValue.deadline
-                };
-
-                const updatedProject: ProjectListItem = {
-                    ...this.project(),
-                    ...payload
+                    title: updatedProject.title,
+                    description: updatedProject.description ?? '',
+                    workflowType: updatedProject.workflowType,
+                    workflowTypeTitle: this.getOptionTitle(
+                        this.workflowTypeOptions,
+                        updatedProject.workflowType
+                    ),
+                    priority: updatedProject.priority,
+                    priorityTitle: this.getOptionTitle(
+                        this.priorityOptions,
+                        updatedProject.priority
+                    ),
+                    startDate: this.toTuiDay(updatedProject.startDate),
+                    deadline: this.toTuiDay(updatedProject.deadline)
                 };
 
                 this.initialFormValue = formValue;
@@ -281,7 +278,7 @@ export class ProjectMainSettingsComponent implements OnInit {
     }
 
     private setSelectValue<T>(
-        valueControl: FormControl<T | null>,
+        valueControl: FormControl<T>,
         titleControl: FormControl<string>,
         option: SelectOption<T>
     ) {
