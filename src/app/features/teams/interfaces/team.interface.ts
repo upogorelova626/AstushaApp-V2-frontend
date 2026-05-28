@@ -11,20 +11,26 @@ export interface UpdateTeamRequest {
     avatarUrl?: string;
 }
 
+export interface TeamCount {
+    members: number;
+    projects: number;
+}
+
 export interface Team {
     id: string;
     name: string;
-    description: string;
-    avatarUrl: string;
+    description: string | null;
+    avatarUrl: string | null;
     creatorId: string;
     createdAt: string;
     updatedAt: string;
-    myRole: TeamRole | null;
-    _count: {
-        members: number;
-        projects: number;
-    };
-    projectsCount: number;
+
+    myRole?: TeamRole | null;
+
+    _count?: TeamCount;
+
+    membersCount?: number;
+    projectsCount?: number;
 }
 
 export interface ProjectTeam {

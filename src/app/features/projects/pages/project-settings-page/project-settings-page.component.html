@@ -8,7 +8,10 @@
 
         <div class="project-settings-page__content">
             <div class="project-settings-page__column">
-                <app-project-main-settings />
+                <app-project-main-settings
+                    [projectId]="projectId"
+                    [tuiSkeleton]="isProjectLoading()"
+                />
                 <app-project-team-settings
                     [projectId]="projectId"
                     [tuiSkeleton]="isProjectLoading()"

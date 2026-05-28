@@ -24,11 +24,12 @@ import {
     TuiTextfield
 } from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
-import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
+import {finalize} from 'rxjs';
+
+import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
 import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../interfaces/team.interface';
 import {TeamsService} from '../../services/teams.service';
-import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
 
 @Component({
     selector: 'app-teams-list',
@@ -43,8 +44,7 @@ import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors'
         TuiLabel,
         TuiTextarea,
         TuiTextfield,
-        TeamRoleLabelPipe,
-        PluralizeRuPipe
+        TeamRoleLabelPipe
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',
@@ -82,7 +82,11 @@ export class TeamListComponent implements OnInit {
     }
 
     protected openCreateTeamDialog() {
+        console.log('open dialog click');
+
         this.isCreateTeamDialogOpen = true;
+
+        console.log(this.isCreateTeamDialogOpen);
     }
 
     protected closeCreateTeamDialog() {
@@ -124,14 +128,15 @@ export class TeamListComponent implements OnInit {
     private loadTeams() {
         this.isLoading.set(true);
 
-        this.teamsService.getTeams().subscribe({
-            next: teams => {
+        this.teamsService
+            .getTeams()
+            .pipe(
+                finalize(() => {
+                    this.isLoading.set(false);
+                })
+            )
+            .subscribe(teams => {
                 this.teams.set(teams);
-                this.isLoading.set(false);
-            },
-            error: () => {
-                this.isLoading.set(false);
-            }
-        });
+            });
     }
 }

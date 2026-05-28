@@ -34,7 +34,9 @@
                     class="teams-list__item teams-list__item_active"
                     (click)="selectTeam(team.id)"
                 >
-                    <div class="teams-list__avatar">AI</div>
+                    <div class="teams-list__avatar">
+                        {{ team.name.slice(0, 2).toUpperCase() }}
+                    </div>
 
                     <div class="teams-list__content">
                         <div class="teams-list__top">
@@ -43,41 +45,58 @@
                             </span>
 
                             <span class="teams-list__badge">
-                                {{ team.myRole | teamRoleLabel }}
+                                {{
+                                    team.myRole
+                                        ? (team.myRole | teamRoleLabel)
+                                        : 'Без роли'
+                                }}
                             </span>
                         </div>
 
                         <p class="teams-list__description">
-                            {{ team.description }}
+                            {{ team.description || 'Без описания' }}
                         </p>
 
                         <div class="teams-list__meta">
                             <tui-icon icon="@tui.users-round" />
 
-                            <span>{{
-                                team.membersCount
-                                    | pluralizeRu
-                                        : 'участник'
-                                        : 'участника'
-                                        : 'участников'
-                            }}</span>
+                            <span>
+                                {{
+                                    team.membersCount ??
+                                        team._count?.members ??
+                                        0
+                                }}
+                            </span>
                         </div>
                     </div>
                 </button>
             }
         </div>
+    } @else {
+        <div class="teams-list__empty">
+            <tui-icon class="teams-list__empty-icon" icon="@tui.users-round" />
+
+            <p class="teams-list__empty-title">Команд пока нет</p>
+
+            <p class="teams-list__empty-description">
+                Создайте первую команду, чтобы добавлять участников и связывать
+                её с проектами.
+            </p>
+        </div>
     }
 
-    <button
-        tuiButton
-        type="button"
-        appearance="flat"
-        size="s"
-        class="teams-list__show-more"
-        iconEnd="@tui.chevron-down"
-    >
-        Показать ещё 3 команды
-    </button>
+    @if (teams().length > 3) {
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="s"
+            class="teams-list__show-more"
+            iconEnd="@tui.chevron-down"
+        >
+            Показать ещё команды
+        </button>
+    }
 
     <ng-template
         [(tuiDialog)]="isCreateTeamDialogOpen"

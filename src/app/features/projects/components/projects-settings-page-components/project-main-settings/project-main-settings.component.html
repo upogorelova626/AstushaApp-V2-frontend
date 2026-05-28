@@ -8,12 +8,13 @@
             appearance="outline"
             size="s"
             iconStart="@tui.pencil"
+            (click)="startEditing()"
         >
             Редактировать
         </button>
     </header>
 
-    <main class="project-main-settings__content">
+    <form [formGroup]="form" class="project-main-settings__content">
         <label class="project-main-settings__field">
             <span class="project-main-settings__label">Название проекта</span>
 
@@ -22,9 +23,14 @@
                     tuiInput
                     type="text"
                     placeholder="Например, Astusha App"
+                    formControlName="title"
                 />
             </tui-textfield>
         </label>
+        <tui-error
+            formControlName="title"
+            [order]="['required', 'maxLength', 'minLength']"
+        />
 
         <label class="project-main-settings__field">
             <span class="project-main-settings__label">Описание</span>
@@ -33,6 +39,7 @@
                 <textarea
                     tuiTextarea
                     placeholder="Кратко опишите цель проекта"
+                    formControlName="description"
                 ></textarea>
             </tui-textfield>
         </label>
@@ -71,7 +78,12 @@
             <span class="project-main-settings__label">Дата старта</span>
 
             <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
-                <input tuiInput placeholder="Выберите дату" />
+                <input
+                    tuiInputDate
+                    placeholder="Выберите дату"
+                    formControlName="startDate"
+                />
+                <tui-calendar *tuiDropdown />
             </tui-textfield>
         </label>
 
@@ -79,17 +91,28 @@
             <span class="project-main-settings__label">Дедлайн</span>
 
             <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
-                <input tuiInput placeholder="Выберите дату" />
+                <input
+                    tuiInputDate
+                    placeholder="Выберите дату"
+                    formControlName="deadline"
+                />
+                <tui-calendar *tuiDropdown />
             </tui-textfield>
         </label>
-    </main>
+    </form>
 
     <footer class="project-main-settings__footer">
         <button tuiButton type="button" appearance="primary" size="m">
             Сохранить изменения
         </button>
 
-        <button tuiButton type="button" appearance="outline" size="m">
+        <button
+            tuiButton
+            type="button"
+            appearance="outline"
+            size="m"
+            (click)="cancelEditing()"
+        >
             Отмена
         </button>
     </footer>

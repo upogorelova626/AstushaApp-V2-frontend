@@ -6,15 +6,15 @@
     </section>
 } @else if (!isLoading() && !team()) {
     <section class="team-details team-details_state">
-        <p class="team-details__state-text"> Выберите команду слева. </p>
+        <p class="team-details__state-text">Выберите команду слева.</p>
     </section>
 } @else {
     <section class="team-details">
         <header class="team-details__header">
             <div class="team-details__team">
                 <div class="team-details__avatar" [tuiSkeleton]="isLoading()">
-                    @if (team(); as team) {
-                        {{ team.name.slice(0, 2).toUpperCase() }}
+                    @if (team(); as teamData) {
+                        {{ teamData.name.slice(0, 2).toUpperCase() }}
                     } @else {
                         КО
                     }
@@ -22,8 +22,8 @@
 
                 <div class="team-details__info">
                     <h2 class="team-details__title" [tuiSkeleton]="isLoading()">
-                        @if (team(); as team) {
-                            {{ team.name }}
+                        @if (team(); as teamData) {
+                            {{ teamData.name }}
                         } @else {
                             Название команды
                         }
@@ -33,14 +33,13 @@
                         class="team-details__subtitle"
                         [tuiSkeleton]="isLoading()"
                     >
-                        @if (team(); as team) {
+                        @if (team(); as teamData) {
                             {{
-                                team.membersCount
-                                    | pluralizeRu
-                                        : 'участник'
-                                        : 'участника'
-                                        : 'участников'
+                                teamData.membersCount ??
+                                    teamData._count?.members ??
+                                    0
                             }}
+                            участников
                         } @else {
                             0 участников
                         }
@@ -134,6 +133,7 @@
                 Фильтры
             </button>
         </div>
+
         <div class="team-details__table-wrapper" [tuiSkeleton]="isLoading()">
             <table class="team-details__table">
                 <thead>
@@ -146,25 +146,20 @@
                     </tr>
                 </thead>
 
-                @if (team(); as team) {
-                    <rw app-team-members-list [teamId]="team.id" />
+                @if (team(); as teamData) {
+                    <rw app-team-members-list [teamId]="teamData.id" />
                 }
             </table>
         </div>
 
         <footer class="team-details__footer">
             <span class="team-details__counter" [tuiSkeleton]="isLoading()">
-                @if (team(); as team) {
+                @if (team(); as teamData) {
                     Показано 1–1 из
-                    {{
-                        team.membersCount
-                            | pluralizeRu
-                                : 'участник'
-                                : 'участника'
-                                : 'участников'
-                    }}
+                    {{ teamData.membersCount ?? teamData._count?.members ?? 0 }}
+                    участников
                 } @else {
-                    Показано 1–1 из 1 участников
+                    Показано 0–0 из 0 участников
                 }
             </span>
 
@@ -223,7 +218,7 @@
         </div>
 
         <div class="no-access-dialog__content">
-            <h2 class="no-access-dialog__title"> Недостаточно прав </h2>
+            <h2 class="no-access-dialog__title">Недостаточно прав</h2>
 
             <p class="no-access-dialog__text">
                 Редактировать настройки команды могут только создатель или
