@@ -1,17 +1,11 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    inject,
-    signal
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {
     FormControl,
     FormGroup,
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
-import {TuiActiveZone, TuiAutoFocus, TuiDay, TuiObscured} from '@taiga-ui/cdk';
+import {TuiAutoFocus, TuiDay} from '@taiga-ui/cdk';
 import {
     TUI_VALIDATION_ERRORS,
     TuiButton,
@@ -19,22 +13,24 @@ import {
     TuiDataList,
     type TuiDialogContext,
     TuiDropdown,
+    TuiError,
     TuiInput,
     TuiLabel,
     TuiOption,
     TuiTextfield,
-    TuiTitle,
-    TuiError
+    TuiTitle
 } from '@taiga-ui/core';
 import {TuiChevron, TuiInputDate, TuiUnfinishedValidator} from '@taiga-ui/kit';
 import {injectContext} from '@taiga-ui/polymorpheus';
+import {Router} from '@angular/router';
+
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
 } from '../../../../validators/project-dates.validator';
 import {
-    WorkflowTypeOption,
-    ProjectPriorityOption
+    ProjectPriorityOption,
+    WorkflowTypeOption
 } from '../../../../interfaces/workflow-and-priority.interface';
 import {CreateProjectRequest} from '../../../../interfaces/project.interface';
 import {
@@ -44,23 +40,21 @@ import {
 import {ProjectsService} from '../../../../services/projects.service';
 import {tuiDayToDateString} from '../../../../../../shared/utils/tui-day-to-date-string';
 import {
-    PROJECT_WORKFLOW_TYPE_OPTIONS,
-    PROJECT_PRIORITY_OPTIONS
+    PROJECT_PRIORITY_OPTIONS,
+    PROJECT_WORKFLOW_TYPE_OPTIONS
 } from '../../../../constants/project-options';
 import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-errors';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-create-project-dialog',
     imports: [
         ReactiveFormsModule,
-        TuiActiveZone,
         TuiAutoFocus,
-        TuiObscured,
         TuiButton,
         TuiCalendar,
         TuiDataList,
         TuiDropdown,
+        TuiError,
         TuiInput,
         TuiInputDate,
         TuiLabel,
@@ -68,8 +62,7 @@ import {Router} from '@angular/router';
         TuiTextfield,
         TuiTitle,
         TuiUnfinishedValidator,
-        TuiChevron,
-        TuiError
+        TuiChevron
     ],
     templateUrl: './create-project-dialog.component.html',
     styleUrl: './create-project-dialog.component.less',
@@ -86,6 +79,9 @@ export class CreateProjectDialogComponent {
 
     private readonly projectsService = inject(ProjectsService);
     private readonly router = inject(Router);
+
+    protected readonly workflowTypeOptions = PROJECT_WORKFLOW_TYPE_OPTIONS;
+    protected readonly priorityOptions = PROJECT_PRIORITY_OPTIONS;
 
     protected readonly form = new FormGroup(
         {
@@ -117,9 +113,19 @@ export class CreateProjectDialogComponent {
                 Validators.required
             ]),
 
+            workflowTypeTitle: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required]
+            }),
+
             priority: new FormControl<ProjectPriority | null>(null, [
                 Validators.required
             ]),
+
+            priorityTitle: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required]
+            }),
 
             startDate: new FormControl<TuiDay | null>(null, [
                 Validators.required,
@@ -136,66 +142,20 @@ export class CreateProjectDialogComponent {
         }
     );
 
-    protected readonly workflowTypeOptions = PROJECT_WORKFLOW_TYPE_OPTIONS;
-    protected readonly priorityOptions = PROJECT_PRIORITY_OPTIONS;
-
-    protected readonly isWorkflowDropdownOpen = signal(false);
-    protected readonly isPriorityDropdownOpen = signal(false);
-
-    protected readonly selectedWorkflowType = signal<WorkflowTypeOption | null>(
-        null
-    );
-    protected readonly selectedPriority = signal<ProjectPriorityOption | null>(
-        null
-    );
-
-    protected readonly workflowButtonLabel = computed(
-        () =>
-            this.selectedWorkflowType()?.title ??
-            'Выберите тип рабочего процесса'
-    );
-    protected readonly priorityButtonLabel = computed(
-        () => this.selectedPriority()?.title ?? 'Выберите приоритет проекта'
-    );
-
-    protected toggleWorkflowDropdown() {
-        this.isWorkflowDropdownOpen.update(open => !open);
-    }
-    protected onWorkflowObscured(obscured: boolean) {
-        if (obscured) {
-            this.isWorkflowDropdownOpen.set(false);
-        }
-    }
-    protected onWorkflowActiveZoneChange(active: boolean) {
-        if (!active) {
-            this.isWorkflowDropdownOpen.set(false);
-        }
-    }
     protected selectWorkflowType(option: WorkflowTypeOption) {
-        this.selectedWorkflowType.set(option);
-        this.form.controls.workflowType.setValue(option.value);
-        this.form.controls.workflowType.markAsTouched();
-        this.isWorkflowDropdownOpen.set(false);
+        this.setSelectValue(
+            this.form.controls.workflowType,
+            this.form.controls.workflowTypeTitle,
+            option
+        );
     }
 
-    protected togglePriorityDropdown() {
-        this.isPriorityDropdownOpen.update(open => !open);
-    }
-    protected onPriorityObscured(obscured: boolean) {
-        if (obscured) {
-            this.isPriorityDropdownOpen.set(false);
-        }
-    }
-    protected onPriorityActiveZoneChange(active: boolean) {
-        if (!active) {
-            this.isPriorityDropdownOpen.set(false);
-        }
-    }
     protected selectPriority(option: ProjectPriorityOption) {
-        this.selectedPriority.set(option);
-        this.form.controls.priority.setValue(option.value);
-        this.form.controls.priority.markAsTouched();
-        this.isPriorityDropdownOpen.set(false);
+        this.setSelectValue(
+            this.form.controls.priority,
+            this.form.controls.priorityTitle,
+            option
+        );
     }
 
     protected createProject() {
@@ -207,16 +167,68 @@ export class CreateProjectDialogComponent {
 
         const value = this.form.getRawValue();
 
-        const payload: CreateProjectRequest = {
-            ...value,
-            workflowType: value.workflowType!,
-            priority: value.priority!,
-            startDate: tuiDayToDateString(value.startDate!),
-            deadline: tuiDayToDateString(value.deadline!)
-        };
+        if (!this.hasRequiredValues(value)) {
+            return;
+        }
+
+        const payload = this.buildCreateProjectPayload(value);
+
         this.projectsService.createProject(payload).subscribe(project => {
             this.context.$implicit.complete();
             this.router.navigate(['dashboard/projects', project.id]);
         });
+    }
+
+    private setSelectValue<T>(
+        valueControl: FormControl<T | null>,
+        titleControl: FormControl<string>,
+        option: {
+            value: T;
+            title: string;
+        }
+    ) {
+        valueControl.setValue(option.value);
+        titleControl.setValue(option.title);
+
+        valueControl.markAsDirty();
+        valueControl.markAsTouched();
+
+        titleControl.markAsDirty();
+        titleControl.markAsTouched();
+    }
+
+    private hasRequiredValues(
+        value: ReturnType<typeof this.form.getRawValue>
+    ): value is ReturnType<typeof this.form.getRawValue> & {
+        workflowType: ProjectWorkflowType;
+        priority: ProjectPriority;
+        startDate: TuiDay;
+        deadline: TuiDay;
+    } {
+        return Boolean(
+            value.workflowType &&
+            value.priority &&
+            value.startDate &&
+            value.deadline
+        );
+    }
+
+    private buildCreateProjectPayload(
+        value: ReturnType<typeof this.form.getRawValue> & {
+            workflowType: ProjectWorkflowType;
+            priority: ProjectPriority;
+            startDate: TuiDay;
+            deadline: TuiDay;
+        }
+    ): CreateProjectRequest {
+        return {
+            title: value.title.trim(),
+            key: value.key.trim(),
+            description: value.description.trim(),
+            workflowType: value.workflowType,
+            priority: value.priority,
+            startDate: tuiDayToDateString(value.startDate),
+            deadline: tuiDayToDateString(value.deadline)
+        };
     }
 }

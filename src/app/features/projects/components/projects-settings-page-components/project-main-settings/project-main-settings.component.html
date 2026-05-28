@@ -27,9 +27,10 @@
                 />
             </tui-textfield>
         </label>
+
         <tui-error
-            formControlName="title"
-            [order]="['required', 'maxLength', 'minLength']"
+            [formControl]="form.controls.title"
+            [order]="['required', 'maxlength', 'minlength']"
         />
 
         <label class="project-main-settings__field">
@@ -44,35 +45,92 @@
             </tui-textfield>
         </label>
 
+        <tui-error
+            [formControl]="form.controls.description"
+            [order]="['required', 'maxlength']"
+        />
+
+        <label class="project-main-settings__field">
+            <span class="project-main-settings__label">Тип workflow</span>
+
+            <tui-textfield
+                tuiTextfieldSize="m"
+                iconStart="@tui.workflow"
+                tuiChevron
+            >
+                <input
+                    tuiInput
+                    readonly
+                    type="text"
+                    placeholder="Выберите тип workflow"
+                    formControlName="workflowTypeTitle"
+                />
+
+                <tui-data-list *tuiDropdown>
+                    @for (type of workflowTypeOptions; track type.value) {
+                        <button
+                            tuiOption
+                            type="button"
+                            (click)="selectWorkflowType(type)"
+                        >
+                            <span tuiTitle>
+                                {{ type.title }}
+
+                                <span tuiSubtitle>
+                                    {{ type.description }}
+                                </span>
+                            </span>
+                        </button>
+                    }
+                </tui-data-list>
+            </tui-textfield>
+        </label>
+
+        <tui-error
+            [formControl]="form.controls.workflowTypeTitle"
+            [order]="['required']"
+        />
+
         <label class="project-main-settings__field">
             <span class="project-main-settings__label">Приоритет</span>
 
-            <button
-                tuiButton
+            <tui-textfield
+                tuiTextfieldSize="m"
+                iconStart="@tui.flag"
                 tuiChevron
-                class="project-main-settings__select"
-                type="button"
-                appearance="outline"
-                size="m"
             >
-                Высокий
-            </button>
+                <input
+                    tuiInput
+                    readonly
+                    type="text"
+                    placeholder="Выберите приоритет"
+                    formControlName="priorityTitle"
+                />
+
+                <tui-data-list *tuiDropdown>
+                    @for (priority of priorityOptions; track priority.value) {
+                        <button
+                            tuiOption
+                            type="button"
+                            (click)="selectPriority(priority)"
+                        >
+                            <span tuiTitle>
+                                {{ priority.title }}
+
+                                <span tuiSubtitle>
+                                    {{ priority.description }}
+                                </span>
+                            </span>
+                        </button>
+                    }
+                </tui-data-list>
+            </tui-textfield>
         </label>
 
-        <label class="project-main-settings__field">
-            <span class="project-main-settings__label">Тип процесса</span>
-
-            <button
-                tuiButton
-                tuiChevron
-                class="project-main-settings__select"
-                type="button"
-                appearance="outline"
-                size="m"
-            >
-                Разработка
-            </button>
-        </label>
+        <tui-error
+            [formControl]="form.controls.priorityTitle"
+            [order]="['required']"
+        />
 
         <label class="project-main-settings__field">
             <span class="project-main-settings__label">Дата старта</span>
@@ -83,9 +141,15 @@
                     placeholder="Выберите дату"
                     formControlName="startDate"
                 />
+
                 <tui-calendar *tuiDropdown />
             </tui-textfield>
         </label>
+
+        <tui-error
+            [formControl]="form.controls.startDate"
+            [order]="['required', 'pastDate']"
+        />
 
         <label class="project-main-settings__field">
             <span class="project-main-settings__label">Дедлайн</span>
@@ -96,24 +160,40 @@
                     placeholder="Выберите дату"
                     formControlName="deadline"
                 />
+
                 <tui-calendar *tuiDropdown />
             </tui-textfield>
         </label>
+
+        <tui-error
+            [formControl]="form.controls.deadline"
+            [order]="['required', 'pastDate', 'deadlineBeforeStartDate']"
+        />
     </form>
 
-    <footer class="project-main-settings__footer">
-        <button tuiButton type="button" appearance="primary" size="m">
-            Сохранить изменения
-        </button>
+    @if (isEditing()) {
+        <footer class="project-main-settings__footer">
+            <button
+                tuiButton
+                type="button"
+                appearance="primary"
+                size="m"
+                [disabled]="isSaving()"
+                (click)="saveChanges()"
+            >
+                Сохранить изменения
+            </button>
 
-        <button
-            tuiButton
-            type="button"
-            appearance="outline"
-            size="m"
-            (click)="cancelEditing()"
-        >
-            Отмена
-        </button>
-    </footer>
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                [disabled]="isSaving()"
+                (click)="cancelEditing()"
+            >
+                Отмена
+            </button>
+        </footer>
+    }
 </div>
