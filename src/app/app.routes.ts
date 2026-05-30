@@ -101,32 +101,56 @@ export const routes: Routes = [
                     {
                         path: ':projectId',
                         loadComponent: () =>
-                            import('./features/projects/pages/project-detail-page/project-detail-page.component').then(
-                                m => m.ProjectDetailPageComponent
+                            import('./layouts/project-layout/project-layout.component').then(
+                                m => m.ProjectLayoutComponent
                             ),
-                        data: {
-                            breadcrumb: 'Проект'
-                        }
-                    },
-                    {
-                        path: ':projectId/members',
-                        loadComponent: () =>
-                            import('./features/projects/pages/project-members-page/project-members-page.component').then(
-                                m => m.ProjectMembersPageComponent
-                            ),
-                        data: {
-                            breadcrumb: 'Участники проекта'
-                        }
-                    },
-                    {
-                        path: ':projectId/settings',
-                        loadComponent: () =>
-                            import('./features/projects/pages/project-settings-page/project-settings-page.component').then(
-                                m => m.ProjectSettingsPageComponent
-                            ),
-                        data: {
-                            breadcrumb: 'Настройки проекта'
-                        }
+                        children: [
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'overview'
+                            },
+                            {
+                                path: 'overview',
+                                loadComponent: () =>
+                                    import('./features/projects/pages/project-detail-page/project-detail-page.component').then(
+                                        m => m.ProjectDetailPageComponent
+                                    ),
+                                data: {
+                                    breadcrumb: 'Проект'
+                                }
+                            },
+                            {
+                                path: 'tasks',
+                                loadComponent: () =>
+                                    import('./features/projects/pages/project-tasks-page/project-tasks-page.component').then(
+                                        m => m.ProjectTasksPageComponent
+                                    ),
+                                data: {
+                                    breadcrumb: 'Задачи проекта'
+                                }
+                            },
+                            {
+                                path: 'members',
+                                loadComponent: () =>
+                                    import('./features/projects/pages/project-members-page/project-members-page.component').then(
+                                        m => m.ProjectMembersPageComponent
+                                    ),
+                                data: {
+                                    breadcrumb: 'Участники проекта'
+                                }
+                            },
+                            {
+                                path: 'settings',
+                                loadComponent: () =>
+                                    import('./features/projects/pages/project-settings-page/project-settings-page.component').then(
+                                        m => m.ProjectSettingsPageComponent
+                                    ),
+                                data: {
+                                    breadcrumb: 'Настройки проекта'
+                                }
+                            }
+                        ]
                     }
                 ]
             },

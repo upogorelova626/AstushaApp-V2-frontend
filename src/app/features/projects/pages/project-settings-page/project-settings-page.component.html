@@ -1,33 +1,19 @@
 <div class="project-settings-page">
     @if (project(); as project) {
-        <app-project-navigate
-            class="project-settings-page__navigation"
-            [projectId]="project.id"
-            [tuiSkeleton]="isProjectLoading()"
-        />
-
         <div class="project-settings-page__content">
             <div class="project-settings-page__column">
                 <app-project-main-settings
                     [project]="project"
-                    [tuiSkeleton]="isProjectLoading()"
                     (projectUpdated)="updateProject($event)"
                 />
-                <app-project-team-settings
-                    [projectId]="project.id"
-                    [tuiSkeleton]="isProjectLoading()"
-                />
+
+                <app-project-danger-zone [projectId]="project.id" />
             </div>
 
             <div class="project-settings-page__column">
-                <app-project-workflow-settings
-                    [project]="project"
-                    [tuiSkeleton]="isProjectLoading()"
-                />
-                <app-project-danger-zone
-                    [projectId]="project.id"
-                    [tuiSkeleton]="isProjectLoading()"
-                />
+                <app-project-workflow-settings [project]="project" />
+
+                <app-project-team-settings [projectId]="project.id" />
             </div>
         </div>
     }

@@ -7,7 +7,7 @@ import {
     signal
 } from '@angular/core';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-import {Project} from '../../../interfaces/project.interface';
+import {Project, ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {ProjectWorkflowPipe} from '../../../../../shared/pipes/project-workflow.pipe';
 import {ProjectWorkflowType} from '../../../interfaces/project.enums';

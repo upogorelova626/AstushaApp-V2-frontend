@@ -7,14 +7,14 @@ import {
     OnInit,
     signal
 } from '@angular/core';
-import {TuiAvatar} from '@taiga-ui/kit';
+import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {ProjectsService} from '../../../services/projects.service';
 import {ProjectMember} from '../../../interfaces/project-member.interface';
 import {ProjectRole} from '../../../interfaces/project.enums';
 
 @Component({
     selector: 'app-project-members-stats',
-    imports: [TuiAvatar],
+    imports: [TuiAvatar, TuiSkeleton],
     templateUrl: './project-members-stats.component.html',
     styleUrl: './project-members-stats.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

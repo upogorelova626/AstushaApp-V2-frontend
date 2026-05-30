@@ -15,13 +15,21 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
-
 import {ProjectMember} from '../../../interfaces/project-member.interface';
 import {ProjectsService} from '../../../services/projects.service';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-project-members',
-    imports: [TuiHint, TuiAvatar, TuiIcon, TuiTextfield, TuiButton, TuiInput],
+    imports: [
+        TuiHint,
+        TuiAvatar,
+        TuiIcon,
+        TuiTextfield,
+        TuiButton,
+        TuiInput,
+        TuiSkeleton
+    ],
     templateUrl: './project-members.component.html',
     styleUrl: './project-members.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

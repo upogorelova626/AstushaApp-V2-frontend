@@ -126,7 +126,10 @@
                                 iconStart="@tui.ellipsis"
                                 tuiHint="Подробнее о проекте"
                                 tuiHintDirection="top-end"
-                                [routerLink]="[project.id]"
+                                [routerLink]="[
+                                    '/dashboard/projects',
+                                    project.id
+                                ]"
                             ></a>
                         </td>
                     </tr>

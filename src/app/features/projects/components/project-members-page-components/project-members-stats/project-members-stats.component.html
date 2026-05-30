@@ -1,52 +1,132 @@
 <div class="project-members-summary">
     <div class="project-members-summary__card">
-        <div tuiAvatar="@tui.users" class="project-members-summary__icon"></div>
+        @if (isLoading()) {
+            <div
+                class="project-members-summary__icon-skeleton"
+                tuiSkeleton
+            ></div>
 
-        <div class="project-members-summary__content">
-            <div class="project-members-summary__title">Всего участников</div>
+            <div class="project-members-summary__content">
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_title"
+                    tuiSkeleton
+                ></div>
 
-            <div class="project-members-summary__value">{{
-                projectMembersCount()
-            }}</div>
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_value"
+                    tuiSkeleton
+                ></div>
 
-            <div class="project-members-summary__description">
-                В команде проекта
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_description"
+                    tuiSkeleton
+                ></div>
             </div>
-        </div>
+        } @else {
+            <div
+                tuiAvatar="@tui.users"
+                class="project-members-summary__icon"
+            ></div>
+
+            <div class="project-members-summary__content">
+                <div class="project-members-summary__title">
+                    Всего участников
+                </div>
+
+                <div class="project-members-summary__value">
+                    {{ projectMembersCount() }}
+                </div>
+
+                <div class="project-members-summary__description">
+                    В команде проекта
+                </div>
+            </div>
+        }
     </div>
 
     <div class="project-members-summary__card">
-        <div
-            tuiAvatar="@tui.notepad-text"
-            class="project-members-summary__icon"
-        ></div>
+        @if (isLoading()) {
+            <div
+                class="project-members-summary__icon-skeleton"
+                tuiSkeleton
+            ></div>
 
-        <div class="project-members-summary__content">
-            <div class="project-members-summary__title">Всего задач</div>
+            <div class="project-members-summary__content">
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_title"
+                    tuiSkeleton
+                ></div>
 
-            <div class="project-members-summary__value">71</div>
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_value"
+                    tuiSkeleton
+                ></div>
 
-            <div class="project-members-summary__description">
-                Закреплено за командой
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_description"
+                    tuiSkeleton
+                ></div>
             </div>
-        </div>
+        } @else {
+            <div
+                tuiAvatar="@tui.notepad-text"
+                class="project-members-summary__icon"
+            ></div>
+
+            <div class="project-members-summary__content">
+                <div class="project-members-summary__title">Всего задач</div>
+
+                <div class="project-members-summary__value">71</div>
+
+                <div class="project-members-summary__description">
+                    Закреплено за командой
+                </div>
+            </div>
+        }
     </div>
 
     <div class="project-members-summary__card">
-        <div tuiAvatar="@tui.crown" class="project-members-summary__icon"></div>
+        @if (isLoading()) {
+            <div
+                class="project-members-summary__icon-skeleton"
+                tuiSkeleton
+            ></div>
 
-        <div class="project-members-summary__content">
-            <div class="project-members-summary__title">
-                Руководители проекта
+            <div class="project-members-summary__content">
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_title"
+                    tuiSkeleton
+                ></div>
+
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_value"
+                    tuiSkeleton
+                ></div>
+
+                <div
+                    class="project-members-summary__skeleton-line project-members-summary__skeleton-line_description"
+                    tuiSkeleton
+                ></div>
             </div>
+        } @else {
+            <div
+                tuiAvatar="@tui.crown"
+                class="project-members-summary__icon"
+            ></div>
 
-            <div class="project-members-summary__value">{{
-                projectManagersCount()
-            }}</div>
+            <div class="project-members-summary__content">
+                <div class="project-members-summary__title">
+                    Руководители проекта
+                </div>
 
-            <div class="project-members-summary__description">
-                Отвечают за успех проекта
+                <div class="project-members-summary__value">
+                    {{ projectManagersCount() }}
+                </div>
+
+                <div class="project-members-summary__description">
+                    Отвечают за успех проекта
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>

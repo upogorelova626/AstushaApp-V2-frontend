@@ -1,65 +1,45 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    computed,
     inject,
-    OnInit,
-    signal
+    Signal
 } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TuiSkeleton} from '@taiga-ui/kit';
-import {finalize} from 'rxjs';
-
+import {ROUTER_OUTLET_DATA} from '@angular/router';
 import {ProjectActivityComponent} from '../../components/project-details-page-components/project-activity/project-activity.component';
 import {ProjectCardComponent} from '../../components/project-details-page-components/project-card/project-card.component';
 import {ProjectLastTasksComponent} from '../../components/project-details-page-components/project-last-tasks/project-last-tasks.component';
 import {ProjectQuickActionsComponent} from '../../components/project-details-page-components/project-quick-actions/project-quick-actions.component';
 import {ProjectTeamCardComponent} from '../../components/project-details-page-components/project-team-card/project-team-card.component';
-import {ProjectListItem} from '../../interfaces/project.interface';
-import {ProjectsService} from '../../services/projects.service';
-import {ProjectNavigateComponent} from '../../components/project-details-page-components/project-navigate/project-navigate.component';
+import {Project} from '../../interfaces/project.interface';
+import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
 
 @Component({
     selector: 'app-project-detail-page',
     imports: [
-        TuiSkeleton,
         ProjectCardComponent,
         ProjectTeamCardComponent,
         ProjectQuickActionsComponent,
         ProjectLastTasksComponent,
-        ProjectActivityComponent,
-        ProjectNavigateComponent
+        ProjectActivityComponent
     ],
     templateUrl: './project-detail-page.component.html',
     styleUrl: './project-detail-page.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailPageComponent implements OnInit {
-    private readonly route = inject(ActivatedRoute);
-    private readonly projectsService = inject(ProjectsService);
+export class ProjectDetailPageComponent {
+    private readonly outletData = inject(
+        ROUTER_OUTLET_DATA
+    ) as Signal<ProjectOutletData | null>;
 
-    protected readonly project = signal<ProjectListItem | null>(null);
-    protected readonly isProjectLoading = signal(true);
+    protected readonly project = computed(
+        () => this.outletData()?.project ?? null
+    );
+    protected readonly projectId = computed(
+        () => this.outletData()?.projectId ?? null
+    );
 
-    ngOnInit() {
-        const projectId = this.route.snapshot.paramMap.get('projectId');
-
-        if (!projectId) {
-            this.isProjectLoading.set(false);
-
-            return;
-        }
-
-        this.loadProject(projectId);
-    }
-
-    protected loadProject(projectId: string) {
-        this.isProjectLoading.set(true);
-
-        this.projectsService
-            .getOneProject(projectId)
-            .pipe(finalize(() => this.isProjectLoading.set(false)))
-            .subscribe(project => {
-                this.project.set(project);
-            });
+    protected updateProject(project: Project) {
+        this.outletData()?.updateProject(project);
     }
 }

@@ -1,0 +1,24 @@
+<div class="project-page">
+    @if (project(); as project) {
+        <app-project-navigate [projectId]="project.id" />
+
+        <router-outlet
+            [routerOutletData]="{
+                project: project,
+                projectId: project.id,
+                updateProject: updateProject
+            }"
+        />
+    } @else {
+        <div class="project-page__navigation-skeleton" tuiSkeleton></div>
+
+        <div class="project-page__content-skeleton">
+            <div class="project-page__skeleton-card" tuiSkeleton></div>
+            <div class="project-page__skeleton-card" tuiSkeleton></div>
+            <div
+                class="project-page__skeleton-card project-page__skeleton-card_wide"
+                tuiSkeleton
+            ></div>
+        </div>
+    }
+</div>

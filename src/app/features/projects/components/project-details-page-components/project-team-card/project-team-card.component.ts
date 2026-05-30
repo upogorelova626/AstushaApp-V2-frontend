@@ -4,7 +4,6 @@ import {
     effect,
     inject,
     input,
-    OnInit,
     signal
 } from '@angular/core';
 import {
@@ -14,16 +13,17 @@ import {
     TuiNotificationService
 } from '@taiga-ui/core';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {switchMap, tap} from 'rxjs';
+import {finalize, switchMap, tap} from 'rxjs';
 import {RouterLink} from '@angular/router';
 import {ProjectTeam, Team} from '../../../../teams/interfaces/team.interface';
 import {ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {AddTeamDialogComponent} from './add-team-dialog/add-team-dialog.component';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-project-team-card',
-    imports: [TuiButton, TuiIcon, RouterLink],
+    imports: [TuiButton, TuiIcon, RouterLink, TuiSkeleton],
     templateUrl: './project-team-card.component.html',
     styleUrl: './project-team-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -35,6 +35,7 @@ export class ProjectTeamCardComponent {
 
     readonly project = input<ProjectListItem | null>(null);
     protected readonly team = signal<Team | null>(null);
+    protected readonly isLoading = signal(false);
 
     constructor() {
         effect(() => {
@@ -45,8 +46,10 @@ export class ProjectTeamCardComponent {
 
                 return;
             }
-
-            this.getTeam(project.id).subscribe();
+            this.isLoading.set(true);
+            this.getTeam(project.id)
+                .pipe(finalize(() => this.isLoading.set(false)))
+                .subscribe();
         });
     }
 

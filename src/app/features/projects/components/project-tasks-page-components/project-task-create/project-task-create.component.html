@@ -1,0 +1,242 @@
+<section class="create-project-task-form">
+    <header class="create-project-task-form__header">
+        <div>
+            <h3 class="create-project-task-form__title">Создать задачу</h3>
+
+            <p class="create-project-task-form__subtitle">
+                Заполните основные параметры задачи для проекта
+            </p>
+        </div>
+    </header>
+
+    <form class="create-project-task-form__form">
+        <div class="create-project-task-form__grid">
+            <label
+                class="create-project-task-form__field create-project-task-form__field_title"
+            >
+                <span class="create-project-task-form__label">
+                    Название задачи
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m">
+                    <input
+                        tuiInput
+                        type="text"
+                        placeholder="Например, сверстать карточку задачи"
+                        name="title"
+                    />
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label">
+                    Этап workflow
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите этап"
+                        name="workflowStageId"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button">Backlog</button>
+                        <button tuiOption type="button">To Do</button>
+                        <button tuiOption type="button">In Progress</button>
+                        <button tuiOption type="button">Review</button>
+                        <button tuiOption type="button">Done</button>
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label">
+                    Тип задачи
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите тип"
+                        name="type"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button">Task</button>
+                        <button tuiOption type="button">Bug</button>
+                        <button tuiOption type="button">Story</button>
+                        <button tuiOption type="button">Epic</button>
+                        <button tuiOption type="button">Subtask</button>
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label"> Приоритет </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите приоритет"
+                        name="priority"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button">Низкий</button>
+                        <button tuiOption type="button">Средний</button>
+                        <button tuiOption type="button">Высокий</button>
+                        <button tuiOption type="button">Критический</button>
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label">
+                    Story points
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m">
+                    <input
+                        tuiInput
+                        type="number"
+                        min="0"
+                        placeholder="Например, 3"
+                        name="storyPoints"
+                    />
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label"> Дедлайн </span>
+
+                <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
+                    <input
+                        tuiInput
+                        placeholder="Выберите дату"
+                        name="dueDate"
+                    />
+
+                    <tui-calendar *tuiDropdown />
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label">
+                    Исполнитель
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите участника"
+                        name="assigneeId"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button"
+                            >Астюша Котикович</button
+                        >
+                        <button tuiOption type="button">Никита Кукалев</button>
+                        <button tuiOption type="button"
+                            >Черныш Погорелов</button
+                        >
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label"> Спринт </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите спринт"
+                        name="sprintId"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button">Sprint 1</button>
+                        <button tuiOption type="button">Sprint 2</button>
+                        <button tuiOption type="button">Backlog sprint</button>
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+
+            <label class="create-project-task-form__field">
+                <span class="create-project-task-form__label">
+                    Родительская задача
+                </span>
+
+                <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                    <input
+                        tuiInput
+                        readonly
+                        type="text"
+                        placeholder="Выберите задачу"
+                        name="parentId"
+                    />
+
+                    <tui-data-list *tuiDropdown>
+                        <button tuiOption type="button"
+                            >Без родительской задачи</button
+                        >
+                        <button tuiOption type="button"
+                            >AST-12 Авторизация</button
+                        >
+                        <button tuiOption type="button"
+                            >AST-18 Настройки проекта</button
+                        >
+                    </tui-data-list>
+                </tui-textfield>
+            </label>
+        </div>
+
+        <label class="create-project-task-form__description">
+            <span class="create-project-task-form__description-label">
+                <tui-icon icon="@tui.file-text" />
+                Описание задачи
+            </span>
+
+            <tui-textfield tuiTextfieldSize="m">
+                <textarea
+                    tuiTextarea
+                    name="description"
+                    placeholder="Опишите задачу, требования или важные детали"
+                ></textarea>
+            </tui-textfield>
+        </label>
+
+        <footer class="create-project-task-form__footer">
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="m"
+                iconStart="@tui.x"
+            >
+                Очистить
+            </button>
+
+            <button
+                tuiButton
+                type="submit"
+                appearance="primary"
+                size="m"
+                iconStart="@tui.plus"
+            >
+                Создать задачу
+            </button>
+        </footer>
+    </form>
+</section>
