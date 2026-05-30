@@ -1,3 +1,11 @@
 <div class="project-tasks-page__wrapper">
-    <app-project-task-create />
+    @if (project(); as project) {
+        <app-project-task-create
+            [project]="project"
+            [tasks]="tasks()"
+            (taskCreated)="addTask($event)"
+        />
+        <app-project-task-toolbar [tasks]="tasks()" />
+        <app-project-task-list [tasks]="tasks()" />
+    }
 </div>

@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {ProjectTask} from '../../../interfaces/project-tasks.interface';
 
 @Component({
     selector: 'app-project-task-toolbar',
@@ -7,4 +8,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
     styleUrl: './project-task-toolbar.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectTaskToolbarComponent {}
+export class ProjectTaskToolbarComponent {
+    tasks = input.required<ProjectTask[]>();
+}

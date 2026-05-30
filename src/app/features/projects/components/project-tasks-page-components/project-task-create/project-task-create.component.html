@@ -1,4 +1,4 @@
-<section class="create-project-task-form">
+<div class="create-project-task-form">
     <header class="create-project-task-form__header">
         <div>
             <h3 class="create-project-task-form__title">Создать задачу</h3>
@@ -9,7 +9,11 @@
         </div>
     </header>
 
-    <form class="create-project-task-form__form">
+    <form
+        class="create-project-task-form__form"
+        [formGroup]="form"
+        (ngSubmit)="createTask()"
+    >
         <div class="create-project-task-form__grid">
             <label
                 class="create-project-task-form__field create-project-task-form__field_title"
@@ -23,9 +27,14 @@
                         tuiInput
                         type="text"
                         placeholder="Например, сверстать карточку задачи"
-                        name="title"
+                        formControlName="title"
                     />
                 </tui-textfield>
+
+                <tui-error
+                    formControlName="title"
+                    [order]="['required', 'minlength', 'maxlength']"
+                />
             </label>
 
             <label class="create-project-task-form__field">
@@ -36,20 +45,24 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
                         placeholder="Выберите этап"
-                        name="workflowStageId"
+                        formControlName="workflowStageId"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button">Backlog</button>
-                        <button tuiOption type="button">To Do</button>
-                        <button tuiOption type="button">In Progress</button>
-                        <button tuiOption type="button">Review</button>
-                        <button tuiOption type="button">Done</button>
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="workflowStageIdItems()"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error
+                    formControlName="workflowStageId"
+                    [order]="['required']"
+                />
             </label>
 
             <label class="create-project-task-form__field">
@@ -60,20 +73,21 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
                         placeholder="Выберите тип"
-                        name="type"
+                        formControlName="type"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button">Task</button>
-                        <button tuiOption type="button">Bug</button>
-                        <button tuiOption type="button">Story</button>
-                        <button tuiOption type="button">Epic</button>
-                        <button tuiOption type="button">Subtask</button>
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="taskTypeItems"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error formControlName="type" [order]="['required']" />
             </label>
 
             <label class="create-project-task-form__field">
@@ -82,19 +96,21 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
-                        placeholder="Выберите приоритет"
-                        name="priority"
+                        placeholder="Выберите приоритет задачи"
+                        formControlName="priority"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button">Низкий</button>
-                        <button tuiOption type="button">Средний</button>
-                        <button tuiOption type="button">Высокий</button>
-                        <button tuiOption type="button">Критический</button>
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="taskPriorityItems"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error formControlName="priority" [order]="['required']" />
             </label>
 
             <label class="create-project-task-form__field">
@@ -108,23 +124,30 @@
                         type="number"
                         min="0"
                         placeholder="Например, 3"
-                        name="storyPoints"
+                        formControlName="storyPoints"
                     />
                 </tui-textfield>
+
+                <tui-error formControlName="storyPoints" [order]="['min']" />
             </label>
 
             <label class="create-project-task-form__field">
                 <span class="create-project-task-form__label"> Дедлайн </span>
 
-                <tui-textfield tuiTextfieldSize="m" iconStart="@tui.calendar">
+                <tui-textfield tuiTextfieldSize="m">
                     <input
-                        tuiInput
+                        tuiInputDate
                         placeholder="Выберите дату"
-                        name="dueDate"
+                        formControlName="dueDate"
                     />
 
                     <tui-calendar *tuiDropdown />
                 </tui-textfield>
+
+                <tui-error
+                    formControlName="dueDate"
+                    [order]="['notPastDate', 'date', 'invalidDate']"
+                />
             </label>
 
             <label class="create-project-task-form__field">
@@ -135,22 +158,21 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
                         placeholder="Выберите участника"
-                        name="assigneeId"
+                        formControlName="assigneeId"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button"
-                            >Астюша Котикович</button
-                        >
-                        <button tuiOption type="button">Никита Кукалев</button>
-                        <button tuiOption type="button"
-                            >Черныш Погорелов</button
-                        >
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="assigneeIdItems()"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error formControlName="assigneeId" [order]="['uuid']" />
             </label>
 
             <label class="create-project-task-form__field">
@@ -159,18 +181,21 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
                         placeholder="Выберите спринт"
-                        name="sprintId"
+                        formControlName="sprintId"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button">Sprint 1</button>
-                        <button tuiOption type="button">Sprint 2</button>
-                        <button tuiOption type="button">Backlog sprint</button>
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="sprintIdItems()"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error formControlName="sprintId" [order]="['uuid']" />
             </label>
 
             <label class="create-project-task-form__field">
@@ -181,24 +206,21 @@
                 <tui-textfield tuiTextfieldSize="m" tuiChevron>
                     <input
                         tuiInput
+                        tuiSelectLike
                         readonly
                         type="text"
                         placeholder="Выберите задачу"
-                        name="parentId"
+                        formControlName="parentId"
                     />
 
-                    <tui-data-list *tuiDropdown>
-                        <button tuiOption type="button"
-                            >Без родительской задачи</button
-                        >
-                        <button tuiOption type="button"
-                            >AST-12 Авторизация</button
-                        >
-                        <button tuiOption type="button"
-                            >AST-18 Настройки проекта</button
-                        >
-                    </tui-data-list>
+                    <tui-data-list-wrapper
+                        *tuiDropdown
+                        [items]="parentIdItems()"
+                        [itemContent]="optionContent"
+                    />
                 </tui-textfield>
+
+                <tui-error formControlName="parentId" [order]="['uuid']" />
             </label>
         </div>
 
@@ -211,10 +233,12 @@
             <tui-textfield tuiTextfieldSize="m">
                 <textarea
                     tuiTextarea
-                    name="description"
                     placeholder="Опишите задачу, требования или важные детали"
+                    formControlName="description"
                 ></textarea>
             </tui-textfield>
+
+            <tui-error formControlName="description" [order]="['maxlength']" />
         </label>
 
         <footer class="create-project-task-form__footer">
@@ -224,6 +248,7 @@
                 appearance="outline"
                 size="m"
                 iconStart="@tui.x"
+                (click)="clearForm()"
             >
                 Очистить
             </button>
@@ -234,9 +259,14 @@
                 appearance="primary"
                 size="m"
                 iconStart="@tui.plus"
+                [disabled]="form.invalid || isCreating()"
             >
                 Создать задачу
             </button>
         </footer>
     </form>
-</section>
+
+    <ng-template #optionContent let-item>
+        {{ item.label }}
+    </ng-template>
+</div>

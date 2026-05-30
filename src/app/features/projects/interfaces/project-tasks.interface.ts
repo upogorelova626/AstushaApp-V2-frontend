@@ -60,55 +60,39 @@ export interface ProjectTaskSubtask {
 
 export interface ProjectTask {
     id: string;
-
     projectId: string;
     sprintId: string | null;
     workflowStageId: string;
-
     number: number;
     position: number;
-
     title: string;
     description: string | null;
-
     type: TaskType;
     priority: TaskPriority;
-
     storyPoints: number | null;
     dueDate: string | null;
-
     createdById: string | null;
     assigneeId: string | null;
-
     parentId: string | null;
-
     createdAt: string;
     updatedAt: string;
-
     createdBy: ProjectUser | null;
     assignee: ProjectUser | null;
-
     workflowStage: ProjectTaskWorkflowStage;
-
     sprint: ProjectTaskSprint | null;
     parent: ProjectTaskParent | null;
     subtasks: ProjectTaskSubtask[];
-
     _count: ProjectTaskCounts;
 }
 
 export interface CreateProjectTaskRequest {
     title: string;
-
-    workflowStageId: string;
-
+    workflowStageId?: string;
     description?: string;
     type?: TaskType;
     priority?: TaskPriority;
-
     storyPoints?: number;
     dueDate?: string;
-
     assigneeId?: string;
     sprintId?: string;
     parentId?: string;
@@ -117,13 +101,10 @@ export interface CreateProjectTaskRequest {
 export interface UpdateProjectTaskRequest {
     title?: string;
     description?: string | null;
-
     type?: TaskType;
     priority?: TaskPriority;
-
     storyPoints?: number | null;
     dueDate?: string | null;
-
     assigneeId?: string | null;
     sprintId?: string | null;
     parentId?: string | null;

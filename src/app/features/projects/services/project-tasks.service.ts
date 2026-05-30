@@ -15,7 +15,7 @@ export class ProjectTasksService {
 
     private readonly baseApiUrl = 'http://localhost:3000/projects';
 
-    createTask(projectId: string, payload: CreateProjectTaskRequest) {
+    createTask(payload: CreateProjectTaskRequest, projectId: string) {
         return this.http.post<ProjectTask>(
             `${this.baseApiUrl}/${projectId}/tasks`,
             payload
