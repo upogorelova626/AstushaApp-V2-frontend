@@ -75,41 +75,4 @@
     &__footer button {
         flex-shrink: 0;
     }
-
-    @media (max-width: 768px) {
-        min-height: auto;
-        padding: 16px;
-        border-radius: 16px;
-
-        &__header {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        &__field {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 8px;
-        }
-
-        &__label {
-            padding-top: 0;
-        }
-
-        &__footer {
-            flex-direction: column;
-        }
-
-        &__footer button {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 480px) {
-        padding: 14px;
-
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
-    }
 }

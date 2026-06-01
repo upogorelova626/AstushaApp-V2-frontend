@@ -18,6 +18,7 @@ import {finalize} from 'rxjs';
 import {ProjectMember} from '../../../interfaces/project-member.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {TuiSkeleton} from '@taiga-ui/kit';
+import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 
 @Component({
     selector: 'app-project-members',
@@ -28,7 +29,8 @@ import {TuiSkeleton} from '@taiga-ui/kit';
         TuiTextfield,
         TuiButton,
         TuiInput,
-        TuiSkeleton
+        TuiSkeleton,
+        TeamRoleLabelPipe
     ],
     templateUrl: './project-members.component.html',
     styleUrl: './project-members.component.less',

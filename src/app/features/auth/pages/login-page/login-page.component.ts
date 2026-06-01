@@ -31,7 +31,7 @@ export class LoginPageComponent {
 
     protected readonly errorMessage = signal<string | null>(null);
 
-    form = new FormGroup({
+    protected readonly form = new FormGroup({
         email: new FormControl('', {
             nonNullable: true,
             validators: [

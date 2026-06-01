@@ -1,3 +1,39 @@
-.project-tasks-page__wrapper {
-    padding-right: 10px;
+:host {
+    display: block;
+    width: 100%;
+}
+
+.project-tasks-page {
+    &__wrapper {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        width: 100%;
+        min-width: 0;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .project-tasks-page {
+        &__wrapper {
+            gap: 16px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .project-tasks-page {
+        &__wrapper {
+            gap: 14px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .project-tasks-page {
+        &__wrapper {
+            gap: 12px;
+        }
+    }
 }

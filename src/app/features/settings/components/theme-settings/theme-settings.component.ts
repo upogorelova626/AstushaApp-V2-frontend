@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {TuiIcon, TuiButton, TuiInput} from '@taiga-ui/core';
+import {TuiIcon, TuiButton, TuiInput, TuiHintDirective} from '@taiga-ui/core';
 import {BackgroundService} from '../../services/Background.service';
 import {AppBackground} from '../../services/Background.service';
 
 @Component({
     selector: 'app-theme-settings',
-    imports: [TuiIcon, TuiButton, TuiInput],
+    imports: [TuiIcon, TuiButton, TuiInput, TuiHintDirective],
     templateUrl: './theme-settings.component.html',
     styleUrl: './theme-settings.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

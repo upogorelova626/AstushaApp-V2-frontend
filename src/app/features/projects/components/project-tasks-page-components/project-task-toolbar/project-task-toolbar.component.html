@@ -1,1 +1,65 @@
-<p>project-task-toolbar works!</p>
+<div class="project-task-toolbar__wrapper">
+    <div class="project-task-toolbar__filters">
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            class="project-task-toolbar__filter"
+        >
+            Все задачи
+            <span class="project-task-toolbar__count">
+                {{ tasks().length }}
+            </span>
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            iconStart="@tui.notebook-pen"
+            class="project-task-toolbar__filter"
+        >
+            К выполнению
+            <span class="project-task-toolbar__count">0</span>
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            class="project-task-toolbar__filter"
+        >
+            В процессе
+            <span class="project-task-toolbar__count">0</span>
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            class="project-task-toolbar__filter"
+        >
+            На проверке
+            <span class="project-task-toolbar__count">0</span>
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            iconStart="@tui.square-check-big"
+            class="project-task-toolbar__filter"
+        >
+            Завершено
+            <span class="project-task-toolbar__count">0</span>
+        </button>
+    </div>
+
+    <tui-textfield
+        class="project-task-toolbar__search"
+        tuiTextfieldSize="m"
+        iconStart="@tui.search"
+    >
+        <input tuiInput type="text" placeholder="Поиск задачи" />
+    </tui-textfield>
+</div>

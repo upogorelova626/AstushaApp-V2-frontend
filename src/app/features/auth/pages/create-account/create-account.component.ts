@@ -48,7 +48,7 @@ export class CreateAccountComponent {
     private readonly router = inject(Router);
     private readonly dialogs = inject(TuiDialogService);
 
-    form = new FormGroup(
+    protected readonly form = new FormGroup(
         {
             login: new FormControl('', {
                 nonNullable: true,

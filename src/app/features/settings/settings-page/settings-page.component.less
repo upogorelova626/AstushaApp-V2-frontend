@@ -1,10 +1,16 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
 .settins-page-components {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
     gap: 10px;
     width: 100%;
-    align-items: stretch;
-    margin-right: 10px;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .left-column,
@@ -19,5 +25,27 @@
 .right-column > * {
     display: block;
     width: 100%;
-    flex: 1;
+}
+
+@media (max-width: 1024px) {
+    .settins-page-components {
+        grid-template-columns: 1fr;
+        padding-right: 0;
+    }
+
+    .left-column,
+    .right-column {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .settins-page-components {
+        gap: 8px;
+    }
+
+    .left-column,
+    .right-column {
+        gap: 8px;
+    }
 }

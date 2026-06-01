@@ -1,10 +1,4 @@
-@if (isError()) {
-    <section class="team-details team-details_state">
-        <p class="team-details__state-text">
-            Не удалось загрузить данные команды.
-        </p>
-    </section>
-} @else if (!isLoading() && !team()) {
+@if (!isLoading() && !team()) {
     <section class="team-details team-details_state">
         <p class="team-details__state-text">Выберите команду слева.</p>
     </section>
@@ -51,7 +45,6 @@
                 <button
                     tuiButton
                     type="button"
-                    appearance="primary"
                     size="m"
                     iconStart="@tui.user-plus"
                     [tuiSkeleton]="isLoading()"
@@ -69,7 +62,9 @@
                     tuiHintDirection="top-start"
                     [tuiSkeleton]="isLoading()"
                     (click)="team() && openTeamSettings(team()!)"
-                ></button>
+                >
+                    Настройки команды
+                </button>
             </div>
         </header>
 
@@ -146,20 +141,92 @@
                     </tr>
                 </thead>
 
-                @if (team(); as teamData) {
-                    <rw app-team-members-list [teamId]="teamData.id" />
-                }
+                <tbody>
+                    @if (teamMembers().length) {
+                        @for (member of teamMembers(); track member.id) {
+                            <tr class="team-members-list__row">
+                                <td>
+                                    <div class="team-member-row__member">
+                                        <div
+                                            tuiAvatar="@tui.user"
+                                            class="team-member-row__avatar"
+                                        ></div>
+
+                                        <span class="team-member-row__name">
+                                            {{
+                                                member.user.firstName ||
+                                                    member.user.login
+                                            }}
+                                            {{ member.user.lastName }}
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="team-member-row__email">
+                                        {{ member.user.email }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="team-member-row__role">
+                                        {{ member.role | teamRoleLabel }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span
+                                        class="team-member-row__projects-count"
+                                    >
+                                        5
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        tuiIconButton
+                                        type="button"
+                                        appearance="flat"
+                                        size="s"
+                                        iconStart="@tui.ellipsis-vertical"
+                                    >
+                                        Действия
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    } @else {
+                        <tr>
+                            <td colspan="5">
+                                <div class="team-details__empty">
+                                    <tui-icon icon="@tui.users" />
+
+                                    <div>
+                                        <h3 class="team-details__empty-title">
+                                            Участников пока нет
+                                        </h3>
+
+                                        <p class="team-details__empty-text">
+                                            Пригласите участников, чтобы они
+                                            появились в списке команды.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
 
         <footer class="team-details__footer">
             <span class="team-details__counter" [tuiSkeleton]="isLoading()">
                 @if (team(); as teamData) {
-                    Показано 1–1 из
+                    Показано {{ teamMembers().length }} из
                     {{ teamData.membersCount ?? teamData._count?.members ?? 0 }}
                     участников
                 } @else {
-                    Показано 0–0 из 0 участников
+                    Показано 0 из 0 участников
                 }
             </span>
 
@@ -174,9 +241,7 @@
                     Назад
                 </button>
 
-                <button tuiButton type="button" appearance="primary" size="s">
-                    1
-                </button>
+                <button tuiButton type="button" size="s">1</button>
 
                 <button tuiButton type="button" appearance="flat" size="s">
                     2
@@ -230,7 +295,6 @@
             <button
                 tuiButton
                 type="button"
-                appearance="primary"
                 size="m"
                 (click)="isNoAccessDialogOpen.set(false)"
             >

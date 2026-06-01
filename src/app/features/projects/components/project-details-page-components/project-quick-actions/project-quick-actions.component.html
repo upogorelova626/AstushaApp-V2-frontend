@@ -1,4 +1,4 @@
-<section class="project-quick-actions">
+<div class="project-quick-actions">
     <header class="project-quick-actions__header">
         <tui-icon class="project-quick-actions__header-icon" icon="@tui.zap" />
 
@@ -11,19 +11,20 @@
             class="project-quick-actions__button"
             type="button"
             appearance="flat"
+            [routerLink]="['/dashboard/projects', project()?.id, 'members']"
         >
             <tui-icon
                 class="project-quick-actions__button-icon"
-                icon="@tui.circle-plus"
+                icon="@tui.users"
             />
 
             <span class="project-quick-actions__button-content">
                 <span class="project-quick-actions__button-title">
-                    Создать задачу
+                    Команда проекта
                 </span>
 
                 <span class="project-quick-actions__button-description">
-                    Добавить новую задачу в проект
+                    Посмотреть команду проекта
                 </span>
             </span>
 
@@ -38,34 +39,7 @@
             class="project-quick-actions__button"
             type="button"
             appearance="flat"
-            [routerLink]="['/dashboard/projects', project()?.id, 'settings']"
-        >
-            <tui-icon
-                class="project-quick-actions__button-icon"
-                icon="@tui.settings"
-            />
-
-            <span class="project-quick-actions__button-content">
-                <span class="project-quick-actions__button-title">
-                    Настройки проекта
-                </span>
-
-                <span class="project-quick-actions__button-description">
-                    Управление параметрами проекта
-                </span>
-            </span>
-
-            <tui-icon
-                class="project-quick-actions__button-arrow"
-                icon="@tui.chevron-right"
-            />
-        </button>
-
-        <button
-            tuiButton
-            class="project-quick-actions__button"
-            type="button"
-            appearance="flat"
+            [routerLink]="['/dashboard/projects', project()?.id, 'tasks']"
         >
             <tui-icon
                 class="project-quick-actions__button-icon"
@@ -87,5 +61,38 @@
                 icon="@tui.chevron-right"
             />
         </button>
+        @if (canManageProject()) {
+            <button
+                tuiButton
+                class="project-quick-actions__button"
+                type="button"
+                appearance="flat"
+                [routerLink]="[
+                    '/dashboard/projects',
+                    project()?.id,
+                    'settings'
+                ]"
+            >
+                <tui-icon
+                    class="project-quick-actions__button-icon"
+                    icon="@tui.settings"
+                />
+
+                <span class="project-quick-actions__button-content">
+                    <span class="project-quick-actions__button-title">
+                        Настройки проекта
+                    </span>
+
+                    <span class="project-quick-actions__button-description">
+                        Управление параметрами проекта
+                    </span>
+                </span>
+
+                <tui-icon
+                    class="project-quick-actions__button-arrow"
+                    icon="@tui.chevron-right"
+                />
+            </button>
+        }
     </main>
-</section>
+</div>

@@ -16,11 +16,13 @@ import {
     TuiInput,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiSkeleton} from '@taiga-ui/kit';
-import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
+import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
+import {finalize, forkJoin} from 'rxjs';
+import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../interfaces/team.interface';
+import {TeamMember} from '../../interfaces/team-members.interface';
+import {TeamMembersService} from '../../services/team-members.service';
 import {TeamsService} from '../../services/teams.service';
-import {TeamMembersListComponent} from './team-members-list/team-members-list.component';
 
 @Component({
     selector: 'app-team-detail',
@@ -32,9 +34,9 @@ import {TeamMembersListComponent} from './team-members-list/team-members-list.co
         TuiHint,
         TuiDialog,
         TuiIcon,
-        PluralizeRuPipe,
+        TuiAvatar,
         TuiSkeleton,
-        TeamMembersListComponent
+        TeamRoleLabelPipe
     ],
     templateUrl: './team-detail.component.html',
     styleUrl: './team-detail.component.less',
@@ -42,13 +44,14 @@ import {TeamMembersListComponent} from './team-members-list/team-members-list.co
 })
 export class TeamDetailComponent {
     private readonly teamsService = inject(TeamsService);
+    private readonly teamMembersService = inject(TeamMembersService);
     private readonly router = inject(Router);
 
     readonly teamId = input<string | null>(null);
 
     protected readonly team = signal<Team | null>(null);
+    protected readonly teamMembers = signal<TeamMember[]>([]);
     protected readonly isLoading = signal(false);
-    protected readonly isError = signal(false);
     protected readonly isNoAccessDialogOpen = signal(false);
 
     constructor() {
@@ -57,13 +60,13 @@ export class TeamDetailComponent {
 
             if (!teamId) {
                 this.team.set(null);
-                this.isError.set(false);
+                this.teamMembers.set([]);
                 this.isLoading.set(false);
 
                 return;
             }
 
-            this.loadTeam(teamId);
+            this.loadTeamData(teamId);
         });
     }
 
@@ -82,20 +85,19 @@ export class TeamDetailComponent {
         this.isNoAccessDialogOpen.set(true);
     }
 
-    private loadTeam(teamId: string) {
+    private loadTeamData(teamId: string) {
         this.isLoading.set(true);
-        this.isError.set(false);
+        this.team.set(null);
+        this.teamMembers.set([]);
 
-        this.teamsService.getOneTeam(teamId).subscribe({
-            next: team => {
+        forkJoin({
+            team: this.teamsService.getOneTeam(teamId),
+            members: this.teamMembersService.getTeamMembers(teamId)
+        })
+            .pipe(finalize(() => this.isLoading.set(false)))
+            .subscribe(({team, members}) => {
                 this.team.set(team);
-                this.isLoading.set(false);
-            },
-            error: () => {
-                this.team.set(null);
-                this.isError.set(true);
-                this.isLoading.set(false);
-            }
-        });
+                this.teamMembers.set(members);
+            });
     }
 }

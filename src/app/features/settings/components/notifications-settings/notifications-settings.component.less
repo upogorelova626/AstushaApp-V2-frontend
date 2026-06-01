@@ -7,7 +7,7 @@
 .notifications-card {
     box-sizing: border-box;
     min-height: auto;
-    padding: 20px 24px;
+    padding: 26px 24px;
     border: 1px solid var(--color-card-border);
     border-radius: 24px;
     background: var(--color-page-bg-start);
@@ -88,83 +88,5 @@
         color: var(--color-text-primary);
         font: var(--tui-typography-heading-h7);
         font-weight: 600;
-    }
-}
-
-@media (max-width: 1024px) {
-    .notifications-card {
-        margin: 0;
-        padding: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .notifications-card {
-        padding: 18px;
-        border-radius: 20px;
-
-        &__header {
-            margin-bottom: 18px;
-
-            gap: 14px;
-        }
-
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
-
-        &__description,
-        &__item-description {
-            font: var(--tui-typography-heading-h7);
-        }
-
-        &__item {
-            align-items: flex-start;
-            gap: 14px;
-        }
-
-        &__item-title {
-            font: var(--tui-typography-heading-h7);
-            font-weight: 600;
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .notifications-card {
-        padding: 16px;
-        border-radius: 18px;
-
-        &__header {
-            margin-bottom: 16px;
-
-            gap: 12px;
-        }
-
-        &__icon {
-            width: 36px;
-            height: 36px;
-        }
-
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
-
-        &__description,
-        &__item-description {
-            font: var(--tui-typography-heading-h7);
-        }
-
-        &__item {
-            min-height: auto;
-            padding: 12px;
-
-            border-radius: 14px;
-        }
-
-        &__item-title {
-            font: var(--tui-typography-heading-h7);
-            font-weight: 600;
-        }
     }
 }

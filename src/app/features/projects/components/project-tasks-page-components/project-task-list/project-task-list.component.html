@@ -1,1 +1,83 @@
-<p>project-task-list works!</p>
+@if (tasks().length === 0) {
+    <div class="project-tasks-list__empty">
+        <p>Задач пока нет</p>
+    </div>
+} @else {
+    <div class="project-tasks-list__wrapper">
+        <table class="project-tasks-list__table">
+            <thead>
+                <tr>
+                    <th>Задача</th>
+                    <th>Исполнитель</th>
+                    <th>Приоритет</th>
+                    <th>Дедлайн</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (task of tasks(); track task.id) {
+                    <tr>
+                        <td>
+                            <div class="project-tasks-list__task">
+                                <span class="project-tasks-list__task-number">
+                                    #{{ task.number }}
+                                </span>
+
+                                <div class="project-tasks-list__task-info">
+                                    <span
+                                        class="project-tasks-list__task-title"
+                                    >
+                                        {{ task.title }}
+                                    </span>
+
+                                    <span class="project-tasks-list__task-type">
+                                        {{ task.type }}
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            @if (task.assignee) {
+                                <div class="project-tasks-list__assignee">
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="project-tasks-list__avatar"
+                                    ></div>
+
+                                    <span>
+                                        {{ task.assignee.firstName }}
+                                        {{ task.assignee.lastName }}
+                                    </span>
+                                </div>
+                            } @else {
+                                <span class="project-tasks-list__muted">
+                                    Не назначен
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+                            <span class="project-tasks-list__badge">
+                                {{ task.priority || 'Не указан' }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="project-tasks-list__date">
+                                {{ task.dueDate || 'Не указан' }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="project-tasks-list__status">
+                                {{ task.workflowStage?.name || 'Не указан' }}
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
