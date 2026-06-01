@@ -28,16 +28,9 @@ import {
 } from '@taiga-ui/core';
 import {TuiChevron, TuiInputDateDirective, TuiTextarea} from '@taiga-ui/kit';
 import {finalize, take} from 'rxjs';
-
 import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
-import {
-    PROJECT_PRIORITY_OPTIONS,
-    PROJECT_WORKFLOW_TYPE_OPTIONS
-} from '../../../constants/project-options';
-import {
-    ProjectPriority,
-    ProjectWorkflowType
-} from '../../../interfaces/project.enums';
+import {PROJECT_PRIORITY_OPTIONS} from '../../../constants/project-options';
+import {ProjectPriority} from '../../../interfaces/project.enums';
 import {
     Project,
     ProjectListItem,
@@ -50,6 +43,7 @@ import {
     notPastDateValidator
 } from '../../../validators/project-dates.validator';
 import {TuiSkeleton} from '@taiga-ui/kit';
+import {tuiDayToDateString} from '../../../../../shared/utils/tui-day-to-date-string';
 
 interface SelectOption<T> {
     value: T;
@@ -95,7 +89,6 @@ export class ProjectMainSettingsComponent implements OnInit {
     protected readonly isSaving = signal(false);
     protected readonly isFormLoading = signal(true);
 
-    protected readonly workflowTypeOptions = PROJECT_WORKFLOW_TYPE_OPTIONS;
     protected readonly priorityOptions = PROJECT_PRIORITY_OPTIONS;
 
     private initialFormValue: ProjectSettingsFormValue | null = null;
@@ -114,19 +107,6 @@ export class ProjectMainSettingsComponent implements OnInit {
             description: new FormControl('', {
                 nonNullable: true,
                 validators: [Validators.maxLength(1000)]
-            }),
-
-            workflowType: new FormControl<ProjectWorkflowType>(
-                ProjectWorkflowType.SIMPLE,
-                {
-                    nonNullable: true,
-                    validators: [Validators.required]
-                }
-            ),
-
-            workflowTypeTitle: new FormControl('', {
-                nonNullable: true,
-                validators: [Validators.required]
             }),
 
             priority: new FormControl<ProjectPriority>(ProjectPriority.MEDIUM, {
@@ -183,13 +163,12 @@ export class ProjectMainSettingsComponent implements OnInit {
         const payload: UpdateProjectRequest = {
             title: rawValue.title.trim(),
             description: rawValue.description.trim() || undefined,
-            workflowType: rawValue.workflowType,
             priority: rawValue.priority,
             startDate: rawValue.startDate
-                ? this.toBackendDate(rawValue.startDate)
+                ? tuiDayToDateString(rawValue.startDate)
                 : undefined,
             deadline: rawValue.deadline
-                ? this.toBackendDate(rawValue.deadline)
+                ? tuiDayToDateString(rawValue.deadline)
                 : undefined
         };
 
@@ -207,11 +186,7 @@ export class ProjectMainSettingsComponent implements OnInit {
                 const formValue: ProjectSettingsFormValue = {
                     title: updatedProject.title,
                     description: updatedProject.description ?? '',
-                    workflowType: updatedProject.workflowType,
-                    workflowTypeTitle: this.getOptionTitle(
-                        this.workflowTypeOptions,
-                        updatedProject.workflowType
-                    ),
+
                     priority: updatedProject.priority,
                     priorityTitle: this.getOptionTitle(
                         this.priorityOptions,
@@ -229,14 +204,6 @@ export class ProjectMainSettingsComponent implements OnInit {
             });
     }
 
-    protected selectWorkflowType(option: SelectOption<ProjectWorkflowType>) {
-        this.setSelectValue(
-            this.form.controls.workflowType,
-            this.form.controls.workflowTypeTitle,
-            option
-        );
-    }
-
     protected selectPriority(option: SelectOption<ProjectPriority>) {
         this.setSelectValue(
             this.form.controls.priority,
@@ -249,11 +216,6 @@ export class ProjectMainSettingsComponent implements OnInit {
         const formValue: ProjectSettingsFormValue = {
             title: project.title,
             description: project.description ?? '',
-            workflowType: project.workflowType,
-            workflowTypeTitle: this.getOptionTitle(
-                this.workflowTypeOptions,
-                project.workflowType
-            ),
             priority: project.priority,
             priorityTitle: this.getOptionTitle(
                 this.priorityOptions,
@@ -305,13 +267,5 @@ export class ProjectMainSettingsComponent implements OnInit {
         }
 
         return TuiDay.fromLocalNativeDate(new Date(date));
-    }
-
-    private toBackendDate(date: TuiDay): string {
-        const year = date.year;
-        const month = String(date.month + 1).padStart(2, '0');
-        const day = String(date.day).padStart(2, '0');
-
-        return `${year}-${month}-${day}T00:00:00.000Z`;
     }
 }

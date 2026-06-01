@@ -76,55 +76,6 @@
                 class="project-main-settings__label"
                 [tuiSkeleton]="isFormLoading()"
             >
-                Тип workflow
-            </span>
-
-            <tui-textfield
-                tuiTextfieldSize="m"
-                iconStart="@tui.workflow"
-                tuiChevron
-                [tuiSkeleton]="isFormLoading()"
-            >
-                <input
-                    tuiInput
-                    readonly
-                    type="text"
-                    placeholder="Выберите тип workflow"
-                    formControlName="workflowTypeTitle"
-                />
-
-                <tui-data-list *tuiDropdown>
-                    @for (type of workflowTypeOptions; track type.value) {
-                        <button
-                            tuiOption
-                            type="button"
-                            (click)="selectWorkflowType(type)"
-                        >
-                            <span tuiTitle>
-                                {{ type.title }}
-
-                                <span tuiSubtitle>
-                                    {{ type.description }}
-                                </span>
-                            </span>
-                        </button>
-                    }
-                </tui-data-list>
-            </tui-textfield>
-        </label>
-
-        @if (!isFormLoading()) {
-            <tui-error
-                [formControl]="form.controls.workflowTypeTitle"
-                [order]="['required']"
-            />
-        }
-
-        <label class="project-main-settings__field">
-            <span
-                class="project-main-settings__label"
-                [tuiSkeleton]="isFormLoading()"
-            >
                 Приоритет
             </span>
 

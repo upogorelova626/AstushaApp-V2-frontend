@@ -87,8 +87,6 @@ export interface ProjectSettingsFormValue {
     description: string;
     priority: ProjectPriority;
     priorityTitle: string;
-    workflowType: ProjectWorkflowType;
-    workflowTypeTitle: string;
     startDate: TuiDay | null;
     deadline: TuiDay | null;
 }

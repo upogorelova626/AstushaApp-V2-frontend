@@ -46,6 +46,7 @@ export class ProjectTasksPageComponent implements OnInit {
     }
 
     protected readonly tasks = signal<ProjectTask[]>([]);
+    protected readonly selectedStageId = signal<string | null>(null);
 
     ngOnInit(): void {
         const projectId = this.projectId();
@@ -60,4 +61,20 @@ export class ProjectTasksPageComponent implements OnInit {
     protected addTask(task: ProjectTask) {
         this.tasks.update(tasks => [task, ...tasks]);
     }
+
+    protected selectStage(stageId: string | null) {
+        this.selectedStageId.set(stageId);
+    }
+
+    protected readonly filteredTasks = computed(() => {
+        const selectedStageId = this.selectedStageId();
+
+        if (!selectedStageId) {
+            return this.tasks();
+        }
+
+        return this.tasks().filter(
+            task => task.workflowStageId === selectedStageId
+        );
+    });
 }

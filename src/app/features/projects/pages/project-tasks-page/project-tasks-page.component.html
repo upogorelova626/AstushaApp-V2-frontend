@@ -5,7 +5,11 @@
             [tasks]="tasks()"
             (taskCreated)="addTask($event)"
         />
-        <app-project-task-toolbar [tasks]="tasks()" />
-        <app-project-task-list [tasks]="tasks()" />
+        <app-project-task-toolbar
+            [tasks]="tasks()"
+            [project]="project"
+            (stageSelected)="selectStage($event)"
+        />
+        <app-project-task-list [tasks]="filteredTasks()" />
     }
 </div>
