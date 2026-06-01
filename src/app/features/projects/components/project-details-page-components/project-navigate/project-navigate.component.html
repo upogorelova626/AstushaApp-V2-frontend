@@ -26,13 +26,14 @@
     >
         Участники
     </a>
-
-    <a
-        tuiTab
-        class="project-navigate__link"
-        [routerLink]="['/dashboard/projects', projectId(), 'settings']"
-        routerLinkActive="project-navigate__link_active"
-    >
-        Настройки
-    </a>
+    @if (canManageProject()) {
+        <a
+            tuiTab
+            class="project-navigate__link"
+            [routerLink]="['/dashboard/projects', projectId(), 'settings']"
+            routerLinkActive="project-navigate__link_active"
+        >
+            Настройки
+        </a>
+    }
 </tui-tabs>

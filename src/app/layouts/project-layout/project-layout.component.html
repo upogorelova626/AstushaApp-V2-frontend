@@ -1,6 +1,9 @@
 <div class="project-page">
     @if (project(); as project) {
-        <app-project-navigate [projectId]="project.id" />
+        <app-project-navigate
+            [projectId]="project.id"
+            [canManageProject]="canManageProject()"
+        />
 
         <router-outlet
             [routerOutletData]="{

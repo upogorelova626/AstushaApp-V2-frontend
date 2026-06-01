@@ -1,5 +1,5 @@
 <section class="project-info-card">
-    @if (project(); as projectData) {
+    @if (project(); as project) {
         <header class="project-info-card__header">
             <tui-icon class="project-info-card__header-icon" icon="@tui.info" />
 
@@ -11,7 +11,7 @@
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Ключ проекта</div>
                     <div class="project-info-card__value">
-                        {{ projectData.key }}
+                        {{ project.key }}
                     </div>
                 </div>
 
@@ -19,13 +19,13 @@
                     <div class="project-info-card__label">Создатель</div>
                     <div class="project-info-card__value">
                         @if (
-                            projectData.creator.firstName ||
-                            projectData.creator.lastName
+                            project.creator.firstName ||
+                            project.creator.lastName
                         ) {
-                            {{ projectData.creator.firstName }}
-                            {{ projectData.creator.lastName }}
+                            {{ project.creator.firstName }}
+                            {{ project.creator.lastName }}
                         } @else {
-                            {{ projectData.creator.login }}
+                            {{ project.creator.login }}
                         }
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             <span
                                 class="project-info-card__priority-dot"
                             ></span>
-                            {{ projectData.priority | projectPriority }}
+                            {{ project.priority | projectPriority }}
                         </span>
                     </div>
                 </div>
@@ -45,35 +45,35 @@
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Тип процесса</div>
                     <div class="project-info-card__value">
-                        {{ projectData.workflowType | projectWorkflowType }}
+                        {{ project.workflowType | projectWorkflowType }}
                     </div>
                 </div>
 
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Дата старта</div>
                     <div class="project-info-card__value">
-                        {{ projectData.startDate | date }}
+                        {{ project.startDate | date }}
                     </div>
                 </div>
 
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Дедлайн</div>
                     <div class="project-info-card__value">
-                        {{ projectData.deadline | date }}
+                        {{ project.deadline | date }}
                     </div>
                 </div>
 
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Создан</div>
                     <div class="project-info-card__value">
-                        {{ projectData.createdAt | date }}
+                        {{ project.createdAt | date }}
                     </div>
                 </div>
 
                 <div class="project-info-card__row">
                     <div class="project-info-card__label">Обновлён</div>
                     <div class="project-info-card__value">
-                        {{ projectData.updatedAt | date }}
+                        {{ project.updatedAt | date }}
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="project-info-card__stat-content">
                     <span class="project-info-card__stat-label">Задачи</span>
                     <span class="project-info-card__stat-value">
-                        {{ projectData._count.tasks }}
+                        {{ project._count.tasks }}
                     </span>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                 <div class="project-info-card__stat-content">
                     <span class="project-info-card__stat-label">Участники</span>
                     <span class="project-info-card__stat-value">
-                        {{ projectData._count.members }}
+                        {{ project._count.members }}
                     </span>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 <div class="project-info-card__stat-content">
                     <span class="project-info-card__stat-label">Команда</span>
                     <span class="project-info-card__stat-value">
-                        {{ projectData.teamLink?.team?.team?.name }}
+                        {{ project.teamLink?.team?.team }}
                     </span>
                 </div>
             </div>

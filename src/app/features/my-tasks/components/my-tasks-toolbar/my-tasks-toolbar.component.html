@@ -1,0 +1,29 @@
+<div class="my-tasks-toolbar">
+    <div class="my-tasks-toolbar__title-block">
+        <h1 class="my-tasks-toolbar__title">Мои задачи</h1>
+
+        <p class="my-tasks-toolbar__description">
+            Все задачи, в которых вы являетесь исполнителем
+        </p>
+    </div>
+
+    <div class="my-tasks-toolbar__actions">
+        <tui-textfield
+            class="my-tasks-toolbar__search"
+            tuiTextfieldSize="m"
+            iconStart="@tui.search"
+        >
+            <input tuiInput type="text" placeholder="Поиск по задачам" />
+        </tui-textfield>
+
+        <button
+            tuiButton
+            type="button"
+            appearance="outline"
+            size="m"
+            iconStart="@tui.list-filter"
+        >
+            Фильтры
+        </button>
+    </div>
+</div>

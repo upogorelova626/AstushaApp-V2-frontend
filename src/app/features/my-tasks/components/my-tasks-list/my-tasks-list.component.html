@@ -1,0 +1,108 @@
+<div class="my-tasks-list">
+    <div class="my-tasks-list__table-wrapper">
+        <table class="my-tasks-list__table">
+            <thead class="my-tasks-list__head">
+                <tr class="my-tasks-list__head-row">
+                    <th class="my-tasks-list__head-cell">Задача</th>
+                    <th class="my-tasks-list__head-cell">Проект</th>
+                    <th class="my-tasks-list__head-cell">Этап</th>
+                    <th class="my-tasks-list__head-cell">Приоритет</th>
+                    <th class="my-tasks-list__head-cell">Дедлайн</th>
+                    <th class="my-tasks-list__head-cell">Обновлено</th>
+                    <th
+                        class="my-tasks-list__head-cell my-tasks-list__actions-cell"
+                    ></th>
+                </tr>
+            </thead>
+
+            <tbody class="my-tasks-list__body">
+                <tr class="my-tasks-list__row">
+                    <td class="my-tasks-list__cell">
+                        <div class="my-tasks-list__task">
+                            <span class="my-tasks-list__task-title">
+                                Разработать дизайн главной страницы
+                            </span>
+
+                            <span class="my-tasks-list__task-meta">
+                                Назначена вам • #AST-45
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="my-tasks-list__cell">
+                        <span class="my-tasks-list__project">Astusha APP</span>
+                    </td>
+
+                    <td class="my-tasks-list__cell">
+                        <span class="my-tasks-list__stage">Дизайн</span>
+                    </td>
+
+                    <td class="my-tasks-list__cell">
+                        <span class="my-tasks-list__priority">
+                            <span class="my-tasks-list__priority-dot"></span>
+                            Высокий
+                        </span>
+                    </td>
+
+                    <td class="my-tasks-list__cell">
+                        <span class="my-tasks-list__deadline">1 июн 2026</span>
+                    </td>
+
+                    <td class="my-tasks-list__cell">
+                        <span class="my-tasks-list__updated">2 ч назад</span>
+                    </td>
+
+                    <td class="my-tasks-list__cell my-tasks-list__actions-cell">
+                        <button
+                            tuiIconButton
+                            type="button"
+                            appearance="flat"
+                            size="xs"
+                            iconStart="@tui.ellipsis"
+                        >
+                            Действия
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer class="my-tasks-list__footer">
+            <span class="my-tasks-list__counter">
+                Показано 1–7 из 24 задач
+            </span>
+
+            <div class="my-tasks-list__pagination">
+                <button
+                    tuiIconButton
+                    type="button"
+                    appearance="flat"
+                    size="s"
+                    iconStart="@tui.chevron-left"
+                >
+                    Назад
+                </button>
+
+                <button tuiButton type="button" size="s">1</button>
+
+                <button tuiButton type="button" appearance="flat" size="s">
+                    2
+                </button>
+
+                <button tuiButton type="button" appearance="flat" size="s">
+                    3
+                </button>
+
+                <button
+                    tuiIconButton
+                    type="button"
+                    appearance="flat"
+                    size="s"
+                    iconStart="@tui.chevron-right"
+                >
+                    Вперёд
+                </button>
+            </div>
+        </footer>
+    </div>
+</div>

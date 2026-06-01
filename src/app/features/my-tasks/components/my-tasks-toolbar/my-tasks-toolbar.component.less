@@ -1,0 +1,90 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.my-tasks-toolbar {
+    width: 100%;
+    min-width: 0;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    background: var(--color-page-bg-start);
+
+    &__title-block {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h4);
+    }
+
+    &__description {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__actions {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    &__search {
+        width: 320px;
+        min-width: 240px;
+    }
+}
+
+@media (max-width: 900px) {
+    .my-tasks-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+
+        &__actions {
+            width: 100%;
+        }
+
+        &__search {
+            width: 100%;
+            min-width: 0;
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .my-tasks-toolbar {
+        padding: 18px;
+        border-radius: 18px;
+
+        &__title {
+            font: var(--tui-typography-heading-h5);
+        }
+
+        &__description {
+            font: var(--tui-typography-heading-h8);
+        }
+
+        &__actions {
+            flex-direction: column;
+        }
+
+        &__actions button {
+            width: 100%;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import {DatePipe} from '@angular/common';
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {TuiIcon} from '@taiga-ui/core';
-import {ProjectListItem} from '../../../interfaces/project.interface';
+import {Project} from '../../../interfaces/project.interface';
 import {ProjectWorkflowPipe} from '../../../../../shared/pipes/project-workflow.pipe';
 import {ProjectPriorityPipe} from '../../../../../shared/pipes/project-priority.pipe';
 
@@ -13,5 +13,5 @@ import {ProjectPriorityPipe} from '../../../../../shared/pipes/project-priority.
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectCardComponent {
-    readonly project = input<ProjectListItem | null>(null);
+    readonly project = input<Project | null>(null);
 }

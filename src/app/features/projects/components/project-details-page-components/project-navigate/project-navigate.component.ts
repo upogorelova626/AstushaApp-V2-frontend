@@ -11,4 +11,5 @@ import {TuiTabs, TuiTab, TuiTabsHorizontal} from '@taiga-ui/kit';
 })
 export class ProjectNavigateComponent {
     readonly projectId = input.required<string>();
+    readonly canManageProject = input(false);
 }

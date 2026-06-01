@@ -1,0 +1,166 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.my-tasks-list {
+    width: 100%;
+    min-width: 0;
+
+    &__table-wrapper {
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--color-card-border);
+        border-radius: 20px;
+        background: var(--color-page-bg-start);
+    }
+
+    &__table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    &__head-cell,
+    &__cell {
+        padding: 16px;
+        border-bottom: 1px solid var(--color-card-border);
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    &__head-cell {
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h8);
+        white-space: nowrap;
+    }
+
+    &__cell {
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h7);
+    }
+
+    &__head-cell:first-child,
+    &__cell:first-child {
+        width: 30%;
+    }
+
+    &__actions-cell {
+        width: 56px;
+        padding-right: 20px;
+        text-align: right;
+    }
+
+    &__task {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__task-title {
+        overflow: hidden;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h7);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__task-meta {
+        overflow: hidden;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h8);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__project,
+    &__updated {
+        overflow: hidden;
+        display: block;
+        color: var(--color-text-secondary);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__stage {
+        width: fit-content;
+        min-height: 28px;
+        padding: 0 12px;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        color: var(--color-primary-light);
+        background: var(--color-stat-blue-bg);
+        font: var(--tui-typography-heading-h8);
+        white-space: nowrap;
+    }
+
+    &__priority {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--color-text-primary);
+        white-space: nowrap;
+    }
+
+    &__priority-dot {
+        width: 9px;
+        height: 9px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: var(--color-danger);
+    }
+
+    &__deadline {
+        color: var(--color-danger);
+        font: var(--tui-typography-heading-h7);
+        white-space: nowrap;
+    }
+
+    &__footer {
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--color-card-border);
+    }
+
+    &__counter {
+        color: var(--color-text-muted);
+        font: var(--tui-typography-heading-h8);
+    }
+
+    &__pagination {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .my-tasks-list {
+        &__table-wrapper {
+            overflow-x: auto;
+        }
+
+        &__table {
+            min-width: 920px;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .my-tasks-list {
+        &__footer {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        &__pagination {
+            justify-content: center;
+        }
+    }
+}

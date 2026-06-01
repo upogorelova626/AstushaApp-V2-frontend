@@ -61,6 +61,13 @@ export const routes: Routes = [
                 }
             },
             {
+                path: 'my-tasks',
+                loadComponent: () =>
+                    import('./features/my-tasks/pages/my-tasks-page/my-tasks-page.component').then(
+                        m => m.MyTasksPageComponent
+                    )
+            },
+            {
                 path: 'teams',
                 data: {
                     breadcrumb: 'Команды'

@@ -8,9 +8,12 @@ import {
     signal
 } from '@angular/core';
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
-import {ProjectsService} from '../../../services/projects.service';
+import {finalize, forkJoin, map} from 'rxjs';
+
 import {ProjectMember} from '../../../interfaces/project-member.interface';
 import {ProjectRole} from '../../../interfaces/project.enums';
+import {ProjectsService} from '../../../services/projects.service';
+import {ProjectTasksService} from '../../../services/project-tasks.service';
 
 @Component({
     selector: 'app-project-members-stats',
@@ -21,11 +24,14 @@ import {ProjectRole} from '../../../interfaces/project.enums';
 })
 export class ProjectMembersStatsComponent implements OnInit {
     private readonly projectsService = inject(ProjectsService);
+    private readonly projectTasksService = inject(ProjectTasksService);
 
     readonly projectId = input.required<string>();
 
-    private readonly projectMembers = signal<ProjectMember[]>([]);
     protected readonly isLoading = signal(false);
+    protected readonly tasksSum = signal(0);
+
+    private readonly projectMembers = signal<ProjectMember[]>([]);
 
     protected readonly projectManagersCount = computed(() => {
         return this.projectMembers().filter(member => {
@@ -46,12 +52,19 @@ export class ProjectMembersStatsComponent implements OnInit {
         if (!projectId) {
             return;
         }
+
         this.isLoading.set(true);
-        this.projectsService
-            .getProjectMembers(projectId)
-            .subscribe(projectMembers => {
+
+        forkJoin({
+            projectMembers: this.projectsService.getProjectMembers(projectId),
+            tasksSum: this.projectTasksService
+                .getAllTasks(projectId)
+                .pipe(map(tasks => tasks.length))
+        })
+            .pipe(finalize(() => this.isLoading.set(false)))
+            .subscribe(({projectMembers, tasksSum}) => {
                 this.projectMembers.set(projectMembers);
-                this.isLoading.set(false);
+                this.tasksSum.set(tasksSum);
             });
     }
 }

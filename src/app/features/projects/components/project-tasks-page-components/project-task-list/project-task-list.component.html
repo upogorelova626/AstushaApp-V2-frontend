@@ -65,14 +65,24 @@
                         </td>
 
                         <td>
+                            @if (!task.dueDate) {
+                                <span class="project-tasks-list__date">
+                                    Не указан
+                                </span>
+                            }
                             <span class="project-tasks-list__date">
-                                {{ task.dueDate || 'Не указан' }}
+                                {{ task.dueDate | date }}
                             </span>
                         </td>
 
                         <td>
+                            @if (!task.workflowStage.name) {
+                                <span class="project-tasks-list__status">
+                                    Не указан
+                                </span>
+                            }
                             <span class="project-tasks-list__status">
-                                {{ task.workflowStage?.name || 'Не указан' }}
+                                {{ task.workflowStage.name }}
                             </span>
                         </td>
                     </tr>

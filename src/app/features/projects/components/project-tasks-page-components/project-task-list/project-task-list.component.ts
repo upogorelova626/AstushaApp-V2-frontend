@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {ProjectTask} from '../../../interfaces/project-tasks.interface';
-import {Project} from '../../../interfaces/project.interface';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-project-task-list',
-    imports: [],
+    imports: [DatePipe],
     templateUrl: './project-task-list.component.html',
     styleUrl: './project-task-list.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
