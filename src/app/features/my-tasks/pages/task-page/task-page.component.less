@@ -1,0 +1,40 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.task-page {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    padding-right: 10px;
+    box-sizing: border-box;
+
+    &__left-column,
+    &__right-column {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .task-page {
+        grid-template-columns: 1fr;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .task-page {
+        gap: 14px;
+
+        &__left-column,
+        &__right-column {
+            gap: 14px;
+        }
+    }
+}

@@ -7,7 +7,7 @@
         />
     </div>
 } @else {
-    <div class="my-tasks-list">
+    <div class="my-tasks-list" [tuiSkeleton]="isLoading()">
         <div class="my-tasks-list__table-wrapper">
             <table class="my-tasks-list__table">
                 <thead class="my-tasks-list__head">
@@ -26,10 +26,7 @@
 
                 <tbody class="my-tasks-list__body">
                     @for (task of tasks(); track task.id) {
-                        <tr
-                            class="my-tasks-list__row"
-                            [tuiSkeleton]="isLoading()"
-                        >
+                        <tr class="my-tasks-list__row">
                             <td class="my-tasks-list__cell">
                                 <div class="my-tasks-list__task">
                                     <span class="my-tasks-list__task-title">
@@ -86,6 +83,10 @@
                                     iconStart="@tui.ellipsis"
                                     tuiHint="Подробнее о задаче"
                                     tuiHintDirection="top-start"
+                                    [routerLink]="[
+                                        '/dashboard/my-tasks',
+                                        task.id
+                                    ]"
                                 >
                                 </button>
                             </td>

@@ -5,9 +5,9 @@ import {
     OnInit,
     signal
 } from '@angular/core';
-import {MyTasksListComponent} from '../../components/my-tasks-list/my-tasks-list.component';
-import {MyTasksStatsComponent} from '../../components/my-tasks-stats/my-tasks-stats.component';
-import {MyTasksToolbarComponent} from '../../components/my-tasks-toolbar/my-tasks-toolbar.component';
+import {MyTasksListComponent} from '../../components/my-tasks-page-components/my-task-list/my-tasks-list.component';
+import {MyTasksStatsComponent} from '../../components/my-tasks-page-components/my-tasks-stats/my-tasks-stats.component';
+import {MyTasksToolbarComponent} from '../../components/my-tasks-page-components/my-tasks-toolbar/my-tasks-toolbar.component';
 import {MyTasksService} from '../../services/my-tasks.service';
 import {MyTask} from '../../interfaces/my-tasks.interface';
 import {finalize} from 'rxjs';

@@ -5,7 +5,7 @@ import {
     input
 } from '@angular/core';
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
-import {MyTask} from '../../interfaces/my-tasks.interface';
+import {MyTask} from '../../../interfaces/my-tasks.interface';
 
 @Component({
     selector: 'app-my-tasks-stats',

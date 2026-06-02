@@ -1,0 +1,170 @@
+<div class="task-main-card">
+    <header class="task-main-card__header">
+        <div class="task-main-card__left-actions">
+            <button
+                tuiIconButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconStart="@tui.move-left"
+                class="task-main-card__back-button"
+                tuiHint="Вернуться назад"
+                tuiHintDirection="top"
+                (click)="goBack()"
+            ></button>
+
+            <span class="task-main-card__number" [tuiSkeleton]="isLoading()">
+                @if (task(); as task) {
+                    {{ task.project.key }}-{{ task.number }}
+                } @else {
+                    AS-0000
+                }
+            </span>
+        </div>
+
+        <div class="task-main-card__right-actions">
+            <button
+                tuiButton
+                type="button"
+                appearance="outline"
+                size="s"
+                iconStart="@tui.pen"
+            >
+                Редактировать
+            </button>
+
+            <button
+                tuiIconButton
+                type="button"
+                appearance="outline"
+                size="s"
+                iconStart="@tui.ellipsis"
+            ></button>
+        </div>
+    </header>
+
+    <main class="task-main-card__main">
+        <h1 class="task-main-card__title" [tuiSkeleton]="isLoading()">
+            {{ task()?.title || 'Название задачи' }}
+        </h1>
+
+        <div class="task-main-card__badges">
+            <span
+                class="task-main-card__badge task-main-card__badge_status"
+                [tuiSkeleton]="isLoading()"
+            >
+                {{ task()?.workflowStage?.name || 'Статус' }}
+            </span>
+
+            <span
+                class="task-main-card__badge task-main-card__badge_priority"
+                [tuiSkeleton]="isLoading()"
+            >
+                {{ task()?.priority || 'Приоритет' }}
+            </span>
+
+            <span class="task-main-card__tag" [tuiSkeleton]="isLoading()">
+                {{ task()?.type || 'Тип задачи' }}
+            </span>
+        </div>
+
+        <p class="task-main-card__description" [tuiSkeleton]="isLoading()">
+            {{ task()?.description || 'Описание задачи пока не добавлено' }}
+        </p>
+    </main>
+
+    <footer class="task-main-card__footer">
+        <div class="task-main-card__meta-item">
+            <tui-icon class="task-main-card__meta-icon" icon="@tui.user" />
+
+            <div class="task-main-card__meta-content">
+                <span class="task-main-card__meta-label">Исполнитель</span>
+
+                <span
+                    class="task-main-card__meta-value"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    @if (task()?.assignee; as assignee) {
+                        {{
+                            (
+                                (assignee.firstName ?? '') +
+                                ' ' +
+                                (assignee.lastName ?? '')
+                            ).trim() || assignee.login
+                        }}
+                    } @else {
+                        Не назначен
+                    }
+                </span>
+            </div>
+        </div>
+
+        <div class="task-main-card__meta-item">
+            <tui-icon class="task-main-card__meta-icon" icon="@tui.folder" />
+
+            <div class="task-main-card__meta-content">
+                <span class="task-main-card__meta-label">Проект</span>
+
+                <span
+                    class="task-main-card__meta-value"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    {{ task()?.project?.title || 'Не указан' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="task-main-card__meta-item">
+            <tui-icon class="task-main-card__meta-icon" icon="@tui.calendar" />
+
+            <div class="task-main-card__meta-content">
+                <span class="task-main-card__meta-label">Срок</span>
+
+                <span
+                    class="task-main-card__meta-value"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    @if (task()?.dueDate) {
+                        {{ task()?.dueDate | date }}
+                    } @else {
+                        Не указан
+                    }
+                </span>
+            </div>
+        </div>
+
+        <div class="task-main-card__meta-item">
+            <tui-icon class="task-main-card__meta-icon" icon="@tui.timer" />
+
+            <div class="task-main-card__meta-content">
+                <span class="task-main-card__meta-label">Story points</span>
+
+                <span
+                    class="task-main-card__meta-value"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    {{ task()?.storyPoints ?? 'Не указаны' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="task-main-card__meta-item">
+            <tui-icon class="task-main-card__meta-icon" icon="@tui.clock" />
+
+            <div class="task-main-card__meta-content">
+                <span class="task-main-card__meta-label">Обновлена</span>
+
+                <span
+                    class="task-main-card__meta-value"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    @if (task()?.updatedAt) {
+                        {{ task()?.updatedAt | date }}
+                    } @else {
+                        Не указано
+                    }
+                </span>
+            </div>
+        </div>
+    </footer>
+</div>

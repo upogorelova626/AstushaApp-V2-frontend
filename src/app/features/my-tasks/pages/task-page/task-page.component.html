@@ -1,0 +1,13 @@
+<div class="task-page">
+    <div class="task-page__left-column">
+        <app-task-main-card [task]="task()" [isLoading]="isLoading()" />
+
+        <app-task-content-card [task]="task()" [isLoading]="isLoading()" />
+    </div>
+
+    <div class="task-page__right-column">
+        <app-task-files-card [task]="task()" [isLoading]="isLoading()" />
+
+        <app-task-history-card [task]="task()" [isLoading]="isLoading()" />
+    </div>
+</div>

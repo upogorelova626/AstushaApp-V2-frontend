@@ -1,0 +1,83 @@
+<div class="task-files-card">
+    <header class="task-files-card__header">
+        <div class="task-files-card__title-wrapper">
+            <h3 class="task-files-card__title">Файлы</h3>
+
+            <span class="task-files-card__count">3</span>
+        </div>
+
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="s"
+            iconStart="@tui.plus"
+            class="task-files-card__add-button"
+        >
+            Добавить файл
+        </button>
+    </header>
+
+    <main class="task-files-card__list">
+        <div class="task-files-card__file">
+            <div class="task-files-card__file-icon">
+                <tui-icon icon="@tui.figma" />
+            </div>
+
+            <div class="task-files-card__file-content">
+                <span class="task-files-card__file-name"> Дизайн в Figma </span>
+
+                <span class="task-files-card__file-source"> figma.com </span>
+            </div>
+
+            <span class="task-files-card__file-size">2.4 МБ</span>
+            <span class="task-files-card__file-date">15 мая</span>
+        </div>
+
+        <div class="task-files-card__file">
+            <div class="task-files-card__file-icon">
+                <tui-icon icon="@tui.file-text" />
+            </div>
+
+            <div class="task-files-card__file-content">
+                <span class="task-files-card__file-name">
+                    Техническое задание
+                </span>
+
+                <span class="task-files-card__file-source">
+                    docs.google.com
+                </span>
+            </div>
+
+            <span class="task-files-card__file-size">156 КБ</span>
+            <span class="task-files-card__file-date">15 мая</span>
+        </div>
+
+        <div class="task-files-card__file">
+            <div class="task-files-card__file-icon">
+                <tui-icon icon="@tui.image" />
+            </div>
+
+            <div class="task-files-card__file-content">
+                <span class="task-files-card__file-name">
+                    Скриншот текущей версии
+                </span>
+
+                <span class="task-files-card__file-source"> image.png </span>
+            </div>
+
+            <span class="task-files-card__file-size">1.2 МБ</span>
+            <span class="task-files-card__file-date">15 мая</span>
+        </div>
+    </main>
+
+    <button
+        tuiButton
+        type="button"
+        appearance="flat"
+        size="s"
+        class="task-files-card__show-all"
+    >
+        Показать все файлы
+    </button>
+</div>
