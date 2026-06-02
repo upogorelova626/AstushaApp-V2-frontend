@@ -23,7 +23,7 @@
             tuiButton
             class="profile-settings__edit-button"
             type="button"
-            appearance="outline"
+            appearance="flat"
             size="s"
             iconStart="@tui.pencil"
             [disabled]="isProfileLoading() || isEditing() || isSaving()"
@@ -58,7 +58,7 @@
                 tuiButton
                 class="edit-photo__button"
                 type="button"
-                appearance="outline"
+                appearance="flat"
                 size="m"
                 [disabled]="isProfileLoading() || !isEditing()"
             >
@@ -196,7 +196,7 @@
                     tuiButton
                     class="edit-info__cancel"
                     type="button"
-                    appearance="outline"
+                    appearance="flat"
                     size="m"
                     [disabled]="
                         isProfileLoading() || !isEditing() || isSaving()
