@@ -23,6 +23,7 @@ import {
 } from '../../../../features/teams/interfaces/dropdowns.interface';
 import {UsersService} from '../../../../features/users/services/users.service';
 import {AuthService} from '../../../../features/auth/services/auth.service';
+import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
 
 @Component({
     selector: 'app-header',
@@ -37,7 +38,8 @@ import {AuthService} from '../../../../features/auth/services/auth.service';
         TuiDataList,
         TuiDropdown,
         TuiOption,
-        TuiSkeleton
+        TuiSkeleton,
+        BreadcrumbsComponent
     ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.less',

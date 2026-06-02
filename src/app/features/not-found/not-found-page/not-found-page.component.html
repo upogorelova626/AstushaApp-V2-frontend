@@ -1,1 +1,21 @@
-<div class="not-found-page"></div>
+<div class="not-found-page">
+    <button
+        tuiButton
+        class="not-found-page__back-button"
+        type="button"
+        appearance="outline"
+        size="m"
+        iconStart="@tui.arrow-left"
+        (click)="goBack()"
+    >
+        Вернуться назад
+    </button>
+
+    <div class="not-found-page__image-wrapper">
+        <img
+            class="not-found-page__image"
+            src="/images/404-page-img.png"
+            alt="Страница не найдена"
+        />
+    </div>
+</div>

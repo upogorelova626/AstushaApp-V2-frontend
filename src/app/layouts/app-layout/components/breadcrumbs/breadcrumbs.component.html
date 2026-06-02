@@ -1,0 +1,24 @@
+@if (breadcrumbs().length > 0) {
+    <tui-breadcrumbs class="breadcrumbs">
+        @for (
+            breadcrumb of breadcrumbs();
+            track breadcrumb.url;
+            let last = $last
+        ) {
+            @if (last) {
+                <span *tuiItem class="breadcrumbs__current">
+                    {{ breadcrumb.label }}
+                </span>
+            } @else {
+                <a
+                    *tuiItem
+                    tuiLink
+                    class="breadcrumbs__link"
+                    [routerLink]="breadcrumb.url"
+                >
+                    {{ breadcrumb.label }}
+                </a>
+            }
+        }
+    </tui-breadcrumbs>
+}

@@ -1,5 +1,11 @@
 @if (tasks().length === 0 && !isLoading()) {
-    <div>Нет задач</div>
+    <div class="my-tasks-empty">
+        <img
+            class="my-tasks-empty__image"
+            src="/images/no-tasks-img.png"
+            alt="Нет задач!"
+        />
+    </div>
 } @else {
     <div class="my-tasks-list">
         <div class="my-tasks-list__table-wrapper">
@@ -78,8 +84,9 @@
                                     appearance="flat"
                                     size="xs"
                                     iconStart="@tui.ellipsis"
+                                    tuiHint="Подробнее о задаче"
+                                    tuiHintDirection="top-start"
                                 >
-                                    Действия
                                 </button>
                             </td>
                         </tr>

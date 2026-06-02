@@ -1,0 +1,23 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.breadcrumbs {
+    max-width: 100%;
+    margin-bottom: 12px;
+    color: var(--color-text-muted);
+
+    &__link {
+        color: var(--color-primary-light);
+        text-decoration: none;
+    }
+
+    &__current {
+        max-width: 320px;
+        overflow: hidden;
+        color: var(--color-text-secondary);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
