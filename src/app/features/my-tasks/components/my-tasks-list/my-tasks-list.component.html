@@ -1,108 +1,129 @@
-<div class="my-tasks-list">
-    <div class="my-tasks-list__table-wrapper">
-        <table class="my-tasks-list__table">
-            <thead class="my-tasks-list__head">
-                <tr class="my-tasks-list__head-row">
-                    <th class="my-tasks-list__head-cell">Задача</th>
-                    <th class="my-tasks-list__head-cell">Проект</th>
-                    <th class="my-tasks-list__head-cell">Этап</th>
-                    <th class="my-tasks-list__head-cell">Приоритет</th>
-                    <th class="my-tasks-list__head-cell">Дедлайн</th>
-                    <th class="my-tasks-list__head-cell">Обновлено</th>
-                    <th
-                        class="my-tasks-list__head-cell my-tasks-list__actions-cell"
-                    ></th>
-                </tr>
-            </thead>
+@if (tasks().length === 0 && !isLoading()) {
+    <div>Нет задач</div>
+} @else {
+    <div class="my-tasks-list">
+        <div class="my-tasks-list__table-wrapper">
+            <table class="my-tasks-list__table">
+                <thead class="my-tasks-list__head">
+                    <tr class="my-tasks-list__head-row">
+                        <th class="my-tasks-list__head-cell">Задача</th>
+                        <th class="my-tasks-list__head-cell">Проект</th>
+                        <th class="my-tasks-list__head-cell">Этап</th>
+                        <th class="my-tasks-list__head-cell">Приоритет</th>
+                        <th class="my-tasks-list__head-cell">Дедлайн</th>
+                        <th class="my-tasks-list__head-cell">Обновлено</th>
+                        <th
+                            class="my-tasks-list__head-cell my-tasks-list__actions-cell"
+                        ></th>
+                    </tr>
+                </thead>
 
-            <tbody class="my-tasks-list__body">
-                <tr class="my-tasks-list__row">
-                    <td class="my-tasks-list__cell">
-                        <div class="my-tasks-list__task">
-                            <span class="my-tasks-list__task-title">
-                                Разработать дизайн главной страницы
-                            </span>
-
-                            <span class="my-tasks-list__task-meta">
-                                Назначена вам • #AST-45
-                            </span>
-                        </div>
-                    </td>
-
-                    <td class="my-tasks-list__cell">
-                        <span class="my-tasks-list__project">Astusha APP</span>
-                    </td>
-
-                    <td class="my-tasks-list__cell">
-                        <span class="my-tasks-list__stage">Дизайн</span>
-                    </td>
-
-                    <td class="my-tasks-list__cell">
-                        <span class="my-tasks-list__priority">
-                            <span class="my-tasks-list__priority-dot"></span>
-                            Высокий
-                        </span>
-                    </td>
-
-                    <td class="my-tasks-list__cell">
-                        <span class="my-tasks-list__deadline">1 июн 2026</span>
-                    </td>
-
-                    <td class="my-tasks-list__cell">
-                        <span class="my-tasks-list__updated">2 ч назад</span>
-                    </td>
-
-                    <td class="my-tasks-list__cell my-tasks-list__actions-cell">
-                        <button
-                            tuiIconButton
-                            type="button"
-                            appearance="flat"
-                            size="xs"
-                            iconStart="@tui.ellipsis"
+                <tbody class="my-tasks-list__body">
+                    @for (task of tasks(); track task.id) {
+                        <tr
+                            class="my-tasks-list__row"
+                            [tuiSkeleton]="isLoading()"
                         >
-                            Действия
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                            <td class="my-tasks-list__cell">
+                                <div class="my-tasks-list__task">
+                                    <span class="my-tasks-list__task-title">
+                                        {{ task.title }}
+                                    </span>
 
-        <footer class="my-tasks-list__footer">
-            <span class="my-tasks-list__counter">
-                Показано 1–7 из 24 задач
-            </span>
+                                    <span class="my-tasks-list__task-meta">
+                                        Назначена вам • #{{ task.project.key }}
+                                    </span>
+                                </div>
+                            </td>
 
-            <div class="my-tasks-list__pagination">
-                <button
-                    tuiIconButton
-                    type="button"
-                    appearance="flat"
-                    size="s"
-                    iconStart="@tui.chevron-left"
-                >
-                    Назад
-                </button>
+                            <td class="my-tasks-list__cell">
+                                <span class="my-tasks-list__project">{{
+                                    task.project.title
+                                }}</span>
+                            </td>
 
-                <button tuiButton type="button" size="s">1</button>
+                            <td class="my-tasks-list__cell">
+                                <span class="my-tasks-list__stage">{{
+                                    task.workflowStage.name
+                                }}</span>
+                            </td>
 
-                <button tuiButton type="button" appearance="flat" size="s">
-                    2
-                </button>
+                            <td class="my-tasks-list__cell">
+                                <span class="my-tasks-list__priority">
+                                    <span
+                                        class="my-tasks-list__priority-dot"
+                                    ></span>
+                                    {{ task.priority }}
+                                </span>
+                            </td>
 
-                <button tuiButton type="button" appearance="flat" size="s">
-                    3
-                </button>
+                            <td class="my-tasks-list__cell">
+                                <span class="my-tasks-list__deadline">{{
+                                    task.dueDate | date
+                                }}</span>
+                            </td>
 
-                <button
-                    tuiIconButton
-                    type="button"
-                    appearance="flat"
-                    size="s"
-                    iconStart="@tui.chevron-right"
-                >
-                    Вперёд
-                </button>
-            </div>
-        </footer>
+                            <td class="my-tasks-list__cell">
+                                <span class="my-tasks-list__updated">{{
+                                    task.updatedAt | date
+                                }}</span>
+                            </td>
+
+                            <td
+                                class="my-tasks-list__cell my-tasks-list__actions-cell"
+                            >
+                                <button
+                                    tuiIconButton
+                                    type="button"
+                                    appearance="flat"
+                                    size="xs"
+                                    iconStart="@tui.ellipsis"
+                                >
+                                    Действия
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <footer class="my-tasks-list__footer">
+                <span class="my-tasks-list__counter">
+                    Показано 1–7 из 24 задач
+                </span>
+
+                <div class="my-tasks-list__pagination">
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="s"
+                        iconStart="@tui.chevron-left"
+                    >
+                        Назад
+                    </button>
+
+                    <button tuiButton type="button" size="s">1</button>
+
+                    <button tuiButton type="button" appearance="flat" size="s">
+                        2
+                    </button>
+
+                    <button tuiButton type="button" appearance="flat" size="s">
+                        3
+                    </button>
+
+                    <button
+                        tuiIconButton
+                        type="button"
+                        appearance="flat"
+                        size="s"
+                        iconStart="@tui.chevron-right"
+                    >
+                        Вперёд
+                    </button>
+                </div>
+            </footer>
+        </div>
     </div>
-</div>
+}
