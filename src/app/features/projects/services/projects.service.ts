@@ -23,7 +23,7 @@ export class ProjectsService {
     }
 
     getProjects() {
-        return this.http.get<ProjectListItem[]>(`${this.baseApiUrl}/projects`);
+        return this.http.get<Project[]>(`${this.baseApiUrl}/projects`);
     }
 
     getOneProject(projectId: string) {

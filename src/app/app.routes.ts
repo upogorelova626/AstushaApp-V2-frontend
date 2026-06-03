@@ -182,8 +182,8 @@ export const routes: Routes = [
             {
                 path: '',
                 loadComponent: () =>
-                    import('./features/dashboard/dashboard-page/dashboard-page.component').then(
-                        m => m.DashboardPageComponent
+                    import('./features/dashboard/boards-page/boards-page.component').then(
+                        m => m.BoardsPageComponent
                     ),
                 data: {
                     breadcrumb: 'AstushaApp'

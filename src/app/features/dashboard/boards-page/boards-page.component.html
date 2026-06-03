@@ -1,0 +1,24 @@
+<div class="boards-page">
+    <app-boards-toolbar
+        [projects]="projects()"
+        [selectedProjectId]="selectedProjectId()"
+        [isLoading]="isLoading()"
+        (projectSelected)="selectProject($event)"
+    />
+
+    @if (selectedProject(); as project) {
+        <div class="boards-page__board">
+            @for (stage of project.workflowStages; track stage.id) {
+                <app-board-column
+                    class="boards-page__column"
+                    [stage]="stage"
+                    [tasks]="getTasksByStage(stage.id)"
+                />
+            }
+        </div>
+    } @else {
+        <div class="boards-page__empty">
+            Выберите проект, чтобы открыть доску
+        </div>
+    }
+</div>

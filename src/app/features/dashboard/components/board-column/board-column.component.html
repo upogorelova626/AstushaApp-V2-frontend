@@ -1,0 +1,30 @@
+<section class="board-column">
+    <header class="board-column__header">
+        <div class="board-column__title-block">
+            <h3 class="board-column__title">
+                {{ stage().name }}
+            </h3>
+
+            <span class="board-column__count">
+                {{ tasksCount() }}
+            </span>
+        </div>
+
+        <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            size="xs"
+            iconStart="@tui.plus"
+            class="board-column__add-button"
+        ></button>
+    </header>
+
+    <main class="board-column__tasks">
+        @for (task of tasks(); track task.id) {
+            <app-board-task-card [task]="task" />
+        } @empty {
+            <div class="board-column__empty"> Нет задач </div>
+        }
+    </main>
+</section>

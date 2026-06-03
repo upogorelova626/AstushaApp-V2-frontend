@@ -1,0 +1,120 @@
+<section class="boards-toolbar">
+    <header class="boards-toolbar__header">
+        <div class="boards-toolbar__title-block">
+            <h1 class="boards-toolbar__title">Доски</h1>
+
+            <p class="boards-toolbar__description">
+                Выберите проект и управляйте задачами по этапам
+            </p>
+        </div>
+
+        <button
+            tuiButton
+            type="button"
+            size="m"
+            iconStart="@tui.plus"
+            class="boards-toolbar__create-button"
+        >
+            Создать задачу
+        </button>
+    </header>
+
+    <div class="boards-toolbar__controls">
+        <label class="boards-toolbar__control boards-toolbar__control_project">
+            <span class="boards-toolbar__label">Проект</span>
+
+            <div class="boards-toolbar__select-wrapper">
+                <tui-icon
+                    class="boards-toolbar__control-icon"
+                    icon="@tui.folder"
+                />
+
+                <select
+                    class="boards-toolbar__select"
+                    [value]="selectedProjectId() ?? ''"
+                    [disabled]="isLoading()"
+                    (change)="selectProject($event)"
+                >
+                    <option value="">Выберите проект</option>
+
+                    @for (project of projects(); track project.id) {
+                        <option [value]="project.id">
+                            {{ project.title }}
+                        </option>
+                    }
+                </select>
+
+                <tui-icon
+                    class="boards-toolbar__chevron"
+                    icon="@tui.chevron-down"
+                />
+            </div>
+        </label>
+
+        <label class="boards-toolbar__control boards-toolbar__control_search">
+            <span class="boards-toolbar__label">Поиск</span>
+
+            <tui-textfield
+                class="boards-toolbar__textfield"
+                iconStart="@tui.search"
+            >
+                <input tuiInput type="text" placeholder="Поиск по задачам" />
+            </tui-textfield>
+        </label>
+
+        <label class="boards-toolbar__control">
+            <span class="boards-toolbar__label">Исполнитель</span>
+
+            <div class="boards-toolbar__select-wrapper">
+                <tui-icon
+                    class="boards-toolbar__control-icon"
+                    icon="@tui.user"
+                />
+
+                <select class="boards-toolbar__select">
+                    <option value="">Все исполнители</option>
+                    <option value="1">Никита</option>
+                    <option value="2">Юля</option>
+                    <option value="3">Астюша</option>
+                </select>
+
+                <tui-icon
+                    class="boards-toolbar__chevron"
+                    icon="@tui.chevron-down"
+                />
+            </div>
+        </label>
+
+        <label class="boards-toolbar__control">
+            <span class="boards-toolbar__label">Приоритет</span>
+
+            <div class="boards-toolbar__select-wrapper">
+                <tui-icon
+                    class="boards-toolbar__control-icon"
+                    icon="@tui.flag"
+                />
+
+                <select class="boards-toolbar__select">
+                    <option value="">Все приоритеты</option>
+                    <option value="LOW">Низкий</option>
+                    <option value="MEDIUM">Средний</option>
+                    <option value="HIGH">Высокий</option>
+                    <option value="CRITICAL">Критический</option>
+                </select>
+
+                <tui-icon
+                    class="boards-toolbar__chevron"
+                    icon="@tui.chevron-down"
+                />
+            </div>
+        </label>
+
+        <label class="boards-toolbar__only-mine">
+            <input class="boards-toolbar__only-mine-input" type="checkbox" />
+
+            <span class="boards-toolbar__only-mine-toggle"></span>
+
+            <span class="boards-toolbar__only-mine-text">Только мои</span>
+        </label>
+    </div>
+</section>
