@@ -18,11 +18,11 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize, forkJoin} from 'rxjs';
-import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
-import {Team} from '../../interfaces/team.interface';
-import {TeamMember} from '../../interfaces/team-members.interface';
-import {TeamMembersService} from '../../services/team-members.service';
-import {TeamsService} from '../../services/teams.service';
+import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
+import {Team} from '../../../interfaces/team.interface';
+import {TeamMember} from '../../../interfaces/team-members.interface';
+import {TeamMembersService} from '../../../services/team-members.service';
+import {TeamsService} from '../../../services/teams.service';
 
 @Component({
     selector: 'app-team-detail',

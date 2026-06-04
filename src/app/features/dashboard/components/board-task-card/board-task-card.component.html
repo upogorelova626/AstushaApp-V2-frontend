@@ -1,34 +1,62 @@
-<article class="board-task-card">
+<div class="board-task-card">
     <header class="board-task-card__header">
-        <span class="board-task-card__number">AST-1287</span>
+        <span class="board-task-card__number">#{{ task().number }}</span>
 
-        <span class="board-task-card__priority board-task-card__priority_high">
-            Высокий
-        </span>
+        <div>
+            <span
+                class="board-task-card__priority"
+                [style.color]="getPriorityColor()"
+                [style.background]="getPriorityBackground()"
+            >
+                {{ task().priority }}
+            </span>
+
+            <a
+                tuiButton
+                appearance="flat"
+                iconStart="@tui.ellipsis"
+                tuiHint="Подробнее о задаче"
+                tuiHintDirection="top-end"
+                [routerLink]="['my-tasks', task().id]"
+            ></a>
+        </div>
     </header>
 
-    <h3 class="board-task-card__title"> Доработать экран авторизации </h3>
+    <h3 class="board-task-card__title">
+        {{ task().title }}
+    </h3>
 
     <p class="board-task-card__description">
-        Обновить дизайн формы входа и добавить обработку ошибок авторизации.
+        {{ task().description || 'Описание не добавлено' }}
     </p>
-
-    <div class="board-task-card__tags">
-        <span class="board-task-card__tag">Frontend</span>
-        <span class="board-task-card__tag">UI</span>
-    </div>
 
     <footer class="board-task-card__footer">
         <div class="board-task-card__assignee">
             <div tuiAvatar="@tui.user" class="board-task-card__avatar"></div>
 
-            <span class="board-task-card__assignee-name"> Никита </span>
+            <span class="board-task-card__assignee-name">
+                @if (task().assignee) {
+                    {{
+                        (
+                            (task().assignee?.firstName ?? '') +
+                            ' ' +
+                            (task().assignee?.lastName ?? '')
+                        ).trim() || task().assignee?.login
+                    }}
+                } @else {
+                    Не назначен
+                }
+            </span>
         </div>
 
         <div class="board-task-card__meta">
-            <span class="board-task-card__story-points">8 SP</span>
+            <span class="board-task-card__story-points">
+                {{ task().storyPoints ?? 0 }} SP
+            </span>
 
-            <span class="board-task-card__deadline"> 28 июн </span>
+            <span class="board-task-card__deadline">
+                {{ task().dueDate | date }}
+            </span>
         </div>
     </footer>
-</article>
+</div>

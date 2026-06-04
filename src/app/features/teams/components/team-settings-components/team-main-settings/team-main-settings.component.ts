@@ -14,9 +14,8 @@ import {
 } from '@angular/forms';
 import {TuiButton, TuiInput, TuiTextfield} from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
-
-import {Team} from '../../interfaces/team.interface';
-import {TeamsService} from '../../services/teams.service';
+import {Team} from '../../../interfaces/team.interface';
+import {TeamsService} from '../../../services/teams.service';
 
 @Component({
     selector: 'app-team-main-settings',

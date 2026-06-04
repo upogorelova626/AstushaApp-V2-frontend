@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TuiButton, TuiDialog, TuiIcon} from '@taiga-ui/core';
-import {TeamsService} from '../../services/teams.service';
+import {TeamsService} from '../../../services/teams.service';
 
 @Component({
     selector: 'app-team-danger-zone',

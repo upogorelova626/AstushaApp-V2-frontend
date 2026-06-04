@@ -33,7 +33,7 @@ export class TaskPageComponent implements OnInit {
     protected readonly task = signal<MyTask | null>(null);
     protected readonly isLoading = signal(false);
 
-    ngOnInit(): void {
+    ngOnInit() {
         const taskId = this.route.snapshot.paramMap.get('taskId');
 
         if (!taskId) {

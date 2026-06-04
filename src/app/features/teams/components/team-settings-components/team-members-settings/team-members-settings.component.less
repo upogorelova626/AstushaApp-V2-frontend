@@ -1,0 +1,226 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.team-members-settings-card {
+    width: 100%;
+    min-width: 0;
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+
+    &__header {
+        min-width: 0;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    &__title-wrapper {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h6);
+    }
+
+    &__count {
+        flex-shrink: 0;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__actions {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        flex: 1;
+    }
+
+    &__search {
+        width: 260px;
+        min-width: 180px;
+    }
+
+    &__role-filter {
+        min-width: 120px;
+        flex-shrink: 0;
+        justify-content: space-between;
+    }
+
+    &__table-wrapper {
+        width: 100%;
+        min-width: 0;
+        overflow-x: auto;
+        border: 1px solid var(--color-card-border);
+        border-radius: 16px;
+        background: var(--color-card-bg);
+    }
+
+    &__table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+    }
+
+    &__head-row {
+        border-bottom: 1px solid var(--color-card-border);
+        background: var(--color-card-inner-bg);
+    }
+
+    &__head-cell {
+        padding: 14px 16px;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-m);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    &__row {
+        border-bottom: 1px solid var(--color-card-border);
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &__cell {
+        padding: 14px 16px;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        vertical-align: middle;
+    }
+
+    &__actions-cell {
+        width: 80px;
+        text-align: right;
+    }
+
+    &__member {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__avatar {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    &__member-info {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__member-name {
+        overflow: hidden;
+        color: var(--color-text-primary);
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__email {
+        overflow: hidden;
+        color: var(--color-text-muted);
+        font-size: 12px;
+        line-height: 16px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__role,
+    &__status {
+        width: max-content;
+        padding: 4px 10px;
+        display: inline-flex;
+        align-items: center;
+        box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
+        border-radius: 999px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    &__role_creator {
+        color: var(--color-primary-light);
+        border-color: var(--color-primary);
+        background: var(--color-primary-soft);
+    }
+
+    &__status {
+        color: var(--color-success);
+        border-color: var(--color-success);
+        background: var(--color-success-bg-soft);
+    }
+
+    &__projects-count {
+        color: var(--color-text-primary);
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+    }
+
+    &__footer {
+        padding-top: 16px;
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 900px) {
+    .team-members-settings-card {
+        &__header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        &__actions {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        &__search {
+            width: 100%;
+            flex: 1;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .team-members-settings-card {
+        padding: 18px;
+        border-radius: 18px;
+
+        &__actions {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        &__search,
+        &__role-filter {
+            width: 100%;
+        }
+    }
+}

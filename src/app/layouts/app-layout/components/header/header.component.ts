@@ -24,6 +24,7 @@ import {
 import {UsersService} from '../../../../features/users/services/users.service';
 import {AuthService} from '../../../../features/auth/services/auth.service';
 import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-header',
@@ -49,6 +50,7 @@ export class HeaderComponent {
     private readonly usersService = inject(UsersService);
     private readonly authService = inject(AuthService);
     private readonly router = inject(Router);
+    private readonly location = inject(Location);
 
     protected readonly profile$ = this.usersService.profile$;
     protected readonly open = signal(false);
@@ -103,4 +105,8 @@ export class HeaderComponent {
     }
 
     protected openUserPage() {}
+
+    protected goBack() {
+        this.location.back();
+    }
 }

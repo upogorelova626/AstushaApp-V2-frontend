@@ -3,6 +3,7 @@ import {inject, Injectable} from '@angular/core';
 
 import {
     CreateProjectTaskRequest,
+    MoveProjectTaskRequest,
     ProjectTask,
     UpdateProjectTaskRequest
 } from '../interfaces/project-tasks.interface';
@@ -48,6 +49,17 @@ export class ProjectTasksService {
     deleteTask(projectId: string, taskId: string) {
         return this.http.delete(
             `${this.baseApiUrl}/${projectId}/tasks/${taskId}`
+        );
+    }
+
+    moveTask(
+        projectId: string,
+        taskId: string,
+        payload: MoveProjectTaskRequest
+    ) {
+        return this.http.patch<ProjectTask>(
+            `${this.baseApiUrl}/${projectId}/tasks/${taskId}/move`,
+            payload
         );
     }
 }

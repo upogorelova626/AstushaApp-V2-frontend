@@ -1,23 +1,91 @@
 :host {
     display: block;
     width: 100%;
+    min-width: 0;
 }
 
 .breadcrumbs {
     max-width: 100%;
+    min-width: 0;
     margin-bottom: 12px;
     color: var(--color-text-muted);
+    overflow: hidden;
 
     &__link {
+        max-width: 180px;
+        display: inline-block;
+        overflow: hidden;
         color: var(--color-primary-light);
         text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+
+        &:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
     }
 
     &__current {
         max-width: 320px;
+        display: inline-block;
         overflow: hidden;
         color: var(--color-text-secondary);
         text-overflow: ellipsis;
         white-space: nowrap;
+        vertical-align: bottom;
+    }
+}
+
+@media (max-width: 1024px) {
+    .breadcrumbs {
+        margin-bottom: 8px;
+
+        &__link {
+            max-width: 140px;
+        }
+
+        &__current {
+            max-width: 240px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs {
+        &__link {
+            max-width: 110px;
+        }
+
+        &__current {
+            max-width: 180px;
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .breadcrumbs {
+        margin-bottom: 0;
+
+        &__link {
+            max-width: 90px;
+        }
+
+        &__current {
+            max-width: 150px;
+        }
+    }
+}
+
+@media (max-width: 420px) {
+    .breadcrumbs {
+        &__link {
+            display: none;
+        }
+
+        &__current {
+            max-width: 220px;
+        }
     }
 }

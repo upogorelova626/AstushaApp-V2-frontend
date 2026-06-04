@@ -1,8 +1,17 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
 .team-page__content {
     width: 100%;
+    min-width: 0;
+    padding-right: 10px;
     display: grid;
     grid-template-columns: 420px minmax(0, 1fr);
     gap: 10px;
+    box-sizing: border-box;
 }
 
 .team-page__list,
@@ -10,15 +19,17 @@
     min-width: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .team-page__content {
         grid-template-columns: 360px minmax(0, 1fr);
-        gap: 16px;
+        gap: 10px;
     }
 }
 
 @media (max-width: 768px) {
     .team-page__content {
         grid-template-columns: 1fr;
+        padding-right: 0;
+        gap: 10px;
     }
 }

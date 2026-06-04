@@ -14,6 +14,8 @@
             size="m"
             iconStart="@tui.plus"
             class="boards-toolbar__create-button"
+            [disabled]="!selectedProjectId() || isLoading()"
+            [routerLink]="['/dashboard/projects', selectedProjectId(), 'tasks']"
         >
             Создать задачу
         </button>
@@ -58,59 +60,55 @@
                 class="boards-toolbar__textfield"
                 iconStart="@tui.search"
             >
-                <input tuiInput type="text" placeholder="Поиск по задачам" />
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по задачам"
+                    [disabled]="!selectedProjectId() || isLoading()"
+                />
             </tui-textfield>
         </label>
 
         <label class="boards-toolbar__control">
             <span class="boards-toolbar__label">Исполнитель</span>
 
-            <div class="boards-toolbar__select-wrapper">
-                <tui-icon
-                    class="boards-toolbar__control-icon"
-                    icon="@tui.user"
+            <tui-textfield
+                class="boards-toolbar__textfield"
+                iconStart="@tui.user"
+            >
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по исполнителю"
+                    [disabled]="!selectedProjectId() || isLoading()"
                 />
-
-                <select class="boards-toolbar__select">
-                    <option value="">Все исполнители</option>
-                    <option value="1">Никита</option>
-                    <option value="2">Юля</option>
-                    <option value="3">Астюша</option>
-                </select>
-
-                <tui-icon
-                    class="boards-toolbar__chevron"
-                    icon="@tui.chevron-down"
-                />
-            </div>
+            </tui-textfield>
         </label>
 
         <label class="boards-toolbar__control">
             <span class="boards-toolbar__label">Приоритет</span>
 
-            <div class="boards-toolbar__select-wrapper">
-                <tui-icon
-                    class="boards-toolbar__control-icon"
-                    icon="@tui.flag"
+            <tui-textfield
+                class="boards-toolbar__textfield"
+                iconStart="@tui.flag"
+            >
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по приоритету"
+                    [disabled]="!selectedProjectId() || isLoading()"
                 />
-
-                <select class="boards-toolbar__select">
-                    <option value="">Все приоритеты</option>
-                    <option value="LOW">Низкий</option>
-                    <option value="MEDIUM">Средний</option>
-                    <option value="HIGH">Высокий</option>
-                    <option value="CRITICAL">Критический</option>
-                </select>
-
-                <tui-icon
-                    class="boards-toolbar__chevron"
-                    icon="@tui.chevron-down"
-                />
-            </div>
+            </tui-textfield>
         </label>
 
         <label class="boards-toolbar__only-mine">
-            <input class="boards-toolbar__only-mine-input" type="checkbox" />
+            <input
+                tuiSwitch
+                type="checkbox"
+                [checked]="onlyMine()"
+                [disabled]="!selectedProjectId() || isLoading()"
+                (change)="onOnlyMineChange($event)"
+            />
 
             <span class="boards-toolbar__only-mine-toggle"></span>
 

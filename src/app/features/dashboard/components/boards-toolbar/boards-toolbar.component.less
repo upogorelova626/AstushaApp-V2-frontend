@@ -1,6 +1,7 @@
 :host {
     display: block;
     width: 100%;
+    min-width: 0;
 }
 
 .boards-toolbar {
@@ -12,7 +13,7 @@
     gap: 22px;
     box-sizing: border-box;
     border: 1px solid var(--color-card-border);
-    border-radius: 22px;
+    border-radius: 5px;
     background: var(--color-card-bg);
 
     &__header {
@@ -39,7 +40,7 @@
     &__description {
         margin: 0;
         color: var(--color-text-muted);
-        font: var(--tui-typography-heading-h7);
+        font: var(--tui-typography-body-l);
     }
 
     &__create-button {
@@ -47,6 +48,7 @@
     }
 
     &__controls {
+        min-width: 0;
         display: grid;
         grid-template-columns:
             minmax(260px, 1.2fr)
@@ -56,7 +58,6 @@
             max-content;
         align-items: end;
         gap: 16px;
-        min-width: 0;
     }
 
     &__control {
@@ -68,43 +69,23 @@
 
     &__label {
         color: var(--color-text-secondary);
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
     }
 
     &__textfield {
         width: 100%;
-        min-height: 44px;
-        border-radius: 14px;
-        background: #ffffff;
-        box-shadow:
-            inset 0 0 0 1px var(--color-card-border),
-            0 1px 2px rgb(15 23 42 / 6%);
-
-        &:focus-within {
-            box-shadow:
-                inset 0 0 0 2px var(--color-primary),
-                0 0 0 3px var(--color-primary-soft);
-        }
     }
 
     &__select-wrapper {
         position: relative;
         width: 100%;
-        min-height: 44px;
+        height: 44px;
         display: flex;
         align-items: center;
         box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
         border-radius: 14px;
-        background: #ffffff;
-        box-shadow:
-            inset 0 0 0 1px var(--color-card-border),
-            0 1px 2px rgb(15 23 42 / 6%);
-
-        &:focus-within {
-            box-shadow:
-                inset 0 0 0 2px var(--color-primary),
-                0 0 0 3px var(--color-primary-soft);
-        }
+        background: var(--tui-background-base);
     }
 
     &__control-icon {
@@ -128,7 +109,7 @@
     &__select {
         width: 100%;
         min-width: 0;
-        height: 44px;
+        height: 100%;
         padding: 0 42px;
         box-sizing: border-box;
         border: none;
@@ -136,8 +117,11 @@
         appearance: none;
         color: var(--color-text-primary);
         background: transparent;
-        font: var(--tui-typography-heading-h8);
-        cursor: pointer;
+        font: var(--tui-typography-body-m);
+
+        &:disabled {
+            color: var(--color-text-muted);
+        }
     }
 
     &__only-mine {
@@ -145,49 +129,12 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-heading-h8);
-        cursor: pointer;
         white-space: nowrap;
-    }
-
-    &__only-mine-input {
-        display: none;
-    }
-
-    &__only-mine-toggle {
-        position: relative;
-        width: 42px;
-        height: 24px;
-        display: inline-flex;
-        flex-shrink: 0;
-        border-radius: 999px;
-        background: #cbd5e1;
-        transition: background 0.2s ease;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #ffffff;
-            transition: transform 0.2s ease;
-        }
-    }
-
-    &__only-mine-input:checked + &__only-mine-toggle {
-        background: var(--color-primary);
-    }
-
-    &__only-mine-input:checked + &__only-mine-toggle::after {
-        transform: translateX(18px);
     }
 
     &__only-mine-text {
         color: var(--color-text-secondary);
+        font: var(--tui-typography-body-l);
     }
 }
 

@@ -5,11 +5,11 @@ import {
     OnInit,
     signal
 } from '@angular/core';
-import {TeamMainSettingsComponent} from '../components/team-main-settings/team-main-settings.component';
-import {TeamInviteMemberComponent} from '../components/team-invite-member/team-invite-member.component';
-import {TeamMembersSettingsComponent} from '../components/team-members-settings/team-members-settings.component';
-import {TeamRolesSettingsComponent} from '../components/team-roles-settings/team-roles-settings.component';
-import {TeamDangerZoneComponent} from '../components/team-danger-zone/team-danger-zone.component';
+import {TeamMainSettingsComponent} from '../components/team-settings-components/team-main-settings/team-main-settings.component';
+import {TeamInviteMemberComponent} from '../components/team-settings-components/team-invite-member/team-invite-member.component';
+import {TeamMembersSettingsComponent} from '../components/team-settings-components/team-members-settings/team-members-settings.component';
+import {TeamRolesSettingsComponent} from '../components/team-settings-components/team-roles-settings/team-roles-settings.component';
+import {TeamDangerZoneComponent} from '../components/team-settings-components/team-danger-zone/team-danger-zone.component';
 import {Team} from '../interfaces/team.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TeamsService} from '../services/teams.service';

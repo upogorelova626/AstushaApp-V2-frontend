@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 
-import {TeamDetailComponent} from '../components/team-detail/team-detail.component';
+import {TeamDetailComponent} from '../components/teams-components/team-detail/team-detail.component';
 import {RouterLink} from '@angular/router';
-import {TeamListComponent} from '../components/teams-list/teams-list.component';
+import {TeamListComponent} from '../components/teams-components/teams-list/teams-list.component';
 
 @Component({
     selector: 'app-teams-page',

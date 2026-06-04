@@ -1,4 +1,4 @@
-<section class="board-column">
+<div class="board-column">
     <header class="board-column__header">
         <div class="board-column__title-block">
             <h3 class="board-column__title">
@@ -20,11 +20,18 @@
         ></button>
     </header>
 
-    <main class="board-column__tasks">
+    <main
+        cdkDropList
+        class="board-column__tasks"
+        [id]="dropListId()"
+        [cdkDropListData]="tasks()"
+        [cdkDropListConnectedTo]="connectedDropLists()"
+        (cdkDropListDropped)="drop($event)"
+    >
         @for (task of tasks(); track task.id) {
-            <app-board-task-card [task]="task" />
+            <app-board-task-card cdkDrag [cdkDragData]="task" [task]="task" />
         } @empty {
             <div class="board-column__empty"> Нет задач </div>
         }
     </main>
-</section>
+</div>

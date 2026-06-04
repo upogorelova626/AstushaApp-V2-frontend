@@ -1,0 +1,203 @@
+<div class="team-members-settings-card">
+    <header class="team-members-settings-card__header">
+        <div class="team-members-settings-card__title-wrapper">
+            <h2 class="team-members-settings-card__title">
+                Участники команды
+            </h2>
+
+            <span
+                class="team-members-settings-card__count"
+                [tuiSkeleton]="isLoading()"
+            >
+                {{
+                    teamMembers().length
+                        | pluralizeRu: 'участник' : 'участника' : 'участников'
+                }}
+            </span>
+        </div>
+
+        <div class="team-members-settings-card__actions">
+            <tui-textfield
+                class="team-members-settings-card__search"
+                tuiTextfieldSize="s"
+                iconStart="@tui.search"
+            >
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Поиск по участникам..."
+                />
+            </tui-textfield>
+
+            <button
+                tuiButton
+                tuiChevron
+                class="team-members-settings-card__role-filter"
+                type="button"
+                appearance="flat"
+                size="s"
+            >
+                Все роли
+            </button>
+        </div>
+    </header>
+
+    <div
+        class="team-members-settings-card__table-wrapper"
+        [tuiSkeleton]="isLoading()"
+    >
+        <table class="team-members-settings-card__table">
+            <thead class="team-members-settings-card__table-head">
+                <tr class="team-members-settings-card__head-row">
+                    <th class="team-members-settings-card__head-cell">
+                        Участник
+                    </th>
+
+                    <th class="team-members-settings-card__head-cell">
+                        Роль
+                    </th>
+
+                    <th class="team-members-settings-card__head-cell">
+                        Проектов
+                    </th>
+
+                    <th class="team-members-settings-card__head-cell">
+                        Статус
+                    </th>
+
+                    <th
+                        class="team-members-settings-card__head-cell team-members-settings-card__actions-cell"
+                    >
+                        Действия
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="team-members-settings-card__table-body">
+                @for (member of teamMembers(); track member.id) {
+                    <tr class="team-members-settings-card__row">
+                        <td class="team-members-settings-card__cell">
+                            <div class="team-members-settings-card__member">
+                                <div
+                                    tuiAvatar="@tui.user"
+                                    class="team-members-settings-card__avatar"
+                                ></div>
+
+                                <div
+                                    class="team-members-settings-card__member-info"
+                                >
+                                    <span
+                                        class="team-members-settings-card__member-name"
+                                    >
+                                        {{ member.user.firstName }}
+                                        {{ member.user.lastName }}
+                                    </span>
+
+                                    <span
+                                        class="team-members-settings-card__email"
+                                    >
+                                        {{ member.user.email }}
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="team-members-settings-card__cell">
+                            <span
+                                class="team-members-settings-card__role team-members-settings-card__role_creator"
+                            >
+                                {{ member.role | teamRoleLabel }}
+                            </span>
+                        </td>
+
+                        <td class="team-members-settings-card__cell">
+                            <span
+                                class="team-members-settings-card__projects-count"
+                            >
+                                5
+                            </span>
+                        </td>
+
+                        <td class="team-members-settings-card__cell">
+                            <span class="team-members-settings-card__status">
+                                Активен
+                            </span>
+                        </td>
+
+                        <td
+                            class="team-members-settings-card__cell team-members-settings-card__actions-cell"
+                        >
+                            <button
+                                tuiIconButton
+                                type="button"
+                                appearance="flat"
+                                size="xs"
+                                iconStart="@tui.ellipsis-vertical"
+                                [attr.aria-expanded]="
+                                    openedMemberId() === member.id
+                                "
+                                [tuiDropdown]="dropdownContent"
+                                [tuiDropdownManual]="
+                                    openedMemberId() === member.id
+                                "
+                                [tuiObscuredEnabled]="
+                                    openedMemberId() === member.id
+                                "
+                                (click)="toggleMemberActions(member.id)"
+                                (tuiObscured)="
+                                    onMemberObscured($event, member.id)
+                                "
+                            ></button>
+
+                            <ng-template #dropdownContent>
+                                <tui-data-list>
+                                    @for (
+                                        action of memberActions;
+                                        track action.value
+                                    ) {
+                                        @if (canShowAction(action, member)) {
+                                            <button
+                                                tuiOption
+                                                type="button"
+                                                (click)="
+                                                    onMemberAction(
+                                                        action.value,
+                                                        member
+                                                    )
+                                                "
+                                            >
+                                                <span tuiTitle>
+                                                    {{ action.title }}
+
+                                                    @if (action.description) {
+                                                        <span tuiSubtitle>
+                                                            {{
+                                                                action.description
+                                                            }}
+                                                        </span>
+                                                    }
+                                                </span>
+                                            </button>
+                                        }
+                                    }
+                                </tui-data-list>
+                            </ng-template>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="team-members-settings-card__footer">
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="s"
+            iconEnd="@tui.chevron-down"
+        >
+            Показать ещё
+        </button>
+    </footer>
+</div>

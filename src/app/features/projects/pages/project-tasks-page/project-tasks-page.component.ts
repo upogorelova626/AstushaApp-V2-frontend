@@ -48,7 +48,7 @@ export class ProjectTasksPageComponent implements OnInit {
     protected readonly tasks = signal<ProjectTask[]>([]);
     protected readonly selectedStageId = signal<string | null>(null);
 
-    ngOnInit(): void {
+    ngOnInit() {
         const projectId = this.projectId();
         if (!projectId) {
             return;

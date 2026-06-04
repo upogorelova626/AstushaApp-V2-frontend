@@ -3,16 +3,20 @@
         [projects]="projects()"
         [selectedProjectId]="selectedProjectId()"
         [isLoading]="isLoading()"
+        [onlyMine]="onlyMine()"
         (projectSelected)="selectProject($event)"
+        (onlyMineChanged)="onlyMineChanged($event)"
     />
 
-    @if (selectedProject(); as project) {
+    @if (boardStages().length > 0) {
         <div class="boards-page__board">
-            @for (stage of project.workflowStages; track stage.id) {
+            @for (stage of boardStages(); track stage.id) {
                 <app-board-column
                     class="boards-page__column"
                     [stage]="stage"
-                    [tasks]="getTasksByStage(stage.id)"
+                    [tasks]="getFilteredTasks(stage.tasks)"
+                    [connectedDropLists]="dropListIds()"
+                    (taskDropped)="moveTask($event.event, $event.targetStageId)"
                 />
             }
         </div>

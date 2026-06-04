@@ -27,16 +27,18 @@
     }
 
     &__header {
+        min-width: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        min-width: 0;
     }
 
     &__number {
+        overflow: hidden;
         color: var(--color-text-muted);
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
+        text-overflow: ellipsis;
         white-space: nowrap;
     }
 
@@ -45,36 +47,17 @@
         padding: 0 8px;
         display: inline-flex;
         align-items: center;
+        flex-shrink: 0;
         border-radius: 999px;
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
         white-space: nowrap;
-
-        &_low {
-            color: var(--color-stat-green);
-            background: var(--color-stat-green-bg);
-        }
-
-        &_medium {
-            color: var(--color-stat-blue);
-            background: var(--color-stat-blue-bg);
-        }
-
-        &_high {
-            color: var(--color-stat-orange);
-            background: var(--color-stat-orange-bg);
-        }
-
-        &_critical {
-            color: var(--color-danger);
-            background: var(--color-danger-bg-soft);
-        }
     }
 
     &__title {
         margin: 0;
         overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h7);
+        font: var(--tui-typography-body-l);
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -84,36 +67,16 @@
         display: -webkit-box;
         overflow: hidden;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-heading-h8);
-        line-height: 1.45;
-    }
-
-    &__tags {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 6px;
-        min-width: 0;
-    }
-
-    &__tag {
-        min-height: 24px;
-        padding: 0 8px;
-        display: inline-flex;
-        align-items: center;
-        border-radius: 999px;
-        color: var(--color-primary-light);
-        background: var(--color-primary-soft);
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
     }
 
     &__footer {
         padding-top: 4px;
+        min-width: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        min-width: 0;
     }
 
     &__assignee {
@@ -132,14 +95,16 @@
     &__assignee-name {
         overflow: hidden;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
     &__meta {
+        min-width: 0;
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         gap: 8px;
         flex-shrink: 0;
     }
@@ -147,7 +112,7 @@
     &__story-points,
     &__deadline {
         color: var(--color-text-muted);
-        font: var(--tui-typography-heading-h8);
+        font: var(--tui-typography-body-m);
         white-space: nowrap;
     }
 }

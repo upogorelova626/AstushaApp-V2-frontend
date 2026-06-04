@@ -1,13 +1,14 @@
 :host {
+    display: block;
     width: 100%;
     min-width: 0;
 }
 
 .team-settings-page {
-    box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    padding: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
 }
 
 .team-settings-page__grid {
@@ -15,7 +16,7 @@
     min-width: 0;
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: 10px;
+    grid-gap: 10px;
     align-items: stretch;
 }
 
@@ -27,15 +28,16 @@
 @media (max-width: 1200px) {
     .team-settings-page__grid {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 }
 
 @media (max-width: 768px) {
     .team-settings-page {
-        padding: 8px;
+        padding-right: 0;
     }
 
     .team-settings-page__grid {
-        gap: 8px;
+        gap: 10px;
     }
 }

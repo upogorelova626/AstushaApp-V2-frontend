@@ -15,17 +15,17 @@ import {
     TuiTextfield,
     TuiTitle
 } from '@taiga-ui/core';
-import {TuiAvatar, TuiChevron} from '@taiga-ui/kit';
+import {TuiAvatar, TuiChevron, TuiSkeleton} from '@taiga-ui/kit';
 import {TuiObscured} from '@taiga-ui/cdk/directives/obscured';
 
-import {PluralizeRuPipe} from '../../../../shared/pipes/pluralize-ru.pipe';
-import {TeamMember, TeamRole} from '../../interfaces/team-members.interface';
+import {PluralizeRuPipe} from '../../../../../shared/pipes/pluralize-ru.pipe';
+import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
 import {
     TeamMemberAction,
     TeamMemberActionOption
-} from '../../interfaces/dropdowns.interface';
-import {TeamMembersService} from '../../services/team-members.service';
-import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
+} from '../../../interfaces/dropdowns.interface';
+import {TeamMembersService} from '../../../services/team-members.service';
+import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 
 @Component({
     selector: 'app-team-members-settings',
@@ -41,7 +41,8 @@ import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
         TuiOption,
         TuiTitle,
         PluralizeRuPipe,
-        TeamRoleLabelPipe
+        TeamRoleLabelPipe,
+        TuiSkeleton
     ],
     templateUrl: './team-members-settings.component.html',
     styleUrl: './team-members-settings.component.less',
@@ -54,7 +55,6 @@ export class TeamMembersSettingsComponent implements OnInit {
 
     protected readonly teamMembers = signal<TeamMember[]>([]);
     protected readonly isLoading = signal(false);
-    protected readonly isError = signal(false);
 
     protected readonly openedMemberId = signal<string | null>(null);
 
@@ -78,7 +78,6 @@ export class TeamMembersSettingsComponent implements OnInit {
     }
 
     protected loadMembers() {
-        this.isError.set(false);
         this.isLoading.set(true);
 
         this.teamMembersService.getTeamMembers(this.teamId()).subscribe({
@@ -87,7 +86,6 @@ export class TeamMembersSettingsComponent implements OnInit {
                 this.isLoading.set(false);
             },
             error: () => {
-                this.isError.set(true);
                 this.isLoading.set(false);
             }
         });
@@ -156,20 +154,15 @@ export class TeamMembersSettingsComponent implements OnInit {
             .updateTeamMember(this.teamId(), member.id, {
                 role: this.getNextRole(member)
             })
-            .subscribe({
-                next: updatedMember => {
-                    this.teamMembers.update(members =>
-                        members.map(currentMember =>
-                            currentMember.id === updatedMember.id
-                                ? updatedMember
-                                : currentMember
-                        )
-                    );
-                },
-                error: () => {
-                    this.isError.set(true);
-                }
-            });
+            .subscribe(updatedMember =>
+                this.teamMembers.update(members =>
+                    members.map(currentMember =>
+                        currentMember.id === updatedMember.id
+                            ? updatedMember
+                            : currentMember
+                    )
+                )
+            );
     }
 
     protected deleteMember(member: TeamMember) {
@@ -179,18 +172,13 @@ export class TeamMembersSettingsComponent implements OnInit {
 
         this.teamMembersService
             .deleteTeamMember(this.teamId(), member.id)
-            .subscribe({
-                next: () => {
-                    this.teamMembers.update(members =>
-                        members.filter(
-                            currentMember => currentMember.id !== member.id
-                        )
-                    );
-                },
-                error: () => {
-                    this.isError.set(true);
-                }
-            });
+            .subscribe(() =>
+                this.teamMembers.update(members =>
+                    members.filter(
+                        currentMember => currentMember.id !== member.id
+                    )
+                )
+            );
     }
 
     private getNextRole(member: TeamMember): TeamRole.Admin | TeamRole.Member {

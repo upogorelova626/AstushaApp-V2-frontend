@@ -5,9 +5,9 @@ import {ProjectMember} from '../interfaces/project-member.interface';
 import {
     CreateProjectRequest,
     Project,
-    ProjectListItem,
     UpdateProjectRequest
 } from '../interfaces/project.interface';
+import {ProjectBoardStage} from '../interfaces/board.interface';
 import {ProjectTeam, Team} from '../../teams/interfaces/team.interface';
 
 @Injectable({
@@ -76,6 +76,12 @@ export class ProjectsService {
     getProjectMembers(projectId: string) {
         return this.http.get<ProjectMember[]>(
             `${this.baseApiUrl}/projects/${projectId}/members`
+        );
+    }
+
+    getProjectBoard(projectId: string) {
+        return this.http.get<ProjectBoardStage[]>(
+            `${this.baseApiUrl}/projects/${projectId}/board`
         );
     }
 }

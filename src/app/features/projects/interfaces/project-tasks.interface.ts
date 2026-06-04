@@ -123,7 +123,3 @@ export interface ProjectTasksFilters {
     assigneeId?: string;
     sprintId?: string;
 }
-
-export interface ProjectBoardStage extends ProjectWorkflowStage {
-    tasks: ProjectTask[];
-}

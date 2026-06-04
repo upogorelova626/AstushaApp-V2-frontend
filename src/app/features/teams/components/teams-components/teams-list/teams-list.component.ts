@@ -25,11 +25,10 @@ import {
 } from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
-
-import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
-import {TeamRoleLabelPipe} from '../../../../shared/pipes/team-role-label.pipe';
-import {Team} from '../../interfaces/team.interface';
-import {TeamsService} from '../../services/teams.service';
+import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
+import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
+import {Team} from '../../../interfaces/team.interface';
+import {TeamsService} from '../../../services/teams.service';
 
 @Component({
     selector: 'app-teams-list',
