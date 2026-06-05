@@ -37,7 +37,7 @@ export class BoardColumnComponent {
         return `board-stage-${this.stage().id}`;
     });
 
-    protected drop(event: CdkDragDrop<ProjectBoardTask[]>): void {
+    protected drop(event: CdkDragDrop<ProjectBoardTask[]>) {
         this.taskDropped.emit({
             event,
             targetStageId: this.stage().id

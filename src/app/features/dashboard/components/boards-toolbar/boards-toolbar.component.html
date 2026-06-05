@@ -53,52 +53,67 @@
             </div>
         </label>
 
-        <label class="boards-toolbar__control boards-toolbar__control_search">
-            <span class="boards-toolbar__label">Поиск</span>
-
-            <tui-textfield
-                class="boards-toolbar__textfield"
-                iconStart="@tui.search"
-            >
-                <input
-                    tuiInput
-                    type="text"
-                    placeholder="Поиск по задачам"
-                    [disabled]="!selectedProjectId() || isLoading()"
-                />
-            </tui-textfield>
-        </label>
-
         <label class="boards-toolbar__control">
             <span class="boards-toolbar__label">Исполнитель</span>
 
-            <tui-textfield
-                class="boards-toolbar__textfield"
-                iconStart="@tui.user"
-            >
-                <input
-                    tuiInput
-                    type="text"
-                    placeholder="Поиск по исполнителю"
-                    [disabled]="!selectedProjectId() || isLoading()"
+            <div class="boards-toolbar__select-wrapper">
+                <tui-icon
+                    class="boards-toolbar__control-icon"
+                    icon="@tui.user"
                 />
-            </tui-textfield>
+
+                <select
+                    class="boards-toolbar__select"
+                    [value]="selectedAssigneeId() ?? ''"
+                    [disabled]="!selectedProjectId() || isLoading()"
+                    (change)="selectAssignee($event)"
+                >
+                    <option value="">Все исполнители</option>
+
+                    @for (member of selectedProjectMembers(); track member.id) {
+                        <option [value]="member.user.id">
+                            {{ member.user.firstName || member.user.login }}
+                            {{ member.user.lastName || '' }}
+                        </option>
+                    }
+                </select>
+
+                <tui-icon
+                    class="boards-toolbar__chevron"
+                    icon="@tui.chevron-down"
+                />
+            </div>
         </label>
 
         <label class="boards-toolbar__control">
             <span class="boards-toolbar__label">Приоритет</span>
 
-            <tui-textfield
-                class="boards-toolbar__textfield"
-                iconStart="@tui.flag"
-            >
-                <input
-                    tuiInput
-                    type="text"
-                    placeholder="Поиск по приоритету"
-                    [disabled]="!selectedProjectId() || isLoading()"
+            <div class="boards-toolbar__select-wrapper">
+                <tui-icon
+                    class="boards-toolbar__control-icon"
+                    icon="@tui.flag"
                 />
-            </tui-textfield>
+
+                <select
+                    class="boards-toolbar__select"
+                    [value]="selectedPriority() ?? ''"
+                    [disabled]="!selectedProjectId() || isLoading()"
+                    (change)="selectPriority($event)"
+                >
+                    <option value="">Все приоритеты</option>
+
+                    @for (priority of taskPriorities; track priority.value) {
+                        <option [value]="priority.value">
+                            {{ priority.label }}
+                        </option>
+                    }
+                </select>
+
+                <tui-icon
+                    class="boards-toolbar__chevron"
+                    icon="@tui.chevron-down"
+                />
+            </div>
         </label>
 
         <label class="boards-toolbar__only-mine">
@@ -109,8 +124,6 @@
                 [disabled]="!selectedProjectId() || isLoading()"
                 (change)="onOnlyMineChange($event)"
             />
-
-            <span class="boards-toolbar__only-mine-toggle"></span>
 
             <span class="boards-toolbar__only-mine-text">Только мои</span>
         </label>

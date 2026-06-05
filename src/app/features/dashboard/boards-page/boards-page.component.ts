@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {finalize, switchMap} from 'rxjs';
-
+import {finalize, forkJoin, switchMap} from 'rxjs';
 import {BoardsToolbarComponent} from '../components/boards-toolbar/boards-toolbar.component';
 import {BoardColumnComponent} from '../components/board-column/board-column.component';
 import {ProjectsService} from '../../projects/services/projects.service';
@@ -22,6 +21,8 @@ import {
 } from '../../projects/interfaces/board.interface';
 import {UsersService} from '../../users/services/users.service';
 import {AuthUser} from '../../auth/models/interfaces/auth.interface';
+import {ProjectMember} from '../../projects/interfaces/project-member.interface';
+import {TaskPriority} from '../../projects/interfaces/project-tasks.interface';
 
 @Component({
     selector: 'app-boards-page',
@@ -40,6 +41,11 @@ export class BoardsPageComponent implements OnInit {
     protected readonly boardStages = signal<ProjectBoardStage[]>([]);
 
     protected readonly selectedProjectId = signal<string | null>(null);
+    protected readonly selectedProject = signal<Project | null>(null);
+    protected readonly selectedProjectMembers = signal<ProjectMember[]>([]);
+    protected readonly selectedAssigneeId = signal<string | null>(null);
+
+    protected readonly selectedPriority = signal<TaskPriority | null>(null);
 
     protected readonly onlyMine = signal(false);
     protected readonly isLoading = signal(false);
@@ -52,7 +58,7 @@ export class BoardsPageComponent implements OnInit {
         });
     });
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.isLoading.set(true);
 
         this.projectsService
@@ -73,37 +79,63 @@ export class BoardsPageComponent implements OnInit {
             });
     }
 
-    protected selectProject(projectId: string | null): void {
+    protected selectProject(projectId: string | null) {
         this.selectedProjectId.set(projectId);
+        this.selectedAssigneeId.set(null);
 
         if (!projectId) {
             this.boardStages.set([]);
+            this.selectedProject.set(null);
+            this.selectedProjectMembers.set([]);
 
             return;
         }
 
         this.isLoading.set(true);
 
-        this.projectsService
-            .getProjectBoard(projectId)
+        forkJoin({
+            boardStages: this.projectsService.getProjectBoard(projectId),
+            project: this.projectsService.getOneProject(projectId)
+        })
             .pipe(
                 finalize(() => {
                     this.isLoading.set(false);
                 })
             )
-            .subscribe(boardStages => {
+            .subscribe(({boardStages, project}) => {
                 this.boardStages.set(boardStages);
+                this.selectedProject.set(project);
+                this.selectedProjectMembers.set(project.members ?? []);
             });
     }
 
     protected getFilteredTasks(tasks: ProjectBoardTask[]): ProjectBoardTask[] {
-        return tasks
+        return [...tasks]
             .filter(task => {
                 if (!this.onlyMine()) {
                     return true;
                 }
 
                 return task.assignee?.id === this.currentUser()?.id;
+            })
+            .filter(task => {
+                const selectedAssigneeId = this.selectedAssigneeId();
+
+                if (!selectedAssigneeId) {
+                    return true;
+                }
+
+                return task.assignee?.id === selectedAssigneeId;
+            })
+
+            .filter(task => {
+                const selectedPriority = this.selectedPriority();
+
+                if (!selectedPriority) {
+                    return true;
+                }
+
+                return task.priority === selectedPriority;
             })
             .sort((a, b) => {
                 return a.position - b.position;
@@ -113,7 +145,7 @@ export class BoardsPageComponent implements OnInit {
     protected moveTask(
         event: CdkDragDrop<ProjectBoardTask[]>,
         targetStageId: string
-    ): void {
+    ) {
         const projectId = this.selectedProjectId();
         const movedTask = event.item.data as ProjectBoardTask;
 
@@ -136,7 +168,15 @@ export class BoardsPageComponent implements OnInit {
             });
     }
 
-    protected onlyMineChanged(value: boolean): void {
+    protected onlyMineChanged(value: boolean) {
         this.onlyMine.set(value);
+    }
+
+    protected assigneeSelected(assigneeId: string | null) {
+        this.selectedAssigneeId.set(assigneeId);
+    }
+
+    protected prioritySelected(priority: TaskPriority | null): void {
+        this.selectedPriority.set(priority);
     }
 }

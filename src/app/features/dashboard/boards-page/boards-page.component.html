@@ -1,10 +1,15 @@
 <div class="boards-page">
     <app-boards-toolbar
         [projects]="projects()"
+        [selectedProjectMembers]="selectedProjectMembers()"
         [selectedProjectId]="selectedProjectId()"
+        [selectedAssigneeId]="selectedAssigneeId()"
+        [selectedPriority]="selectedPriority()"
         [isLoading]="isLoading()"
         [onlyMine]="onlyMine()"
         (projectSelected)="selectProject($event)"
+        (assigneeSelected)="assigneeSelected($event)"
+        (prioritySelected)="prioritySelected($event)"
         (onlyMineChanged)="onlyMineChanged($event)"
     />
 
