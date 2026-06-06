@@ -1,4 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    signal
+} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -23,7 +28,6 @@ import {
 import {TuiChevron, TuiInputDate, TuiUnfinishedValidator} from '@taiga-ui/kit';
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {Router} from '@angular/router';
-
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
@@ -76,12 +80,14 @@ import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-e
 })
 export class CreateProjectDialogComponent {
     protected readonly context = injectContext<TuiDialogContext<void, void>>();
-
     private readonly projectsService = inject(ProjectsService);
     private readonly router = inject(Router);
 
     protected readonly workflowTypeOptions = PROJECT_WORKFLOW_TYPE_OPTIONS;
     protected readonly priorityOptions = PROJECT_PRIORITY_OPTIONS;
+
+    protected readonly workflowDropdownOpen = signal(false);
+    protected readonly priorityDropdownOpen = signal(false);
 
     protected readonly form = new FormGroup(
         {
@@ -142,12 +148,32 @@ export class CreateProjectDialogComponent {
         }
     );
 
+    protected toggleWorkflowDropdown(): void {
+        this.priorityDropdownOpen.set(false);
+        this.workflowDropdownOpen.update(open => !open);
+    }
+
+    protected togglePriorityDropdown(): void {
+        this.workflowDropdownOpen.set(false);
+        this.priorityDropdownOpen.update(open => !open);
+    }
+
+    protected closeWorkflowDropdown(): void {
+        this.workflowDropdownOpen.set(false);
+    }
+
+    protected closePriorityDropdown(): void {
+        this.priorityDropdownOpen.set(false);
+    }
+
     protected selectWorkflowType(option: WorkflowTypeOption) {
         this.setSelectValue(
             this.form.controls.workflowType,
             this.form.controls.workflowTypeTitle,
             option
         );
+
+        this.closeWorkflowDropdown();
     }
 
     protected selectPriority(option: ProjectPriorityOption) {
@@ -156,6 +182,8 @@ export class CreateProjectDialogComponent {
             this.form.controls.priorityTitle,
             option
         );
+
+        this.closePriorityDropdown();
     }
 
     protected createProject() {

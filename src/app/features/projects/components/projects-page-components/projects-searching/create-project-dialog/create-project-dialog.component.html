@@ -12,7 +12,7 @@
 
     <tui-textfield>
         <label tuiLabel>
-            Добавьте короткий ключ проекта. Например: AST, CRM, BOOKME
+            Добавьте короткий ключ проекта. Например: AST, CAT, MEW
         </label>
 
         <input tuiInput formControlName="key" />
@@ -34,18 +34,26 @@
         [order]="['required', 'maxlength']"
     />
 
-    <tui-textfield tuiChevron>
-        <label tuiLabel>Тип рабочего процесса</label>
+    <div
+        class="create-project-dialog__dropdown"
+        [tuiDropdown]="workflowDropdown"
+        [tuiDropdownManual]="workflowDropdownOpen()"
+    >
+        <tui-textfield tuiChevron (click)="toggleWorkflowDropdown()">
+            <label tuiLabel>Тип рабочего процесса</label>
 
-        <input
-            tuiInput
-            readonly
-            type="text"
-            placeholder="Выберите тип рабочего процесса"
-            formControlName="workflowTypeTitle"
-        />
+            <input
+                tuiInput
+                readonly
+                type="text"
+                placeholder="Выберите тип рабочего процесса"
+                formControlName="workflowTypeTitle"
+            />
+        </tui-textfield>
+    </div>
 
-        <tui-data-list *tuiDropdown>
+    <ng-template #workflowDropdown>
+        <tui-data-list>
             @for (type of workflowTypeOptions; track type.value) {
                 <button
                     tuiOption
@@ -62,25 +70,37 @@
                 </button>
             }
         </tui-data-list>
-    </tui-textfield>
+    </ng-template>
 
     <tui-error
         [formControl]="form.controls.workflowTypeTitle"
         [order]="['required']"
     />
 
-    <tui-textfield tuiChevron>
-        <label tuiLabel>Приоритет проекта</label>
+    <div
+        class="create-project-dialog__dropdown"
+        [tuiDropdown]="priorityDropdown"
+        [tuiDropdownManual]="priorityDropdownOpen()"
+    >
+        <tui-textfield
+            tuiChevron
+            [tuiTextfieldCleaner]="false"
+            (click)="togglePriorityDropdown()"
+        >
+            <label tuiLabel>Приоритет проекта</label>
 
-        <input
-            tuiInput
-            readonly
-            type="text"
-            placeholder="Выберите приоритет проекта"
-            formControlName="priorityTitle"
-        />
+            <input
+                tuiInput
+                readonly
+                type="text"
+                placeholder="Выберите приоритет проекта"
+                formControlName="priorityTitle"
+            />
+        </tui-textfield>
+    </div>
 
-        <tui-data-list *tuiDropdown>
+    <ng-template #priorityDropdown>
+        <tui-data-list>
             @for (priority of priorityOptions; track priority.value) {
                 <button
                     tuiOption
@@ -97,7 +117,7 @@
                 </button>
             }
         </tui-data-list>
-    </tui-textfield>
+    </ng-template>
 
     <tui-error
         [formControl]="form.controls.priorityTitle"
@@ -130,14 +150,16 @@
         [order]="['required', 'notPastDateValidator']"
     />
 
-    @if (
-        form.hasError('deadlineBeforeStartDate') &&
-        form.controls.deadline.touched
-    ) {
-        <div class="form-error">Дедлайн не может быть раньше даты старта</div>
-    }
+    <tui-error
+        [error]="
+            form.hasError('deadlineBeforeStartDate') &&
+            form.controls.deadline.touched
+                ? 'Дедлайн не может быть раньше даты старта'
+                : null
+        "
+    />
 
-    <footer class="buttons">
+    <footer class="create-project-dialog__footer">
         <button
             appearance="secondary"
             tuiButton
