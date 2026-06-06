@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 
 import {authGuard} from './features/auth/guards/auth.guard';
+import {projectManageGuard} from './features/projects/guards/project-manage.guard';
 
 export const routes: Routes = [
     {
@@ -167,6 +168,7 @@ export const routes: Routes = [
                             },
                             {
                                 path: 'settings',
+                                canActivate: [projectManageGuard],
                                 loadComponent: () =>
                                     import('./features/projects/pages/project-settings-page/project-settings-page.component').then(
                                         m => m.ProjectSettingsPageComponent
