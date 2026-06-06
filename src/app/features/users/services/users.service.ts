@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
-import {inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {
-    ChangePassword,
+    ChangePasswordRequest,
     UpdateProfileRequest,
     SuccessResponse,
     UserLookupResult
@@ -30,9 +30,9 @@ export class UsersService {
         return this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`);
     }
 
-    changeMyProfile(payload: UpdateProfileRequest) {
+    changeMyProfile(formData: FormData) {
         return this.http
-            .patch<AuthUser>(`${this.baseApiUrl}/users/profile`, payload)
+            .patch<AuthUser>(`${this.baseApiUrl}/users/profile`, formData)
             .pipe(tap(() => this.refreshProfile$.next()));
     }
 
@@ -42,7 +42,7 @@ export class UsersService {
         );
     }
 
-    changePassword(payload: ChangePassword) {
+    changePassword(payload: ChangePasswordRequest) {
         return this.http.patch<SuccessResponse>(
             `${this.baseApiUrl}/users/profile/password`,
             payload
@@ -58,5 +58,11 @@ export class UsersService {
                 }
             }
         );
+    }
+
+    deleteMyAvatar() {
+        return this.http
+            .delete<AuthUser>(`${this.baseApiUrl}/users/profile/avatar`)
+            .pipe(tap(() => this.refreshProfile$.next()));
     }
 }

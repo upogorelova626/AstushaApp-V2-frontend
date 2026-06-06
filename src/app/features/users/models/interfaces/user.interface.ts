@@ -1,9 +1,26 @@
 export interface UpdateProfileRequest {
     firstName?: string;
     lastName?: string;
-    avatarUrl?: string;
     position?: string;
     about?: string;
+}
+
+export interface UserProfileResponse {
+    email: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    position?: string | null;
+    about?: string | null;
+    avatarUrl?: string | null;
+}
+
+export interface ProfileFormValue {
+    email: string;
+    firstName: string;
+    lastName: string;
+    position: string;
+    about: string;
+    avatarUrl: string;
 }
 
 export interface UserLookupResult {
@@ -16,7 +33,7 @@ export interface UserLookupResult {
     position: string | null;
 }
 
-export interface ChangePassword {
+export interface ChangePasswordRequest {
     currentPassword: string;
     newPassword: string;
 }

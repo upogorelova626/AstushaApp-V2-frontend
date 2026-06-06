@@ -36,44 +36,108 @@
     <div class="edit">
         <div class="edit-photo">
             <div class="edit-photo__avatar" [tuiSkeleton]="isProfileLoading()">
-                <img
-                    class="edit-photo__img"
-                    [src]="form.controls.avatarUrl.value"
-                    alt=""
-                />
+                @if (avatarPreviewUrl() || form.controls.avatarUrl.value) {
+                    <img
+                        class="edit-photo__img"
+                        [src]="
+                            avatarPreviewUrl() || form.controls.avatarUrl.value
+                        "
+                        alt="Аватар профиля"
+                    />
+                } @else {
+                    <div
+                        tuiAvatar="@tui.user"
+                        class="edit-photo__fallback-avatar"
+                    ></div>
+                }
 
+                @if (isEditing()) {
+                    <button
+                        tuiButton
+                        class="edit-photo__camera"
+                        type="button"
+                        appearance="primary"
+                        size="xs"
+                        iconStart="@tui.camera"
+                        [disabled]="isProfileLoading() || isSaving()"
+                        (click)="avatarInput.click()"
+                    ></button>
+                }
+            </div>
+
+            <input
+                #avatarInput
+                class="edit-photo__file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                tabindex="-1"
+                [disabled]="isProfileLoading() || isSaving() || !isEditing()"
+                (change)="onAvatarSelected($event)"
+            />
+
+            @if (isEditing()) {
                 <button
-                    tuiIconButton
-                    class="edit-photo__camera"
+                    tuiButton
+                    class="edit-photo__change-button"
                     type="button"
+                    appearance="flat"
                     size="s"
-                    iconStart="@tui.camera"
-                    [disabled]="isProfileLoading() || !isEditing()"
+                    [disabled]="isProfileLoading() || isSaving()"
+                    (click)="avatarInput.click()"
                 >
                     Изменить фото
                 </button>
-            </div>
+            }
 
-            <button
-                tuiButton
-                class="edit-photo__button"
-                type="button"
-                appearance="flat"
-                size="m"
-                [disabled]="isProfileLoading() || !isEditing()"
-            >
-                Изменить фото
-            </button>
+            <tui-files class="edit-photo__files">
+                @if (loadedAvatarFile$ | async; as file) {
+                    <tui-file
+                        size="l"
+                        [file]="file"
+                        (remove)="removeAvatarFile()"
+                    />
+                }
+
+                @if (failedAvatarFile$ | async; as file) {
+                    <tui-file
+                        state="error"
+                        [file]="file"
+                        (remove)="removeAvatarFile()"
+                    />
+                }
+
+                @if (loadingAvatarFile$ | async; as file) {
+                    <tui-file
+                        state="loading"
+                        [file]="file"
+                        (remove)="removeAvatarFile()"
+                    />
+                }
+            </tui-files>
 
             <p class="edit-photo__hint">
                 JPG, PNG или WEBP<br />
                 до 5 МБ
             </p>
+
+            @if (form.controls.avatarUrl.value && isEditing()) {
+                <button
+                    tuiButton
+                    class="edit-photo__delete-button"
+                    type="button"
+                    appearance="flat"
+                    size="s"
+                    [disabled]="isProfileLoading() || isSaving()"
+                    (click)="deleteAvatar()"
+                >
+                    Удалить фото
+                </button>
+            }
         </div>
 
         <form class="edit-info" [formGroup]="form">
             <div class="edit-name-and-family">
-                <label class="edit-info__field">
+                <div class="edit-info__field">
                     <label tuiLabel>Имя</label>
 
                     <tui-textfield
@@ -87,13 +151,14 @@
                             formControlName="firstName"
                         />
                     </tui-textfield>
+
                     <tui-error
                         [formControl]="form.controls.firstName"
                         [order]="['minlength', 'maxlength']"
                     />
-                </label>
+                </div>
 
-                <label class="edit-info__field">
+                <div class="edit-info__field">
                     <label tuiLabel>Фамилия</label>
 
                     <tui-textfield
@@ -107,34 +172,31 @@
                             formControlName="lastName"
                         />
                     </tui-textfield>
+
                     <tui-error
                         [formControl]="form.controls.lastName"
                         [order]="['minlength', 'maxlength']"
                     />
-                </label>
+                </div>
             </div>
 
-            <label class="edit-info__field">
+            <div class="edit-info__field">
                 <label tuiLabel>Email</label>
 
                 <tui-textfield
-                    class="edit-info__input"
+                    class="edit-info__input edit-info__input_disabled"
                     [tuiSkeleton]="isProfileLoading()"
                 >
                     <input
                         tuiInput
                         type="email"
-                        placeholder="Введите email"
+                        placeholder="Email"
                         formControlName="email"
                     />
                 </tui-textfield>
-                <tui-error
-                    [formControl]="form.controls.email"
-                    [order]="['required', 'email', 'maxlength']"
-                />
-            </label>
+            </div>
 
-            <label class="edit-info__field">
+            <div class="edit-info__field">
                 <label tuiLabel>Должность</label>
 
                 <tui-textfield
@@ -148,13 +210,14 @@
                         formControlName="position"
                     />
                 </tui-textfield>
+
                 <tui-error
                     [formControl]="form.controls.position"
                     [order]="['minlength', 'maxlength']"
                 />
-            </label>
+            </div>
 
-            <label class="edit-info__field">
+            <div class="edit-info__field">
                 <label tuiLabel>О себе</label>
 
                 <tui-textfield
@@ -167,11 +230,12 @@
                         formControlName="about"
                     ></textarea>
                 </tui-textfield>
+
                 <tui-error
                     [formControl]="form.controls.about"
                     [order]="['maxlength']"
                 />
-            </label>
+            </div>
 
             <div class="edit-info__actions">
                 <button
