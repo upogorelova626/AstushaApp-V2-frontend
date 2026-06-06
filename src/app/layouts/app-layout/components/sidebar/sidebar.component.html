@@ -198,22 +198,41 @@
 
             @if (profile) {
                 <div class="sidebar__avatar">
-                    <span>А</span>
+                    @if (profile.avatarUrl) {
+                        <img
+                            class="sidebar__avatar-img"
+                            [src]="profile.avatarUrl"
+                            alt="Аватар пользователя"
+                        />
+                    } @else {
+                        <span class="sidebar__avatar-fallback">
+                            {{
+                                (profile.firstName || profile.login).slice(0, 1)
+                            }}
+                        </span>
+                    }
+
                     <div class="sidebar__avatar-status"></div>
                 </div>
 
                 <div class="sidebar__profile-info">
-                    @if (profile.firstName) {
+                    @if (profile.firstName || profile.lastName) {
                         <span class="sidebar__profile-name">
                             {{ profile.firstName }} {{ profile.lastName }}
-                        </span>
-
-                        <span class="sidebar__profile-role">
-                            {{ profile.position }}
                         </span>
                     } @else {
                         <span class="sidebar__profile-name">
                             {{ profile.login }}
+                        </span>
+                    }
+
+                    @if (profile.position) {
+                        <span class="sidebar__profile-role">
+                            {{ profile.position }}
+                        </span>
+                    } @else {
+                        <span class="sidebar__profile-role">
+                            Участник команды
                         </span>
                     }
                 </div>

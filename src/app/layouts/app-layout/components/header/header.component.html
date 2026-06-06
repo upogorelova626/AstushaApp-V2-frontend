@@ -88,7 +88,20 @@
             (click)="toggleUserMenu($event)"
         >
             @if (profile) {
-                <div class="header__avatar" tuiAvatar="@tui.user"></div>
+                <div class="header__avatar">
+                    @if (profile.avatarUrl) {
+                        <img
+                            class="header__avatar-img"
+                            [src]="profile.avatarUrl"
+                            alt="Аватар пользователя"
+                        />
+                    } @else {
+                        <div
+                            tuiAvatar="@tui.user"
+                            class="header__avatar-fallback"
+                        ></div>
+                    }
+                </div>
 
                 @if (profile.firstName && profile.lastName) {
                     <span class="header__profile-name">
