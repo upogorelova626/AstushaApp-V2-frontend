@@ -32,21 +32,39 @@
 
     <footer class="board-task-card__footer">
         <div class="board-task-card__assignee">
-            <div tuiAvatar="@tui.user" class="board-task-card__avatar"></div>
+            @if (task().assignee; as assignee) {
+                @if (assignee.avatarUrl) {
+                    <img
+                        class="board-task-card__avatar-img"
+                        [src]="assignee.avatarUrl"
+                        alt="Аватар исполнителя"
+                    />
+                } @else {
+                    <div
+                        tuiAvatar="@tui.user"
+                        class="board-task-card__avatar"
+                    ></div>
+                }
 
-            <span class="board-task-card__assignee-name">
-                @if (task().assignee) {
+                <span class="board-task-card__assignee-name">
                     {{
                         (
-                            (task().assignee?.firstName ?? '') +
+                            (assignee.firstName ?? '') +
                             ' ' +
-                            (task().assignee?.lastName ?? '')
-                        ).trim() || task().assignee?.login
+                            (assignee.lastName ?? '')
+                        ).trim() || assignee.login
                     }}
-                } @else {
+                </span>
+            } @else {
+                <div
+                    tuiAvatar="@tui.user"
+                    class="board-task-card__avatar"
+                ></div>
+
+                <span class="board-task-card__assignee-name">
                     Не назначен
-                }
-            </span>
+                </span>
+            }
         </div>
 
         <div class="board-task-card__meta">

@@ -34,6 +34,13 @@
         gap: 12px;
     }
 
+    &__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
     &__number {
         overflow: hidden;
         color: var(--color-text-muted);
@@ -86,10 +93,17 @@
         gap: 8px;
     }
 
-    &__avatar {
+    &__avatar,
+    &__avatar-img {
         width: 28px;
         height: 28px;
         flex-shrink: 0;
+    }
+
+    &__avatar-img {
+        display: block;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     &__assignee-name {
