@@ -1,30 +1,37 @@
-@if (isLoading()) {
-    <p class="team-settings-page__state">Загрузка настроек команды...</p>
-} @else {}
-@if (team(); as currentTeam) {
-    <section class="team-settings-page">
-        <div class="team-settings-page__grid">
-            <app-team-main-settings
-                [team]="currentTeam"
-                class="team-settings-page__card"
-            />
-            @if (teamId(); as teamId) {
-                <app-team-invite-member
+<section class="team-settings-page">
+    <div class="team-settings-page__content">
+        <div class="team-settings-page__columns">
+            <div class="team-settings-page__column">
+                <app-team-main-settings
                     class="team-settings-page__card"
-                    [teamId]="teamId"
+                    [team]="team()"
+                    [isLoading]="isLoading()"
                 />
-            }
+
+                @if (teamId()) {
+                    <app-team-members-settings
+                        class="team-settings-page__card"
+                        [teamId]="teamId()!"
+                    />
+                }
+            </div>
+
+            <div class="team-settings-page__column">
+                @if (teamId()) {
+                    <app-team-invite-member
+                        class="team-settings-page__card"
+                        [teamId]="teamId()!"
+                    />
+                }
+
+                <app-team-roles-settings class="team-settings-page__card" />
+            </div>
         </div>
-        <div class="team-settings-page__grid">
-            @if (teamId(); as teamId) {
-                <app-team-members-settings [teamId]="teamId" />
-            }
-            <app-team-roles-settings class="team-settings-page__card" />
-        </div>
-        @if (currentTeam.myRole === 'OWNER') {
-            <app-team-danger-zone />
+
+        @if (team()?.myRole === 'OWNER') {
+            <app-team-danger-zone
+                class="team-settings-page__card team-settings-page__danger"
+            />
         }
-    </section>
-} @else {
-    <p class="team-settings-page__state">Команда не найдена</p>
-}
+    </div>
+</section>

@@ -1,141 +1,168 @@
 @if (!isProjectsLoading() && projects().length === 0) {
-    <p>Создайте свой первый проект</p>
+    <p class="no-projects">Создайте свой первый проект</p>
 }
 
 @if (isProjectsLoading() || projects().length > 0) {
     <div class="projects-table" [tuiSkeleton]="isProjectsLoading()">
-        <table class="projects-table__table">
-            <thead>
-                <tr>
-                    <th>Проект</th>
-                    <th>Создатель</th>
-                    <th>Прогресс</th>
-                    <th>Статус</th>
-                    <th>Команда</th>
-                    <th>Дедлайн</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
+        <div class="projects-table__table-wrapper">
+            <table class="projects-table__table">
+                <thead class="projects-table__head">
+                    <tr class="projects-table__head-row">
+                        <th class="projects-table__head-cell">Проект</th>
+                        <th class="projects-table__head-cell">Создатель</th>
+                        <th class="projects-table__head-cell">Прогресс</th>
+                        <th class="projects-table__head-cell">Статус</th>
+                        <th class="projects-table__head-cell">Команда</th>
+                        <th class="projects-table__head-cell">Дедлайн</th>
+                        <th class="projects-table__head-cell">Действия</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                @for (project of projects(); track project.id) {
-                    <tr>
-                        <td>
-                            <div class="projects-table__project">
-                                <div
-                                    class="projects-table__project-icon projects-table__project-icon_blue"
-                                >
-                                    {{ project.key }}
+                <tbody class="projects-table__body">
+                    @for (project of projects(); track project.id) {
+                        <tr class="projects-table__row">
+                            <td class="projects-table__cell">
+                                <div class="projects-table__project">
+                                    <div
+                                        class="projects-table__project-icon projects-table__project-icon_blue"
+                                    >
+                                        {{ project.key }}
+                                    </div>
+
+                                    <div class="projects-table__project-info">
+                                        <div
+                                            class="projects-table__project-title"
+                                        >
+                                            {{ project.title }}
+                                        </div>
+
+                                        <div
+                                            class="projects-table__project-description"
+                                        >
+                                            {{
+                                                project.description ||
+                                                    'Описание не добавлено'
+                                            }}
+                                        </div>
+                                    </div>
                                 </div>
+                            </td>
 
-                                <div class="projects-table__project-info">
-                                    <div class="projects-table__project-title">
-                                        {{ project.title }}
+                            <td class="projects-table__cell">
+                                <div class="projects-table__owner">
+                                    @if (project.creator.avatarUrl) {
+                                        <img
+                                            class="projects-table__owner-avatar-img"
+                                            [src]="project.creator.avatarUrl"
+                                            alt="Аватар создателя"
+                                        />
+                                    } @else {
+                                        <div
+                                            tuiAvatar="@tui.user"
+                                            class="projects-table__owner-avatar"
+                                        ></div>
+                                    }
+
+                                    <span class="projects-table__owner-name">
+                                        {{
+                                            (
+                                                (project.creator.firstName ??
+                                                    '') +
+                                                ' ' +
+                                                (project.creator.lastName ?? '')
+                                            ).trim() || project.creator.login
+                                        }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td class="projects-table__cell">
+                                <div class="projects-table__progress">
+                                    <div class="projects-table__progress-value">
+                                        68%
+                                    </div>
+
+                                    <progress
+                                        class="projects-table__progress-bar"
+                                        value="68"
+                                        max="100"
+                                    ></progress>
+
+                                    <div
+                                        class="projects-table__progress-description"
+                                    >
+                                        Статистика задач
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="projects-table__cell">
+                                <span
+                                    class="projects-table__status projects-table__status_active"
+                                >
+                                    {{ project.status | projectStatus }}
+                                </span>
+                            </td>
+
+                            <td class="projects-table__cell">
+                                <div class="projects-table__team">
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="projects-table__team-avatar"
+                                    ></div>
+
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="projects-table__team-avatar"
+                                    ></div>
+
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="projects-table__team-avatar"
+                                    ></div>
+
+                                    <span
+                                        class="projects-table__team-count"
+                                    ></span>
+                                </div>
+                            </td>
+
+                            <td class="projects-table__cell">
+                                <div class="projects-table__deadline">
+                                    <div class="projects-table__deadline-date">
+                                        Дедлайн
                                     </div>
 
                                     <div
-                                        class="projects-table__project-description"
+                                        class="projects-table__deadline-warning"
                                     >
-                                        {{ project.description }}
+                                        {{ project.deadline | date }}
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td>
-                            <div class="projects-table__owner">
-                                <div
-                                    tuiAvatar="@tui.user"
-                                    class="projects-table__owner-avatar"
-                                ></div>
-
-                                <span>
-                                    {{ project.creator.firstName }}
-                                    {{ project.creator.lastName }}
-                                </span>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="projects-table__progress">
-                                <div class="projects-table__progress-value">
-                                    68%
-                                </div>
-
-                                <progress
-                                    class="projects-table__progress-bar"
-                                    value="68"
-                                    max="100"
-                                ></progress>
-
-                                <div
-                                    class="projects-table__progress-description"
-                                >
-                                    Статистика задач
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span
-                                class="projects-table__status projects-table__status_active"
+                            <td
+                                class="projects-table__cell projects-table__cell_actions"
                             >
-                                {{ project.status | projectStatus }}
-                            </span>
-                        </td>
-
-                        <td>
-                            <div class="projects-table__team">
-                                <div
-                                    tuiAvatar="@tui.user"
-                                    class="projects-table__team-avatar"
-                                ></div>
-
-                                <div
-                                    tuiAvatar="@tui.user"
-                                    class="projects-table__team-avatar"
-                                ></div>
-
-                                <div
-                                    tuiAvatar="@tui.user"
-                                    class="projects-table__team-avatar"
-                                ></div>
-
-                                <span class="projects-table__team-count"></span>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="projects-table__deadline">
-                                <div class="projects-table__deadline-date">
-                                    Дедлайн
-                                </div>
-
-                                <div class="projects-table__deadline-warning">
-                                    {{ project.deadline | date }}
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <a
-                                tuiIconButton
-                                type="button"
-                                appearance="flat"
-                                size="s"
-                                iconStart="@tui.ellipsis"
-                                tuiHint="Подробнее о проекте"
-                                tuiHintDirection="top-end"
-                                [routerLink]="[
-                                    '/dashboard/projects',
-                                    project.id
-                                ]"
-                            ></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                                <a
+                                    tuiIconButton
+                                    type="button"
+                                    appearance="flat"
+                                    size="s"
+                                    iconStart="@tui.ellipsis"
+                                    tuiHint="Подробнее о проекте"
+                                    tuiHintDirection="top-end"
+                                    [routerLink]="[
+                                        '/dashboard/projects',
+                                        project.id
+                                    ]"
+                                ></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         @if (!isProjectsLoading() && projects().length === 1) {
             <div class="projects-table__footer">
@@ -144,7 +171,7 @@
                 </span>
 
                 <div class="projects-table__pagination">
-                    <button tuiButton type="button" size="s"> 1 </button>
+                    <button tuiButton type="button" size="s">1</button>
                 </div>
             </div>
         }
@@ -157,7 +184,7 @@
                 </span>
 
                 <div class="projects-table__pagination">
-                    <button tuiButton type="button" size="s"> 1 </button>
+                    <button tuiButton type="button" size="s">1</button>
                 </div>
             </div>
         }

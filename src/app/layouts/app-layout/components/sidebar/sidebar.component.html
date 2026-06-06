@@ -49,7 +49,7 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/sprints"
+            routerLink="/dashboard/sprints"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -66,14 +66,14 @@
             appearance="flat"
             size="m"
         >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.users-round" />
+            <tui-icon class="sidebar__nav-icon" icon="@tui.users" />
             <span class="sidebar__nav-text">Команды</span>
         </a>
 
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/calendar"
+            routerLink="/dashboard/ai"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -85,15 +85,12 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/reports"
+            routerLink="/dashboard/reports"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
         >
-            <tui-icon
-                class="sidebar__nav-icon"
-                icon="@tui.chart-column-stacked"
-            />
+            <tui-icon class="sidebar__nav-icon" icon="@tui.chart-column" />
             <span class="sidebar__nav-text">Отчёты</span>
         </a>
 
@@ -110,135 +107,156 @@
         </a>
     </nav>
 
-    <div class="sidebar__section">
+    <section class="sidebar__recent-projects">
         <div class="sidebar__section-header">
             <span class="sidebar__section-title">Недавние проекты</span>
 
             <a
                 tuiIconButton
-                class="sidebar__section-button"
-                routerLink="/projects/create"
+                class="sidebar__section-create"
+                routerLink="/dashboard/projects"
                 appearance="flat"
                 size="xs"
                 iconStart="@tui.plus"
-                tuiHint="Создайте новый проект"
-                tuiHintDirection="end"
-            >
-                Создать проект
-            </a>
+                tuiHint="Создать проект"
+                tuiHintDirection="top-end"
+            ></a>
         </div>
 
-        <div class="sidebar__project-list">
-            <a class="sidebar__project" routerLink="/projects/astusha-platform">
-                <div class="sidebar__project-icon sidebar__project-icon_blue">
-                    <tui-icon icon="@tui.rocket" />
-                </div>
+        <div class="sidebar__recent-list">
+            @if (isLoading()) {
+                <button
+                    tuiButton
+                    class="sidebar__recent-item"
+                    type="button"
+                    appearance="outline"
+                    size="m"
+                    iconStart="@tui.folder"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    <span class="sidebar__recent-info">
+                        <span class="sidebar__recent-title">
+                            Название проекта
+                        </span>
 
-                <div class="sidebar__project-content">
-                    <span class="sidebar__project-name">Astusha Platform</span>
-                    <span class="sidebar__project-status">В работе</span>
-                </div>
-
-                <tui-icon class="sidebar__project-more" icon="@tui.ellipsis" />
-            </a>
-
-            <a class="sidebar__project" routerLink="/projects/mobile-app">
-                <div class="sidebar__project-icon sidebar__project-icon_violet">
-                    <tui-icon icon="@tui.smartphone" />
-                </div>
-
-                <div class="sidebar__project-content">
-                    <span class="sidebar__project-name">
-                        Мобильное приложение
+                        <span class="sidebar__recent-status">
+                            Статус проекта
+                        </span>
                     </span>
-                    <span class="sidebar__project-status">В работе</span>
-                </div>
+                </button>
+            }
+            @if (projects().length > 0) {
+                @for (project of projects(); track project.id) {
+                    <a
+                        tuiButton
+                        class="sidebar__recent-item"
+                        appearance="outline"
+                        size="m"
+                        iconStart="@tui.folder"
+                        [routerLink]="['/dashboard/projects', project.id]"
+                    >
+                        <span class="sidebar__recent-info">
+                            <span
+                                class="sidebar__recent-title"
+                                [title]="project.title"
+                            >
+                                {{ project.title }}
+                            </span>
 
-                <tui-icon class="sidebar__project-more" icon="@tui.ellipsis" />
-            </a>
+                            <span class="sidebar__recent-status">
+                                {{ project.status }}
+                            </span>
+                        </span>
+                    </a>
+                }
+            } @else {
+                <div class="sidebar__recent-empty">
+                    <tui-icon
+                        class="sidebar__recent-empty-icon"
+                        icon="@tui.folder-plus"
+                    />
 
-            <a class="sidebar__project" routerLink="/projects/internal-tool">
-                <div class="sidebar__project-icon sidebar__project-icon_green">
-                    <tui-icon icon="@tui.wrench" />
-                </div>
-
-                <div class="sidebar__project-content">
-                    <span class="sidebar__project-name">
-                        Внутренний инструмент
+                    <span class="sidebar__recent-empty-text">
+                        Проектов пока нет
                     </span>
-                    <span class="sidebar__project-status">Планирование</span>
                 </div>
-
-                <tui-icon class="sidebar__project-more" icon="@tui.ellipsis" />
-            </a>
+            }
         </div>
-    </div>
+    </section>
 
     <div class="sidebar__footer">
-        <a class="sidebar__support" routerLink="/support">
-            <div class="sidebar__support-icon">
-                <tui-icon icon="@tui.circle-help" />
-            </div>
+        <button
+            tuiButton
+            class="sidebar__support"
+            type="button"
+            appearance="flat"
+            size="m"
+        >
+            <tui-icon class="sidebar__support-icon" icon="@tui.circle-help" />
 
-            <span>Помощь и поддержка</span>
+            <span class="sidebar__support-text">Помощь и поддержка</span>
 
             <tui-icon
                 class="sidebar__support-arrow"
                 icon="@tui.chevron-right"
             />
-        </a>
+        </button>
 
-        <button
-            tuiButton
-            class="sidebar__profile"
-            type="button"
-            appearance="flat"
-        >
-            @let profile = profile$ | async;
-
-            @if (profile) {
-                <div class="sidebar__avatar">
+        @if (profile$ | async; as profile) {
+            <button
+                tuiButton
+                class="sidebar__profile"
+                type="button"
+                appearance="flat"
+                size="m"
+            >
+                <div class="sidebar__profile-avatar-wrapper">
                     @if (profile.avatarUrl) {
                         <img
-                            class="sidebar__avatar-img"
+                            class="sidebar__profile-avatar-img"
                             [src]="profile.avatarUrl"
                             alt="Аватар пользователя"
                         />
                     } @else {
-                        <span class="sidebar__avatar-fallback">
-                            {{
-                                (profile.firstName || profile.login).slice(0, 1)
-                            }}
-                        </span>
+                        <div
+                            tuiAvatar="@tui.user"
+                            class="sidebar__profile-avatar"
+                        ></div>
                     }
 
-                    <div class="sidebar__avatar-status"></div>
+                    <span class="sidebar__profile-avatar-status"></span>
                 </div>
 
                 <div class="sidebar__profile-info">
-                    @if (profile.firstName || profile.lastName) {
-                        <span class="sidebar__profile-name">
-                            {{ profile.firstName }} {{ profile.lastName }}
-                        </span>
-                    } @else {
-                        <span class="sidebar__profile-name">
-                            {{ profile.login }}
-                        </span>
-                    }
+                    <span
+                        class="sidebar__profile-name"
+                        [title]="
+                            (
+                                (profile.firstName ?? '') +
+                                ' ' +
+                                (profile.lastName ?? '')
+                            ).trim() || profile.login
+                        "
+                    >
+                        {{
+                            (
+                                (profile.firstName ?? '') +
+                                ' ' +
+                                (profile.lastName ?? '')
+                            ).trim() || profile.login
+                        }}
+                    </span>
 
-                    @if (profile.position) {
-                        <span class="sidebar__profile-role">
-                            {{ profile.position }}
-                        </span>
-                    } @else {
-                        <span class="sidebar__profile-role">
-                            Участник команды
-                        </span>
-                    }
+                    <span class="sidebar__profile-position">
+                        {{ profile.position || 'Пользователь' }}
+                    </span>
                 </div>
-            }
 
-            <tui-icon class="sidebar__profile-arrow" icon="@tui.chevron-down" />
-        </button>
+                <tui-icon
+                    class="sidebar__profile-chevron"
+                    icon="@tui.chevron-down"
+                />
+            </button>
+        }
     </div>
 </aside>

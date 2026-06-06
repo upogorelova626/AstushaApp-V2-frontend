@@ -17,7 +17,11 @@
 
     <div class="team-main-settings-card__content">
         <div class="team-main-settings-card__avatar-wrapper">
-            <div class="team-main-settings-card__avatar">AI</div>
+            <div
+                class="team-main-settings-card__avatar"
+                [tuiSkeleton]="isLoading()"
+                >AI</div
+            >
 
             <button
                 tuiIconButton
@@ -36,7 +40,7 @@
                     Название команды
                 </span>
 
-                <tui-textfield tuiTextfieldSize="m">
+                <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isLoading()">
                     <input
                         tuiInput
                         type="text"
@@ -49,7 +53,7 @@
             <label class="team-main-settings-card__field">
                 <span class="team-main-settings-card__label"> Описание </span>
 
-                <tui-textfield tuiTextfieldSize="m">
+                <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isLoading()">
                     <textarea
                         tuiTextarea
                         placeholder="Расскажите, чем занимается команда"

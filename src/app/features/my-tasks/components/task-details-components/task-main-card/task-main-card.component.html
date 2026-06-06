@@ -75,7 +75,25 @@
 
     <footer class="task-main-card__footer">
         <div class="task-main-card__meta-item">
-            <tui-icon class="task-main-card__meta-icon" icon="@tui.user" />
+            @if (task()?.assignee; as assignee) {
+                @if (assignee.avatarUrl) {
+                    <img
+                        class="task-main-card__assignee-avatar-img"
+                        [src]="assignee.avatarUrl"
+                        alt="Аватар исполнителя"
+                    />
+                } @else {
+                    <div
+                        tuiAvatar="@tui.user"
+                        class="task-main-card__assignee-avatar"
+                    ></div>
+                }
+            } @else {
+                <div
+                    tuiAvatar="@tui.user"
+                    class="task-main-card__assignee-avatar"
+                ></div>
+            }
 
             <div class="task-main-card__meta-content">
                 <span class="task-main-card__meta-label">Исполнитель</span>

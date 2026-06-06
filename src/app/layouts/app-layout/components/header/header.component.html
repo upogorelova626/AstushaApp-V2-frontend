@@ -9,11 +9,10 @@
             iconStart="@tui.arrow-left"
             [tuiSkeleton]="skeleton"
             (click)="goBack()"
-        >
-        </button>
+        ></button>
 
         <div class="header__title-block">
-            <h1 class="header__title" [tuiSkeleton]="skeleton"> Дашборд </h1>
+            <h1 class="header__title" [tuiSkeleton]="skeleton">AstushaAPP</h1>
 
             <tui-breadcrumbs
                 class="header__breadcrumbs"
@@ -81,14 +80,14 @@
             appearance="flat"
             size="m"
             iconEnd="@tui.chevron-down"
-            [tuiSkeleton]="!profile"
+            [tuiSkeleton]="skeleton || !profile"
             [attr.aria-expanded]="open()"
             [tuiDropdown]="userMenuDropdown"
             [tuiDropdownManual]="open()"
             (click)="toggleUserMenu($event)"
         >
             @if (profile) {
-                <div class="header__avatar">
+                <span class="header__avatar">
                     @if (profile.avatarUrl) {
                         <img
                             class="header__avatar-img"
@@ -96,26 +95,34 @@
                             alt="Аватар пользователя"
                         />
                     } @else {
-                        <div
+                        <span
                             tuiAvatar="@tui.user"
                             class="header__avatar-fallback"
-                        ></div>
+                        ></span>
                     }
-                </div>
+                </span>
 
-                @if (profile.firstName && profile.lastName) {
-                    <span class="header__profile-name">
-                        {{ profile.firstName }} {{ profile.lastName }}
-                    </span>
-                } @else {
-                    <span class="header__profile-name">
-                        {{ profile.login }}
-                    </span>
-                }
+                <span class="header__profile-name">
+                    {{
+                        (
+                            (profile.firstName ?? '') +
+                            ' ' +
+                            (profile.lastName ?? '')
+                        ).trim() || profile.login
+                    }}
+                </span>
             } @else {
-                <span class="header__profile-name"> Загрузка </span>
+                <span class="header__avatar">
+                    <span
+                        tuiAvatar="@tui.user"
+                        class="header__avatar-fallback"
+                    ></span>
+                </span>
+
+                <span class="header__profile-name">Загрузка</span>
             }
         </button>
+
         <ng-template #userMenuDropdown>
             <tui-data-list>
                 @for (action of userMenuActions; track action.value) {

@@ -7,9 +7,10 @@ import {
     OnInit,
     signal
 } from '@angular/core';
-import {CdkDragDrop} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {finalize, forkJoin, switchMap} from 'rxjs';
+import {catchError, EMPTY, finalize, forkJoin, switchMap} from 'rxjs';
+
 import {BoardsToolbarComponent} from '../components/boards-toolbar/boards-toolbar.component';
 import {BoardColumnComponent} from '../components/board-column/board-column.component';
 import {ProjectsService} from '../../projects/services/projects.service';
@@ -44,7 +45,6 @@ export class BoardsPageComponent implements OnInit {
     protected readonly selectedProject = signal<Project | null>(null);
     protected readonly selectedProjectMembers = signal<ProjectMember[]>([]);
     protected readonly selectedAssigneeId = signal<string | null>(null);
-
     protected readonly selectedPriority = signal<TaskPriority | null>(null);
 
     protected readonly onlyMine = signal(false);
@@ -58,7 +58,7 @@ export class BoardsPageComponent implements OnInit {
         });
     });
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.isLoading.set(true);
 
         this.projectsService
@@ -79,9 +79,10 @@ export class BoardsPageComponent implements OnInit {
             });
     }
 
-    protected selectProject(projectId: string | null) {
+    protected selectProject(projectId: string | null): void {
         this.selectedProjectId.set(projectId);
         this.selectedAssigneeId.set(null);
+        this.selectedPriority.set(null);
 
         if (!projectId) {
             this.boardStages.set([]);
@@ -127,7 +128,6 @@ export class BoardsPageComponent implements OnInit {
 
                 return task.assignee?.id === selectedAssigneeId;
             })
-
             .filter(task => {
                 const selectedPriority = this.selectedPriority();
 
@@ -145,13 +145,17 @@ export class BoardsPageComponent implements OnInit {
     protected moveTask(
         event: CdkDragDrop<ProjectBoardTask[]>,
         targetStageId: string
-    ) {
+    ): void {
         const projectId = this.selectedProjectId();
         const movedTask = event.item.data as ProjectBoardTask;
 
         if (!projectId) {
             return;
         }
+
+        const previousBoardStages = this.boardStages();
+
+        this.moveTaskLocally(movedTask.id, targetStageId, event.currentIndex);
 
         this.projectTasksService
             .moveTask(projectId, movedTask.id, {
@@ -161,6 +165,11 @@ export class BoardsPageComponent implements OnInit {
             .pipe(
                 switchMap(() => {
                     return this.projectsService.getProjectBoard(projectId);
+                }),
+                catchError(() => {
+                    this.boardStages.set(previousBoardStages);
+
+                    return EMPTY;
                 })
             )
             .subscribe(boardStages => {
@@ -168,15 +177,82 @@ export class BoardsPageComponent implements OnInit {
             });
     }
 
-    protected onlyMineChanged(value: boolean) {
+    protected onlyMineChanged(value: boolean): void {
         this.onlyMine.set(value);
     }
 
-    protected assigneeSelected(assigneeId: string | null) {
+    protected assigneeSelected(assigneeId: string | null): void {
         this.selectedAssigneeId.set(assigneeId);
     }
 
     protected prioritySelected(priority: TaskPriority | null): void {
         this.selectedPriority.set(priority);
+    }
+
+    private moveTaskLocally(
+        taskId: string,
+        targetStageId: string,
+        targetIndex: number
+    ): void {
+        const boardStages = this.boardStages().map(stage => {
+            return {
+                ...stage,
+                tasks: [...stage.tasks]
+            };
+        });
+
+        const sourceStage = boardStages.find(stage => {
+            return stage.tasks.some(task => task.id === taskId);
+        });
+
+        const targetStage = boardStages.find(stage => {
+            return stage.id === targetStageId;
+        });
+
+        if (!sourceStage || !targetStage) {
+            return;
+        }
+
+        const sourceIndex = sourceStage.tasks.findIndex(task => {
+            return task.id === taskId;
+        });
+
+        if (sourceIndex === -1) {
+            return;
+        }
+
+        if (sourceStage.id === targetStage.id) {
+            moveItemInArray(sourceStage.tasks, sourceIndex, targetIndex);
+
+            sourceStage.tasks = this.updateTasksPositions(sourceStage.tasks);
+
+            this.boardStages.set(boardStages);
+
+            return;
+        }
+
+        const [movedTask] = sourceStage.tasks.splice(sourceIndex, 1);
+
+        targetStage.tasks.splice(targetIndex, 0, {
+            ...movedTask,
+            workflowStageId: targetStageId,
+            position: targetIndex
+        });
+
+        sourceStage.tasks = this.updateTasksPositions(sourceStage.tasks);
+        targetStage.tasks = this.updateTasksPositions(targetStage.tasks);
+
+        this.boardStages.set(boardStages);
+    }
+
+    private updateTasksPositions(
+        tasks: ProjectBoardTask[]
+    ): ProjectBoardTask[] {
+        return tasks.map((task, index) => {
+            return {
+                ...task,
+                position: index
+            };
+        });
     }
 }
