@@ -5,14 +5,13 @@
 }
 
 .theme-card {
-    box-sizing: border-box;
-    min-height: auto;
+    width: 100%;
+    min-width: 0;
     padding: 25px 24px;
-    margin-right: 10px;
+    box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
-    margin-right: 10px;
 
     &__header {
         margin-bottom: 20px;
@@ -21,16 +20,25 @@
         gap: 16px;
     }
 
-    &__icon {
-        width: 40px;
-        height: 40px;
+    &__icon,
+    &__section-icon {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
         border-radius: 12px;
         color: var(--color-primary-light);
-        background: rgba(37, 99, 235, 0.16);
+        background: var(--color-gradient-primary-soft);
+    }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    &__section-icon {
+        width: 36px;
+        height: 36px;
     }
 
     &__header-text,
@@ -53,7 +61,6 @@
 
     &__section-title {
         font: var(--tui-typography-body-l);
-        font-weight: 600;
     }
 
     &__description,
@@ -78,16 +85,23 @@
     }
 
     &__section {
-        box-sizing: border-box;
         min-width: 0;
         min-height: 64px;
         padding: 12px 14px;
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) max-content;
         align-items: center;
-        justify-content: space-between;
         gap: 16px;
+        box-sizing: border-box;
         border: 1px solid var(--color-card-border);
         border-radius: 16px;
+    }
+
+    &__section-info {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
     &__actions {

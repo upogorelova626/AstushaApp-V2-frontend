@@ -5,13 +5,13 @@
 }
 
 .notifications-card {
-    box-sizing: border-box;
-    min-height: auto;
+    width: 100%;
+    min-width: 0;
     padding: 26px 24px;
+    box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
-    margin-right: 10px;
 
     &__header {
         margin-bottom: 20px;
@@ -20,9 +20,8 @@
         gap: 16px;
     }
 
-    &__icon {
-        width: 40px;
-        height: 40px;
+    &__icon,
+    &__item-icon {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -30,6 +29,16 @@
         border-radius: 12px;
         color: var(--color-primary-light);
         background: var(--color-gradient-primary-soft);
+    }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    &__item-icon {
+        width: 36px;
+        height: 36px;
     }
 
     &__header-text,
@@ -46,47 +55,41 @@
         font: var(--tui-typography-heading-h5);
     }
 
-    &__description,
-    &__item-description {
+    &__description {
         margin: 0;
-
         color: var(--color-text-secondary);
-        font: var(--tui-typography-heading-h7);
+        font: var(--tui-typography-body-l);
     }
 
     &__list {
         min-width: 0;
-
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
 
     &__item {
-        box-sizing: border-box;
         min-width: 0;
         min-height: 64px;
         padding: 12px 14px;
-
-        display: flex;
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr) max-content;
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-
+        gap: 12px;
+        box-sizing: border-box;
         border: 1px solid var(--color-card-border);
         border-radius: 16px;
-
         background: var(--color-card-bg);
         cursor: pointer;
-
-        input[tuiSwitch] {
-            flex-shrink: 0;
-        }
     }
 
     &__item-title {
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h7);
-        font-weight: 600;
+        font: var(--tui-typography-body-l);
+    }
+
+    &__item-description {
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
     }
 }
