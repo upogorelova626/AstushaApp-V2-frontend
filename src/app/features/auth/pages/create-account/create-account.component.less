@@ -1,146 +1,167 @@
-.register-card__logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+.register-card {
+    &__logo {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
 
-    margin-bottom: 10px;
-}
+    &__logo-icon {
+        width: 30px;
+        height: 30px;
+        color: var(--color-primary);
+    }
 
-.register-card__logo-icon {
-    width: 40px;
-    height: 40px;
-    color: var(--color-primary);
-}
+    &__logo-text {
+        color: var(--color-primary);
+        font: var(--tui-typography-heading-h3);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
 
-.register-card__logo-text {
-    color: var(--color-text-primary);
-    font-size: 30px;
-    line-height: 38px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
+    &__subtitle {
+        margin: 0 0 20px;
+        color: var(--color-primary);
+        font: var(--tui-typography-body-m);
+        font-weight: 500;
+        text-align: center;
+    }
 
-.register-card__subtitle {
-    margin: 0 0 20px;
+    &__title {
+        margin: 0 0 24px;
+        color: var(--color-primary);
+        font: var(--tui-typography-heading-h5);
+        text-align: center;
+    }
 
-    color: var(--color-text-muted);
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-    text-align: center;
-}
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
 
-.register-card__title {
-    margin: 0 0 24px;
+    &__field {
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+    }
 
-    color: var(--color-text-primary);
-    font-size: 22px;
-    line-height: 28px;
-    font-weight: 600;
-    text-align: center;
-}
+    &__label {
+        margin-bottom: 8px;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        font-weight: 500;
+    }
 
-.register-card__form {
-    display: flex;
-    flex-direction: column;
-}
+    &__input {
+        width: 100%;
+    }
 
-.register-card__field {
-    display: flex;
-    flex-direction: column;
+    &__agreement {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--color-text-primary);
+        cursor: pointer;
+    }
 
-    margin-bottom: 16px;
-}
+    &__checkbox {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        flex-shrink: 0;
+        accent-color: var(--color-primary);
+        cursor: pointer;
+    }
 
-.register-card__label {
-    margin-bottom: 8px;
+    &__agreement-text {
+        color: var(--color-text-primary);
+        font: var(--tui-typography-body-l);
+    }
 
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-}
+    &__submit {
+        width: 100%;
+        height: 48px;
+        margin-bottom: 22px;
+    }
 
-.register-card__input {
-    width: 100%;
+    &__divider {
+        width: 100%;
+        height: 1px;
+        margin-bottom: 22px;
+        background: var(--color-card-border);
+    }
 
-    --tui-height-m: 48px;
-    --tui-height-l: 48px;
-}
+    &__links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
 
-.register-card__agreement {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    &__links-text {
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-l);
+        font-weight: 400;
+    }
 
-    margin-bottom: 0px;
-
-    color: var(--color-text-primary);
-    cursor: pointer;
-}
-
-.register-card__checkbox {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-
-    flex-shrink: 0;
-
-    accent-color: var(--color-primary);
-    cursor: pointer;
-}
-
-.register-card__agreement-text {
-    color: var(--color-text-primary);
-    font-size: 15px;
-    line-height: 22px;
+    &__link {
+        color: var(--color-primary-light);
+        font: var(--tui-typography-body-l);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
 }
 
 .checkbox-error {
     margin-bottom: 10px;
 }
 
-.register-card__submit {
-    width: 100%;
-    height: 48px;
+@media (max-width: 640px) {
+    .register-card {
+        &__logo {
+            gap: 10px;
+        }
 
-    margin-bottom: 22px;
-}
+        &__logo-icon {
+            width: 34px;
+            height: 34px;
+        }
 
-.register-card__divider {
-    width: 100%;
-    height: 1px;
-    margin-bottom: 22px;
+        &__logo-text {
+            font: var(--tui-typography-heading-h4);
+            font-weight: 700;
+        }
 
-    background: var(--color-card-border);
-}
+        &__title {
+            margin-bottom: 20px;
+            font: var(--tui-typography-heading-h6);
+        }
 
-.register-card__links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
+        &__subtitle {
+            margin-bottom: 16px;
+            font: var(--tui-typography-body-s);
+        }
 
-.register-card__links-text {
-    color: var(--color-text-muted);
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 400;
-}
+        &__field {
+            margin-bottom: 14px;
+        }
 
-.register-card__link {
-    color: var(--color-primary-light);
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 500;
-    text-decoration: none;
+        &__agreement {
+            align-items: flex-start;
+        }
 
-    transition: color 0.2s ease;
+        &__agreement-text,
+        &__links-text,
+        &__link {
+            font: var(--tui-typography-body-m);
+        }
 
-    &:hover {
-        color: var(--color-primary-hover);
-        text-decoration: underline;
+        &__links {
+            flex-wrap: wrap;
+            text-align: center;
+        }
     }
 }
