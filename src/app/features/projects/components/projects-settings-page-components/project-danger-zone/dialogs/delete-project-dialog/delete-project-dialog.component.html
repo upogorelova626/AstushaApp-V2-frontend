@@ -1,1 +1,16 @@
-<p>delete-project-dialog works!</p>
+<div class="delete-project-dialog">
+    <div class="delete-project-dialog__description">
+        Это действие нельзя отменить. Все данные проекта, включая задачи,
+        комментарии и файлы, будут безвозвратно удалены.
+    </div>
+
+    <div class="delete-project-dialog__actions">
+        <button tuiButton appearance="outline" (click)="deleteProject()">
+            Удалить
+        </button>
+
+        <button tuiButton appearance="accent" (click)="cancel()">
+            Отмена
+        </button>
+    </div>
+</div>
