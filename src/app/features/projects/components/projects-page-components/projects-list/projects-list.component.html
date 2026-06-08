@@ -1,5 +1,11 @@
 @if (!isProjectsLoading() && projects().length === 0) {
-    <p class="no-projects">Создайте свой первый проект</p>
+    <div class="no-projects">
+        <img
+            class="no-projects__image"
+            src="/images/no-projects.png"
+            alt="Создайте свой первый проект"
+        />
+    </div>
 }
 
 @if (isProjectsLoading() || projects().length > 0) {

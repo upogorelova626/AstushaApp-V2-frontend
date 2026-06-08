@@ -1,4 +1,3 @@
-import {ProjectWorkflowStage} from './project.interface';
 import {ProjectUser} from './project-user.interface';
 
 export enum TaskType {
@@ -58,6 +57,28 @@ export interface ProjectTaskSubtask {
     position: number;
 }
 
+export interface TaskAttachmentUploader {
+    id: string;
+    login: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+    avatarUrl: string | null;
+}
+
+export interface TaskAttachment {
+    id: string;
+    originalName: string;
+    storageKey: string;
+    fileUrl: string;
+    mimeType: string;
+    size: number;
+    createdAt: string;
+    uploader: TaskAttachmentUploader;
+}
+
+export type UploadTaskAttachmentsResponse = TaskAttachment[];
+
 export interface ProjectTask {
     id: string;
     projectId: string;
@@ -82,6 +103,7 @@ export interface ProjectTask {
     sprint: ProjectTaskSprint | null;
     parent: ProjectTaskParent | null;
     subtasks: ProjectTaskSubtask[];
+    attachments: TaskAttachment[];
     _count: ProjectTaskCounts;
 }
 

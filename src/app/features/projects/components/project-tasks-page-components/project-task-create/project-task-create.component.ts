@@ -135,9 +135,12 @@ export class ProjectTaskCreateComponent {
             ]
         }),
 
-        workflowStageId: new FormControl<SelectOption<string> | null>(null, {
-            validators: [Validators.required]
-        }),
+        workflowStageId: new FormControl<SelectOption<string> | string | null>(
+            null,
+            {
+                validators: [Validators.required]
+            }
+        ),
 
         description: new FormControl('', {
             nonNullable: true,
@@ -197,10 +200,16 @@ export class ProjectTaskCreateComponent {
                       assignee => assignee.label === formValue.assigneeId
                   )
                 : formValue.assigneeId;
+        const selectedWorkflowStage =
+            typeof formValue.workflowStageId === 'string'
+                ? this.workflowStageIdItems().find(
+                      stage => stage.label === formValue.workflowStageId
+                  )
+                : formValue.workflowStageId;
 
         const payload: CreateProjectTaskRequest = {
             title: formValue.title.trim(),
-            workflowStageId: formValue.workflowStageId?.value,
+            workflowStageId: selectedWorkflowStage?.value,
             description: formValue.description.trim() || undefined,
             type: formValue.type?.value,
             priority: formValue.priority?.value,

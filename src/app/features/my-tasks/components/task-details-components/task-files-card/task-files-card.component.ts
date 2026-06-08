@@ -1,10 +1,38 @@
-import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {AsyncPipe, DecimalPipe} from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    inject,
+    input,
+    signal
+} from '@angular/core';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
+import {
+    type TuiFileLike,
+    TuiFiles,
+    TuiInputFiles,
+    TuiSkeleton
+} from '@taiga-ui/kit';
+import {finalize, Observable, of, Subject, switchMap} from 'rxjs';
+import {TaskAttachment} from '../../../../projects/interfaces/project-tasks.interface';
+import {TaskAttachmentsService} from '../../../../projects/services/task-attachments.service';
 import {MyTask} from '../../../interfaces/my-tasks.interface';
 
 @Component({
     selector: 'app-task-files-card',
-    imports: [TuiButton, TuiIcon],
+    imports: [
+        TuiButton,
+        TuiIcon,
+        TuiSkeleton,
+        TuiInputFiles,
+        TuiFiles,
+        DecimalPipe,
+        ReactiveFormsModule,
+        AsyncPipe
+    ],
     templateUrl: './task-files-card.component.html',
     styleUrl: './task-files-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -12,4 +40,96 @@ import {MyTask} from '../../../interfaces/my-tasks.interface';
 export class TaskFilesCardComponent {
     readonly task = input<MyTask | null>(null);
     readonly isLoading = input(false);
+
+    private readonly taskAttachmentsService = inject(TaskAttachmentsService);
+
+    protected readonly taskAttachments = signal<TaskAttachment[]>([]);
+    protected readonly isFileInputVisible = signal(false);
+    protected readonly isAttachmentsLoading = signal(false);
+
+    protected readonly isFilesSkeletonVisible = computed(
+        () => this.isLoading() || this.isAttachmentsLoading()
+    );
+
+    protected readonly control = new FormControl<TuiFileLike | null>(null);
+
+    protected readonly failedFiles$ = new Subject<TuiFileLike | null>();
+    protected readonly loadingFiles$ = new Subject<TuiFileLike | null>();
+
+    protected readonly loadedFiles$ = this.control.valueChanges.pipe(
+        switchMap(file => this.uploadFile(file))
+    );
+
+    protected readonly previewAttachments = computed(() =>
+        this.taskAttachments().slice(0, 3)
+    );
+
+    protected readonly attachmentsCount = computed(
+        () => this.taskAttachments().length
+    );
+
+    private readonly loadAttachmentsEffect = effect(() => {
+        const task = this.task();
+
+        if (!task) {
+            return;
+        }
+
+        this.taskAttachments.set(task.attachments ?? []);
+        this.isAttachmentsLoading.set(true);
+
+        this.taskAttachmentsService
+            .getAttachments(task.projectId, task.id)
+            .pipe(finalize(() => this.isAttachmentsLoading.set(false)))
+            .subscribe(attachments => {
+                this.taskAttachments.set(attachments);
+            });
+    });
+
+    protected toggleFileInput() {
+        this.isFileInputVisible.update(value => !value);
+    }
+
+    protected removeFile() {
+        this.control.setValue(null);
+    }
+
+    private uploadFile(
+        file: TuiFileLike | null
+    ): Observable<TuiFileLike | null> {
+        const task = this.task();
+
+        this.failedFiles$.next(null);
+
+        if (!task || !file || !(file instanceof File)) {
+            return of(null);
+        }
+
+        this.loadingFiles$.next(file);
+
+        const formData = new FormData();
+
+        formData.append('files', file);
+
+        return this.taskAttachmentsService
+            .addAttachments(task.projectId, task.id, formData)
+            .pipe(
+                switchMap(attachments => {
+                    this.taskAttachments.update(current => [
+                        ...attachments,
+                        ...current
+                    ]);
+
+                    this.control.setValue(null, {emitEvent: false});
+                    this.isFileInputVisible.set(false);
+                    this.failedFiles$.next(null);
+                    this.loadingFiles$.next(null);
+
+                    return of(null);
+                }),
+                finalize(() => {
+                    this.loadingFiles$.next(null);
+                })
+            );
+    }
 }

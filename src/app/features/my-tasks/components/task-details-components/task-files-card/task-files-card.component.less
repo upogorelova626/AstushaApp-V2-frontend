@@ -18,6 +18,7 @@
     &__header {
         width: 100%;
         min-width: 0;
+        min-height: 36px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -56,9 +57,19 @@
         color: var(--color-primary-light);
     }
 
+    &__input {
+        width: 100%;
+        min-height: 92px;
+    }
+
+    &__upload-list {
+        width: 100%;
+    }
+
     &__list {
         width: 100%;
         min-width: 0;
+        min-height: 166px;
         display: flex;
         flex-direction: column;
         gap: 14px;
@@ -67,8 +78,9 @@
     &__file {
         width: 100%;
         min-width: 0;
+        min-height: 46px;
         display: grid;
-        grid-template-columns: 44px minmax(0, 1fr) max-content max-content;
+        grid-template-columns: 44px minmax(0, 1fr) max-content;
         align-items: center;
         gap: 12px;
     }
@@ -108,11 +120,20 @@
         white-space: nowrap;
     }
 
-    &__file-size,
-    &__file-date {
+    &__file-size {
         color: var(--color-text-secondary);
         font: var(--tui-typography-body-m);
         white-space: nowrap;
+    }
+
+    &__empty {
+        min-height: 166px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-m);
+        text-align: center;
     }
 
     &__show-all {
@@ -130,12 +151,16 @@
             flex-direction: column;
         }
 
+        &__list,
+        &__empty {
+            min-height: 154px;
+        }
+
         &__file {
             grid-template-columns: 40px minmax(0, 1fr);
         }
 
-        &__file-size,
-        &__file-date {
+        &__file-size {
             display: none;
         }
 

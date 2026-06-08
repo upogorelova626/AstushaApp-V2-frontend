@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit {
         this.projectsService
             .getProjects()
             .pipe(
-                map(projects => projects.slice(0, 3)),
+                map(projects => projects.slice(0, 4)),
                 finalize(() => this.isLoading.set(false))
             )
             .subscribe(projects => this.projects.set(projects));
