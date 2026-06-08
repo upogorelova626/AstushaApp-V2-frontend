@@ -13,7 +13,11 @@ import {
 } from '@taiga-ui/core';
 import {ProjectsService} from '../../../services/projects.service';
 import {Router} from '@angular/router';
-import {finalize} from 'rxjs';
+import {finalize, switchMap} from 'rxjs';
+import {CompleteProjectDialogComponent} from './dialogs/complete-project-dialog/complete-project-dialog.component';
+import {DeleteProjectDialogComponent} from './dialogs/delete-project-dialog/delete-project-dialog.component';
+import {TuiDialogService} from '@taiga-ui/core';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 
 @Component({
     selector: 'app-project-danger-zone',
@@ -61,5 +65,21 @@ export class ProjectDangerZoneComponent {
                 this.router.navigate(['/dashboard/projects']);
                 this.alerts.open('Проект успешно удален');
             });
+    }
+
+    private readonly dialogs = inject(TuiDialogService);
+
+    protected openCompleteProjectDialog(): void {
+        this.dialogs
+            .open<string>(
+                new PolymorpheusComponent(CompleteProjectDialogComponent),
+                {
+                    label: 'Завершить проект?',
+                    size: 's',
+                    data: this.projectId
+                }
+            )
+            .pipe(switchMap(name => this.alerts.open(name)))
+            .subscribe();
     }
 }

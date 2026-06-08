@@ -42,6 +42,40 @@
         </div>
     </main>
 
+    <main class="project-danger-zone__content">
+        <div class="project-danger-zone__delete-card">
+            <div class="project-danger-zone__delete-info">
+                <div class="project-danger-zone__delete-icon">
+                    <tui-icon icon="@tui.circle-check-big" />
+                </div>
+
+                <div class="project-danger-zone__delete-text">
+                    <h3 class="project-danger-zone__delete-title">
+                        Завершить проект
+                    </h3>
+
+                    <p class="project-danger-zone__delete-description">
+                        После завершения проект будет переведён в архивный
+                        режим. Создание и редактирование задач станет
+                        недоступно, однако все данные проекта сохранятся и
+                        останутся доступными для просмотра.
+                    </p>
+                </div>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary-destructive"
+                size="m"
+                iconStart="@tui.circle-check-big"
+                (click)="openCompleteProjectDialog()"
+            >
+                Завершить проект
+            </button>
+        </div>
+    </main>
+
     <ng-template
         [(tuiDialog)]="isDeleteProjectDialogOpen"
         [tuiDialogOptions]="{size: 'm'}"

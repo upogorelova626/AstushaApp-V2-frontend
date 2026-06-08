@@ -1,0 +1,22 @@
+<div class="complete-project-dialog">
+    <div class="complete-project-dialog__description">
+        После завершения проект будет переведён в архивный режим. Создание и
+        редактирование задач станет недоступно, однако все данные проекта
+        сохранятся и останутся доступными для просмотра.
+    </div>
+
+    <div class="complete-project-dialog__actions">
+        <button tuiButton type="button" (click)="completeProject()">
+            Завершить
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            appearance="secondary"
+            (click)="cancel()"
+        >
+            Отмена
+        </button>
+    </div>
+</div>

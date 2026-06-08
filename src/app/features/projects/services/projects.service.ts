@@ -43,6 +43,13 @@ export class ProjectsService {
         return this.http.delete(`${this.baseApiUrl}/projects/${projectId}`);
     }
 
+    completeProject(projectId: string, {}) {
+        return this.http.patch<Project>(
+            `${this.baseApiUrl}/projects/${projectId}/complete`,
+            {}
+        );
+    }
+
     getProjectTeam(projectId: string) {
         return this.http.get<Team | null>(
             `${this.baseApiUrl}/projects/${projectId}/team`

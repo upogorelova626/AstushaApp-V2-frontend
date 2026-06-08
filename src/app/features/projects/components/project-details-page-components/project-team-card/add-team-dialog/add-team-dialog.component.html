@@ -12,6 +12,8 @@
         <div class="team-results">
             @for (team of foundTeams(); track team.id) {
                 <button
+                    tuiButton
+                    appearance="flat"
                     class="team-results__item"
                     type="button"
                     [class.team-results__item_selected]="
