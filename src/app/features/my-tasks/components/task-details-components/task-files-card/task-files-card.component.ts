@@ -9,7 +9,7 @@ import {
     signal
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {TuiButton, TuiIcon} from '@taiga-ui/core';
+import {TuiButton, TuiDialogService, TuiIcon} from '@taiga-ui/core';
 import {
     type TuiFileLike,
     TuiFiles,
@@ -20,6 +20,8 @@ import {finalize, Observable, of, Subject, switchMap} from 'rxjs';
 import {TaskAttachment} from '../../../../projects/interfaces/project-tasks.interface';
 import {TaskAttachmentsService} from '../../../../projects/services/task-attachments.service';
 import {MyTask} from '../../../interfaces/my-tasks.interface';
+import {AllTaskFilesDialogComponent} from './all-task-files-dialog/all-task-files-dialog.component';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 
 @Component({
     selector: 'app-task-files-card',
@@ -42,6 +44,7 @@ export class TaskFilesCardComponent {
     readonly isLoading = input(false);
 
     private readonly taskAttachmentsService = inject(TaskAttachmentsService);
+    private readonly dialogs = inject(TuiDialogService);
 
     protected readonly taskAttachments = signal<TaskAttachment[]>([]);
     protected readonly isFileInputVisible = signal(false);
@@ -131,5 +134,45 @@ export class TaskFilesCardComponent {
                     this.loadingFiles$.next(null);
                 })
             );
+    }
+
+    protected showAllFiles() {
+        this.dialogs
+            .open<TaskAttachment[]>(
+                new PolymorpheusComponent(AllTaskFilesDialogComponent),
+                {
+                    label: 'Все файлы',
+                    size: 'm',
+                    data: {
+                        attachments: this.taskAttachments(),
+                        task: this.task()
+                    }
+                }
+            )
+            .subscribe(attachments => {
+                if (!attachments) {
+                    return;
+                }
+
+                this.taskAttachments.set(attachments);
+            });
+    }
+
+    protected deleteTaskAttachment(attachmentId: string) {
+        const task = this.task();
+
+        if (!task) {
+            return;
+        }
+
+        this.taskAttachmentsService
+            .deleteAttachment(task.projectId, task.id, attachmentId)
+            .subscribe(() => {
+                this.taskAttachments.update(attachments =>
+                    attachments.filter(
+                        attachment => attachment.id !== attachmentId
+                    )
+                );
+            });
     }
 }

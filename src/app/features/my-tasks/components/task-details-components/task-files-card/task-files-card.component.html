@@ -6,8 +6,9 @@
             <span
                 class="task-files-card__count"
                 [tuiSkeleton]="isFilesSkeletonVisible()"
-                >{{ attachmentsCount() }}</span
             >
+                {{ attachmentsCount() }}
+            </span>
         </div>
 
         <button
@@ -83,6 +84,17 @@
                 <span class="task-files-card__file-size">
                     {{ attachment.size / 1024 / 1024 | number: '1.1-2' }} МБ
                 </span>
+
+                <button
+                    tuiIconButton
+                    type="button"
+                    appearance="flat"
+                    size="s"
+                    iconStart="@tui.trash-2"
+                    class="task-files-card__delete"
+                    [tuiSkeleton]="isFilesSkeletonVisible()"
+                    (click)="deleteTaskAttachment(attachment.id)"
+                ></button>
             </div>
         }
     </main>
@@ -95,6 +107,7 @@
             size="s"
             class="task-files-card__show-all"
             [tuiSkeleton]="isLoading()"
+            (click)="showAllFiles()"
         >
             Показать все файлы
         </button>
