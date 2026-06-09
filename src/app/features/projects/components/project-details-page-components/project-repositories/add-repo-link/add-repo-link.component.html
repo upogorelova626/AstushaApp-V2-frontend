@@ -1,0 +1,33 @@
+<form tuiForm class="add-project-repository-form">
+    <tui-textfield class="add-project-repository-form__field">
+        <label tuiLabel class="add-project-repository-form__label">
+            Добавьте ссылку на репозиторий
+        </label>
+
+        <input tuiAutoFocus tuiInput [formControl]="link" />
+    </tui-textfield>
+    <tui-error
+        class="add-project-repository-form__error"
+        [formControl]="link"
+        [order]="['required', 'notBlank', 'repositoryUrl', 'maxlength']"
+    />
+
+    <footer class="add-project-repository-form__footer">
+        <button
+            tuiButton
+            type="button"
+            appearance="secondary"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button
+            tuiButton
+            (click)="addLink()"
+            [disabled]="link.invalid || isLoading()"
+        >
+            Добавить
+        </button>
+    </footer>
+</form>

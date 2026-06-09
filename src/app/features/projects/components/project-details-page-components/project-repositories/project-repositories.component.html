@@ -15,20 +15,33 @@
         </div>
     </header>
 
-    <main class="project-repositories-card__content"></main>
+    @if (repos().length === 0 && !isLoading()) {
+        <footer class="project-repositories-card__footer">
+            <button
+                tuiButton
+                type="button"
+                iconStart="@tui.plus"
+                (click)="addLink()"
+            >
+                Добавить репозиторий
+            </button>
+        </footer>
+    } @else {
+        <main class="project-repositories-card__content"></main>
 
-    <footer class="project-repositories-card__footer">
-        <button tuiButton type="button" iconStart="@tui.external-link">
-            Открыть репозиторий
-        </button>
+        <footer class="project-repositories-card__footer">
+            <button tuiButton type="button" iconStart="@tui.external-link">
+                Открыть репозиторий
+            </button>
 
-        <button
-            tuiButton
-            type="button"
-            iconStart="@tui.pen"
-            appearance="outline"
-        >
-            Изменить
-        </button>
-    </footer>
+            <button
+                tuiButton
+                type="button"
+                iconStart="@tui.pen"
+                appearance="outline"
+            >
+                Изменить
+            </button>
+        </footer>
+    }
 </section>
