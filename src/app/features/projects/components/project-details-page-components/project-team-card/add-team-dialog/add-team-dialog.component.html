@@ -15,7 +15,6 @@
                     tuiButton
                     appearance="flat"
                     class="team-results__item"
-                    type="button"
                     [class.team-results__item_selected]="
                         selectedTeam()?.id === team.id
                     "
@@ -48,7 +47,6 @@
         <button
             appearance="secondary"
             tuiButton
-            type="button"
             size="m"
             (click)="context.$implicit.complete()"
         >

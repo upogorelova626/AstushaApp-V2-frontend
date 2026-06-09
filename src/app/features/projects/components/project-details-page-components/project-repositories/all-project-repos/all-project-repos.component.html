@@ -1,0 +1,51 @@
+<div class="all-project-repos__form">
+    @for (repo of repos; track repo.id) {
+        <article class="project-repositories-card__item">
+            <div class="project-repositories-card__item-icon">
+                <tui-icon icon="@tui.git-branch" />
+            </div>
+
+            <a
+                class="project-repositories-card__item-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                [href]="
+                    repo.url.startsWith('http')
+                        ? repo.url
+                        : 'https://' + repo.url
+                "
+            >
+                {{ repo.url }}
+            </a>
+
+            <div class="project-repositories-card__item-actions">
+                <a
+                    tuiButton
+                    size="s"
+                    appearance="flat"
+                    iconStart="@tui.external-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [href]="
+                        repo.url.startsWith('http')
+                            ? repo.url
+                            : 'https://' + repo.url
+                    "
+                >
+                    Открыть
+                </a>
+
+                <button
+                    type="button"
+                    tuiButton
+                    size="s"
+                    appearance="outline"
+                    iconStart="@tui.trash"
+                    (click)="deleteRepo(repo.id)"
+                >
+                    Удалить
+                </button>
+            </div>
+        </article>
+    }
+</div>

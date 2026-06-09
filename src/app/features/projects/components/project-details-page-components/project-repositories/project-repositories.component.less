@@ -4,12 +4,13 @@
 }
 
 .project-repositories-card {
-    display: grid;
-    gap: 24px;
+    display: flex;
     min-height: 360px;
     padding: 24px;
+    flex-direction: column;
+    gap: 20px;
     border: 1px solid var(--color-card-border);
-    border-radius: 5px;
+    border-radius: 8px;
     background: var(--color-card-bg);
 
     &__header {
@@ -52,21 +53,55 @@
         line-height: 1.4;
     }
 
-    &__content {
-        min-height: 180px;
-        padding: 20px;
+    &__item {
+        display: grid;
+        grid-template-columns: 20px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+        padding: 14px;
+        border: 1px solid var(--color-card-border);
+        border-radius: 8px;
+        background: var(--color-page-bg-start);
+    }
+
+    &__item-icon {
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid var(--color-card-border);
-        border-radius: 5px;
-        background: var(--color-page-bg-start);
+        border-radius: 12px;
+        color: #2563eb;
+        background: #eef2ff;
+
+        tui-icon {
+            font-size: 22px;
+        }
+    }
+
+    &__item-link {
+        min-width: 0;
+        overflow: hidden;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-text-m);
+        font-weight: 600;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__item-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
     }
 
     &__footer {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         gap: 10px;
+        margin-top: auto;
     }
 
     &__button {
@@ -79,17 +114,23 @@
         min-height: 320px;
         padding: 20px;
 
-        &__content {
-            min-height: 160px;
+        &__item {
+            grid-template-columns: 40px minmax(0, 1fr);
+        }
+
+        &__item-actions {
+            grid-column: 1 / -1;
+            justify-content: flex-end;
+            padding-left: 54px;
         }
     }
 }
 
 @media (max-width: 768px) {
     .project-repositories-card {
-        gap: 18px;
         min-height: auto;
         padding: 18px;
+        gap: 18px;
 
         &__header {
             gap: 12px;
@@ -106,26 +147,42 @@
             }
         }
 
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
-
         &__description {
             font: var(--tui-typography-text-s);
         }
 
-        &__content {
-            min-height: 140px;
-            padding: 16px;
+        &__item {
+            grid-template-columns: 36px minmax(0, 1fr);
+            gap: 12px;
+            padding: 12px;
+        }
+
+        &__item-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+
+            tui-icon {
+                font-size: 20px;
+            }
+        }
+
+        &__item-link {
+            font: var(--tui-typography-text-s);
+            font-weight: 600;
+        }
+
+        &__item-actions {
+            padding-left: 48px;
         }
 
         &__footer {
             justify-content: stretch;
-        }
 
-        &__button {
-            flex: 1;
-            min-width: 0;
+            button,
+            a {
+                flex: 1;
+            }
         }
     }
 }
@@ -134,21 +191,39 @@
     .project-repositories-card {
         padding: 16px;
 
-        &__header {
+        &__item {
+            display: flex;
             align-items: flex-start;
+            flex-direction: column;
         }
 
-        &__content {
-            min-height: 120px;
-            padding: 14px;
+        &__item-icon {
+            display: none;
+        }
+
+        &__item-link {
+            width: 100%;
+        }
+
+        &__item-actions {
+            width: 100%;
+            padding-left: 0;
+            flex-direction: column;
+
+            button,
+            a {
+                width: 100%;
+            }
         }
 
         &__footer {
             flex-direction: column;
-        }
+            justify-content: space-between;
 
-        &__button {
-            width: 100%;
+            button,
+            a {
+                width: 100%;
+            }
         }
     }
 }

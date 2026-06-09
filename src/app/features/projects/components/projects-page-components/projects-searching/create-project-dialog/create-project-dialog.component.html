@@ -55,11 +55,7 @@
     <ng-template #workflowDropdown>
         <tui-data-list>
             @for (type of workflowTypeOptions; track type.value) {
-                <button
-                    tuiOption
-                    type="button"
-                    (click)="selectWorkflowType(type)"
-                >
+                <button tuiOption (click)="selectWorkflowType(type)">
                     <span tuiTitle>
                         {{ type.title }}
 
@@ -102,11 +98,7 @@
     <ng-template #priorityDropdown>
         <tui-data-list>
             @for (priority of priorityOptions; track priority.value) {
-                <button
-                    tuiOption
-                    type="button"
-                    (click)="selectPriority(priority)"
-                >
+                <button tuiOption (click)="selectPriority(priority)">
                     <span tuiTitle>
                         {{ priority.title }}
 
@@ -163,14 +155,11 @@
         <button
             appearance="secondary"
             tuiButton
-            type="button"
             (click)="context.$implicit.complete()"
         >
             Отмена
         </button>
 
-        <button tuiButton type="button" (click)="createProject()">
-            Создать
-        </button>
+        <button tuiButton (click)="createProject()"> Создать </button>
     </footer>
 </form>

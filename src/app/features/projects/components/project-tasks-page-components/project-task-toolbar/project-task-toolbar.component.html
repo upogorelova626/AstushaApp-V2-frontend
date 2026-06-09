@@ -2,7 +2,6 @@
     <div class="project-task-toolbar__filters">
         <button
             tuiButton
-            type="button"
             size="s"
             class="project-task-toolbar__filter"
             (click)="selectStage(null)"
@@ -15,7 +14,6 @@
         @for (stage of workflowStages(); track stage.id) {
             <button
                 tuiButton
-                type="button"
                 size="s"
                 iconStart="@tui.notebook-pen"
                 class="project-task-toolbar__filter"

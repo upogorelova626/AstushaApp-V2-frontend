@@ -6,16 +6,23 @@
 
         <input tuiAutoFocus tuiInput [formControl]="link" />
     </tui-textfield>
+
     <tui-error
         class="add-project-repository-form__error"
         [formControl]="link"
-        [order]="['required', 'notBlank', 'repositoryUrl', 'maxlength']"
+        [order]="[
+            'required',
+            'notBlank',
+            'repositoryUrl',
+            'maxlength',
+            'serverError'
+        ]"
     />
 
     <footer class="add-project-repository-form__footer">
         <button
-            tuiButton
             type="button"
+            tuiButton
             appearance="secondary"
             (click)="context.$implicit.complete()"
         >
@@ -23,6 +30,7 @@
         </button>
 
         <button
+            type="button"
             tuiButton
             (click)="addLink()"
             [disabled]="link.invalid || isLoading()"

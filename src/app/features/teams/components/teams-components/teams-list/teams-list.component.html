@@ -4,7 +4,6 @@
 
         <button
             tuiIconButton
-            type="button"
             appearance="flat"
             size="xs"
             iconStart="@tui.plus"
@@ -29,7 +28,6 @@
             @for (team of teams(); track team.id) {
                 <button
                     tuiButton
-                    type="button"
                     appearance="flat"
                     class="teams-list__item teams-list__item_active"
                     (click)="selectTeam(team.id)"
@@ -88,7 +86,6 @@
     @if (teams().length > 3) {
         <button
             tuiButton
-            type="button"
             appearance="flat"
             size="s"
             class="teams-list__show-more"
@@ -146,8 +143,8 @@
 
             <footer class="create-team-dialog__footer">
                 <button
-                    tuiButton
                     type="button"
+                    tuiButton
                     appearance="flat"
                     size="m"
                     (click)="closeCreateTeamDialog()"
@@ -155,7 +152,7 @@
                     Отмена
                 </button>
 
-                <button tuiButton type="button" size="m" (click)="createTeam()">
+                <button type="button" tuiButton size="m" (click)="createTeam()">
                     Создать команду
                 </button>
             </footer>

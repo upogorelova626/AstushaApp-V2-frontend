@@ -28,7 +28,6 @@
         <button
             tuiButton
             class="delete-profile__button"
-            type="button"
             appearance="accent"
             size="m"
             iconStart="@tui.trash-2"
@@ -53,14 +52,13 @@
                 <button
                     tuiButton
                     class="delete-profile-dialog__delete-button"
-                    type="button"
                     appearance="flat"
                     (click)="deleteProfile()"
                 >
                     Удалить
                 </button>
 
-                <button tuiButton type="button" (click)="closeDeleteDialog()">
+                <button tuiButton (click)="closeDeleteDialog()">
                     Отмена
                 </button>
             </footer>

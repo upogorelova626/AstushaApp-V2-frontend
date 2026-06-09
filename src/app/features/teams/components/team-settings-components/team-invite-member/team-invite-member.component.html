@@ -96,7 +96,6 @@
                     tuiButton
                     tuiChevron
                     class="team-invite-member-card__select"
-                    type="button"
                     appearance="flat"
                     size="m"
                     [attr.aria-expanded]="open()"
@@ -135,8 +134,8 @@
 
         <footer class="team-invite-member-card__footer">
             <button
-                tuiButton
                 type="button"
+                tuiButton
                 appearance="flat"
                 size="m"
                 (click)="clearForm()"
@@ -145,8 +144,8 @@
             </button>
 
             <button
-                tuiButton
                 type="button"
+                tuiButton
                 size="m"
                 iconStart="@tui.send"
                 [disabled]="!foundUser() || !selected() || isSubmitting()"
@@ -160,7 +159,7 @@
     <ng-template #dropdownContent>
         <tui-data-list>
             @for (role of roles; track role.value) {
-                <button tuiOption type="button" (click)="onSelect(role)">
+                <button tuiOption (click)="onSelect(role)">
                     <span tuiTitle>
                         {{ role.title }}
 

@@ -22,7 +22,6 @@
         <button
             tuiButton
             class="profile-settings__edit-button"
-            type="button"
             appearance="flat"
             size="s"
             iconStart="@tui.pencil"
@@ -55,7 +54,6 @@
                     <button
                         tuiButton
                         class="edit-photo__camera"
-                        type="button"
                         appearance="primary"
                         size="xs"
                         iconStart="@tui.camera"
@@ -79,7 +77,6 @@
                 <button
                     tuiButton
                     class="edit-photo__change-button"
-                    type="button"
                     appearance="flat"
                     size="s"
                     [disabled]="isProfileLoading() || isSaving()"
@@ -124,7 +121,6 @@
                 <button
                     tuiButton
                     class="edit-photo__delete-button"
-                    type="button"
                     appearance="flat"
                     size="s"
                     [disabled]="isProfileLoading() || isSaving()"
@@ -239,9 +235,9 @@
 
             <div class="edit-info__actions">
                 <button
+                    type="button"
                     tuiButton
                     class="edit-info__save"
-                    type="button"
                     size="m"
                     iconStart="@tui.check"
                     [disabled]="
@@ -257,9 +253,9 @@
                 </button>
 
                 <button
+                    type="button"
                     tuiButton
                     class="edit-info__cancel"
-                    type="button"
                     appearance="flat"
                     size="m"
                     [disabled]="

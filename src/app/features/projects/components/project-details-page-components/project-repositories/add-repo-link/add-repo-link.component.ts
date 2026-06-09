@@ -1,3 +1,4 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import {Component, DestroyRef, inject, signal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -5,12 +6,12 @@ import {
     TUI_VALIDATION_ERRORS,
     TuiButton,
     TuiDialogContext,
+    TuiError,
     TuiInput,
-    TuiTextfield,
-    TuiError
+    TuiTextfield
 } from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {finalize} from 'rxjs';
+import {catchError, EMPTY, finalize} from 'rxjs';
 
 import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-errors';
 import {notBlankValidator} from '../../../../../teams/validators/search-identifier.validator';
@@ -65,11 +66,33 @@ export class AddRepoLinkComponent {
         this.projectReposService
             .addRepo(this.project.id, {url})
             .pipe(
-                finalize(() => this.isLoading.set(false)),
+                catchError((error: HttpErrorResponse) => {
+                    this.link.setErrors({
+                        ...this.link.errors,
+                        serverError: this.getErrorMessage(error)
+                    });
+
+                    this.link.markAsTouched();
+
+                    return EMPTY;
+                }),
+                finalize(() => {
+                    this.isLoading.set(false);
+                }),
                 takeUntilDestroyed(this.destroyRef)
             )
             .subscribe(() => {
                 this.context.completeWith(true);
             });
+    }
+
+    private getErrorMessage(error: HttpErrorResponse): string {
+        const message = error.error?.message;
+
+        if (Array.isArray(message)) {
+            return message[0] ?? 'Не удалось добавить репозиторий';
+        }
+
+        return message || 'Не удалось добавить репозиторий';
     }
 }

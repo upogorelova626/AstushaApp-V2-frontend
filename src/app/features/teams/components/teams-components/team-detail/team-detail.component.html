@@ -44,7 +44,6 @@
             <div class="team-details__actions">
                 <button
                     tuiButton
-                    type="button"
                     size="m"
                     iconStart="@tui.user-plus"
                     [tuiSkeleton]="isLoading()"
@@ -54,7 +53,6 @@
 
                 <button
                     tuiIconButton
-                    type="button"
                     appearance="flat"
                     size="m"
                     iconStart="@tui.ellipsis-vertical"
@@ -85,7 +83,6 @@
             <button
                 tuiButton
                 class="team-details__control"
-                type="button"
                 appearance="flat"
                 size="m"
                 iconEnd="@tui.chevron-down"
@@ -97,7 +94,6 @@
             <button
                 tuiButton
                 class="team-details__sort"
-                type="button"
                 appearance="flat"
                 size="m"
                 iconEnd="@tui.chevron-down"
@@ -108,7 +104,6 @@
 
             <button
                 tuiIconButton
-                type="button"
                 appearance="flat"
                 size="m"
                 iconStart="@tui.arrow-up-down"
@@ -119,7 +114,6 @@
 
             <button
                 tuiButton
-                type="button"
                 appearance="flat"
                 size="m"
                 iconStart="@tui.list-filter"
@@ -185,7 +179,6 @@
                                 <td>
                                     <button
                                         tuiIconButton
-                                        type="button"
                                         appearance="flat"
                                         size="s"
                                         iconStart="@tui.ellipsis-vertical"
@@ -233,7 +226,6 @@
             <div class="team-details__pagination" [tuiSkeleton]="isLoading()">
                 <button
                     tuiIconButton
-                    type="button"
                     appearance="flat"
                     size="s"
                     iconStart="@tui.chevron-left"
@@ -241,15 +233,12 @@
                     Назад
                 </button>
 
-                <button tuiButton type="button" size="s">1</button>
+                <button tuiButton size="s">1</button>
 
-                <button tuiButton type="button" appearance="flat" size="s">
-                    2
-                </button>
+                <button tuiButton appearance="flat" size="s"> 2 </button>
 
                 <button
                     tuiIconButton
-                    type="button"
                     appearance="flat"
                     size="s"
                     iconStart="@tui.chevron-right"
@@ -260,7 +249,6 @@
 
             <button
                 tuiButton
-                type="button"
                 appearance="flat"
                 size="s"
                 iconEnd="@tui.chevron-down"
@@ -294,7 +282,6 @@
         <div class="no-access-dialog__footer">
             <button
                 tuiButton
-                type="button"
                 size="m"
                 (click)="isNoAccessDialogOpen.set(false)"
             >

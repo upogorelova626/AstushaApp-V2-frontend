@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    computed,
     DestroyRef,
     inject,
     Injector,
@@ -23,10 +24,18 @@ import {ProjectRepositoriesService} from '../../../services/project-repositories
 import {AddRepoLinkComponent} from './add-repo-link/add-repo-link.component';
 import {RepositoryNamePipe} from '../../../../../shared/pipes/reposirory-name.pipe';
 import {RepositoryHrefPipe} from '../../../../../shared/pipes/repository-href.pipe';
+import {TuiSkeleton} from '@taiga-ui/kit';
+import {AllProjectReposComponent} from './all-project-repos/all-project-repos.component';
 
 @Component({
     selector: 'app-project-repositories',
-    imports: [TuiButton, TuiIcon, RepositoryNamePipe, RepositoryHrefPipe],
+    imports: [
+        TuiButton,
+        TuiIcon,
+        RepositoryNamePipe,
+        RepositoryHrefPipe,
+        TuiSkeleton
+    ],
     templateUrl: './project-repositories.component.html',
     styleUrl: './project-repositories.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -97,5 +106,40 @@ export class ProjectRepositoriesComponent implements OnInit {
             .subscribe(repos => {
                 this.repos.set(repos);
             });
+    }
+
+    protected prewiewRepos = computed(() => {
+        const repos = this.repos();
+        return repos.slice(0, 3);
+    });
+
+    protected deleteRepo(repoId: string) {
+        const projectId = this.project()?.id;
+
+        if (!projectId) {
+            return;
+        }
+
+        this.projectReposService
+            .deleteRepo(projectId, repoId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.repos.update(repos =>
+                    repos.filter(repo => repo.id !== repoId)
+                );
+            });
+    }
+
+    showAllRepos() {
+        const repos = this.repos();
+
+        this.dialogs
+            .open<string>(new PolymorpheusComponent(AllProjectReposComponent), {
+                label: 'Все репозитории',
+                size: 'l',
+                data: repos
+            })
+            .pipe(switchMap(name => this.alerts.open(name)))
+            .subscribe();
     }
 }

@@ -18,5 +18,6 @@ export const VALIDATION_ERRORS = {
     deadlineBeforeStartDate: 'Дедлайн не может быть раньше чем дата старта',
 
     repositoryUrl:
-        'Введите корректную ссылку на GitHub, GitLab или Bitbucket репозиторий'
+        'Введите корректную ссылку на GitHub, GitLab или Bitbucket репозиторий',
+    serverError: (message: string) => message
 };

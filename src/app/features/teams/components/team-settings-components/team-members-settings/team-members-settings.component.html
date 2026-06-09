@@ -33,7 +33,6 @@
                 tuiButton
                 tuiChevron
                 class="team-members-settings-card__role-filter"
-                type="button"
                 appearance="flat"
                 size="s"
             >
@@ -129,7 +128,6 @@
                         >
                             <button
                                 tuiIconButton
-                                type="button"
                                 appearance="flat"
                                 size="xs"
                                 iconStart="@tui.ellipsis-vertical"
@@ -158,7 +156,6 @@
                                         @if (canShowAction(action, member)) {
                                             <button
                                                 tuiOption
-                                                type="button"
                                                 (click)="
                                                     onMemberAction(
                                                         action.value,
@@ -192,7 +189,6 @@
     <footer class="team-members-settings-card__footer">
         <button
             tuiButton
-            type="button"
             appearance="flat"
             size="s"
             iconEnd="@tui.chevron-down"

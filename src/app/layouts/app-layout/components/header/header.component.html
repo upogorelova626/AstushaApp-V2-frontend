@@ -3,7 +3,6 @@
         <button
             tuiIconButton
             class="header__menu-button"
-            type="button"
             appearance="flat"
             size="m"
             iconStart="@tui.arrow-left"
@@ -39,7 +38,6 @@
         <button
             tuiButton
             class="header__create-button"
-            type="button"
             size="m"
             iconStart="@tui.plus"
             [tuiSkeleton]="skeleton"
@@ -50,7 +48,6 @@
         <button
             tuiIconButton
             class="header__icon-button"
-            type="button"
             appearance="flat"
             size="m"
             iconStart="@tui.bell"
@@ -62,7 +59,6 @@
         <button
             tuiIconButton
             class="header__icon-button"
-            type="button"
             appearance="flat"
             size="m"
             iconStart="@tui.circle-question-mark"
@@ -76,7 +72,6 @@
         <button
             tuiButton
             class="header__profile-button"
-            type="button"
             appearance="flat"
             size="m"
             iconEnd="@tui.chevron-down"
@@ -126,11 +121,7 @@
         <ng-template #userMenuDropdown>
             <tui-data-list>
                 @for (action of userMenuActions; track action.value) {
-                    <button
-                        tuiOption
-                        type="button"
-                        (click)="onUserMenuAction(action.value)"
-                    >
+                    <button tuiOption (click)="onUserMenuAction(action.value)">
                         {{ action.title }}
                     </button>
                 }
