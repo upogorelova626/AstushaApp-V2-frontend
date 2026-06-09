@@ -8,6 +8,7 @@ import {
 import {ProjectMember} from './project-member.interface';
 import {ProjectTeam} from './project-team.interface';
 import {ProjectUser} from './project-user.interface';
+import {ProjectRepository} from './project-repositore.interface';
 
 export interface ProjectCounts {
     members: number;
@@ -50,6 +51,7 @@ export interface ProjectListItem {
     createdAt: string;
     updatedAt: string;
     teamLink: ProjectTeamLink | null;
+    repositories?: ProjectRepository[];
     _count: ProjectCounts;
 }
 
