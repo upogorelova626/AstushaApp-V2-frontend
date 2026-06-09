@@ -1,7 +1,14 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    inject
+} from '@angular/core';
 import {TuiDialogContext, TuiIcon, TuiButton} from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {ProjectRepository} from '../../../../interfaces/project-repositore.interface';
+import {ProjectRepositoriesService} from '../../../../services/project-repositories.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-all-project-repos',
@@ -11,10 +18,19 @@ import {ProjectRepository} from '../../../../interfaces/project-repositore.inter
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllProjectReposComponent {
-    deleteRepo(arg0: any) {
-        throw new Error('Method not implemented.');
-    }
     protected readonly context =
-        injectContext<TuiDialogContext<string, ProjectRepository[]>>();
-    protected repos = this.context.data;
+        injectContext<TuiDialogContext<boolean, ProjectRepository[]>>();
+    protected readonly repos = this.context.data;
+
+    private readonly projectReposService = inject(ProjectRepositoriesService);
+    private readonly destroyRef = inject(DestroyRef);
+
+    protected deleteRepo(projectId: string, repoId: string) {
+        this.projectReposService
+            .deleteRepo(projectId, repoId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.context.completeWith(true);
+            });
+    }
 }

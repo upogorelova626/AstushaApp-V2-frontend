@@ -17,16 +17,18 @@
 
     @if (repos().length === 0 && !isLoading()) {
         <footer class="project-repositories-card__footer">
-            <button tuiButton iconStart="@tui.plus" (click)="addLink()">
+            <button
+                type="button"
+                tuiButton
+                iconStart="@tui.plus"
+                (click)="addLink()"
+            >
                 Добавить репозиторий
             </button>
         </footer>
     } @else {
-        @for (repo of prewiewRepos(); track repo.id) {
-            <article
-                class="project-repositories-card__item"
-                [tuiSkeleton]="isLoading()"
-            >
+        @for (repo of previewRepos(); track repo.id) {
+            <article class="project-repositories-card__item">
                 <div class="project-repositories-card__item-icon">
                     <tui-icon icon="@tui.git-branch" />
                 </div>
@@ -35,11 +37,7 @@
                     class="project-repositories-card__item-link"
                     target="_blank"
                     rel="noopener noreferrer"
-                    [href]="
-                        repo.url.startsWith('http')
-                            ? repo.url
-                            : 'https://' + repo.url
-                    "
+                    [href]="repo.url | repositoryHref"
                 >
                     {{ repo.url }}
                 </a>
@@ -62,6 +60,7 @@
                     </a>
 
                     <button
+                        type="button"
                         tuiButton
                         size="s"
                         appearance="outline"
@@ -76,17 +75,22 @@
 
         <footer class="project-repositories-card__footer">
             @if (repos().length > 3 && !isLoading()) {
-                <button tuiButton appearance="flat" (click)="showAllRepos()"
+                <button
+                    type="button"
+                    tuiButton
+                    appearance="flat"
+                    (click)="showAllRepos()"
                     >Показать все</button
                 >
             }
             <div>
-                <button tuiButton iconStart="@tui.plus" (click)="addLink()">
+                <button
+                    type="button"
+                    tuiButton
+                    iconStart="@tui.plus"
+                    (click)="addLink()"
+                >
                     Добавить репозиторий
-                </button>
-
-                <button tuiButton iconStart="@tui.pen" appearance="outline">
-                    Изменить
                 </button>
             </div>
         </footer>

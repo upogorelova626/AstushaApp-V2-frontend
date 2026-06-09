@@ -108,7 +108,7 @@ export class ProjectRepositoriesComponent implements OnInit {
             });
     }
 
-    protected prewiewRepos = computed(() => {
+    protected previewRepos = computed(() => {
         const repos = this.repos();
         return repos.slice(0, 3);
     });
@@ -132,14 +132,32 @@ export class ProjectRepositoriesComponent implements OnInit {
 
     showAllRepos() {
         const repos = this.repos();
+        const project = this.project();
+
+        if (!project) {
+            return;
+        }
 
         this.dialogs
-            .open<string>(new PolymorpheusComponent(AllProjectReposComponent), {
-                label: 'Все репозитории',
-                size: 'l',
-                data: repos
-            })
-            .pipe(switchMap(name => this.alerts.open(name)))
+            .open<boolean>(
+                new PolymorpheusComponent(AllProjectReposComponent),
+                {
+                    label: 'Все репозитории',
+                    size: 'l',
+                    data: repos
+                }
+            )
+            .pipe(
+                filter(Boolean),
+                switchMap(() => this.projectReposService.getRepos(project.id)),
+                tap(repos => {
+                    this.repos.set(repos);
+                }),
+                switchMap(() =>
+                    this.alerts.open('Ссылка на репозиторий успешно удалена')
+                ),
+                takeUntilDestroyed(this.destroyRef)
+            )
             .subscribe();
     }
 }
