@@ -8,7 +8,7 @@ import {
 import {ROUTER_OUTLET_DATA} from '@angular/router';
 import {ProjectActivityComponent} from '../../components/project-details-page-components/project-activity/project-activity.component';
 import {ProjectCardComponent} from '../../components/project-details-page-components/project-card/project-card.component';
-import {ProjectLastTasksComponent} from '../../components/project-details-page-components/project-last-tasks/project-last-tasks.component';
+import {ProjectRepositoriesComponent} from '../../components/project-details-page-components/project-repositories/project-repositories.component';
 import {ProjectQuickActionsComponent} from '../../components/project-details-page-components/project-quick-actions/project-quick-actions.component';
 import {ProjectTeamCardComponent} from '../../components/project-details-page-components/project-team-card/project-team-card.component';
 import {Project} from '../../interfaces/project.interface';
@@ -20,8 +20,8 @@ import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-da
         ProjectCardComponent,
         ProjectTeamCardComponent,
         ProjectQuickActionsComponent,
-        ProjectLastTasksComponent,
-        ProjectActivityComponent
+        ProjectActivityComponent,
+        ProjectRepositoriesComponent
     ],
     templateUrl: './project-detail-page.component.html',
     styleUrl: './project-detail-page.component.less',

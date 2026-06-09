@@ -60,16 +60,6 @@
         border-radius: 16px;
         text-align: left;
         background: var(--color-card-bg);
-        transition:
-            border-color 0.2s ease,
-            background-color 0.2s ease,
-            transform 0.2s ease;
-
-        &:hover {
-            border-color: var(--color-primary-light);
-            background-color: var(--tui-background-base-alt);
-            transform: translateY(-1px);
-        }
     }
 
     &__button-icon {
@@ -106,10 +96,5 @@
         height: 18px;
         flex-shrink: 0;
         color: var(--color-text-muted);
-        transition: transform 0.2s ease;
-    }
-
-    &__button:hover &__button-arrow {
-        transform: translateX(3px);
     }
 }

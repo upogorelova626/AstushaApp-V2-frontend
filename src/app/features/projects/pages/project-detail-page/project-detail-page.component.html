@@ -17,7 +17,10 @@
     </div>
 
     <div class="project-detail-page__bottom">
-        <app-project-last-tasks class="project-detail-page__card" />
+        <app-project-repositories
+            class="project-detail-page__card"
+            [project]="project()"
+        />
 
         <app-project-activity class="project-detail-page__card" />
     </div>
