@@ -29,13 +29,7 @@ import {AllProjectReposComponent} from './all-project-repos/all-project-repos.co
 
 @Component({
     selector: 'app-project-repositories',
-    imports: [
-        TuiButton,
-        TuiIcon,
-        RepositoryNamePipe,
-        RepositoryHrefPipe,
-        TuiSkeleton
-    ],
+    imports: [TuiButton, TuiIcon, RepositoryNamePipe, RepositoryHrefPipe],
     templateUrl: './project-repositories.component.html',
     styleUrl: './project-repositories.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

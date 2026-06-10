@@ -116,9 +116,15 @@
 
                 <div class="project-info-card__stat-content">
                     <span class="project-info-card__stat-label">Команда</span>
-                    <span class="project-info-card__stat-value">
-                        {{ project.teamLink?.team?.team }}
-                    </span>
+                    @if (team()) {
+                        <span class="project-info-card__stat-value">
+                            {{ team()?.name }}</span
+                        >
+                    } @else {
+                        <span class="project-info-card__stat-value">
+                            Пока не добавлена</span
+                        >
+                    }
                 </div>
             </div>
         </footer>
