@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {MyTask} from '../../../interfaces/my-tasks.interface';
+import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
 
 @Component({
     selector: 'app-task-content-card',
@@ -9,6 +10,6 @@ import {MyTask} from '../../../interfaces/my-tasks.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskContentCardComponent {
-    readonly task = input<MyTask | null>(null);
+    readonly task = input<ProjectTask | null>(null);
     readonly isLoading = input(false);
 }

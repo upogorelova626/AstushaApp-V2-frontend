@@ -5,7 +5,6 @@ import {TuiSwitch} from '@taiga-ui/kit';
 import {Project} from '../../../projects/interfaces/project.interface';
 import {ProjectMember} from '../../../projects/interfaces/project-member.interface';
 import {TaskPriority} from '../../../projects/interfaces/project-tasks.interface';
-
 @Component({
     selector: 'app-boards-toolbar',
     imports: [

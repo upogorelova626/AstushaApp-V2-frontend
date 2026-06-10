@@ -17,7 +17,10 @@ import {
     TuiSkeleton
 } from '@taiga-ui/kit';
 import {finalize, Observable, of, Subject, switchMap} from 'rxjs';
-import {TaskAttachment} from '../../../../projects/interfaces/project-tasks.interface';
+import {
+    ProjectTask,
+    TaskAttachment
+} from '../../../../projects/interfaces/project-tasks.interface';
 import {TaskAttachmentsService} from '../../../../projects/services/task-attachments.service';
 import {MyTask} from '../../../interfaces/my-tasks.interface';
 import {AllTaskFilesDialogComponent} from './all-task-files-dialog/all-task-files-dialog.component';
@@ -40,7 +43,7 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskFilesCardComponent {
-    readonly task = input<MyTask | null>(null);
+    readonly task = input<ProjectTask | null>(null);
     readonly isLoading = input(false);
 
     private readonly taskAttachmentsService = inject(TaskAttachmentsService);

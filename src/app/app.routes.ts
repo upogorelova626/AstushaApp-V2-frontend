@@ -73,16 +73,6 @@ export const routes: Routes = [
                             import('./features/my-tasks/pages/my-tasks-page/my-tasks-page.component').then(
                                 m => m.MyTasksPageComponent
                             )
-                    },
-                    {
-                        path: ':taskId',
-                        loadComponent: () =>
-                            import('./features/my-tasks/pages/task-page/task-page.component').then(
-                                m => m.TaskPageComponent
-                            ),
-                        data: {
-                            breadcrumb: 'Задача'
-                        }
                     }
                 ]
             },
@@ -147,6 +137,16 @@ export const routes: Routes = [
                                 }
                             },
                             {
+                                path: 'tasks/:taskId',
+                                loadComponent: () =>
+                                    import('./features/my-tasks/pages/task-page/task-page.component').then(
+                                        m => m.TaskPageComponent
+                                    ),
+                                data: {
+                                    breadcrumb: 'Задача'
+                                }
+                            },
+                            {
                                 path: 'tasks',
                                 loadComponent: () =>
                                     import('./features/projects/pages/project-tasks-page/project-tasks-page.component').then(
@@ -156,6 +156,7 @@ export const routes: Routes = [
                                     breadcrumb: 'Задачи проекта'
                                 }
                             },
+
                             {
                                 path: 'members',
                                 loadComponent: () =>

@@ -83,7 +83,9 @@
                                     tuiHint="Подробнее о задаче"
                                     tuiHintDirection="top-start"
                                     [routerLink]="[
-                                        '/dashboard/my-tasks',
+                                        '/dashboard/projects',
+                                        task.projectId,
+                                        'tasks',
                                         task.id
                                     ]"
                                 >

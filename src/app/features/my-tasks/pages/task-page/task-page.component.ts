@@ -10,9 +10,9 @@ import {TaskContentCardComponent} from '../../components/task-details-components
 import {TaskFilesCardComponent} from '../../components/task-details-components/task-files-card/task-files-card.component';
 import {TaskHistoryCardComponent} from '../../components/task-details-components/task-history-card/task-history-card.component';
 import {ActivatedRoute} from '@angular/router';
-import {MyTasksService} from '../../services/my-tasks.service';
-import {MyTask} from '../../interfaces/my-tasks.interface';
 import {finalize} from 'rxjs';
+import {ProjectTasksService} from '../../../projects/services/project-tasks.service';
+import {ProjectTask} from '../../../projects/interfaces/project-tasks.interface';
 
 @Component({
     selector: 'app-task-page',
@@ -28,22 +28,25 @@ import {finalize} from 'rxjs';
 })
 export class TaskPageComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
-    private readonly tasksService = inject(MyTasksService);
+    private readonly projectTasksService = inject(ProjectTasksService);
 
-    protected readonly task = signal<MyTask | null>(null);
+    protected readonly task = signal<ProjectTask | null>(null);
     protected readonly isLoading = signal(false);
 
     ngOnInit() {
         const taskId = this.route.snapshot.paramMap.get('taskId');
+        const projectId = this.route.snapshot.pathFromRoot
+            .map(route => route.paramMap.get('projectId'))
+            .find(Boolean);
 
-        if (!taskId) {
+        if (!taskId || !projectId) {
             return;
         }
 
         this.isLoading.set(true);
 
-        this.tasksService
-            .getMyTask(taskId)
+        this.projectTasksService
+            .getOneTask(projectId, taskId)
             .pipe(
                 finalize(() => {
                     this.isLoading.set(false);

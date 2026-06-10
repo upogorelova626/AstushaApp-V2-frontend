@@ -1,5 +1,10 @@
 import {DatePipe} from '@angular/common';
-import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    input
+} from '@angular/core';
 import {TuiAvatar} from '@taiga-ui/kit';
 import {
     ProjectTask,
@@ -40,4 +45,11 @@ export class BoardTaskCardComponent {
 
         return backgrounds[this.task().priority];
     }
+
+    protected readonly taskLink = computed(() => [
+        '/dashboard/projects',
+        this.task().projectId,
+        'tasks',
+        this.task().id
+    ]);
 }

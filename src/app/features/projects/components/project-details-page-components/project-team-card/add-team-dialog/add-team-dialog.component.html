@@ -12,6 +12,7 @@
         <div class="team-results">
             @for (team of foundTeams(); track team.id) {
                 <button
+                    type="button"
                     tuiButton
                     appearance="flat"
                     class="team-results__item"
@@ -45,6 +46,7 @@
 
     <footer class="buttons">
         <button
+            type="button"
             appearance="secondary"
             tuiButton
             size="m"
@@ -55,7 +57,7 @@
 
         <button
             tuiButton
-            type="submit"
+            type="button"
             size="m"
             iconStart="@tui.plus"
             [disabled]="!selectedTeam()"

@@ -1,3 +1,4 @@
+import {ProjectTaskProject} from '../../my-tasks/interfaces/my-tasks.interface';
 import {ProjectUser} from './project-user.interface';
 
 export enum TaskType {
@@ -105,6 +106,7 @@ export interface ProjectTask {
     subtasks: ProjectTaskSubtask[];
     attachments: TaskAttachment[];
     _count: ProjectTaskCounts;
+    project: ProjectTaskProject;
 }
 
 export interface CreateProjectTaskRequest {

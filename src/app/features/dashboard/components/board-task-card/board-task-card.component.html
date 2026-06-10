@@ -17,7 +17,12 @@
                 iconStart="@tui.ellipsis"
                 tuiHint="Подробнее о задаче"
                 tuiHintDirection="top-end"
-                [routerLink]="['my-tasks', task().id]"
+                [routerLink]="[
+                    '/dashboard/projects',
+                    task().projectId,
+                    'tasks',
+                    task().id
+                ]"
             ></a>
         </div>
     </header>
