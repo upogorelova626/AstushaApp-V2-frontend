@@ -5,7 +5,7 @@
 
 .project-repositories-card {
     display: flex;
-    min-height: 360px;
+    min-height: auto;
     padding: 24px;
     flex-direction: column;
     gap: 20px;
@@ -88,12 +88,6 @@
         text-decoration: none;
         text-overflow: ellipsis;
         white-space: nowrap;
-
-        &:hover {
-            color: #2563eb;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
     }
 
     &__item-actions {
@@ -109,16 +103,34 @@
         justify-content: space-between;
         gap: 10px;
         margin-top: auto;
-
-        > div {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
     }
 
     &__button {
         min-width: 150px;
+    }
+}
+
+.no-repo {
+    display: flex;
+    min-height: 250px;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    padding: 8px 0;
+    text-align: center;
+
+    &__image {
+        width: 280px;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .project-repositories-card__footer {
+        margin-top: 0;
+        justify-content: center;
     }
 }
 
@@ -192,17 +204,18 @@
         &__footer {
             align-items: stretch;
             flex-direction: column;
+        }
+    }
 
-            > div {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
+    .no-repo {
+        min-height: 200px;
 
-            button,
-            a {
-                width: 100%;
-            }
+        &__image {
+            width: 200px;
+        }
+
+        .project-repositories-card__footer {
+            width: 100%;
         }
     }
 }
@@ -229,11 +242,14 @@
             width: 100%;
             padding-left: 0;
             flex-direction: column;
+        }
+    }
 
-            button,
-            a {
-                width: 100%;
-            }
+    .no-repo {
+        min-height: 180px;
+
+        &__image {
+            width: 180px;
         }
     }
 }

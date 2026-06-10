@@ -16,16 +16,23 @@
     </header>
 
     @if (repos().length === 0 && !isLoading()) {
-        <footer class="project-repositories-card__footer">
-            <button
-                type="button"
-                tuiButton
-                iconStart="@tui.plus"
-                (click)="addLink()"
-            >
-                Добавить репозиторий
-            </button>
-        </footer>
+        <div class="no-repo">
+            <img
+                class="no-repo__image"
+                src="/images/add-repo-link-img (1).png"
+                alt="Страница не найдена"
+            />
+            <footer class="project-repositories-card__footer">
+                <button
+                    type="button"
+                    tuiButton
+                    iconStart="@tui.plus"
+                    (click)="addLink()"
+                >
+                    Добавить репозиторий
+                </button>
+            </footer>
+        </div>
     } @else {
         @for (repo of previewRepos(); track repo.id) {
             <article class="project-repositories-card__item">

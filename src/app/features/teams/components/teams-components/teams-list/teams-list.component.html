@@ -23,64 +23,71 @@
         </tui-textfield>
     </div>
 
-    @if (teams().length) {
-        <div class="teams-list__items">
-            @for (team of teams(); track team.id) {
-                <button
-                    tuiButton
-                    appearance="flat"
-                    class="teams-list__item teams-list__item_active"
-                    (click)="selectTeam(team.id)"
-                >
-                    <div class="teams-list__avatar">
-                        {{ team.name.slice(0, 2).toUpperCase() }}
-                    </div>
-
-                    <div class="teams-list__content">
-                        <div class="teams-list__top">
-                            <span class="teams-list__name">
-                                {{ team.name }}
-                            </span>
-
-                            <span class="teams-list__badge">
-                                {{
-                                    team.myRole
-                                        ? (team.myRole | teamRoleLabel)
-                                        : 'Без роли'
-                                }}
-                            </span>
-                        </div>
-
-                        <p class="teams-list__description">
-                            {{ team.description || 'Без описания' }}
-                        </p>
-
-                        <div class="teams-list__meta">
-                            <tui-icon icon="@tui.users-round" />
-
-                            <span>
-                                {{
-                                    team.membersCount ??
-                                        team._count?.members ??
-                                        0
-                                }}
-                            </span>
-                        </div>
-                    </div>
-                </button>
-            }
-        </div>
+    @if (isLoading()) {
+        <tui-loader class="loader"></tui-loader>
     } @else {
-        <div class="teams-list__empty">
-            <tui-icon class="teams-list__empty-icon" icon="@tui.users-round" />
+        @if (teams().length && !isLoading()) {
+            <div class="teams-list__items">
+                @for (team of teams(); track team.id) {
+                    <button
+                        tuiButton
+                        appearance="flat"
+                        class="teams-list__item teams-list__item_active"
+                        (click)="selectTeam(team.id)"
+                    >
+                        <div class="teams-list__avatar">
+                            {{ team.name.slice(0, 2).toUpperCase() }}
+                        </div>
 
-            <p class="teams-list__empty-title">Команд пока нет</p>
+                        <div class="teams-list__content">
+                            <div class="teams-list__top">
+                                <span class="teams-list__name">
+                                    {{ team.name }}
+                                </span>
 
-            <p class="teams-list__empty-description">
-                Создайте первую команду, чтобы добавлять участников и связывать
-                её с проектами.
-            </p>
-        </div>
+                                <span class="teams-list__badge">
+                                    {{
+                                        team.myRole
+                                            ? (team.myRole | teamRoleLabel)
+                                            : 'Без роли'
+                                    }}
+                                </span>
+                            </div>
+
+                            <p class="teams-list__description">
+                                {{ team.description || 'Без описания' }}
+                            </p>
+
+                            <div class="teams-list__meta">
+                                <tui-icon icon="@tui.users-round" />
+
+                                <span>
+                                    {{
+                                        team.membersCount ??
+                                            team._count?.members ??
+                                            0
+                                    }}
+                                </span>
+                            </div>
+                        </div>
+                    </button>
+                }
+            </div>
+        } @else {
+            <div class="teams-list__empty">
+                <tui-icon
+                    class="teams-list__empty-icon"
+                    icon="@tui.users-round"
+                />
+
+                <p class="teams-list__empty-title">Команд пока нет</p>
+
+                <p class="teams-list__empty-description">
+                    Создайте первую команду, чтобы добавлять участников и
+                    связывать её с проектами.
+                </p>
+            </div>
+        }
     }
 
     @if (teams().length > 3) {

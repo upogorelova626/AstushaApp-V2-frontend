@@ -23,12 +23,13 @@ import {
     TuiLabel,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiTextarea} from '@taiga-ui/kit';
+import {TuiTextarea, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
 import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../../interfaces/team.interface';
 import {TeamsService} from '../../../services/teams.service';
+import {TuiLoader} from '@taiga-ui/core';
 
 @Component({
     selector: 'app-teams-list',
@@ -43,7 +44,8 @@ import {TeamsService} from '../../../services/teams.service';
         TuiLabel,
         TuiTextarea,
         TuiTextfield,
-        TeamRoleLabelPipe
+        TeamRoleLabelPipe,
+        TuiLoader
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',

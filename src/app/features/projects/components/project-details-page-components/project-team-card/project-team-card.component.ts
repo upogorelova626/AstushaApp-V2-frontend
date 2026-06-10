@@ -19,11 +19,11 @@ import {ProjectTeam, Team} from '../../../../teams/interfaces/team.interface';
 import {ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {AddTeamDialogComponent} from './add-team-dialog/add-team-dialog.component';
-import {TuiSkeleton} from '@taiga-ui/kit';
+import {TuiLoader} from '@taiga-ui/core';
 
 @Component({
     selector: 'app-project-team-card',
-    imports: [TuiButton, TuiIcon, RouterLink, TuiSkeleton],
+    imports: [TuiButton, TuiIcon, RouterLink, TuiLoader],
     templateUrl: './project-team-card.component.html',
     styleUrl: './project-team-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
