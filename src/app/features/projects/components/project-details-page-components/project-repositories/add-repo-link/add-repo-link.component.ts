@@ -1,5 +1,11 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {Component, DestroyRef, inject, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    inject,
+    signal
+} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
@@ -29,7 +35,8 @@ import {repositoryUrlValidator} from '../../../../validators/repository-url.vali
             provide: TUI_VALIDATION_ERRORS,
             useValue: VALIDATION_ERRORS
         }
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRepoLinkComponent {
     protected readonly context =

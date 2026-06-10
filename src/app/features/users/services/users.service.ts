@@ -2,12 +2,22 @@ import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {
     ChangePasswordRequest,
-    UpdateProfileRequest,
     SuccessResponse,
     UserLookupResult
 } from '../models/interfaces/user.interface';
 import {AuthUser} from '../../auth/models/interfaces/auth.interface';
-import {shareReplay, startWith, Subject, switchMap, tap} from 'rxjs';
+import {
+    catchError,
+    map,
+    merge,
+    Observable,
+    of,
+    shareReplay,
+    startWith,
+    Subject,
+    switchMap,
+    tap
+} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,14 +27,32 @@ export class UsersService {
     private readonly baseApiUrl = 'http://localhost:3000';
 
     private readonly refreshProfile$ = new Subject<void>();
+    private readonly clearProfile$ = new Subject<void>();
 
-    readonly profile$ = this.refreshProfile$.pipe(
-        startWith(null),
-        switchMap(() =>
-            this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`)
+    readonly profile$: Observable<AuthUser | null> = merge(
+        this.refreshProfile$.pipe(
+            startWith(void 0),
+            switchMap(() =>
+                this.http
+                    .get<AuthUser>(`${this.baseApiUrl}/users/profile`)
+                    .pipe(catchError(() => of(null)))
+            )
         ),
-        shareReplay(1)
+        this.clearProfile$.pipe(map(() => null))
+    ).pipe(
+        shareReplay({
+            bufferSize: 1,
+            refCount: true
+        })
     );
+
+    reloadProfile(): void {
+        this.refreshProfile$.next();
+    }
+
+    clearProfile(): void {
+        this.clearProfile$.next();
+    }
 
     getMyProfile() {
         return this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`);

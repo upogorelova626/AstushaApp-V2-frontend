@@ -97,10 +97,9 @@ export class HeaderComponent {
     }
 
     protected logout() {
-        this.authService.logout().subscribe({
-            next: () => {
-                this.router.navigate(['/auth/login']);
-            }
+        this.authService.logout().subscribe(() => {
+            this.usersService.clearProfile();
+            this.router.navigate(['/auth/login']);
         });
     }
 

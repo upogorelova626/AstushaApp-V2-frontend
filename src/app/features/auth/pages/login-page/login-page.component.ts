@@ -1,15 +1,26 @@
+import {HttpErrorResponse} from '@angular/common/http';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {
-    ChangeDetectionStrategy,
-    Component,
-    inject,
-    signal
-} from '@angular/core';
-import {TuiTextfield, TuiButton, TuiInput, TuiIcon} from '@taiga-ui/core';
-import {AuthService} from '../../services/auth.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
+    FormControl,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators
+} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
+import {
+    TUI_VALIDATION_ERRORS,
+    TuiButton,
+    TuiError,
+    TuiIcon,
+    TuiInput,
+    TuiTextfield
+} from '@taiga-ui/core';
 import {TuiPassword} from '@taiga-ui/kit';
+import {catchError, EMPTY} from 'rxjs';
+
+import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
+import {UsersService} from '../../../users/services/users.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
     selector: 'app-login-page',
@@ -18,18 +29,24 @@ import {TuiPassword} from '@taiga-ui/kit';
         TuiButton,
         TuiInput,
         TuiIcon,
-        ReactiveFormsModule,
-        TuiPassword
+        TuiError,
+        TuiPassword,
+        ReactiveFormsModule
     ],
     templateUrl: './login-page.component.html',
     styleUrl: './login-page.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: VALIDATION_ERRORS
+        }
+    ]
 })
 export class LoginPageComponent {
     private readonly authService = inject(AuthService);
+    private readonly usersService = inject(UsersService);
     private readonly router = inject(Router);
-
-    protected readonly errorMessage = signal<string | null>(null);
 
     protected readonly form = new FormGroup({
         email: new FormControl('', {
@@ -53,25 +70,56 @@ export class LoginPageComponent {
         })
     });
 
-    login() {
+    protected login(): void {
+        this.clearServerError();
+
         if (this.form.invalid) {
             this.form.markAllAsTouched();
+
             return;
         }
 
-        this.errorMessage.set(null);
-
         const {email, password} = this.form.getRawValue();
 
-        const payload = {email, password};
+        this.authService
+            .login({email, password})
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    this.form.setErrors({
+                        ...this.form.errors,
+                        serverError: this.getErrorMessage(error)
+                    });
 
-        this.authService.login(payload).subscribe({
-            next: () => {
+                    this.form.markAllAsTouched();
+
+                    return EMPTY;
+                })
+            )
+            .subscribe(() => {
+                this.usersService.reloadProfile();
                 this.router.navigate(['/dashboard']);
-            },
-            error: () => {
-                this.errorMessage.set('Неверный email или пароль');
-            }
-        });
+            });
+    }
+
+    private clearServerError(): void {
+        const errors = this.form.errors;
+
+        if (!errors?.['serverError']) {
+            return;
+        }
+
+        const {serverError, ...restErrors} = errors;
+
+        this.form.setErrors(Object.keys(restErrors).length ? restErrors : null);
+    }
+
+    private getErrorMessage(error: HttpErrorResponse): string {
+        const message = error.error?.message;
+
+        if (Array.isArray(message)) {
+            return message[0] ?? 'Не удалось авторизоваться';
+        }
+
+        return message || 'Не удалось авторизоваться';
     }
 }

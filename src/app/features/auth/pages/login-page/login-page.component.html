@@ -19,6 +19,10 @@
             />
         </tui-textfield>
     </label>
+    <tui-error
+        [formControl]="form.controls.email"
+        [order]="['required', 'minlength', 'maxlength']"
+    />
 
     <label class="login-card__field">
         <span class="login-card__label"> Пароль </span>
@@ -33,6 +37,10 @@
             <tui-icon tuiPassword />
         </tui-textfield>
     </label>
+    <tui-error
+        [formControl]="form.controls.email"
+        [order]="['required', 'minlength', 'maxlength']"
+    />
 
     <label class="login-card__remember">
         <input
@@ -43,6 +51,7 @@
 
         <span class="login-card__remember-text"> Запомнить меня </span>
     </label>
+    <tui-error [formGroup]="form" [order]="['serverError']" />
 
     <button
         type="button"
