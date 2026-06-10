@@ -103,16 +103,17 @@ export const routes: Routes = [
             },
             {
                 path: 'projects',
-                data: {
-                    breadcrumb: 'Проекты'
-                },
+
                 children: [
                     {
                         path: '',
                         loadComponent: () =>
                             import('./features/projects/pages/projects-page/projects-page.component').then(
                                 m => m.ProjectsPageComponent
-                            )
+                            ),
+                        data: {
+                            breadcrumb: 'Проекты'
+                        }
                     },
                     {
                         path: ':projectId',
@@ -120,6 +121,9 @@ export const routes: Routes = [
                             import('./layouts/project-layout/project-layout.component').then(
                                 m => m.ProjectLayoutComponent
                             ),
+                        data: {
+                            breadcrumb: 'Проект'
+                        },
                         children: [
                             {
                                 path: '',
@@ -133,7 +137,7 @@ export const routes: Routes = [
                                         m => m.ProjectDetailPageComponent
                                     ),
                                 data: {
-                                    breadcrumb: 'Проект'
+                                    breadcrumb: 'Обзор'
                                 }
                             },
                             {
@@ -153,7 +157,7 @@ export const routes: Routes = [
                                         m => m.ProjectTasksPageComponent
                                     ),
                                 data: {
-                                    breadcrumb: 'Задачи проекта'
+                                    breadcrumb: 'Задачи'
                                 }
                             },
 
@@ -164,7 +168,7 @@ export const routes: Routes = [
                                         m => m.ProjectMembersPageComponent
                                     ),
                                 data: {
-                                    breadcrumb: 'Участники проекта'
+                                    breadcrumb: 'Участники'
                                 }
                             },
                             {
@@ -175,7 +179,7 @@ export const routes: Routes = [
                                         m => m.ProjectSettingsPageComponent
                                     ),
                                 data: {
-                                    breadcrumb: 'Настройки проекта'
+                                    breadcrumb: 'Настройки'
                                 }
                             }
                         ]
@@ -189,7 +193,7 @@ export const routes: Routes = [
                         m => m.BoardsPageComponent
                     ),
                 data: {
-                    breadcrumb: 'AstushaApp'
+                    breadcrumb: 'Dashboards'
                 }
             }
         ]
