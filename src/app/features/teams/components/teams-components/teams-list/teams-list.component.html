@@ -19,7 +19,12 @@
             iconStart="@tui.search"
             tuiTextfieldSize="s"
         >
-            <input tuiInput type="text" placeholder="Поиск по командам..." />
+            <input
+                tuiInput
+                type="text"
+                placeholder="Поиск по командам..."
+                [formControl]="searchControl"
+            />
         </tui-textfield>
     </div>
 

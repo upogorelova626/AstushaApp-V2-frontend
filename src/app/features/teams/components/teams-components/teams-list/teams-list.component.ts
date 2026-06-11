@@ -8,7 +8,6 @@ import {
     output,
     signal
 } from '@angular/core';
-
 import {
     TuiButton,
     TuiDialogService,
@@ -19,14 +18,15 @@ import {
     TuiLoader,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiTextarea} from '@taiga-ui/kit';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {filter, finalize} from 'rxjs';
+import {filter, finalize, startWith} from 'rxjs';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../../interfaces/team.interface';
 import {TeamsService} from '../../../services/teams.service';
 import {AllTeamsDialogComponent} from './all-teams-dialog/all-teams-dialog.component';
 import {CreateTeamDialogComponent} from './create-team-dialog/create-team-dialog.component';
+import {ReactiveFormsModule, FormControl} from '@angular/forms';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-teams-list',
@@ -37,7 +37,8 @@ import {CreateTeamDialogComponent} from './create-team-dialog/create-team-dialog
         TuiInput,
         TuiLoader,
         TuiTextfield,
-        TeamRoleLabelPipe
+        TeamRoleLabelPipe,
+        ReactiveFormsModule
     ],
     templateUrl: './teams-list.component.html',
     styleUrl: './teams-list.component.less',
@@ -53,11 +54,38 @@ export class TeamListComponent implements OnInit {
     protected readonly teams = signal<Team[]>([]);
     protected readonly isLoading = signal(false);
 
-    protected readonly previewTeams = computed(() => this.teams().slice(0, 5));
+    protected readonly previewTeams = computed(() =>
+        this.filteredTeams().slice(0, 5)
+    );
 
     ngOnInit() {
         this.loadTeams();
     }
+
+    protected readonly searchControl = new FormControl('', {nonNullable: true});
+
+    protected readonly searchQuery = toSignal(
+        this.searchControl.valueChanges.pipe(
+            startWith(this.searchControl.value)
+        ),
+        {initialValue: ''}
+    );
+
+    protected readonly filteredTeams = computed(() => {
+        const query = this.searchQuery().trim().toLowerCase();
+        const teams = this.teams();
+
+        if (!query) {
+            return teams;
+        }
+
+        return this.teams().filter(team => {
+            const name = team.name.toLowerCase();
+            const description = team.description?.toLowerCase() ?? '';
+
+            return name.includes(query) || description.includes(query);
+        });
+    });
 
     protected selectTeam(teamId: string) {
         this.teamSelected.emit(teamId);
