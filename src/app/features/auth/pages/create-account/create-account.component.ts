@@ -1,10 +1,5 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    inject,
-    signal
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {
     FormControl,
     FormGroup,

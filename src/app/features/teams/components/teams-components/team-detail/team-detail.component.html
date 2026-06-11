@@ -40,10 +40,12 @@
                     </span>
                 </div>
             </div>
+
             @if (canManageTeam()) {
                 <div class="team-details__actions">
                     <button
                         tuiButton
+                        type="button"
                         size="m"
                         iconStart="@tui.user-plus"
                         [tuiSkeleton]="isLoading()"
@@ -53,6 +55,7 @@
 
                     <button
                         tuiIconButton
+                        type="button"
                         appearance="flat"
                         size="m"
                         iconStart="@tui.ellipsis-vertical"
@@ -83,6 +86,7 @@
 
             <button
                 tuiButton
+                type="button"
                 class="team-details__control"
                 appearance="flat"
                 size="m"
@@ -94,6 +98,7 @@
 
             <button
                 tuiButton
+                type="button"
                 class="team-details__sort"
                 appearance="flat"
                 size="m"
@@ -105,6 +110,7 @@
 
             <button
                 tuiIconButton
+                type="button"
                 appearance="flat"
                 size="m"
                 iconStart="@tui.arrow-up-down"
@@ -115,6 +121,7 @@
 
             <button
                 tuiButton
+                type="button"
                 appearance="flat"
                 size="m"
                 iconStart="@tui.list-filter"
@@ -126,21 +133,49 @@
 
         <div class="team-details__table-wrapper" [tuiSkeleton]="isLoading()">
             <table class="team-details__table">
-                <thead>
-                    <tr>
-                        <th>Участник</th>
-                        <th>Email</th>
-                        <th>Роль в команде</th>
-                        <th>Должность</th>
-                        <th>Действия</th>
+                <thead class="team-details__table-head">
+                    <tr
+                        class="team-details__table-row team-details__table-row_head"
+                    >
+                        <th
+                            class="team-details__table-cell team-details__table-cell_head"
+                        >
+                            Участник
+                        </th>
+
+                        <th
+                            class="team-details__table-cell team-details__table-cell_head"
+                        >
+                            Email
+                        </th>
+
+                        <th
+                            class="team-details__table-cell team-details__table-cell_head"
+                        >
+                            Роль в команде
+                        </th>
+
+                        <th
+                            class="team-details__table-cell team-details__table-cell_head"
+                        >
+                            Должность
+                        </th>
+
+                        <th
+                            class="team-details__table-cell team-details__table-cell_head"
+                        >
+                            Действия
+                        </th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="team-details__table-body">
                     @if (teamMembers().length) {
-                        @for (member of teamMembers(); track member.id) {
-                            <tr class="team-members-list__row">
-                                <td>
+                        @for (member of paginatedMembers(); track member.id) {
+                            <tr
+                                class="team-details__table-row team-members-list__row"
+                            >
+                                <td class="team-details__table-cell">
                                     <div class="team-member-row__member">
                                         <div
                                             tuiAvatar="@tui.user"
@@ -152,34 +187,33 @@
                                                 member.user.firstName ||
                                                     member.user.login
                                             }}
-                                            {{ member.user.lastName }}
+                                            {{ member.user.lastName || '' }}
                                         </span>
                                     </div>
                                 </td>
 
-                                <td>
+                                <td class="team-details__table-cell">
                                     <span class="team-member-row__email">
                                         {{ member.user.email }}
                                     </span>
                                 </td>
 
-                                <td>
+                                <td class="team-details__table-cell">
                                     <span class="team-member-row__role">
                                         {{ member.role | teamRoleLabel }}
                                     </span>
                                 </td>
 
-                                <td>
-                                    <span
-                                        class="team-member-row__projects-count"
-                                    >
-                                        {{ member.user.position }}
+                                <td class="team-details__table-cell">
+                                    <span class="team-member-row__position">
+                                        {{ member.user.position || '—' }}
                                     </span>
                                 </td>
 
-                                <td>
+                                <td class="team-details__table-cell">
                                     <button
                                         tuiIconButton
+                                        type="button"
                                         appearance="flat"
                                         size="s"
                                         iconStart="@tui.ellipsis-vertical"
@@ -190,8 +224,13 @@
                             </tr>
                         }
                     } @else {
-                        <tr>
-                            <td colspan="5">
+                        <tr
+                            class="team-details__table-row team-details__table-row_empty"
+                        >
+                            <td
+                                class="team-details__table-cell team-details__table-cell_empty"
+                                colspan="5"
+                            >
                                 <div class="team-details__empty">
                                     <tui-icon icon="@tui.users" />
 
@@ -215,79 +254,43 @@
 
         <footer class="team-details__footer">
             <span class="team-details__counter" [tuiSkeleton]="isLoading()">
-                @if (team(); as teamData) {
-                    Показано {{ teamMembers().length }} из
-                    {{ teamData.membersCount ?? teamData._count?.members ?? 0 }}
-                    участников
-                } @else {
-                    Показано 0 из 0 участников
-                }
+                Показано {{ paginatedMembers().length }} из
+                {{ teamMembers().length }} участников
             </span>
 
             <div class="team-details__pagination" [tuiSkeleton]="isLoading()">
                 <button
                     tuiIconButton
+                    type="button"
                     appearance="flat"
                     size="s"
                     iconStart="@tui.chevron-left"
+                    [disabled]="!canGoPrev()"
+                    (click)="goToPrevPage()"
                 >
                     Назад
                 </button>
 
-                <button tuiButton size="s">1</button>
-
-                <button tuiButton appearance="flat" size="s"> 2 </button>
+                <span class="team-details__pagination-text">
+                    Страница {{ currentPage() }} из {{ totalPages() || 1 }}
+                </span>
 
                 <button
                     tuiIconButton
+                    type="button"
                     appearance="flat"
                     size="s"
                     iconStart="@tui.chevron-right"
+                    [disabled]="!canGoNext()"
+                    (click)="goToNextPage()"
                 >
                     Вперёд
                 </button>
             </div>
 
-            <button
-                tuiButton
-                appearance="flat"
-                size="s"
-                iconEnd="@tui.chevron-down"
-                [tuiSkeleton]="isLoading()"
-            >
-                Показывать: 10
-            </button>
+            <span class="team-details__page-size" [tuiSkeleton]="isLoading()">
+                Показывать: 7
+            </span>
         </footer>
     </section>
 }
-
-<ng-template
-    [tuiDialog]="isNoAccessDialogOpen()"
-    (tuiDialogChange)="isNoAccessDialogOpen.set($event)"
-    [tuiDialogOptions]="{size: 's'}"
->
-    <div class="no-access-dialog">
-        <div class="no-access-dialog__icon">
-            <tui-icon icon="@tui.lock-keyhole" />
-        </div>
-
-        <div class="no-access-dialog__content">
-            <h2 class="no-access-dialog__title">Недостаточно прав</h2>
-
-            <p class="no-access-dialog__text">
-                Редактировать настройки команды могут только создатель или
-                администратор команды.
-            </p>
-        </div>
-
-        <div class="no-access-dialog__footer">
-            <button
-                tuiButton
-                size="m"
-                (click)="isNoAccessDialogOpen.set(false)"
-            >
-                Понятно
-            </button>
-        </div>
-    </div>
-</ng-template>
