@@ -40,30 +40,31 @@
                     </span>
                 </div>
             </div>
+            @if (canManageTeam()) {
+                <div class="team-details__actions">
+                    <button
+                        tuiButton
+                        size="m"
+                        iconStart="@tui.user-plus"
+                        [tuiSkeleton]="isLoading()"
+                    >
+                        Пригласить участника
+                    </button>
 
-            <div class="team-details__actions">
-                <button
-                    tuiButton
-                    size="m"
-                    iconStart="@tui.user-plus"
-                    [tuiSkeleton]="isLoading()"
-                >
-                    Пригласить участника
-                </button>
-
-                <button
-                    tuiIconButton
-                    appearance="flat"
-                    size="m"
-                    iconStart="@tui.ellipsis-vertical"
-                    tuiHint="Перейти к настройкам команды"
-                    tuiHintDirection="top-start"
-                    [tuiSkeleton]="isLoading()"
-                    (click)="team() && openTeamSettings(team()!)"
-                >
-                    Настройки команды
-                </button>
-            </div>
+                    <button
+                        tuiIconButton
+                        appearance="flat"
+                        size="m"
+                        iconStart="@tui.ellipsis-vertical"
+                        tuiHint="Перейти к настройкам команды"
+                        tuiHintDirection="top-start"
+                        [tuiSkeleton]="isLoading()"
+                        (click)="team() && openTeamSettings(team()!)"
+                    >
+                        Настройки команды
+                    </button>
+                </div>
+            }
         </header>
 
         <div class="team-details__toolbar">

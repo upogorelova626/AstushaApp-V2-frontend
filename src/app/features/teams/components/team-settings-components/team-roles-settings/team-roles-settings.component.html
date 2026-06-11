@@ -49,32 +49,9 @@
             </div>
 
             <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">2</span>
-
-                <tui-icon
-                    class="team-roles-settings-card__chevron"
-                    icon="@tui.chevron-right"
-                />
-            </div>
-        </button>
-
-        <button
-            tuiButton
-            appearance="flat"
-            class="team-roles-settings-card__item"
-        >
-            <div class="team-roles-settings-card__item-info">
-                <span class="team-roles-settings-card__role-name">
-                    Владелец проектов
-                </span>
-
-                <span class="team-roles-settings-card__role-description">
-                    Управление проектами команды
-                </span>
-            </div>
-
-            <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">2</span>
+                <span class="team-roles-settings-card__count">{{
+                    adminCount()
+                }}</span>
 
                 <tui-icon
                     class="team-roles-settings-card__chevron"
@@ -94,12 +71,14 @@
                 </span>
 
                 <span class="team-roles-settings-card__role-description">
-                    Доступ к проектам команды
+                    Доступ к проектам и задачам команды
                 </span>
             </div>
 
             <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">7</span>
+                <span class="team-roles-settings-card__count">{{
+                    memberCount()
+                }}</span>
 
                 <tui-icon
                     class="team-roles-settings-card__chevron"

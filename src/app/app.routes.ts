@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {authGuard} from './features/auth/guards/auth.guard';
 import {projectManageGuard} from './features/projects/guards/project-manage.guard';
+import {teamManageGuard} from './features/teams/guards/team-manage.guard';
 
 export const routes: Routes = [
     {
@@ -97,7 +98,8 @@ export const routes: Routes = [
                             ),
                         data: {
                             breadcrumb: 'Настройки команды'
-                        }
+                        },
+                        canActivate: [teamManageGuard]
                     }
                 ]
             },

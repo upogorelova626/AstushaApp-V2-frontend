@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    computed,
     effect,
     inject,
     input,
@@ -20,7 +21,7 @@ import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize, forkJoin} from 'rxjs';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../../interfaces/team.interface';
-import {TeamMember} from '../../../interfaces/team-members.interface';
+import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {TeamsService} from '../../../services/teams.service';
 
@@ -84,6 +85,15 @@ export class TeamDetailComponent {
 
         this.isNoAccessDialogOpen.set(true);
     }
+
+    protected canManageTeam = computed(() => {
+        const team = this.team();
+        if (!team) {
+            return;
+        }
+
+        return team.myRole === TeamRole.Owner || team.myRole === TeamRole.Admin;
+    });
 
     private loadTeamData(teamId: string) {
         this.isLoading.set(true);

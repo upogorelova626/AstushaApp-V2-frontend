@@ -1,6 +1,6 @@
 .team-danger-zone-card {
-    padding: 24px;
     margin-bottom: 10px;
+    padding: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -8,84 +8,172 @@
     border: 1px solid var(--color-danger);
     border-radius: 5px;
     background: var(--color-card-bg);
-}
 
-.team-danger-zone-card__content {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
+    &__content {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
 
-.team-danger-zone-card__icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid var(--color-danger);
-    border-radius: 14px;
-    color: var(--color-danger);
-    background: var(--color-danger-bg-soft);
-}
+    &__icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border: 1px solid var(--color-danger);
+        border-radius: 14px;
+        color: var(--color-danger);
+        background: var(--color-danger-bg-soft);
+    }
 
-.team-danger-zone-card__title {
-    margin: 0;
-    color: var(--color-danger);
-    font-size: 20px;
-    line-height: 26px;
-    font-weight: 700;
-}
+    &__title {
+        margin: 0;
+        color: var(--color-danger);
+        font: var(--tui-typography-heading-h5);
+    }
 
-.team-danger-zone-card__description {
-    margin: 4px 0 0;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
+    &__description {
+        margin: 4px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-ui-m);
+        line-height: 1.4;
+    }
 }
 
 .delete-team-dialog {
-    padding: 4px 0 0;
+    padding-top: 4px;
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    &__icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border: 1px solid var(--color-danger);
+        border-radius: 14px;
+        color: var(--color-danger);
+        background: var(--color-danger-bg-soft);
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+
+    &__description {
+        margin: 8px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-ui-m);
+        line-height: 1.4;
+    }
+
+    &__footer {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
 }
 
-.delete-team-dialog__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
+@media (max-width: 900px) {
+    .team-danger-zone-card {
+        padding: 20px;
+        gap: 18px;
+
+        &__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        &__title {
+            font: var(--tui-typography-heading-h6);
+        }
+    }
 }
 
-.delete-team-dialog__icon {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid var(--color-danger);
-    border-radius: 14px;
-    color: var(--color-danger);
-    background: var(--color-danger-bg-soft);
+@media (max-width: 640px) {
+    .team-danger-zone-card {
+        padding: 16px;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 16px;
+
+        &__content {
+            align-items: flex-start;
+        }
+
+        &__description {
+            font: var(--tui-typography-ui-s);
+        }
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .delete-team-dialog {
+        &__header {
+            gap: 12px;
+        }
+
+        &__icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+        }
+
+        &__title {
+            font: var(--tui-typography-heading-h6);
+        }
+
+        &__description {
+            font: var(--tui-typography-ui-s);
+        }
+
+        &__footer {
+            flex-direction: column-reverse;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
 }
 
-.delete-team-dialog__title {
-    margin: 0;
-    color: var(--color-text-primary);
-    font-size: 22px;
-    line-height: 28px;
-    font-weight: 700;
-}
+@media (max-width: 420px) {
+    .team-danger-zone-card {
+        padding: 14px;
 
-.delete-team-dialog__description {
-    margin: 8px 0 0;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-}
+        &__content {
+            gap: 12px;
+        }
 
-.delete-team-dialog__footer {
-    margin-top: 24px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+        &__icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+        }
+    }
+
+    .delete-team-dialog {
+        &__header {
+            flex-direction: column;
+        }
+
+        &__footer {
+            margin-top: 20px;
+        }
+    }
 }

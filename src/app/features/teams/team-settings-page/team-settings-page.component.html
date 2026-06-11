@@ -1,37 +1,38 @@
-<section class="team-settings-page">
-    <div class="team-settings-page__content">
-        <div class="team-settings-page__columns">
-            <div class="team-settings-page__column">
-                <app-team-main-settings
-                    class="team-settings-page__card"
-                    [team]="team()"
-                    [isLoading]="isLoading()"
-                />
+@if (teamId()) {
+    <section class="team-settings-page">
+        <div class="team-settings-page__content">
+            <div class="team-settings-page__columns">
+                <div class="team-settings-page__column">
+                    <app-team-main-settings
+                        class="team-settings-page__card"
+                        [team]="team()"
+                        [isLoading]="isLoading()"
+                    />
 
-                @if (teamId()) {
                     <app-team-members-settings
                         class="team-settings-page__card"
                         [teamId]="teamId()!"
                     />
-                }
-            </div>
+                </div>
 
-            <div class="team-settings-page__column">
-                @if (teamId()) {
+                <div class="team-settings-page__column">
                     <app-team-invite-member
                         class="team-settings-page__card"
                         [teamId]="teamId()!"
                     />
-                }
 
-                <app-team-roles-settings class="team-settings-page__card" />
+                    <app-team-roles-settings
+                        class="team-settings-page__card"
+                        [team]="team()"
+                    />
+                </div>
             </div>
-        </div>
 
-        @if (team()?.myRole === 'OWNER') {
-            <app-team-danger-zone
-                class="team-settings-page__card team-settings-page__danger"
-            />
-        }
-    </div>
-</section>
+            @if (team()?.myRole === 'OWNER') {
+                <app-team-danger-zone
+                    class="team-settings-page__card team-settings-page__danger"
+                />
+            }
+        </div>
+    </section>
+}
