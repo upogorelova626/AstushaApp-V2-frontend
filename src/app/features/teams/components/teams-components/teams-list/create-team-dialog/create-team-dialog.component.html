@@ -1,0 +1,56 @@
+<form class="create-team-dialog" [formGroup]="form">
+    <header class="create-team-dialog__header">
+        <p class="create-team-dialog__description">
+            Укажите название и краткое описание новой команды.
+        </p>
+    </header>
+
+    <div class="create-team-dialog__fields">
+        <tui-textfield tuiTextfieldSize="m">
+            <label tuiLabel>Название команды</label>
+
+            <input
+                tuiInput
+                type="text"
+                placeholder="Например, AI-Платформа"
+                formControlName="name"
+            />
+        </tui-textfield>
+
+        <tui-error
+            [formControl]="form.controls.name"
+            [order]="['maxlength', 'required']"
+        />
+
+        <tui-textfield tuiTextfieldSize="m">
+            <label tuiLabel>Описание команды</label>
+
+            <textarea
+                tuiTextarea
+                placeholder="Расскажите, чем занимается команда"
+                formControlName="description"
+            ></textarea>
+        </tui-textfield>
+
+        <tui-error
+            [formControl]="form.controls.description"
+            [order]="['maxlength']"
+        />
+    </div>
+
+    <footer class="create-team-dialog__footer">
+        <button
+            type="button"
+            tuiButton
+            appearance="flat"
+            size="m"
+            (click)="closeCreateTeamDialog()"
+        >
+            Отмена
+        </button>
+
+        <button type="button" tuiButton size="m" (click)="createTeam()">
+            Создать команду
+        </button>
+    </footer>
+</form>

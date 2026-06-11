@@ -26,13 +26,13 @@
     @if (isLoading()) {
         <tui-loader class="loader"></tui-loader>
     } @else {
-        @if (teams().length && !isLoading()) {
+        @if (teams().length) {
             <div class="teams-list__items">
-                @for (team of teams(); track team.id) {
+                @for (team of previewTeams(); track team.id) {
                     <button
                         tuiButton
                         appearance="flat"
-                        class="teams-list__item teams-list__item_active"
+                        class="teams-list__item"
                         (click)="selectTeam(team.id)"
                     >
                         <div class="teams-list__avatar">
@@ -90,79 +90,17 @@
         }
     }
 
-    @if (teams().length > 3) {
+    @if (teams().length > 5) {
         <button
             tuiButton
+            type="button"
             appearance="flat"
             size="s"
             class="teams-list__show-more"
             iconEnd="@tui.chevron-down"
+            (click)="openAllTeamsDialog()"
         >
             Показать ещё команды
         </button>
     }
-
-    <ng-template
-        [(tuiDialog)]="isCreateTeamDialogOpen"
-        [tuiDialogOptions]="{size: 'm'}"
-    >
-        <form class="create-team-dialog" [formGroup]="form">
-            <header class="create-team-dialog__header">
-                <h2 class="create-team-dialog__title">Создать команду</h2>
-
-                <p class="create-team-dialog__description">
-                    Укажите название и краткое описание новой команды.
-                </p>
-            </header>
-
-            <div class="create-team-dialog__fields">
-                <tui-textfield tuiTextfieldSize="m">
-                    <label tuiLabel>Название команды</label>
-
-                    <input
-                        tuiInput
-                        type="text"
-                        placeholder="Например, AI-Платформа"
-                        formControlName="name"
-                    />
-                </tui-textfield>
-
-                <tui-error
-                    [formControl]="form.controls.name"
-                    [order]="['maxlength', 'required']"
-                />
-
-                <tui-textfield tuiTextfieldSize="m">
-                    <label tuiLabel>Описание команды</label>
-
-                    <textarea
-                        tuiTextarea
-                        placeholder="Расскажите, чем занимается команда"
-                        formControlName="description"
-                    ></textarea>
-                </tui-textfield>
-
-                <tui-error
-                    [formControl]="form.controls.description"
-                    [order]="['maxlength']"
-                />
-            </div>
-
-            <footer class="create-team-dialog__footer">
-                <button
-                    type="button"
-                    tuiButton
-                    appearance="flat"
-                    size="m"
-                    (click)="closeCreateTeamDialog()"
-                >
-                    Отмена
-                </button>
-
-                <button type="button" tuiButton size="m" (click)="createTeam()">
-                    Создать команду
-                </button>
-            </footer>
-        </form>
-    </ng-template>
 </section>

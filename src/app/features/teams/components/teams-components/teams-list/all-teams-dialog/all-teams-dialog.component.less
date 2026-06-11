@@ -1,0 +1,93 @@
+.all-teams-dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.teams-list {
+    &__item {
+        width: 100%;
+        min-height: 112px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 14px;
+        border: 1px solid var(--color-card-border);
+        border-radius: 5px;
+        text-align: left;
+        background: var(--color-card-bg);
+    }
+
+    &__avatar {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 50%;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-ui-m);
+        font-weight: 700;
+        background: #eef2ff;
+    }
+
+    &__content {
+        min-width: 0;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__name {
+        min-width: 0;
+        overflow: hidden;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h6);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__badge {
+        padding: 4px 10px;
+        flex-shrink: 0;
+        border: 1px solid var(--color-primary-light);
+        border-radius: 999px;
+        color: var(--color-primary-light);
+        font: var(--tui-typography-ui-s);
+        background: var(--color-card-bg);
+    }
+
+    &__description {
+        margin: 0;
+        overflow: hidden;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-ui-m);
+        line-height: 1.4;
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-ui-s);
+
+        tui-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--color-text-muted);
+        }
+    }
+}
