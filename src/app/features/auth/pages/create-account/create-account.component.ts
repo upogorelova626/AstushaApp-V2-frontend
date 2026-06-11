@@ -1,5 +1,10 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    signal
+} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -20,7 +25,6 @@ import {TuiPassword} from '@taiga-ui/kit';
 import {AuthService} from '../../services/auth.service';
 import {passwordMatchValidator} from '../../validators/password-match.validator';
 import {VALIDATION_ERRORS} from '../../../../shared/constants/validation-errors';
-import {catchError, EMPTY, tap} from 'rxjs';
 
 @Component({
     selector: 'app-create-account',
@@ -108,24 +112,6 @@ export class CreateAccountComponent {
             password
         };
 
-        this.authService
-            .createAccount(payload)
-            .pipe(
-                tap(() => {
-                    this.router.navigate(['/dashboard']);
-                }),
-                catchError(error => {
-                    this.dialogs
-                        .open(this.getErrorMessage(error), {
-                            label: 'Ошибка создания аккаунта',
-                            size: 's'
-                        })
-                        .subscribe();
-
-                    return EMPTY;
-                })
-            )
-            .subscribe();
         this.authService.createAccount(payload).subscribe({
             next: () => {
                 this.router.navigate(['/dashboard']);
