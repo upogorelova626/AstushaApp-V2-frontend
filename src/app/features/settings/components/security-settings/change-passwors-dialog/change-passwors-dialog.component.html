@@ -1,0 +1,93 @@
+<div>
+    <form class="change-password-form" [formGroup]="form">
+        <div class="change-password-form__fields">
+            <div class="change-password-form__field">
+                <tui-textfield>
+                    <label tuiLabel>Введите старый пароль</label>
+
+                    <input
+                        tuiInput
+                        tuiAutoFocus
+                        type="password"
+                        name="currentPassword"
+                        formControlName="currentPassword"
+                    />
+                    <tui-icon tuiPassword />
+                </tui-textfield>
+
+                <tui-error
+                    [formControl]="form.controls.currentPassword"
+                    [order]="[
+                        'required',
+                        'minlength',
+                        'maxlength',
+                        'serverError'
+                    ]"
+                />
+            </div>
+
+            <div class="change-password-form__field">
+                <tui-textfield>
+                    <label tuiLabel>Введите новый пароль</label>
+
+                    <input
+                        tuiInput
+                        type="password"
+                        name="newPassword"
+                        formControlName="newPassword"
+                    />
+                    <tui-icon tuiPassword />
+                </tui-textfield>
+
+                <tui-error
+                    [formControl]="form.controls.newPassword"
+                    [order]="[
+                        'required',
+                        'minlength',
+                        'maxlength',
+                        'samePassword'
+                    ]"
+                />
+            </div>
+
+            <div class="change-password-form__field">
+                <tui-textfield>
+                    <label tuiLabel>Повторите новый пароль</label>
+
+                    <input
+                        tuiInput
+                        type="password"
+                        name="confirmNewPassword"
+                        formControlName="confirmNewPassword"
+                    />
+                    <tui-icon tuiPassword />
+                </tui-textfield>
+
+                <tui-error
+                    [formControl]="form.controls.confirmNewPassword"
+                    [order]="[
+                        'required',
+                        'minlength',
+                        'maxlength',
+                        'newPasswordMismatch'
+                    ]"
+                />
+            </div>
+        </div>
+
+        <footer class="change-password-form__footer">
+            <button tuiButton type="button" (click)="changePassword()">
+                Сохранить
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                (click)="closeChangePasswordDialog()"
+            >
+                Отмена
+            </button>
+        </footer>
+    </form>
+</div>

@@ -31,6 +31,7 @@
 
             <button
                 tuiButton
+                type="button"
                 appearance="flat"
                 size="s"
                 iconEnd="@tui.chevron-right"
@@ -38,146 +39,6 @@
             >
                 Изменить пароль
             </button>
-
-            <ng-template
-                [(tuiDialog)]="isChangeDialogOpen"
-                [tuiDialogOptions]="{size: 'm'}"
-            >
-                <form
-                    class="change-password-form"
-                    [formGroup]="form"
-                    (ngSubmit)="changePassword()"
-                >
-                    <div class="change-password-form__fields">
-                        <tui-textfield>
-                            <label tuiLabel>Введите старый пароль</label>
-
-                            <input
-                                tuiInput
-                                tuiAutoFocus
-                                type="password"
-                                name="currentPassword"
-                                formControlName="currentPassword"
-                            />
-                        </tui-textfield>
-
-                        @if (
-                            form.controls.currentPassword.hasError(
-                                'required'
-                            ) && form.controls.currentPassword.touched
-                        ) {
-                            <tui-error error="Поле обязательно" />
-                        }
-
-                        @if (
-                            form.controls.currentPassword.hasError(
-                                'minlength'
-                            ) && form.controls.currentPassword.touched
-                        ) {
-                            <tui-error error="Минимум 6 символов" />
-                        }
-
-                        @if (
-                            form.controls.currentPassword.hasError(
-                                'maxlength'
-                            ) && form.controls.currentPassword.touched
-                        ) {
-                            <tui-error error="Максимум 72 символа" />
-                        }
-
-                        <tui-textfield>
-                            <label tuiLabel>Введите новый пароль</label>
-
-                            <input
-                                tuiInput
-                                type="password"
-                                name="newPassword"
-                                formControlName="newPassword"
-                            />
-                        </tui-textfield>
-
-                        @if (
-                            form.controls.newPassword.hasError('required') &&
-                            form.controls.newPassword.touched
-                        ) {
-                            <tui-error error="Поле обязательно" />
-                        }
-
-                        @if (
-                            form.controls.newPassword.hasError('minlength') &&
-                            form.controls.newPassword.touched
-                        ) {
-                            <tui-error error="Минимум 6 символов" />
-                        }
-
-                        @if (
-                            form.controls.newPassword.hasError('maxlength') &&
-                            form.controls.newPassword.touched
-                        ) {
-                            <tui-error error="Максимум 72 символа" />
-                        }
-
-                        <tui-textfield>
-                            <label tuiLabel>Повторите новый пароль</label>
-
-                            <input
-                                tuiInput
-                                type="password"
-                                name="confirmNewPassword"
-                                formControlName="confirmNewPassword"
-                            />
-                        </tui-textfield>
-
-                        @if (
-                            form.controls.confirmNewPassword.hasError(
-                                'required'
-                            ) && form.controls.confirmNewPassword.touched
-                        ) {
-                            <tui-error error="Поле обязательно" />
-                        }
-
-                        @if (
-                            form.controls.confirmNewPassword.hasError(
-                                'minlength'
-                            ) && form.controls.confirmNewPassword.touched
-                        ) {
-                            <tui-error error="Минимум 6 символов" />
-                        }
-
-                        @if (
-                            form.controls.confirmNewPassword.hasError(
-                                'maxlength'
-                            ) && form.controls.confirmNewPassword.touched
-                        ) {
-                            <tui-error error="Максимум 72 символа" />
-                        }
-
-                        @if (form.hasError('samePassword') && form.touched) {
-                            <tui-error
-                                error="Новый пароль не должен совпадать со старым"
-                            />
-                        }
-
-                        @if (
-                            form.hasError('newPasswordMismatch') && form.touched
-                        ) {
-                            <tui-error error="Новые пароли не совпадают" />
-                        }
-                    </div>
-
-                    <footer class="change-password-form__footer">
-                        <button tuiButton type="submit">Сохранить</button>
-
-                        <button
-                            tuiButton
-                            appearance="flat"
-                            (click)="closeChangePasswordDialog()"
-                        >
-                            Отмена
-                        </button>
-                    </footer>
-                </form>
-            </ng-template>
         </div>
 
         <div class="security-card__item">
@@ -199,6 +60,7 @@
 
             <button
                 tuiButton
+                type="button"
                 appearance="flat"
                 size="s"
                 iconEnd="@tui.chevron-right"

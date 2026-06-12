@@ -1,29 +1,64 @@
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {AbstractControl, ValidatorFn} from '@angular/forms';
 
-export const differentPasswordValidator = (): ValidatorFn => {
-    return (control: AbstractControl): ValidationErrors | null => {
-        const currentPassword = control.get('currentPassword')?.value;
-        const newPassword = control.get('newPassword')?.value;
+export const changePasswordValidator = (): ValidatorFn => {
+    return (control: AbstractControl) => {
+        const currentPasswordControl = control.get('currentPassword');
+        const newPasswordControl = control.get('newPassword');
+        const confirmNewPasswordControl = control.get('confirmNewPassword');
 
-        if (!currentPassword || !newPassword) {
-            return null;
+        const currentPassword = currentPasswordControl?.value;
+        const newPassword = newPasswordControl?.value;
+        const confirmNewPassword = confirmNewPasswordControl?.value;
+
+        if (newPasswordControl) {
+            if (
+                currentPassword &&
+                newPassword &&
+                currentPassword === newPassword
+            ) {
+                setControlError(newPasswordControl, 'samePassword');
+            } else {
+                removeControlError(newPasswordControl, 'samePassword');
+            }
         }
 
-        return currentPassword === newPassword ? {samePassword: true} : null;
+        if (confirmNewPasswordControl) {
+            if (
+                newPassword &&
+                confirmNewPassword &&
+                newPassword !== confirmNewPassword
+            ) {
+                setControlError(
+                    confirmNewPasswordControl,
+                    'newPasswordMismatch'
+                );
+            } else {
+                removeControlError(
+                    confirmNewPasswordControl,
+                    'newPasswordMismatch'
+                );
+            }
+        }
+
+        return null;
     };
 };
 
-export const newPasswordMatchValidator = (): ValidatorFn => {
-    return (control: AbstractControl): ValidationErrors | null => {
-        const newPassword = control.get('newPassword')?.value;
-        const confirmNewPassword = control.get('confirmNewPassword')?.value;
+function setControlError(control: AbstractControl, errorKey: string): void {
+    control.setErrors({
+        ...control.errors,
+        [errorKey]: true
+    });
+}
 
-        if (!newPassword || !confirmNewPassword) {
-            return null;
-        }
+function removeControlError(control: AbstractControl, errorKey: string): void {
+    const errors = control.errors;
 
-        return newPassword !== confirmNewPassword
-            ? {newPasswordMismatch: true}
-            : null;
-    };
-};
+    if (!errors?.[errorKey]) {
+        return;
+    }
+
+    const {[errorKey]: _, ...restErrors} = errors;
+
+    control.setErrors(Object.keys(restErrors).length ? restErrors : null);
+}

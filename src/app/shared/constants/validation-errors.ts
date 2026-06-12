@@ -13,11 +13,16 @@ export const VALIDATION_ERRORS = {
 
     passwordMismatch: 'Пароли не совпадают',
 
+    samePassword: 'Новый пароль не должен совпадать со старым',
+
+    newPasswordMismatch: 'Новые пароли не совпадают',
+
     pastDate: 'Выбранная дата не может быть раньше чем сегодня',
 
     deadlineBeforeStartDate: 'Дедлайн не может быть раньше чем дата старта',
 
     repositoryUrl:
         'Введите корректную ссылку на GitHub, GitLab или Bitbucket репозиторий',
+
     serverError: (message: string) => message
 };

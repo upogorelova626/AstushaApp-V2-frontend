@@ -18,12 +18,15 @@ import {
     switchMap,
     tap
 } from 'rxjs';
+import {AuthService} from '../../auth/services/auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsersService {
     private readonly http = inject(HttpClient);
+    private readonly authService = inject(AuthService);
+
     private readonly baseApiUrl = 'http://localhost:3000';
 
     private readonly refreshProfile$ = new Subject<void>();
@@ -71,10 +74,15 @@ export class UsersService {
     }
 
     changePassword(payload: ChangePasswordRequest) {
-        return this.http.patch<SuccessResponse>(
-            `${this.baseApiUrl}/users/profile/password`,
-            payload
-        );
+        return this.http
+            .patch<SuccessResponse>(
+                `${this.baseApiUrl}/users/profile/password`,
+                payload
+            )
+            .pipe(
+                switchMap(() => this.authService.logout()),
+                tap(() => this.clearProfile())
+            );
     }
 
     lookupUser(identifier: string) {
