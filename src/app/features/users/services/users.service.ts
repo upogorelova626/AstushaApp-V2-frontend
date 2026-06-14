@@ -5,7 +5,10 @@ import {
     SuccessResponse,
     UserLookupResult
 } from '../models/interfaces/user.interface';
-import {AuthUser} from '../../auth/models/interfaces/auth.interface';
+import {
+    AuthUser,
+    ChangeThemeRequest
+} from '../../auth/models/interfaces/auth.interface';
 import {
     catchError,
     map,
@@ -100,5 +103,15 @@ export class UsersService {
         return this.http
             .delete<AuthUser>(`${this.baseApiUrl}/users/profile/avatar`)
             .pipe(tap(() => this.refreshProfile$.next()));
+    }
+
+    changeTheme(payload: ChangeThemeRequest) {
+        return this.http
+            .patch<AuthUser>(`${this.baseApiUrl}/users/profile/theme`, payload)
+            .pipe(
+                tap(() => {
+                    this.reloadProfile();
+                })
+            );
     }
 }

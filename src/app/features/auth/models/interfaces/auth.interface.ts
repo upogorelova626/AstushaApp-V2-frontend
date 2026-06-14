@@ -1,3 +1,8 @@
+export enum Theme {
+    DARK = 'DARK',
+    LIGHT = 'LIGHT'
+}
+
 export interface RegisterRequest {
     login: string;
     email: string;
@@ -20,6 +25,7 @@ export interface AuthUser {
     about: string | null;
     createdAt: string;
     updatedAt: string;
+    theme: Theme;
 }
 export interface AuthResponse {
     user: AuthUser;
@@ -27,4 +33,8 @@ export interface AuthResponse {
 
 export interface LogoutResponse {
     success: boolean;
+}
+
+export interface ChangeThemeRequest {
+    theme: Theme;
 }

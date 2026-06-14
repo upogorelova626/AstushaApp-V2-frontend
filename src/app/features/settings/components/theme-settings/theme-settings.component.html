@@ -32,31 +32,28 @@
             <div class="theme-card__actions">
                 <button
                     tuiButton
-                    appearance="flat"
+                    type="button"
                     size="s"
                     iconStart="@tui.sun"
-                    (click)="changeTheme('light')"
+                    [appearance]="
+                        profile()?.theme === Theme.LIGHT ? 'primary' : 'flat'
+                    "
+                    (click)="changeTheme(Theme.LIGHT)"
                 >
                     Светлая
                 </button>
 
                 <button
                     tuiButton
+                    type="button"
                     size="s"
                     iconStart="@tui.moon"
-                    (click)="changeTheme('dark')"
+                    [appearance]="
+                        profile()?.theme === Theme.DARK ? 'primary' : 'flat'
+                    "
+                    (click)="changeTheme(Theme.DARK)"
                 >
                     Тёмная
-                </button>
-
-                <button
-                    tuiButton
-                    appearance="flat"
-                    size="s"
-                    iconStart="@tui.monitor"
-                    (click)="changeTheme('funny')"
-                >
-                    Системная
                 </button>
             </div>
         </div>
