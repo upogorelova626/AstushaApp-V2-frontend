@@ -42,4 +42,8 @@ export class ProjectDetailPageComponent {
     protected updateProject(project: Project) {
         this.outletData()?.updateProject(project);
     }
+
+    protected readonly canManageProject = computed(
+        () => this.outletData()?.canManageProject ?? false
+    );
 }

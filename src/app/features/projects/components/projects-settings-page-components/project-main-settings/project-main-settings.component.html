@@ -176,28 +176,26 @@
         }
     </form>
 
-    @if (isEditing() && !isFormLoading()) {
-        <footer class="project-main-settings__footer">
-            <button
-                tuiButton
-                size="m"
-                [disabled]="isSaving()"
-                (click)="saveChanges()"
-                type="button"
-            >
-                Сохранить изменения
-            </button>
+    <footer class="project-main-settings__footer">
+        <button
+            tuiButton
+            size="m"
+            [disabled]="isSaving()"
+            (click)="saveChanges()"
+            type="button"
+        >
+            Сохранить изменения
+        </button>
 
-            <button
-                type="button"
-                tuiButton
-                appearance="flat"
-                size="m"
-                [disabled]="isSaving()"
-                (click)="cancelEditing()"
-            >
-                Отмена
-            </button>
-        </footer>
-    }
+        <button
+            type="button"
+            tuiButton
+            appearance="flat"
+            size="m"
+            [disabled]="isSaving()"
+            (click)="cancelEditing()"
+        >
+            Отмена
+        </button>
+    </footer>
 </div>

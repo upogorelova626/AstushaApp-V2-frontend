@@ -10,6 +10,11 @@ import {ProjectRepository} from '../../../../interfaces/project-repositore.inter
 import {ProjectRepositoriesService} from '../../../../services/project-repositories.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
+type AllReposDialogData = {
+    repos: ProjectRepository[];
+    canManageProject: boolean;
+};
+
 @Component({
     selector: 'app-all-project-repos',
     imports: [TuiIcon, TuiButton],
@@ -19,8 +24,9 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class AllProjectReposComponent {
     protected readonly context =
-        injectContext<TuiDialogContext<boolean, ProjectRepository[]>>();
-    protected readonly repos = this.context.data;
+        injectContext<TuiDialogContext<boolean, AllReposDialogData>>();
+    protected readonly repos = this.context.data.repos;
+    protected readonly canManageProject = this.context.data.canManageProject;
 
     private readonly projectReposService = inject(ProjectRepositoriesService);
     private readonly destroyRef = inject(DestroyRef);

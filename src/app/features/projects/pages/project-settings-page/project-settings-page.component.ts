@@ -12,6 +12,7 @@ import {ProjectTeamSettingsComponent} from '../../components/projects-settings-p
 import {ProjectWorkflowSettingsComponent} from '../../components/projects-settings-page-components/project-workflow-settings/project-workflow-settings.component';
 import {Project} from '../../interfaces/project.interface';
 import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
+import {ProjectRepositoriesComponent} from '../../components/project-details-page-components/project-repositories/project-repositories.component';
 
 @Component({
     selector: 'app-project-settings-page',
@@ -19,7 +20,8 @@ import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-da
         ProjectMainSettingsComponent,
         ProjectTeamSettingsComponent,
         ProjectWorkflowSettingsComponent,
-        ProjectDangerZoneComponent
+        ProjectDangerZoneComponent,
+        ProjectRepositoriesComponent
     ],
     templateUrl: './project-settings-page.component.html',
     styleUrl: './project-settings-page.component.less',
@@ -40,4 +42,8 @@ export class ProjectSettingsPageComponent {
     protected updateProject(project: Project) {
         this.outletData()?.updateProject(project);
     }
+
+    protected readonly canManageProject = computed(
+        () => this.outletData()?.canManageProject ?? false
+    );
 }

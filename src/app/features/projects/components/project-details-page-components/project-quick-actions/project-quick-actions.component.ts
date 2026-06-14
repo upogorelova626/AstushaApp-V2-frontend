@@ -23,26 +23,9 @@ export class ProjectQuickActionsComponent {
     private readonly authService = inject(AuthService);
 
     readonly project = input<Project | null>(null);
+    readonly canManageProject = input(false);
 
     private readonly me = toSignal(this.authService.me(), {
         initialValue: null
-    });
-
-    protected readonly canManageProject = computed(() => {
-        const project = this.project();
-        const me = this.me();
-
-        if (!project || !me) {
-            return false;
-        }
-
-        const currentProjectMember = project.members.find(
-            member => member.userId === me.id
-        );
-
-        return (
-            currentProjectMember?.role === 'OWNER' ||
-            currentProjectMember?.role === 'ADMIN'
-        );
     });
 }

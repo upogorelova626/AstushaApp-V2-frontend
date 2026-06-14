@@ -9,7 +9,6 @@ import {
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {TuiSkeleton} from '@taiga-ui/kit';
-
 import {AuthService} from '../../features/auth/services/auth.service';
 import {ProjectNavigateComponent} from '../../features/projects/components/project-details-page-components/project-navigate/project-navigate.component';
 import {Project} from '../../features/projects/interfaces/project.interface';

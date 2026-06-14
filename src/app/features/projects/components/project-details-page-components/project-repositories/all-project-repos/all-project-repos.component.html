@@ -34,17 +34,18 @@
                 >
                     Открыть
                 </a>
-
-                <button
-                    type="button"
-                    tuiButton
-                    size="s"
-                    appearance="outline"
-                    iconStart="@tui.trash"
-                    (click)="deleteRepo(repo.projectId, repo.id)"
-                >
-                    Удалить
-                </button>
+                @if (canManageProject) {
+                    <button
+                        type="button"
+                        tuiButton
+                        size="s"
+                        appearance="outline"
+                        iconStart="@tui.trash"
+                        (click)="deleteRepo(repo.projectId, repo.id)"
+                    >
+                        Удалить
+                    </button>
+                }
             </div>
         </article>
     }

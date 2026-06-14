@@ -17,6 +17,11 @@
                 <app-project-workflow-settings [project]="project" />
 
                 <app-project-team-settings [projectId]="project.id" />
+
+                <app-project-repositories
+                    [project]="project"
+                    [canManageProject]="canManageProject()"
+                />
             </div>
         </div>
     }

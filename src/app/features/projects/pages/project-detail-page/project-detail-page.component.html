@@ -8,11 +8,13 @@
         <app-project-team-card
             class="project-detail-page__card"
             [project]="project()"
+            [canManageProject]="canManageProject()"
         />
 
         <app-project-quick-actions
             class="project-detail-page__card"
             [project]="project()"
+            [canManageProject]="canManageProject()"
         />
     </div>
 
@@ -20,6 +22,7 @@
         <app-project-repositories
             class="project-detail-page__card"
             [project]="project()"
+            [canManageProject]="canManageProject()"
         />
 
         <app-project-activity class="project-detail-page__card" />

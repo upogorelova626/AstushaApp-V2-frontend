@@ -29,13 +29,20 @@ import {AllProjectReposComponent} from './all-project-repos/all-project-repos.co
 
 @Component({
     selector: 'app-project-repositories',
-    imports: [TuiButton, TuiIcon, RepositoryNamePipe, RepositoryHrefPipe],
+    imports: [
+        TuiButton,
+        TuiIcon,
+        RepositoryNamePipe,
+        RepositoryHrefPipe,
+        TuiSkeleton
+    ],
     templateUrl: './project-repositories.component.html',
     styleUrl: './project-repositories.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectRepositoriesComponent implements OnInit {
     readonly project = input<Project | null>(null);
+    readonly canManageProject = input(false);
 
     private readonly projectReposService = inject(ProjectRepositoriesService);
     private readonly injector = inject(Injector);
@@ -46,7 +53,7 @@ export class ProjectRepositoriesComponent implements OnInit {
     protected readonly repos = signal<ProjectRepository[]>([]);
     protected readonly isLoading = signal(false);
 
-    ngOnInit(): void {
+    ngOnInit() {
         const project = this.project();
 
         if (!project) {
@@ -56,7 +63,7 @@ export class ProjectRepositoriesComponent implements OnInit {
         this.loadRepos(project.id);
     }
 
-    protected addLink(): void {
+    protected addLink() {
         const project = this.project();
 
         if (!project) {
@@ -86,7 +93,7 @@ export class ProjectRepositoriesComponent implements OnInit {
             .subscribe();
     }
 
-    private loadRepos(projectId: string): void {
+    private loadRepos(projectId: string) {
         this.isLoading.set(true);
 
         this.projectReposService
@@ -127,6 +134,7 @@ export class ProjectRepositoriesComponent implements OnInit {
     showAllRepos() {
         const repos = this.repos();
         const project = this.project();
+        const canManageProject = this.canManageProject();
 
         if (!project) {
             return;
@@ -138,7 +146,7 @@ export class ProjectRepositoriesComponent implements OnInit {
                 {
                     label: 'Все репозитории',
                     size: 'l',
-                    data: repos
+                    data: {repos, canManageProject}
                 }
             )
             .pipe(

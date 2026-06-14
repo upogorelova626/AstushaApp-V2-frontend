@@ -59,6 +59,33 @@
                 icon="@tui.chevron-right"
             />
         </button>
+
+        <button
+            tuiButton
+            class="project-quick-actions__button"
+            appearance="flat"
+            [routerLink]="['/dashboard/projects', project()?.id, 'sprints']"
+        >
+            <tui-icon
+                class="project-quick-actions__button-icon"
+                icon="@tui.chart-no-axes-gantt"
+            />
+
+            <span class="project-quick-actions__button-content">
+                <span class="project-quick-actions__button-title">
+                    Перейти к спринтам проекта
+                </span>
+
+                <span class="project-quick-actions__button-description">
+                    Просмотреть информацию о текущем спринте
+                </span>
+            </span>
+
+            <tui-icon
+                class="project-quick-actions__button-arrow"
+                icon="@tui.chevron-right"
+            />
+        </button>
         @if (canManageProject()) {
             <button
                 tuiButton
@@ -82,6 +109,37 @@
 
                     <span class="project-quick-actions__button-description">
                         Управление параметрами проекта
+                    </span>
+                </span>
+
+                <tui-icon
+                    class="project-quick-actions__button-arrow"
+                    icon="@tui.chevron-right"
+                />
+            </button>
+        } @else {
+            <button
+                tuiButton
+                class="project-quick-actions__button"
+                appearance="flat"
+                [routerLink]="[
+                    '/dashboard/projects',
+                    project()?.id,
+                    'settings'
+                ]"
+            >
+                <tui-icon
+                    class="project-quick-actions__button-icon"
+                    icon="@tui.settings"
+                />
+
+                <span class="project-quick-actions__button-content">
+                    <span class="project-quick-actions__button-title">
+                        Я не знаю что написать
+                    </span>
+
+                    <span class="project-quick-actions__button-description">
+                        И не знаю куда переходить
                     </span>
                 </span>
 

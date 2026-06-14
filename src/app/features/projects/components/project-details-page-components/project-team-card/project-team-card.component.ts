@@ -34,6 +34,7 @@ export class ProjectTeamCardComponent {
     private readonly projectsService = inject(ProjectsService);
 
     readonly project = input<ProjectListItem | null>(null);
+    readonly canManageProject = input(false);
     protected readonly team = signal<Team | null>(null);
     protected readonly isLoading = signal(false);
 

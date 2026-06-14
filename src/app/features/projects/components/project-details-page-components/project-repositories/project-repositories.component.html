@@ -35,7 +35,10 @@
         </div>
     } @else {
         @for (repo of previewRepos(); track repo.id) {
-            <article class="project-repositories-card__item">
+            <article
+                class="project-repositories-card__item"
+                [tuiSkeleton]="isLoading()"
+            >
                 <div class="project-repositories-card__item-icon">
                     <tui-icon icon="@tui.git-branch" />
                 </div>
@@ -65,17 +68,18 @@
                     >
                         Открыть
                     </a>
-
-                    <button
-                        type="button"
-                        tuiButton
-                        size="s"
-                        appearance="outline"
-                        iconStart="@tui.trash"
-                        (click)="deleteRepo(repo.id)"
-                    >
-                        Удалить
-                    </button>
+                    @if (canManageProject()) {
+                        <button
+                            type="button"
+                            tuiButton
+                            size="s"
+                            appearance="outline"
+                            iconStart="@tui.trash"
+                            (click)="deleteRepo(repo.id)"
+                        >
+                            Удалить
+                        </button>
+                    }
                 </div>
             </article>
         }
@@ -91,14 +95,16 @@
                 >
             }
             <div>
-                <button
-                    type="button"
-                    tuiButton
-                    iconStart="@tui.plus"
-                    (click)="addLink()"
-                >
-                    Добавить репозиторий
-                </button>
+                @if (canManageProject()) {
+                    <button
+                        type="button"
+                        tuiButton
+                        iconStart="@tui.plus"
+                        (click)="addLink()"
+                    >
+                        Добавить репозиторий
+                    </button>
+                }
             </div>
         </footer>
     }

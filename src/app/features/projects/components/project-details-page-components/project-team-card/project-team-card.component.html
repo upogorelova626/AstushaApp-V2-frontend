@@ -75,20 +75,25 @@
                     appearance="flat"
                     size="m"
                     iconStart="@tui.external-link"
-                    routerLink="members"
+                    [routerLink]="[
+                        '/dashboard/projects',
+                        project()?.id,
+                        'members'
+                    ]"
                 >
                     Открыть команду
                 </button>
-
-                <button
-                    tuiButton
-                    appearance="secondary-destructive"
-                    size="m"
-                    iconStart="@tui.unlink"
-                    (click)="removeProjectTeam()"
-                >
-                    Отвязать
-                </button>
+                @if (canManageProject()) {
+                    <button
+                        tuiButton
+                        appearance="secondary-destructive"
+                        size="m"
+                        iconStart="@tui.unlink"
+                        (click)="removeProjectTeam()"
+                    >
+                        Отвязать
+                    </button>
+                }
             </footer>
         } @else {
             <main class="project-team-card__content">
