@@ -16,56 +16,11 @@
 
     <button
         tuiButton
-        appearance="flat"
+        appearance="negative"
         size="m"
         iconStart="@tui.trash-2"
         (click)="openDeleteTeamDialog()"
     >
         Удалить команду
     </button>
-
-    <ng-template
-        [(tuiDialog)]="isDeleteTeamDialogOpen"
-        [tuiDialogOptions]="{size: 'm'}"
-    >
-        <div class="delete-team-dialog">
-            <header class="delete-team-dialog__header">
-                <div class="delete-team-dialog__icon">
-                    <tui-icon icon="@tui.trash-2" />
-                </div>
-
-                <div>
-                    <h2 class="delete-team-dialog__title">
-                        Удалить команду?
-                    </h2>
-
-                    <p class="delete-team-dialog__description">
-                        Это действие нельзя отменить. Команда и связанные с ней
-                        данные будут удалены.
-                    </p>
-                </div>
-            </header>
-
-            <footer class="delete-team-dialog__footer">
-                <button
-                    tuiButton
-                    appearance="flat"
-                    size="m"
-                    (click)="closeDeleteTeamDialog()"
-                >
-                    Отмена
-                </button>
-
-                <button
-                    tuiButton
-                    appearance="negative"
-                    size="m"
-                    iconStart="@tui.trash-2"
-                    (click)="deleteTeam()"
-                >
-                    Удалить команду
-                </button>
-            </footer>
-        </div>
-    </ng-template>
 </section>

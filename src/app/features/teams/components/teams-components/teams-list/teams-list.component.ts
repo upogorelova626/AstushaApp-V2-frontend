@@ -4,6 +4,7 @@ import {
     computed,
     inject,
     Injector,
+    input,
     OnInit,
     output,
     signal

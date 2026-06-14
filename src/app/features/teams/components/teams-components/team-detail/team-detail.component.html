@@ -64,7 +64,6 @@
                         [tuiSkeleton]="isLoading()"
                         (click)="team() && openTeamSettings(team()!)"
                     >
-                        Настройки команды
                     </button>
                 </div>
             }
@@ -87,18 +86,6 @@
             <button
                 tuiButton
                 type="button"
-                class="team-details__control"
-                appearance="flat"
-                size="m"
-                iconEnd="@tui.chevron-down"
-                [tuiSkeleton]="isLoading()"
-            >
-                Все роли
-            </button>
-
-            <button
-                tuiButton
-                type="button"
                 class="team-details__sort"
                 appearance="flat"
                 size="m"
@@ -106,28 +93,6 @@
                 [tuiSkeleton]="isLoading()"
             >
                 Сортировка: По имени (А–Я)
-            </button>
-
-            <button
-                tuiIconButton
-                type="button"
-                appearance="flat"
-                size="m"
-                iconStart="@tui.arrow-up-down"
-                [tuiSkeleton]="isLoading()"
-            >
-                Порядок сортировки
-            </button>
-
-            <button
-                tuiButton
-                type="button"
-                appearance="flat"
-                size="m"
-                iconStart="@tui.list-filter"
-                [tuiSkeleton]="isLoading()"
-            >
-                Фильтры
             </button>
         </div>
 
@@ -223,30 +188,6 @@
                                 </td>
                             </tr>
                         }
-                    } @else {
-                        <tr
-                            class="team-details__table-row team-details__table-row_empty"
-                        >
-                            <td
-                                class="team-details__table-cell team-details__table-cell_empty"
-                                colspan="5"
-                            >
-                                <div class="team-details__empty">
-                                    <tui-icon icon="@tui.users" />
-
-                                    <div>
-                                        <h3 class="team-details__empty-title">
-                                            Участников пока нет
-                                        </h3>
-
-                                        <p class="team-details__empty-text">
-                                            Пригласите участников, чтобы они
-                                            появились в списке команды.
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
                     }
                 </tbody>
             </table>

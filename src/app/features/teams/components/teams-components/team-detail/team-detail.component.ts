@@ -14,9 +14,10 @@ import {
     TuiHintDirective,
     TuiIcon,
     TuiInput,
+    TuiLabel,
     TuiTextfield
 } from '@taiga-ui/core';
-import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
+import {TuiAvatar, TuiDataListWrapper, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize, forkJoin} from 'rxjs';
 
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
@@ -24,6 +25,7 @@ import {Team} from '../../../interfaces/team.interface';
 import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {TeamsService} from '../../../services/teams.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-team-detail',
@@ -33,10 +35,11 @@ import {TeamsService} from '../../../services/teams.service';
         TuiButton,
         TuiHintDirective,
         TuiHint,
-        TuiIcon,
         TuiAvatar,
         TuiSkeleton,
-        TeamRoleLabelPipe
+        TeamRoleLabelPipe,
+        TuiLabel,
+        TuiDataListWrapper
     ],
     templateUrl: './team-detail.component.html',
     styleUrl: './team-detail.component.less',

@@ -54,7 +54,7 @@
         flex-shrink: 0;
         border-radius: 14px;
         color: var(--color-text-primary);
-        background: var(--color-stat-blue-bg);
+        background: var(--color-gradient-primary-soft);
         font: var(--tui-typography-heading-h5);
     }
 
@@ -88,24 +88,22 @@
 
     &__toolbar {
         margin-bottom: 20px;
-        display: grid;
-        grid-template-columns:
-            minmax(220px, 1fr)
-            minmax(120px, auto)
-            minmax(220px, auto)
-            auto
-            auto;
+        display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 10px;
     }
 
     &__search {
         width: 100%;
-        min-width: 0;
+        min-width: 220px;
+        max-width: 460px;
+        flex: 1 1 320px;
     }
 
     &__control,
     &__sort {
+        flex: 0 0 auto;
         white-space: nowrap;
     }
 
@@ -126,15 +124,18 @@
 
     &__table-row {
         height: 72px;
-        max-height: 72px;
         transition: background-color 0.2s ease;
 
         &:hover {
-            background-color: var(--tui-background-base-alt);
+            background-color: var(--color-card-bg-soft);
         }
 
         &_head {
             height: 52px;
+
+            &:hover {
+                background-color: transparent;
+            }
         }
 
         &:last-child {
@@ -163,33 +164,6 @@
             white-space: nowrap;
         }
     }
-    &__empty {
-        min-height: 180px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        color: var(--color-text-secondary);
-        text-align: left;
-
-        tui-icon {
-            width: 36px;
-            height: 36px;
-            color: var(--color-text-muted);
-        }
-    }
-
-    &__empty-title {
-        margin: 0;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
-    }
-
-    &__empty-text {
-        margin: 4px 0 0;
-        color: var(--color-text-muted);
-        font: var(--tui-typography-body-l);
-    }
 
     &__footer {
         margin-top: 20px;
@@ -208,7 +182,15 @@
     &__pagination {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
+    }
+
+    &__pagination-text,
+    &__page-size {
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        white-space: nowrap;
     }
 }
 
@@ -227,14 +209,16 @@
     }
 
     &__name,
-    &__email {
+    &__email,
+    &__position {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    &__name {
+    &__name,
+    &__position {
         color: var(--color-text-primary);
         font: var(--tui-typography-body-l);
     }
@@ -246,66 +230,17 @@
 
     &__role {
         width: fit-content;
+        max-width: 100%;
         padding: 4px 10px;
         display: inline-flex;
         align-items: center;
+        overflow: hidden;
         border: 1px solid var(--color-card-border);
         border-radius: 999px;
         color: var(--color-text-secondary);
         font: var(--tui-typography-body-m);
-
-        &_creator {
-            border-color: var(--color-primary);
-            color: var(--color-primary-light);
-        }
-    }
-
-    &__projects-count {
-        color: var(--color-text-primary);
-        font: var(--tui-typography-body-l);
-    }
-}
-
-.no-access-dialog {
-    padding: 4px 0 0;
-
-    &__icon {
-        width: 44px;
-        height: 44px;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--color-danger-border-soft);
-        border-radius: 14px;
-        color: var(--color-danger);
-        background: var(--color-danger-bg-soft);
-
-        tui-icon {
-            width: 22px;
-            height: 22px;
-        }
-    }
-
-    &__content {
-        margin-bottom: 24px;
-    }
-
-    &__title {
-        margin: 0 0 8px;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h5);
-    }
-
-    &__text {
-        margin: 0;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-l);
-    }
-
-    &__footer {
-        display: flex;
-        justify-content: flex-end;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 
@@ -314,25 +249,23 @@
         padding: 20px;
 
         &__toolbar {
-            grid-template-columns: minmax(220px, 1fr) auto auto;
+            justify-content: center;
         }
 
+        &__search {
+            flex: 1 1 100%;
+            max-width: 520px;
+        }
+
+        &__control,
         &__sort {
-            grid-column: span 2;
+            flex: 0 0 auto;
         }
     }
 }
 
 @media (max-width: 1024px) {
     .team-details {
-        &__toolbar {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        &__search {
-            grid-column: 1 / -1;
-        }
-
         &__table-wrapper {
             overflow-x: auto;
         }
@@ -343,11 +276,12 @@
 
         &__footer {
             grid-template-columns: 1fr;
-            justify-items: stretch;
+            justify-items: center;
+            text-align: center;
         }
 
         &__pagination {
-            justify-content: center;
+            width: 100%;
         }
     }
 }
@@ -355,7 +289,7 @@
 @media (max-width: 768px) {
     .team-details {
         padding: 18px;
-        border-radius: 18px;
+        border-radius: 5px;
 
         &__header {
             flex-direction: column;
@@ -372,11 +306,11 @@
         }
 
         &__toolbar {
-            grid-template-columns: 1fr;
+            justify-content: center;
         }
 
-        &__sort {
-            grid-column: auto;
+        &__search {
+            max-width: none;
         }
 
         &__title {
@@ -388,20 +322,11 @@
             font: var(--tui-typography-body-l);
         }
     }
-
-    .no-access-dialog {
-        &__footer {
-            button {
-                width: 100%;
-            }
-        }
-    }
 }
 
 @media (max-width: 480px) {
     .team-details {
         padding: 16px;
-        border-radius: 5px;
 
         &__avatar {
             width: 48px;
@@ -417,19 +342,15 @@
             }
         }
 
-        &__empty {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
-
-    .no-access-dialog {
-        &__title {
-            font: var(--tui-typography-heading-h6);
+        &__toolbar {
+            align-items: stretch;
         }
 
-        &__text {
-            font: var(--tui-typography-body-l);
+        &__search,
+        &__control,
+        &__sort {
+            width: 100%;
+            max-width: none;
         }
     }
 }

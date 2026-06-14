@@ -31,6 +31,7 @@
             @if (team()?.myRole === 'OWNER') {
                 <app-team-danger-zone
                     class="team-settings-page__card team-settings-page__danger"
+                    [teamId]="teamId()!"
                 />
             }
         </div>

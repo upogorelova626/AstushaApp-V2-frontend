@@ -1,10 +1,19 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
 .team-danger-zone-card {
-    margin-bottom: 10px;
+    width: 100%;
+    min-width: 0;
     padding: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+    box-sizing: border-box;
     border: 1px solid var(--color-danger);
     border-radius: 5px;
     background: var(--color-card-bg);
@@ -29,6 +38,10 @@
         background: var(--color-danger-bg-soft);
     }
 
+    &__text {
+        min-width: 0;
+    }
+
     &__title {
         margin: 0;
         color: var(--color-danger);
@@ -40,49 +53,6 @@
         color: var(--color-text-secondary);
         font: var(--tui-typography-ui-m);
         line-height: 1.4;
-    }
-}
-
-.delete-team-dialog {
-    padding-top: 4px;
-
-    &__header {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-    }
-
-    &__icon {
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        border: 1px solid var(--color-danger);
-        border-radius: 14px;
-        color: var(--color-danger);
-        background: var(--color-danger-bg-soft);
-    }
-
-    &__title {
-        margin: 0;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h5);
-    }
-
-    &__description {
-        margin: 8px 0 0;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-m);
-        line-height: 1.4;
-    }
-
-    &__footer {
-        margin-top: 24px;
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
     }
 }
 
@@ -117,38 +87,6 @@
         &__description {
             font: var(--tui-typography-ui-s);
         }
-
-        button {
-            width: 100%;
-        }
-    }
-
-    .delete-team-dialog {
-        &__header {
-            gap: 12px;
-        }
-
-        &__icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-        }
-
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
-
-        &__description {
-            font: var(--tui-typography-ui-s);
-        }
-
-        &__footer {
-            flex-direction: column-reverse;
-
-            button {
-                width: 100%;
-            }
-        }
     }
 }
 
@@ -164,16 +102,6 @@
             width: 38px;
             height: 38px;
             border-radius: 10px;
-        }
-    }
-
-    .delete-team-dialog {
-        &__header {
-            flex-direction: column;
-        }
-
-        &__footer {
-            margin-top: 20px;
         }
     }
 }
