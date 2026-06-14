@@ -1,20 +1,22 @@
 import {
-    Component,
     ChangeDetectionStrategy,
-    inject,
+    Component,
     computed,
-    Signal,
+    inject,
     OnInit,
-    signal
+    signal,
+    Signal
 } from '@angular/core';
-import {ProjectTaskCreateComponent} from '../../components/project-tasks-page-components/project-task-create/project-task-create.component';
 import {ROUTER_OUTLET_DATA} from '@angular/router';
-import {Project} from '../../interfaces/project.interface';
-import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
-import {ProjectTasksService} from '../../services/project-tasks.service';
-import {ProjectTask} from '../../interfaces/project-tasks.interface';
-import {ProjectTaskToolbarComponent} from '../../components/project-tasks-page-components/project-task-toolbar/project-task-toolbar.component';
+
+import {ProjectTaskCreateComponent} from '../../components/project-tasks-page-components/project-task-create/project-task-create.component';
 import {ProjectTaskListComponent} from '../../components/project-tasks-page-components/project-task-list/project-task-list.component';
+import {ProjectTaskToolbarComponent} from '../../components/project-tasks-page-components/project-task-toolbar/project-task-toolbar.component';
+import {Project} from '../../interfaces/project.interface';
+import {ProjectTask} from '../../interfaces/project-tasks.interface';
+import {ProjectTasksService} from '../../services/project-tasks.service';
+import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
+import {finalize} from 'rxjs';
 
 @Component({
     selector: 'app-project-tasks-page',
@@ -37,44 +39,64 @@ export class ProjectTasksPageComponent implements OnInit {
     protected readonly project = computed(
         () => this.outletData()?.project ?? null
     );
+
     protected readonly projectId = computed(
         () => this.outletData()?.projectId ?? null
     );
 
-    protected updateProject(project: Project) {
-        this.outletData()?.updateProject(project);
-    }
-
     protected readonly tasks = signal<ProjectTask[]>([]);
     protected readonly selectedStageId = signal<string | null>(null);
-
-    ngOnInit() {
-        const projectId = this.projectId();
-        if (!projectId) {
-            return;
-        }
-        this.projectTasksService
-            .getAllTasks(projectId)
-            .subscribe(tasks => this.tasks.set(tasks));
-    }
-
-    protected addTask(task: ProjectTask) {
-        this.tasks.update(tasks => [task, ...tasks]);
-    }
-
-    protected selectStage(stageId: string | null) {
-        this.selectedStageId.set(stageId);
-    }
+    protected readonly searchQuery = signal('');
+    readonly isLoading = signal(false);
 
     protected readonly filteredTasks = computed(() => {
         const selectedStageId = this.selectedStageId();
+        const query = this.searchQuery().trim().toLowerCase();
 
-        if (!selectedStageId) {
-            return this.tasks();
-        }
+        return this.tasks().filter(task => {
+            const matchesStage =
+                !selectedStageId || task.workflowStageId === selectedStageId;
 
-        return this.tasks().filter(
-            task => task.workflowStageId === selectedStageId
-        );
+            const matchesSearch =
+                !query || task.title.toLowerCase().includes(query);
+
+            return matchesStage && matchesSearch;
+        });
     });
+
+    ngOnInit(): void {
+        const projectId = this.projectId();
+
+        if (!projectId) {
+            return;
+        }
+        this.isLoading.set(true);
+
+        this.projectTasksService
+            .getAllTasks(projectId)
+            .pipe(
+                finalize(() => {
+                    this.isLoading.set(false);
+                })
+            )
+            .subscribe(tasks => {
+                this.tasks.set(tasks);
+            });
+    }
+
+    protected updateProject(project: Project): void {
+        this.outletData()?.updateProject(project);
+    }
+
+    protected addTask(task: ProjectTask): void {
+        this.tasks.update(tasks => [task, ...tasks]);
+    }
+
+    protected selectStage(stageId: string | null): void {
+        this.selectedStageId.set(stageId);
+    }
+
+    protected searchTasks(query: string): void {
+        this.searchQuery.set(query);
+    }
 }

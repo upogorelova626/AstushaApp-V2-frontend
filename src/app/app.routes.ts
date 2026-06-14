@@ -93,16 +93,17 @@ export const routes: Routes = [
             },
             {
                 path: 'teams',
-                data: {
-                    breadcrumb: 'Команды'
-                },
+
                 children: [
                     {
                         path: '',
                         loadComponent: () =>
                             import('./features/teams/teams-page/teams-page.component').then(
                                 m => m.TeamsPageComponent
-                            )
+                            ),
+                        data: {
+                            breadcrumb: 'Команды'
+                        }
                     },
                     {
                         path: ':teamId/settings',

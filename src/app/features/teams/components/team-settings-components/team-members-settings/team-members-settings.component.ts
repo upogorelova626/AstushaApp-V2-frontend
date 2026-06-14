@@ -1,7 +1,6 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    computed,
     inject,
     input,
     OnInit,
@@ -10,7 +9,6 @@ import {
 import {
     TuiButton,
     TuiDataList,
-    TuiDialogService,
     TuiDropdown,
     TuiInput,
     TuiOption,
@@ -19,7 +17,7 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar, TuiChevron, TuiSkeleton} from '@taiga-ui/kit';
 import {TuiObscured} from '@taiga-ui/cdk/directives/obscured';
-import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
+
 import {PluralizeRuPipe} from '../../../../../shared/pipes/pluralize-ru.pipe';
 import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
 import {

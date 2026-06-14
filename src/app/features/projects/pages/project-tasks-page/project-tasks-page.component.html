@@ -7,8 +7,10 @@
         />
         <app-project-task-toolbar
             [tasks]="tasks()"
+            [isLoading]="isLoading()"
             [project]="project"
             (stageSelected)="selectStage($event)"
+            (searchChanged)="searchTasks($event)"
         />
         <app-project-task-list [tasks]="filteredTasks()" />
     }

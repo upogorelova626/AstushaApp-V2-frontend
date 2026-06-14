@@ -7,7 +7,10 @@
             (click)="selectStage(null)"
         >
             Все задачи
-            <span class="project-task-toolbar__count">
+            <span
+                class="project-task-toolbar__count"
+                [tuiSkeleton]="isLoading()"
+            >
                 {{ tasks().length }}
             </span>
         </button>
@@ -20,7 +23,11 @@
                 (click)="selectStage(stage.id)"
             >
                 {{ stage.name }}
-                <span class="project-task-toolbar__count">0</span>
+                <span
+                    class="project-task-toolbar__count"
+                    [tuiSkeleton]="isLoading()"
+                    >{{ getStageTasksCount(stage.id) }}</span
+                >
             </button>
         }
     </div>
@@ -30,6 +37,11 @@
         tuiTextfieldSize="m"
         iconStart="@tui.search"
     >
-        <input tuiInput type="text" placeholder="Поиск задачи" />
+        <input
+            tuiInput
+            type="text"
+            placeholder="Поиск задачи"
+            [formControl]="search"
+        />
     </tui-textfield>
 </div>

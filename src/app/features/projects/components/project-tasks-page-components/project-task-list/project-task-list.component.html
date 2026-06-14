@@ -12,6 +12,7 @@
                     <th>Приоритет</th>
                     <th>Дедлайн</th>
                     <th>Статус</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -84,6 +85,22 @@
                             <span class="project-tasks-list__status">
                                 {{ task.workflowStage.name }}
                             </span>
+                        </td>
+
+                        <td>
+                            <a
+                                tuiButton
+                                appearance="flat"
+                                tuiHint="Подробнее о задаче"
+                                tuiHintDirection="top-start"
+                                iconStart="@tui.ellipsis-vertical"
+                                [routerLink]="[
+                                    '/dashboard/projects',
+                                    task.projectId,
+                                    'tasks',
+                                    task.id
+                                ]"
+                            ></a>
                         </td>
                     </tr>
                 }
