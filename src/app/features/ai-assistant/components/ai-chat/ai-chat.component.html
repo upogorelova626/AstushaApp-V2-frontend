@@ -1,0 +1,90 @@
+<div class="ai-chat">
+    <header class="ai-chat__header">
+        <div class="ai-chat__header-info">
+            <h2 class="ai-chat__title">Тёмная тема в приложении</h2>
+            <p class="ai-chat__subtitle">Общий чат</p>
+        </div>
+
+        <div class="ai-chat__header-actions">
+            <button tuiButton type="button" appearance="flat" size="s">
+                Информация о контексте
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconStart="@tui.ellipsis-vertical"
+            ></button>
+        </div>
+    </header>
+
+    <main class="ai-chat__messages">
+        <article class="ai-chat__message ai-chat__message_user">
+            <div class="ai-chat__message-content">
+                <div class="ai-chat__message-header">
+                    <span class="ai-chat__message-author">Вы</span>
+                    <time class="ai-chat__message-time">11:24</time>
+                </div>
+
+                <p class="ai-chat__message-text">
+                    Как лучше реализовать переключение между светлой и тёмной
+                    темой в AstushaApp, чтобы не хранить всё в localStorage?
+                </p>
+            </div>
+        </article>
+
+        <article class="ai-chat__message ai-chat__message_assistant">
+            <div class="ai-chat__avatar">
+                <tui-icon icon="@tui.cat" />
+            </div>
+
+            <div class="ai-chat__message-content">
+                <div class="ai-chat__message-header">
+                    <span class="ai-chat__message-author">Astusha AI</span>
+                    <time class="ai-chat__message-time">11:25</time>
+                </div>
+
+                <p class="ai-chat__message-text">
+                    Лучше хранить выбранную тему в профиле пользователя на
+                    backend. На frontend компонент настроек только отправляет
+                    PATCH-запрос, а общий AppComponent получает обновлённый
+                    профиль и применяет тему через tuiTheme и CSS-переменные.
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <footer class="ai-chat__footer">
+        <div class="ai-chat-input">
+            <tui-textfield>
+                <textarea
+                    class="ai-chat-input__textarea"
+                    placeholder="Спросите Astusha AI"
+                    tuiTextarea
+                ></textarea>
+
+                <div class="ai-chat-input__actions">
+                    <button
+                        tuiButton
+                        type="button"
+                        size="s"
+                        appearance="flat"
+                        iconStart="@tui.paperclip"
+                        class="ai-chat-input__action"
+                    ></button>
+
+                    <button
+                        tuiButton
+                        type="button"
+                        size="s"
+                        appearance="primary"
+                        iconStart="@tui.send"
+                        class="ai-chat-input__send"
+                    ></button>
+                </div>
+            </tui-textfield>
+        </div>
+    </footer>
+</div>
