@@ -25,7 +25,7 @@
                 </thead>
 
                 <tbody class="projects-table__body">
-                    @for (project of projects(); track project.id) {
+                    @for (project of paginatedProjects(); track project.id) {
                         <tr class="projects-table__row">
                             <td class="projects-table__cell">
                                 <div class="projects-table__project">
@@ -184,12 +184,31 @@
         @if (!isProjectsLoading() && projects().length > 1) {
             <div class="projects-table__footer">
                 <span class="projects-table__footer-text">
-                    Показано 1–{{ projects().length }} из
+                    Показано 1–{{ paginatedProjects().length }} из
                     {{ projects().length }} проектов
                 </span>
 
                 <div class="projects-table__pagination">
-                    <button tuiButton size="s">1</button>
+                    <span class="project-table__pagination-text">
+                        Страница {{ currentPage() }} из {{ totalPages() || 1 }}
+                    </span>
+                    <button
+                        tuiButton
+                        size="m"
+                        appearance="flat"
+                        iconStart="@tui.chevron-left"
+                        [disabled]="!canGoPrev()"
+                        (click)="goToPrevPage()"
+                    ></button>
+                    <button tuiButton size="s">{{ currentPage() }}</button>
+                    <button
+                        tuiButton
+                        size="m"
+                        appearance="flat"
+                        iconStart="@tui.chevron-right"
+                        [disabled]="!canGoNext()"
+                        (click)="goToNextPage()"
+                    ></button>
                 </div>
             </div>
         }

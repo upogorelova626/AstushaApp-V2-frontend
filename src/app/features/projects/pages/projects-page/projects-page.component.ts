@@ -10,7 +10,7 @@ import {ProjectsStatsComponent} from '../../components/projects-page-components/
 import {ProjectsSearchingComponent} from '../../components/projects-page-components/projects-searching/projects-searching.component';
 import {ProjectsListComponent} from '../../components/projects-page-components/projects-list/projects-list.component';
 import {ProjectsService} from '../../services/projects.service';
-import {ProjectListItem} from '../../interfaces/project.interface';
+import {Project} from '../../interfaces/project.interface';
 import {finalize} from 'rxjs';
 
 @Component({
@@ -27,7 +27,7 @@ import {finalize} from 'rxjs';
 export class ProjectsPageComponent implements OnInit {
     private readonly projectsService = inject(ProjectsService);
 
-    protected readonly projects = signal<ProjectListItem[]>([]);
+    protected readonly projects = signal<Project[]>([]);
     protected readonly isProjectsLoading = signal(true);
     protected readonly searchQuery = signal('');
 
