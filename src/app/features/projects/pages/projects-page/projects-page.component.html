@@ -1,5 +1,8 @@
 <div class="projects-components-wrapper">
     <app-projects-stats />
-    <app-projects-searching />
-    <app-projects-list />
+    <app-projects-searching (searchChanged)="searchTasks($event)" />
+    <app-projects-list
+        [projects]="filteredProjects()"
+        [isProjectsLoading]="isProjectsLoading()"
+    />
 </div>

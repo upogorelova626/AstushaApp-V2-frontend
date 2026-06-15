@@ -2,6 +2,8 @@ import {
     ChangeDetectionStrategy,
     Component,
     inject,
+    output,
+    OnInit,
     Injector
 } from '@angular/core';
 import {
@@ -12,11 +14,11 @@ import {
     TuiDialogService
 } from '@taiga-ui/core';
 import {TuiDataListWrapper} from '@taiga-ui/kit';
-import {RouterOutlet} from '@angular/router';
-import {switchMap} from 'rxjs';
+import {ReactiveFormsModule, FormControl} from '@angular/forms';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-
+import {startWith, switchMap} from 'rxjs';
 import {CreateProjectDialogComponent} from './create-project-dialog/create-project-dialog.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'app-projects-searching',
@@ -25,6 +27,7 @@ import {CreateProjectDialogComponent} from './create-project-dialog/create-proje
         TuiTextfield,
         TuiInput,
         TuiDataListWrapper,
+        ReactiveFormsModule,
         RouterOutlet
     ],
     templateUrl: './projects-searching.component.html',
@@ -36,7 +39,17 @@ export class ProjectsSearchingComponent {
     private readonly dialogs = inject(TuiDialogService);
     private readonly injector = inject(Injector);
 
-    protected click() {
+    readonly searchChanged = output<string>();
+
+    protected readonly search = new FormControl('', {nonNullable: true});
+
+    constructor() {
+        this.search.valueChanges.pipe(startWith('')).subscribe(value => {
+            this.searchChanged.emit(value.trim().toLowerCase());
+        });
+    }
+
+    protected click(): void {
         this.dialogs
             .open<string>(
                 new PolymorpheusComponent(

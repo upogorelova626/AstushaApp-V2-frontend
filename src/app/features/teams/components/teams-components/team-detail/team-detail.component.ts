@@ -38,7 +38,6 @@ import {FormControl} from '@angular/forms';
         TuiAvatar,
         TuiSkeleton,
         TeamRoleLabelPipe,
-        TuiLabel,
         TuiDataListWrapper
     ],
     templateUrl: './team-detail.component.html',

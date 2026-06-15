@@ -19,6 +19,8 @@
         object-fit: contain;
         user-select: none;
         pointer-events: none;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -102,21 +104,9 @@
         justify-content: center;
         flex-shrink: 0;
         border-radius: 14px;
-
-        &_blue {
-            color: var(--color-stat-blue);
-            background: var(--color-stat-blue-bg);
-        }
-
-        &_green {
-            color: var(--color-stat-green);
-            background: var(--color-stat-green-bg);
-        }
-
-        &_violet {
-            color: var(--color-stat-violet);
-            background: var(--color-stat-violet-bg);
-        }
+        color: var(--color-stat-blue);
+        background: var(--color-stat-blue-bg);
+        text-overflow: ellipsis;
     }
 
     &__project-info {

@@ -5,19 +5,14 @@
             iconStart="@tui.search"
             tuiTextfieldSize="m"
         >
-            <input tuiInput type="text" placeholder="Поиск проектов..." />
+            <input
+                FormControl="search"
+                tuiInput
+                type="text"
+                placeholder="Поиск проектов..."
+                [formControl]="search"
+            />
         </tui-textfield>
-
-        <button
-            tuiButton
-            class="projects-searching-wrapper__control"
-            appearance="flat"
-            size="m"
-            iconStart="@tui.list-filter"
-            iconEnd="@tui.chevron-down"
-        >
-            Фильтры
-        </button>
 
         <button
             tuiButton
@@ -27,16 +22,6 @@
             iconEnd="@tui.chevron-down"
         >
             Статус: Все
-        </button>
-
-        <button
-            tuiButton
-            class="projects-searching-wrapper__sort"
-            appearance="flat"
-            size="m"
-            iconEnd="@tui.chevron-down"
-        >
-            Сортировка: По дате обновления
         </button>
     </div>
 
