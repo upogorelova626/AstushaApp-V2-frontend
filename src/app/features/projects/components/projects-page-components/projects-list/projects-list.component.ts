@@ -35,7 +35,7 @@ export class ProjectsListComponent {
     readonly projects = input<Project[]>([]);
     readonly isProjectsLoading = input(false);
 
-    protected readonly pageSize = 4;
+    protected readonly pageSize = 5;
     private readonly pageIndex = signal(0);
 
     protected readonly paginatedProjects = computed(() => {

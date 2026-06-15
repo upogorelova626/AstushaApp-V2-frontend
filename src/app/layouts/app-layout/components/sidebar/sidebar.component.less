@@ -141,53 +141,6 @@
     overflow-x: hidden;
 }
 
-.sidebar__recent-item {
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 52px;
-    padding: 8px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    flex-shrink: 0;
-    border: 1px solid var(--color-card-border);
-    border-radius: 12px;
-    color: var(--color-text-primary);
-    text-align: left;
-    background: var(--color-card-bg);
-}
-
-.sidebar__recent-item:hover {
-    border-color: var(--color-card-border-hover);
-    background: var(--color-page-bg-start);
-}
-
-.sidebar__recent-icon {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border-radius: 5px;
-}
-
-.sidebar__recent-icon_blue {
-    color: var(--color-stat-blue);
-    background: var(--color-stat-blue-bg);
-}
-
-.sidebar__recent-icon_violet {
-    color: var(--color-stat-violet);
-    background: var(--color-stat-violet-bg);
-}
-
-.sidebar__recent-icon_green {
-    color: var(--color-stat-green);
-    background: var(--color-stat-green-bg);
-}
-
 .sidebar__recent-info {
     min-width: 0;
     display: flex;
@@ -199,7 +152,6 @@
 .sidebar__recent-title {
     max-width: 100%;
     overflow: hidden;
-    color: var(--color-text-primary);
     font-size: 13px;
     line-height: 18px;
     font-weight: 600;
@@ -210,7 +162,6 @@
 .sidebar__recent-status {
     max-width: 100%;
     overflow: hidden;
-    color: var(--color-text-muted);
     font-size: 12px;
     line-height: 16px;
     text-overflow: ellipsis;
@@ -386,6 +337,9 @@
 .sidebar__recent-empty-text {
     font-size: 12px;
     line-height: 16px;
+}
+
+.sidebar__recent-item {
 }
 
 @media (max-width: 1200px) {

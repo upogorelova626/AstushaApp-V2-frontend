@@ -12,20 +12,18 @@ import {
     TuiButton,
     TuiHint,
     TuiHintDirective,
-    TuiIcon,
     TuiInput,
-    TuiLabel,
     TuiTextfield
 } from '@taiga-ui/core';
 import {TuiAvatar, TuiDataListWrapper, TuiSkeleton} from '@taiga-ui/kit';
-import {finalize, forkJoin} from 'rxjs';
-
+import {finalize, forkJoin, startWith} from 'rxjs';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../../interfaces/team.interface';
 import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {TeamsService} from '../../../services/teams.service';
-import {FormControl} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-team-detail',
@@ -38,7 +36,8 @@ import {FormControl} from '@angular/forms';
         TuiAvatar,
         TuiSkeleton,
         TeamRoleLabelPipe,
-        TuiDataListWrapper
+        TuiDataListWrapper,
+        ReactiveFormsModule
     ],
     templateUrl: './team-detail.component.html',
     styleUrl: './team-detail.component.less',
@@ -61,7 +60,7 @@ export class TeamDetailComponent {
     protected readonly paginatedMembers = computed(() => {
         const start = this.pageIndex() * this.pageSize;
 
-        return this.teamMembers().slice(start, start + this.pageSize);
+        return this.filteredTeamMembers().slice(start, start + this.pageSize);
     });
 
     protected readonly totalPages = computed(() => {
@@ -154,4 +153,32 @@ export class TeamDetailComponent {
         this.pageIndex.set(0);
         this.isLoading.set(false);
     }
+
+    protected readonly search = new FormControl('', {nonNullable: true});
+
+    protected readonly searchQuery = toSignal(
+        this.search.valueChanges.pipe(startWith(this.search.value)),
+        {initialValue: ''}
+    );
+
+    protected readonly filteredTeamMembers = computed(() => {
+        const query = this.searchQuery().trim().toLowerCase();
+        const teamMembers = this.teamMembers();
+
+        if (!query) {
+            return teamMembers;
+        }
+
+        return this.teamMembers().filter(member => {
+            const name = member.user.firstName?.toLowerCase() ?? '';
+            const lastName = member.user.lastName?.toLowerCase() ?? '';
+            const email = member.user.email.toLowerCase();
+
+            return (
+                name.includes(query) ||
+                lastName.includes(query) ||
+                email.includes(query)
+            );
+        });
+    });
 }

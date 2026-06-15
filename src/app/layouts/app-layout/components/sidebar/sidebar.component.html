@@ -137,8 +137,8 @@
                     <a
                         tuiButton
                         class="sidebar__recent-item"
-                        appearance="outline"
                         size="m"
+                        appearance="secondary"
                         iconStart="@tui.folder"
                         [routerLink]="['/dashboard/projects', project.id]"
                     >
@@ -146,6 +146,7 @@
                             <span
                                 class="sidebar__recent-title"
                                 [title]="project.title"
+                                s
                             >
                                 {{ project.title }}
                             </span>
