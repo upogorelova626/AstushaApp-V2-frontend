@@ -1,25 +1,25 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    effect,
     inject,
     input,
-    signal
+    output
 } from '@angular/core';
 import {
     TuiButton,
     TuiDialogService,
     TuiIcon,
+    TuiLoader,
     TuiNotificationService
 } from '@taiga-ui/core';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {finalize, switchMap, tap} from 'rxjs';
 import {RouterLink} from '@angular/router';
+import {catchError, EMPTY, switchMap, tap} from 'rxjs';
+
 import {ProjectTeam, Team} from '../../../../teams/interfaces/team.interface';
 import {ProjectListItem} from '../../../interfaces/project.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {AddTeamDialogComponent} from './add-team-dialog/add-team-dialog.component';
-import {TuiLoader} from '@taiga-ui/core';
 
 @Component({
     selector: 'app-project-team-card',
@@ -34,27 +34,13 @@ export class ProjectTeamCardComponent {
     private readonly projectsService = inject(ProjectsService);
 
     readonly project = input<ProjectListItem | null>(null);
+    readonly team = input<Team | null>(null);
+    readonly isLoading = input(false);
     readonly canManageProject = input(false);
-    protected readonly team = signal<Team | null>(null);
-    protected readonly isLoading = signal(false);
 
-    constructor() {
-        effect(() => {
-            const project = this.project();
+    readonly teamChanged = output<Team | null>();
 
-            if (!project) {
-                this.team.set(null);
-
-                return;
-            }
-            this.isLoading.set(true);
-            this.getTeam(project.id)
-                .pipe(finalize(() => this.isLoading.set(false)))
-                .subscribe();
-        });
-    }
-
-    protected click() {
+    protected click(): void {
         const project = this.project();
 
         if (!project) {
@@ -72,36 +58,32 @@ export class ProjectTeamCardComponent {
             )
             .pipe(
                 tap(projectTeam => {
-                    this.team.set(projectTeam.team);
+                    this.teamChanged.emit(projectTeam.team);
                 }),
-                switchMap(() => this.alerts.open('Команда добавлена в проект'))
+                switchMap(() => this.alerts.open('Команда добавлена в проект')),
+                catchError(() => EMPTY)
             )
             .subscribe();
     }
 
-    private getTeam(projectId: string) {
-        return this.projectsService.getProjectTeam(projectId).pipe(
-            tap(team => {
-                this.team.set(team);
-            })
-        );
-    }
-
-    removeProjectTeam() {
+    protected removeProjectTeam(): void {
         const projectId = this.project()?.id;
         const teamId = this.team()?.id;
+
         if (!teamId || !projectId) {
             return;
         }
+
         this.projectsService
             .removeProjectTeam(projectId, teamId)
             .pipe(
                 tap(() => {
-                    this.team.set(null);
+                    this.teamChanged.emit(null);
                 }),
                 switchMap(() =>
                     this.alerts.open('Команда успешно отвязана от проекта')
-                )
+                ),
+                catchError(() => EMPTY)
             )
             .subscribe();
     }

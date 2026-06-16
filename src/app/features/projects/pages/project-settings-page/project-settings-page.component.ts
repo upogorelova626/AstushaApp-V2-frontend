@@ -13,6 +13,7 @@ import {ProjectWorkflowSettingsComponent} from '../../components/projects-settin
 import {Project} from '../../interfaces/project.interface';
 import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
 import {ProjectRepositoriesComponent} from '../../components/project-details-page-components/project-repositories/project-repositories.component';
+import {ProjectSprintsSettingsComponent} from '../../components/projects-settings-page-components/project-sprints-settings/project-sprints-settings.component';
 
 @Component({
     selector: 'app-project-settings-page',
@@ -21,7 +22,8 @@ import {ProjectRepositoriesComponent} from '../../components/project-details-pag
         ProjectTeamSettingsComponent,
         ProjectWorkflowSettingsComponent,
         ProjectDangerZoneComponent,
-        ProjectRepositoriesComponent
+        ProjectRepositoriesComponent,
+        ProjectSprintsSettingsComponent
     ],
     templateUrl: './project-settings-page.component.html',
     styleUrl: './project-settings-page.component.less',

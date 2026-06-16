@@ -1,42 +1,60 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .loader {
-    display: flex;
     min-height: 200px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .project-team-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     min-height: 425px;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 24px;
+    box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
 
     &__header {
+        min-width: 0;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     &__header-icon {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
         color: var(--color-primary-light);
     }
 
     &__title {
         margin: 0;
+        overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
+        font: var(--tui-typography-heading-h5);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__content {
-        flex: 1;
+        min-width: 0;
         min-height: 180px;
         display: flex;
+        flex: 1;
         align-items: center;
         justify-content: center;
         flex-direction: column;
@@ -44,15 +62,22 @@
     }
 
     &__empty-icon {
-        width: 88px;
-        height: 88px;
+        width: 72px;
+        height: 72px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
+        flex-shrink: 0;
+        border: 1px solid var(--color-card-border);
+        border-radius: 18px;
         color: var(--color-primary-light);
         background: var(--color-card-bg);
+
+        tui-icon {
+            width: 32px;
+            height: 32px;
+        }
     }
 
     &__empty-title {
@@ -65,40 +90,48 @@
         max-width: 320px;
         margin: 0;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-m);
+        font: var(--tui-typography-body-m);
+        line-height: 1.4;
     }
 
     &__team {
-        flex: 1;
+        min-width: 0;
         display: flex;
+        flex: 1;
         flex-direction: column;
         gap: 18px;
     }
 
     &__team-top {
+        min-width: 0;
         display: flex;
         align-items: center;
         gap: 16px;
     }
 
     &__avatar {
-        width: 72px;
-        height: 72px;
+        width: 64px;
+        height: 64px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        overflow: hidden;
         border: 1px solid var(--color-card-border);
-        border-radius: 22px;
+        border-radius: 18px;
         color: var(--color-primary-light);
         background: var(--color-card-bg);
+
+        tui-icon {
+            width: 28px;
+            height: 28px;
+        }
     }
 
     &__avatar-img {
         width: 100%;
         height: 100%;
         display: block;
-        border-radius: inherit;
         object-fit: cover;
     }
 
@@ -120,7 +153,10 @@
         display: -webkit-box;
         overflow: hidden;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-m);
+        font: var(--tui-typography-body-m);
+        line-height: 1.4;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     &__meta {
@@ -130,10 +166,12 @@
     }
 
     &__meta-item {
+        min-width: 0;
         padding: 14px;
         display: flex;
         align-items: center;
         gap: 12px;
+        box-sizing: border-box;
         border: 1px solid var(--color-card-border);
         border-radius: 5px;
         color: var(--color-primary-light);
@@ -143,12 +181,15 @@
     &__meta-label {
         margin-bottom: 2px;
         color: var(--color-text-muted);
-        font: var(--tui-typography-ui-s);
+        font: var(--tui-typography-body-s);
     }
 
     &__meta-value {
+        overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-ui-m);
+        font: var(--tui-typography-body-m);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__footer {
@@ -161,16 +202,17 @@
         }
     }
 }
+
 @media (max-width: 1200px) {
     .project-team-card {
         min-height: 380px;
         padding: 20px;
-        gap: 18px;
+        gap: 20px;
 
         &__avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
         }
 
         &__meta-item {
@@ -182,8 +224,7 @@
 @media (max-width: 768px) {
     .project-team-card {
         min-height: auto;
-        padding: 18px;
-        gap: 18px;
+        padding: 16px;
 
         &__team-top {
             align-items: flex-start;
@@ -192,15 +233,10 @@
         &__avatar {
             width: 56px;
             height: 56px;
-            border-radius: 18px;
-        }
-
-        &__team-name {
-            font: var(--tui-typography-heading-h6);
         }
 
         &__team-description {
-            font: var(--tui-typography-ui-s);
+            font: var(--tui-typography-body-s);
         }
 
         &__meta {
@@ -222,8 +258,6 @@
 
 @media (max-width: 520px) {
     .project-team-card {
-        padding: 16px;
-
         &__header {
             align-items: flex-start;
         }
@@ -233,19 +267,20 @@
         }
 
         &__empty-icon {
-            width: 72px;
-            height: 72px;
+            width: 64px;
+            height: 64px;
             margin-bottom: 16px;
+            border-radius: 16px;
         }
 
         &__empty-description {
             max-width: 100%;
-            font: var(--tui-typography-ui-s);
+            font: var(--tui-typography-body-s);
         }
 
         &__team-top {
-            flex-direction: column;
             align-items: center;
+            flex-direction: column;
             text-align: center;
         }
 

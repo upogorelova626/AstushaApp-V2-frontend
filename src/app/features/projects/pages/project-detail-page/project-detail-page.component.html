@@ -3,12 +3,17 @@
         <app-project-card
             class="project-detail-page__card"
             [project]="project()"
+            [team]="team()"
+            [isTeamLoading]="isTeamLoading()"
         />
 
         <app-project-team-card
             class="project-detail-page__card"
             [project]="project()"
+            [team]="team()"
+            [isLoading]="isTeamLoading()"
             [canManageProject]="canManageProject()"
+            (teamChanged)="changeTeam($event)"
         />
 
         <app-project-quick-actions

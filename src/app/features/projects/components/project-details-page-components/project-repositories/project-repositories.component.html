@@ -1,17 +1,20 @@
-<section class="project-repositories-card">
+<div class="project-repositories-card">
     <header class="project-repositories-card__header">
-        <div class="project-repositories-card__icon">
-            <tui-icon icon="@tui.git-branch" />
-        </div>
-
         <div class="project-repositories-card__header-content">
-            <div class="project-repositories-card__title">
-                Репозитории проекта
+            <div class="project-repositories-card__title-wrapper">
+                <tui-icon
+                    class="project-repositories-card__title-icon"
+                    icon="@tui.git-branch"
+                />
+
+                <h2 class="project-repositories-card__title">
+                    Репозитории проекта
+                </h2>
             </div>
 
-            <div class="project-repositories-card__description">
+            <p class="project-repositories-card__description">
                 Подключите GitHub, GitLab или другой репозиторий проекта
-            </div>
+            </p>
         </div>
     </header>
 
@@ -108,4 +111,4 @@
             </div>
         </footer>
     }
-</section>
+</div>

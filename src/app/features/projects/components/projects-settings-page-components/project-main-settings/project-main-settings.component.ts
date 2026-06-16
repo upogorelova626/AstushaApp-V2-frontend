@@ -21,6 +21,7 @@ import {
     TuiDataListComponent,
     TuiDropdown,
     TuiError,
+    TuiIcon,
     TuiInput,
     TuiOption,
     TuiTextfield,
@@ -67,7 +68,8 @@ interface SelectOption<T> {
         TuiTextarea,
         TuiTextfield,
         TuiTitle,
-        TuiSkeleton
+        TuiSkeleton,
+        TuiIcon
     ],
     templateUrl: './project-main-settings.component.html',
     styleUrl: './project-main-settings.component.less',

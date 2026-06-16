@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<div class="sidebar">
     <div class="sidebar__header">
         <div class="sidebar__logo">
             <div class="sidebar__logo-icon">
@@ -61,7 +61,6 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/dashboard/astusha-ai"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -73,7 +72,6 @@
         <a
             tuiButton
             class="sidebar__nav-item"
-            routerLink="/dashboard/reports"
             routerLinkActive="sidebar__nav-item_active"
             appearance="flat"
             size="m"
@@ -95,7 +93,7 @@
         </a>
     </nav>
 
-    <section class="sidebar__recent-projects">
+    <div class="sidebar__recent-projects">
         <div class="sidebar__section-header">
             <span class="sidebar__section-title">Недавние проекты</span>
 
@@ -116,7 +114,7 @@
                 <button
                     tuiButton
                     class="sidebar__recent-item"
-                    appearance="outline"
+                    appearance="flat"
                     size="m"
                     iconStart="@tui.folder"
                     [tuiSkeleton]="isLoading()"
@@ -170,7 +168,7 @@
                 </div>
             }
         </div>
-    </section>
+    </div>
 
     <div class="sidebar__footer">
         <button tuiButton class="sidebar__support" appearance="flat" size="m">
@@ -240,4 +238,4 @@
             </button>
         }
     </div>
-</aside>
+</div>

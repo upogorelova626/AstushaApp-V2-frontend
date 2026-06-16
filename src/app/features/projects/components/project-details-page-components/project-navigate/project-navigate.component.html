@@ -27,14 +27,6 @@
         Участники
     </a>
 
-    <a
-        tuiTab
-        class="project-navigate__link"
-        [routerLink]="['/dashboard/projects', projectId(), 'sprints']"
-        routerLinkActive="project-navigate__link_active"
-    >
-        Спринты
-    </a>
     @if (canManageProject()) {
         <a
             tuiTab

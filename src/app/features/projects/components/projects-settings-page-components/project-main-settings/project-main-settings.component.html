@@ -1,11 +1,18 @@
 <div class="project-main-settings">
     <header class="project-main-settings__header">
-        <h2
-            class="project-main-settings__title"
-            [tuiSkeleton]="isFormLoading()"
-        >
-            Основная информация
-        </h2>
+        <div class="project-main-settings__title-wrapper">
+            <tui-icon
+                class="project-main-settings__title-icon"
+                icon="@tui.settings"
+            />
+
+            <h2
+                class="project-main-settings__title"
+                [tuiSkeleton]="isFormLoading()"
+            >
+                Основная информация
+            </h2>
+        </div>
 
         <button
             tuiButton

@@ -1,10 +1,17 @@
 :host {
     display: block;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .project-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     min-height: 475px;
+    box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
@@ -19,17 +26,16 @@
 .project-quick-actions {
     .project-card();
 
-    width: 100%;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
 
     &__header {
-        margin-bottom: 20px;
+        min-width: 0;
+        margin-bottom: 24px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     &__header-icon {
@@ -41,11 +47,15 @@
 
     &__title {
         margin: 0;
+        overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
+        font: var(--tui-typography-heading-h5);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__list {
+        min-width: 0;
         display: flex;
         flex: 1;
         flex-direction: column;
@@ -54,21 +64,23 @@
 
     &__button {
         width: 100%;
+        min-width: 0;
         min-height: 72px;
         padding: 14px 16px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         gap: 16px;
+        box-sizing: border-box;
         border: 1px solid var(--color-card-border);
         border-radius: 5px;
-        text-align: left;
         background: var(--color-card-bg);
+        text-align: left;
     }
 
     &__button-icon {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         flex-shrink: 0;
         color: var(--color-primary-light);
     }
@@ -109,7 +121,7 @@
         padding: 20px;
 
         &__header {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         &__list {
@@ -120,12 +132,6 @@
             min-height: 68px;
             padding: 12px 14px;
             gap: 14px;
-            border-radius: 14px;
-        }
-
-        &__button-icon {
-            width: 26px;
-            height: 26px;
         }
     }
 }
@@ -133,22 +139,16 @@
 @media (max-width: 768px) {
     .project-quick-actions {
         min-height: auto;
-        padding: 18px;
+        padding: 16px;
 
         &__header {
-            align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         &__button {
             min-height: 64px;
             padding: 12px;
             gap: 12px;
-        }
-
-        &__button-icon {
-            width: 24px;
-            height: 24px;
         }
 
         &__button-title {
@@ -163,8 +163,6 @@
 
 @media (max-width: 520px) {
     .project-quick-actions {
-        padding: 16px;
-
         &__header {
             align-items: flex-start;
         }

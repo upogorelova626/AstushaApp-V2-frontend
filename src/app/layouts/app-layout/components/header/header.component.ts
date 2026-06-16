@@ -59,10 +59,6 @@ export class HeaderComponent {
 
     protected readonly userMenuActions: readonly UserMenuActionOption[] = [
         {
-            title: 'Мой профиль',
-            value: UserMenuAction.OpenProfile
-        },
-        {
             title: 'Настройки',
             value: UserMenuAction.OpenSettings
         },
@@ -82,10 +78,6 @@ export class HeaderComponent {
         this.open.set(false);
 
         switch (action) {
-            case UserMenuAction.OpenProfile:
-                this.openUserPage();
-                return;
-
             case UserMenuAction.OpenSettings:
                 void this.router.navigate(['/dashboard/settings']);
                 return;
@@ -102,8 +94,6 @@ export class HeaderComponent {
             this.router.navigate(['/auth/login']);
         });
     }
-
-    protected openUserPage() {}
 
     protected goBack() {
         this.location.back();

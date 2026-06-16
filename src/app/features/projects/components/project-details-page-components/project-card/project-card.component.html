@@ -1,4 +1,4 @@
-<section class="project-info-card">
+<div class="project-info-card">
     @if (project(); as project) {
         <header class="project-info-card__header">
             <tui-icon class="project-info-card__header-icon" icon="@tui.info" />
@@ -116,17 +116,22 @@
 
                 <div class="project-info-card__stat-content">
                     <span class="project-info-card__stat-label">Команда</span>
-                    @if (team()) {
-                        <span class="project-info-card__stat-value">
-                            {{ team()?.name }}</span
-                        >
-                    } @else {
-                        <span class="project-info-card__stat-value">
-                            Пока не добавлена</span
-                        >
-                    }
+
+                    <span
+                        class="project-info-card__stat-value project-info-card__stat-value_team"
+                        [tuiSkeleton]="isTeamLoading()"
+                    >
+                        @if (isTeamLoading()) {
+                        } @else {
+                            @if (team(); as team) {
+                                {{ team.name }}
+                            } @else {
+                                Пока не добавлена
+                            }
+                        }
+                    </span>
                 </div>
             </div>
         </footer>
     }
-</section>
+</div>

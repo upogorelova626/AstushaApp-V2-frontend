@@ -13,17 +13,17 @@
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
 
     &__header {
+        min-width: 0;
+        margin-bottom: 24px;
         display: flex;
         align-items: center;
         gap: 12px;
-        min-width: 0;
     }
 
     &__header-icon {
@@ -52,8 +52,8 @@
     &__action-card {
         width: 100%;
         min-width: 0;
-        min-height: 136px;
-        padding: 24px;
+        min-height: 128px;
+        padding: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -70,29 +70,33 @@
         &_delete {
             border-color: var(--color-danger);
         }
+
+        > button {
+            flex-shrink: 0;
+        }
     }
 
     &__action-info {
         min-width: 0;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 16px;
         flex: 1;
     }
 
     &__action-icon {
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
         border: 1px solid var(--color-card-border);
-        border-radius: 50%;
+        border-radius: 14px;
 
         tui-icon {
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
         }
 
         &_complete {
@@ -120,6 +124,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
+        &_complete {
+            color: var(--color-text-primary);
+        }
+
         &_delete {
             color: var(--color-danger);
         }
@@ -130,22 +138,19 @@
         margin: 8px 0 0;
         color: var(--color-text-secondary);
         font: var(--tui-typography-body-m);
-    }
-
-    &__action-card > button {
-        flex-shrink: 0;
+        line-height: 1.4;
     }
 }
 
 @media (max-width: 768px) {
     .project-danger-zone {
         padding: 16px;
-        border-radius: 5px;
 
         &__action-card {
+            min-height: auto;
+            padding: 16px;
             align-items: stretch;
             flex-direction: column;
-            padding: 16px;
         }
 
         &__action-info {
@@ -154,6 +159,31 @@
 
         &__action-card > button {
             width: 100%;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .project-danger-zone {
+        &__action-info {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        &__action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+
+            tui-icon {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        &__action-description {
+            font: var(--tui-typography-body-s);
+            line-height: 1.4;
         }
     }
 }

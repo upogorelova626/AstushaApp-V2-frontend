@@ -11,7 +11,6 @@
     min-width: 0;
     max-width: 100%;
     min-height: 210px;
-
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -24,37 +23,48 @@
         min-width: 0;
         margin-bottom: 24px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
     }
 
     &__title-wrapper {
         min-width: 0;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    &__icon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        border-radius: 12px;
-        color: var(--color-primary-light);
-        background: var(--color-card-bg);
     }
 
     &__title {
+        min-width: 0;
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
         overflow: hidden;
         color: var(--color-text-primary);
         font: var(--tui-typography-heading-h5);
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+
+    &__icon {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--color-primary-light);
+
+        tui-icon {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    &__subtitle {
+        margin: 4px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        line-height: 1.4;
     }
 
     &__badge {
@@ -63,7 +73,13 @@
         border: 1px solid var(--color-primary);
         border-radius: 999px;
         color: var(--color-primary-light);
-        font: var(--tui-typography-body-s);
+        font: var(--tui-typography-body-m);
+        white-space: nowrap;
+
+        &_empty {
+            border-color: var(--color-card-border);
+            color: var(--color-text-muted);
+        }
     }
 
     &__main {
@@ -89,12 +105,24 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        overflow: hidden;
         border-radius: 18px;
-        color: var(--color-text-primary);
+        color: var(--color-primary-light);
         background: var(--color-stat-blue-bg);
         font-size: 22px;
         line-height: 28px;
         font-weight: 700;
+
+        tui-icon {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    &__avatar-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     &__info {
@@ -137,19 +165,57 @@
         display: flex;
         justify-content: flex-end;
         gap: 12px;
+
+        button {
+            flex-shrink: 0;
+        }
     }
 
-    &__actions button {
-        flex-shrink: 0;
+    &__empty {
+        min-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    &__empty-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        color: var(--color-primary-light);
+        background: var(--color-stat-blue-bg);
+
+        tui-icon {
+            width: 26px;
+            height: 26px;
+        }
+    }
+
+    &__empty-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h6);
+    }
+
+    &__empty-description {
+        max-width: 360px;
+        margin: 8px 0 20px;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        line-height: 1.4;
     }
 
     @media (max-width: 768px) {
         min-height: auto;
         padding: 16px;
-        border-radius: 5px;
 
         &__header {
-            align-items: flex-start;
             flex-direction: column;
             gap: 12px;
         }
@@ -159,11 +225,29 @@
         }
 
         &__actions {
+            width: 100%;
+            flex-direction: column;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        &__team {
             flex-direction: column;
         }
 
-        &__actions button {
-            width: 100%;
+        &__avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+        }
+
+        &__description,
+        &__meta {
+            white-space: normal;
         }
     }
 }

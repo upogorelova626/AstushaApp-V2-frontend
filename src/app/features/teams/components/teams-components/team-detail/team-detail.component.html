@@ -1,9 +1,9 @@
 @if (!isLoading() && !team()) {
-    <section class="team-details team-details_state">
+    <div class="team-details team-details_state">
         <p class="team-details__state-text">Выберите команду слева.</p>
-    </section>
+    </div>
 } @else {
-    <section class="team-details">
+    <div class="team-details">
         <header class="team-details__header">
             <div class="team-details__team">
                 <div class="team-details__avatar" [tuiSkeleton]="isLoading()">
@@ -234,5 +234,5 @@
                 Показывать: 7
             </span>
         </footer>
-    </section>
+    </div>
 }

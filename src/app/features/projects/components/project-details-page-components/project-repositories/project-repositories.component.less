@@ -1,6 +1,7 @@
 :host {
     display: block;
     width: 100%;
+    min-width: 0;
 }
 
 .project-repositories-card {
@@ -14,42 +15,40 @@
     background: var(--color-card-bg);
 
     &__header {
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
         min-width: 0;
-    }
-
-    &__icon {
-        width: 44px;
-        height: 44px;
-        flex: 0 0 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 14px;
-        color: #2563eb;
-        background: #eef2ff;
-
-        tui-icon {
-            font-size: 24px;
-        }
     }
 
     &__header-content {
         min-width: 0;
     }
 
+    &__title-wrapper {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__title-icon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        color: var(--color-primary-light);
+    }
+
     &__title {
-        margin: 0 0 4px;
+        margin: 0;
+        overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
+        font: var(--tui-typography-heading-h5);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__description {
-        margin: 0;
+        margin: 4px 0 0;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-text-m);
+        font: var(--tui-typography-body-m);
         line-height: 1.4;
     }
 
@@ -71,8 +70,8 @@
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        color: #2563eb;
-        background: #eef2ff;
+        color: var(--color-primary-light);
+        background: var(--color-card-bg);
 
         tui-icon {
             font-size: 22px;
@@ -83,7 +82,7 @@
         min-width: 0;
         overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-text-m);
+        font: var(--tui-typography-body-m);
         font-weight: 600;
         text-decoration: none;
         text-overflow: ellipsis;
@@ -117,7 +116,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0px;
+    gap: 0;
     padding: 8px 0;
     text-align: center;
 
@@ -157,23 +156,8 @@
         padding: 18px;
         gap: 18px;
 
-        &__header {
-            gap: 12px;
-        }
-
-        &__icon {
-            width: 40px;
-            height: 40px;
-            flex-basis: 40px;
-            border-radius: 12px;
-
-            tui-icon {
-                font-size: 22px;
-            }
-        }
-
         &__description {
-            font: var(--tui-typography-text-s);
+            font: var(--tui-typography-body-s);
         }
 
         &__item {
@@ -193,7 +177,7 @@
         }
 
         &__item-link {
-            font: var(--tui-typography-text-s);
+            font: var(--tui-typography-body-s);
             font-weight: 600;
         }
 

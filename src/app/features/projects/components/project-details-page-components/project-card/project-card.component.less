@@ -1,17 +1,30 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .project-info-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     min-height: 425px;
     padding: 24px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
 
     &__header {
+        min-width: 0;
         margin-bottom: 24px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     &__header-icon {
@@ -23,12 +36,18 @@
 
     &__title {
         margin: 0;
+        overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
+        font: var(--tui-typography-heading-h5);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__content {
+        min-width: 0;
+        display: flex;
         flex: 1;
+        flex-direction: column;
     }
 
     &__list {
@@ -39,6 +58,7 @@
     }
 
     &__row {
+        min-width: 0;
         display: grid;
         grid-template-columns: minmax(120px, 1fr) minmax(0, 1fr);
         align-items: center;
@@ -48,7 +68,7 @@
     &__label {
         margin: 0;
         color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-m);
+        font: var(--tui-typography-body-m);
     }
 
     &__value {
@@ -56,7 +76,7 @@
         margin: 0;
         overflow: hidden;
         color: var(--color-text-primary);
-        font: var(--tui-typography-ui-m);
+        font: var(--tui-typography-body-m);
         font-weight: 600;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -90,14 +110,15 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        box-sizing: border-box;
         border: 1px solid var(--color-card-border);
-        border-radius: 14px;
+        border-radius: 5px;
         background: var(--color-card-bg);
     }
 
     &__stat-icon {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
         flex-shrink: 0;
         color: var(--color-primary-light);
     }
@@ -107,17 +128,20 @@
         display: flex;
         flex: 1;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 
     &__stat-label {
         color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-s);
+        font: var(--tui-typography-body-s);
+        white-space: nowrap;
     }
 
     &__stat-value {
         color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h5);
+        font: var(--tui-typography-heading-h6);
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 
@@ -150,11 +174,6 @@
             gap: 8px;
         }
 
-        &__stat-icon {
-            width: 22px;
-            height: 22px;
-        }
-
         &__stat-value {
             font: var(--tui-typography-heading-h6);
         }
@@ -176,14 +195,6 @@
 
         &__stats {
             grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        &__stat {
-            justify-content: flex-start;
-        }
-
-        &__stat-content {
-            align-items: flex-start;
         }
     }
 }
@@ -209,11 +220,6 @@
         &__stat {
             min-height: 56px;
         }
-
-        &__stat-icon {
-            width: 22px;
-            height: 22px;
-        }
     }
 }
 
@@ -226,18 +232,17 @@
             margin-bottom: 16px;
         }
 
-        &__label {
-            font: var(--tui-typography-ui-s);
+        &__label,
+        &__value {
+            font: var(--tui-typography-body-s);
         }
 
         &__value {
-            font: var(--tui-typography-ui-s);
             font-weight: 600;
         }
 
         &__stat {
             padding: 10px;
-            border-radius: 12px;
         }
 
         &__stat-value {
