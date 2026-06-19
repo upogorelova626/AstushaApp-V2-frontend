@@ -1,3 +1,4 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -10,6 +11,7 @@ import {
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
+import {Router} from '@angular/router';
 import {TuiAutoFocus, TuiDay} from '@taiga-ui/cdk';
 import {
     TUI_VALIDATION_ERRORS,
@@ -17,6 +19,7 @@ import {
     TuiCalendar,
     TuiDataList,
     type TuiDialogContext,
+    TuiDialogService,
     TuiDropdown,
     TuiError,
     TuiInput,
@@ -27,7 +30,8 @@ import {
 } from '@taiga-ui/core';
 import {TuiChevron, TuiInputDate, TuiUnfinishedValidator} from '@taiga-ui/kit';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {Router} from '@angular/router';
+import {catchError, EMPTY} from 'rxjs';
+
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator
@@ -80,8 +84,10 @@ import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-e
 })
 export class CreateProjectDialogComponent {
     protected readonly context = injectContext<TuiDialogContext<void, void>>();
+
     private readonly projectsService = inject(ProjectsService);
     private readonly router = inject(Router);
+    private readonly dialogs = inject(TuiDialogService);
 
     protected readonly workflowTypeOptions = PROJECT_WORKFLOW_TYPE_OPTIONS;
     protected readonly priorityOptions = PROJECT_PRIORITY_OPTIONS;
@@ -166,7 +172,7 @@ export class CreateProjectDialogComponent {
         this.priorityDropdownOpen.set(false);
     }
 
-    protected selectWorkflowType(option: WorkflowTypeOption) {
+    protected selectWorkflowType(option: WorkflowTypeOption): void {
         this.setSelectValue(
             this.form.controls.workflowType,
             this.form.controls.workflowTypeTitle,
@@ -176,7 +182,7 @@ export class CreateProjectDialogComponent {
         this.closeWorkflowDropdown();
     }
 
-    protected selectPriority(option: ProjectPriorityOption) {
+    protected selectPriority(option: ProjectPriorityOption): void {
         this.setSelectValue(
             this.form.controls.priority,
             this.form.controls.priorityTitle,
@@ -186,7 +192,7 @@ export class CreateProjectDialogComponent {
         this.closePriorityDropdown();
     }
 
-    protected createProject() {
+    protected createProject(): void {
         this.form.markAllAsTouched();
 
         if (this.form.invalid) {
@@ -201,10 +207,24 @@ export class CreateProjectDialogComponent {
 
         const payload = this.buildCreateProjectPayload(value);
 
-        this.projectsService.createProject(payload).subscribe(project => {
-            this.context.$implicit.complete();
-            this.router.navigate(['dashboard/projects', project.id]);
-        });
+        this.projectsService
+            .createProject(payload)
+            .pipe(
+                catchError(error => {
+                    this.dialogs
+                        .open(this.getErrorMessage(error), {
+                            label: 'Ошибка создания проекта',
+                            size: 's'
+                        })
+                        .subscribe();
+
+                    return EMPTY;
+                })
+            )
+            .subscribe(project => {
+                this.context.$implicit.complete();
+                void this.router.navigate(['dashboard/projects', project.id]);
+            });
     }
 
     private setSelectValue<T>(
@@ -214,7 +234,7 @@ export class CreateProjectDialogComponent {
             value: T;
             title: string;
         }
-    ) {
+    ): void {
         valueControl.setValue(option.value);
         titleControl.setValue(option.title);
 
@@ -258,5 +278,49 @@ export class CreateProjectDialogComponent {
             startDate: tuiDayToDateString(value.startDate),
             deadline: tuiDayToDateString(value.deadline)
         };
+    }
+
+    private getErrorMessage(error: unknown): string {
+        if (!(error instanceof HttpErrorResponse)) {
+            return 'Не удалось создать проект. Попробуйте позже';
+        }
+
+        const messages = this.getBackendMessages(error);
+
+        if (this.hasMessage(messages, 'Project with this key already exists')) {
+            return 'Проект с таким ключом уже существует';
+        }
+
+        if (error.status === 0) {
+            return 'Сервер недоступен. Проверьте подключение';
+        }
+
+        if (error.status >= 500) {
+            return 'На сервере произошла ошибка. Попробуйте позже';
+        }
+
+        return 'Не удалось создать проект. Попробуйте позже';
+    }
+
+    private getBackendMessages(error: HttpErrorResponse): string[] {
+        const message = error.error?.message;
+
+        if (Array.isArray(message)) {
+            return message.filter(
+                (item): item is string => typeof item === 'string'
+            );
+        }
+
+        if (typeof message === 'string') {
+            return [message];
+        }
+
+        return [];
+    }
+
+    private hasMessage(messages: string[], searchValue: string): boolean {
+        return messages.some(message =>
+            message.toLowerCase().includes(searchValue.toLowerCase())
+        );
     }
 }
