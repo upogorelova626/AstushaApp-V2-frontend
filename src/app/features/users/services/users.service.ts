@@ -15,6 +15,7 @@ import {
     merge,
     Observable,
     of,
+    ReplaySubject,
     shareReplay,
     startWith,
     Subject,
@@ -34,6 +35,7 @@ export class UsersService {
 
     private readonly refreshProfile$ = new Subject<void>();
     private readonly clearProfile$ = new Subject<void>();
+    private readonly setProfile$ = new ReplaySubject<AuthUser | null>(1);
 
     readonly profile$: Observable<AuthUser | null> = merge(
         this.refreshProfile$.pipe(
@@ -44,7 +46,8 @@ export class UsersService {
                     .pipe(catchError(() => of(null)))
             )
         ),
-        this.clearProfile$.pipe(map(() => null))
+        this.clearProfile$.pipe(map(() => null)),
+        this.setProfile$
     ).pipe(
         shareReplay({
             bufferSize: 1,
@@ -56,18 +59,31 @@ export class UsersService {
         this.refreshProfile$.next();
     }
 
+    setProfile(profile: AuthUser | null): void {
+        this.setProfile$.next(profile);
+    }
+
     clearProfile(): void {
         this.clearProfile$.next();
+        this.setProfile(null);
     }
 
     getMyProfile() {
-        return this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`);
+        return this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`).pipe(
+            tap(profile => {
+                this.setProfile(profile);
+            })
+        );
     }
 
     changeMyProfile(formData: FormData) {
         return this.http
             .patch<AuthUser>(`${this.baseApiUrl}/users/profile`, formData)
-            .pipe(tap(() => this.refreshProfile$.next()));
+            .pipe(
+                tap(profile => {
+                    this.setProfile(profile);
+                })
+            );
     }
 
     deleteMyProfile() {
@@ -84,7 +100,9 @@ export class UsersService {
             )
             .pipe(
                 switchMap(() => this.authService.logout()),
-                tap(() => this.clearProfile())
+                tap(() => {
+                    this.clearProfile();
+                })
             );
     }
 
@@ -102,15 +120,19 @@ export class UsersService {
     deleteMyAvatar() {
         return this.http
             .delete<AuthUser>(`${this.baseApiUrl}/users/profile/avatar`)
-            .pipe(tap(() => this.refreshProfile$.next()));
+            .pipe(
+                tap(profile => {
+                    this.setProfile(profile);
+                })
+            );
     }
 
     changeTheme(payload: ChangeThemeRequest) {
         return this.http
             .patch<AuthUser>(`${this.baseApiUrl}/users/profile/theme`, payload)
             .pipe(
-                tap(() => {
-                    this.reloadProfile();
+                tap(profile => {
+                    this.setProfile(profile);
                 })
             );
     }

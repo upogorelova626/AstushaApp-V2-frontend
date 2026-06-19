@@ -63,16 +63,17 @@ export const routes: Routes = [
             },
             {
                 path: 'my-tasks',
-                data: {
-                    breadcrumb: 'Мои задачи'
-                },
+
                 children: [
                     {
                         path: '',
                         loadComponent: () =>
                             import('./features/my-tasks/pages/my-tasks-page/my-tasks-page.component').then(
                                 m => m.MyTasksPageComponent
-                            )
+                            ),
+                        data: {
+                            breadcrumb: 'Мои задачи'
+                        }
                     }
                 ]
             },

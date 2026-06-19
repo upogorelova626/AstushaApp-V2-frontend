@@ -1,30 +1,35 @@
 <div class="project-settings-page">
     @if (project(); as project) {
         <div class="project-settings-page__content">
-            <div class="project-settings-page__column">
-                <app-project-main-settings
-                    [project]="project"
-                    (projectUpdated)="updateProject($event)"
-                />
+            <app-project-main-settings
+                class="project-settings-page__card"
+                [project]="project"
+                (projectUpdated)="updateProject($event)"
+            />
 
-                <app-project-sprints-settings />
+            <app-project-workflow-settings
+                class="project-settings-page__card"
+                [project]="project"
+            />
 
-                <app-project-danger-zone
-                    [projectId]="project.id"
-                    [projectStatus]="project.status"
-                />
-            </div>
+            <app-project-sprints-settings class="project-settings-page__card" />
 
-            <div class="project-settings-page__column">
-                <app-project-workflow-settings [project]="project" />
+            <app-project-team-settings
+                class="project-settings-page__card"
+                [projectId]="project.id"
+            />
 
-                <app-project-team-settings [projectId]="project.id" />
+            <app-project-danger-zone
+                class="project-settings-page__card"
+                [projectId]="project.id"
+                [projectStatus]="project.status"
+            />
 
-                <app-project-repositories
-                    [project]="project"
-                    [canManageProject]="canManageProject()"
-                />
-            </div>
+            <app-project-repositories
+                class="project-settings-page__card"
+                [project]="project"
+                [canManageProject]="canManageProject()"
+            />
         </div>
     }
 </div>

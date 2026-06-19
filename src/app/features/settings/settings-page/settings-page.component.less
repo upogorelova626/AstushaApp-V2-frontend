@@ -1,34 +1,46 @@
 .settins-page-components {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
     gap: 10px;
     min-width: 0;
-    box-sizing: border-box;
     margin-right: 10px;
     margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .left-column,
 .right-column {
+    display: grid;
     min-width: 0;
+    gap: 10px;
 }
 
 .left-column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    grid-template-rows: minmax(0, 1fr) auto;
 }
 
 .right-column {
-    display: grid;
     grid-template-rows: auto auto minmax(0, 1fr);
-    gap: 10px;
 }
 
 .left-column > *,
 .right-column > * {
-    display: block;
+    display: grid;
     width: 100%;
     min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+    .settins-page-components {
+        grid-template-columns: 1fr;
+        margin-right: 0;
+    }
+
+    .left-column,
+    .right-column {
+        grid-template-rows: auto;
+    }
 }
