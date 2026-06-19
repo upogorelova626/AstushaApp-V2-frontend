@@ -10,15 +10,10 @@ import {
     ChangeThemeRequest
 } from '../../auth/models/interfaces/auth.interface';
 import {
+    BehaviorSubject,
     catchError,
-    map,
-    merge,
     Observable,
     of,
-    ReplaySubject,
-    shareReplay,
-    startWith,
-    Subject,
     switchMap,
     tap
 } from 'rxjs';
@@ -33,39 +28,31 @@ export class UsersService {
 
     private readonly baseApiUrl = 'http://localhost:3000';
 
-    private readonly refreshProfile$ = new Subject<void>();
-    private readonly clearProfile$ = new Subject<void>();
-    private readonly setProfile$ = new ReplaySubject<AuthUser | null>(1);
-
-    readonly profile$: Observable<AuthUser | null> = merge(
-        this.refreshProfile$.pipe(
-            startWith(void 0),
-            switchMap(() =>
-                this.http
-                    .get<AuthUser>(`${this.baseApiUrl}/users/profile`)
-                    .pipe(catchError(() => of(null)))
-            )
-        ),
-        this.clearProfile$.pipe(map(() => null)),
-        this.setProfile$
-    ).pipe(
-        shareReplay({
-            bufferSize: 1,
-            refCount: true
-        })
+    private readonly profileSubject = new BehaviorSubject<AuthUser | null>(
+        null
     );
 
+    readonly profile$: Observable<AuthUser | null> =
+        this.profileSubject.asObservable();
+
     reloadProfile(): void {
-        this.refreshProfile$.next();
+        this.getMyProfile()
+            .pipe(
+                catchError(() => {
+                    this.clearProfile();
+
+                    return of(null);
+                })
+            )
+            .subscribe();
     }
 
     setProfile(profile: AuthUser | null): void {
-        this.setProfile$.next(profile);
+        this.profileSubject.next(profile);
     }
 
     clearProfile(): void {
-        this.clearProfile$.next();
-        this.setProfile(null);
+        this.profileSubject.next(null);
     }
 
     getMyProfile() {

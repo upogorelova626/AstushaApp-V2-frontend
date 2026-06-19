@@ -1,7 +1,8 @@
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, Location} from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
+    OnInit,
     inject,
     signal
 } from '@angular/core';
@@ -24,7 +25,6 @@ import {
 import {UsersService} from '../../../../features/users/services/users.service';
 import {AuthService} from '../../../../features/auth/services/auth.service';
 import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
-import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-header',
@@ -46,7 +46,7 @@ import {Location} from '@angular/common';
     styleUrl: './header.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
     private readonly usersService = inject(UsersService);
     private readonly authService = inject(AuthService);
     private readonly router = inject(Router);
@@ -55,7 +55,7 @@ export class HeaderComponent {
     protected readonly profile$ = this.usersService.profile$;
     protected readonly open = signal(false);
 
-    protected skeleton = false;
+    protected readonly skeleton = false;
 
     protected readonly userMenuActions: readonly UserMenuActionOption[] = [
         {
@@ -68,13 +68,17 @@ export class HeaderComponent {
         }
     ];
 
-    protected toggleUserMenu(event: MouseEvent) {
+    ngOnInit(): void {
+        this.usersService.reloadProfile();
+    }
+
+    protected toggleUserMenu(event: MouseEvent): void {
         event.stopPropagation();
 
         this.open.update(open => !open);
     }
 
-    protected onUserMenuAction(action: UserMenuAction) {
+    protected onUserMenuAction(action: UserMenuAction): void {
         this.open.set(false);
 
         switch (action) {
@@ -88,14 +92,14 @@ export class HeaderComponent {
         }
     }
 
-    protected logout() {
+    protected logout(): void {
         this.authService.logout().subscribe(() => {
             this.usersService.clearProfile();
-            this.router.navigate(['/auth/login']);
+            void this.router.navigate(['/auth/login']);
         });
     }
 
-    protected goBack() {
+    protected goBack(): void {
         this.location.back();
     }
 }

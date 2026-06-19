@@ -45,7 +45,7 @@ export class DeleteProfileComponent {
         this.usersService.deleteMyProfile().subscribe({
             next: () => {
                 this.closeDeleteDialog();
-                this.router.navigate(['/login']);
+                this.router.navigate(['auth/login']);
             }
         });
     }
