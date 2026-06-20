@@ -1,6 +1,10 @@
 <div class="task-page">
     <div class="task-page__left-column">
-        <app-task-main-card [task]="task()" [isLoading]="isLoading()" />
+        <app-task-main-card
+            [task]="task()"
+            [isLoading]="isLoading()"
+            (taskUpdated)="updateTask($event)"
+        />
 
         <app-task-content-card [task]="task()" [isLoading]="isLoading()" />
     </div>

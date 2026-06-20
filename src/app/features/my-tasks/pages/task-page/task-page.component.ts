@@ -1,18 +1,18 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    inject,
     OnInit,
+    inject,
     signal
 } from '@angular/core';
-import {TaskMainCardComponent} from '../../components/task-details-components/task-main-card/task-main-card.component';
-import {TaskContentCardComponent} from '../../components/task-details-components/task-content-card/task-content-card.component';
-import {TaskFilesCardComponent} from '../../components/task-details-components/task-files-card/task-files-card.component';
-import {TaskHistoryCardComponent} from '../../components/task-details-components/task-history-card/task-history-card.component';
 import {ActivatedRoute} from '@angular/router';
 import {finalize} from 'rxjs';
 import {ProjectTasksService} from '../../../projects/services/project-tasks.service';
 import {ProjectTask} from '../../../projects/interfaces/project-tasks.interface';
+import {TaskContentCardComponent} from '../../components/task-details-components/task-content-card/task-content-card.component';
+import {TaskFilesCardComponent} from '../../components/task-details-components/task-files-card/task-files-card.component';
+import {TaskHistoryCardComponent} from '../../components/task-details-components/task-history-card/task-history-card.component';
+import {TaskMainCardComponent} from '../../components/task-details-components/task-main-card/task-main-card.component';
 
 @Component({
     selector: 'app-task-page',
@@ -55,5 +55,9 @@ export class TaskPageComponent implements OnInit {
             .subscribe(task => {
                 this.task.set(task);
             });
+    }
+
+    protected updateTask(task: ProjectTask) {
+        this.task.set(task);
     }
 }

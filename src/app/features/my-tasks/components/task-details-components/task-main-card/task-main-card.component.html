@@ -22,7 +22,13 @@
         </div>
 
         <div class="task-main-card__right-actions">
-            <button tuiButton appearance="flat" size="s" iconStart="@tui.pen">
+            <button
+                tuiButton
+                appearance="flat"
+                size="s"
+                iconStart="@tui.pen"
+                (click)="editTask()"
+            >
                 Редактировать
             </button>
 

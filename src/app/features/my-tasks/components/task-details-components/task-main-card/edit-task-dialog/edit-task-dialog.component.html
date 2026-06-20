@@ -1,0 +1,149 @@
+<form class="edit-task-dialog" [formGroup]="form" (ngSubmit)="saveTask()">
+    <div class="edit-task-dialog__grid">
+        <label class="edit-task-dialog__field edit-task-dialog__field_title">
+            <span class="edit-task-dialog__label">Название задачи</span>
+
+            <tui-textfield tuiTextfieldSize="m">
+                <input
+                    tuiInput
+                    type="text"
+                    placeholder="Введите название задачи"
+                    formControlName="title"
+                />
+            </tui-textfield>
+
+            <tui-error
+                formControlName="title"
+                [order]="['required', 'minlength', 'maxlength']"
+            />
+        </label>
+
+        <label class="edit-task-dialog__field">
+            <span class="edit-task-dialog__label">Тип задачи</span>
+
+            <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                <input
+                    tuiInput
+                    tuiSelectLike
+                    readonly
+                    type="text"
+                    placeholder="Выберите тип"
+                    formControlName="type"
+                />
+
+                <tui-data-list-wrapper *tuiDropdown [items]="taskTypeItems" />
+            </tui-textfield>
+
+            <tui-error formControlName="type" [order]="['required']" />
+        </label>
+
+        <label class="edit-task-dialog__field">
+            <span class="edit-task-dialog__label">Приоритет</span>
+
+            <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                <input
+                    tuiInput
+                    tuiSelectLike
+                    readonly
+                    type="text"
+                    placeholder="Выберите приоритет"
+                    formControlName="priority"
+                />
+
+                <tui-data-list-wrapper
+                    *tuiDropdown
+                    [items]="taskPriorityItems"
+                />
+            </tui-textfield>
+
+            <tui-error formControlName="priority" [order]="['required']" />
+        </label>
+
+        <label class="edit-task-dialog__field">
+            <span class="edit-task-dialog__label">Исполнитель</span>
+
+            <tui-textfield tuiTextfieldSize="m" tuiChevron>
+                <input
+                    tuiInput
+                    tuiSelectLike
+                    readonly
+                    type="text"
+                    placeholder="Выберите исполнителя"
+                    formControlName="assigneeId"
+                />
+
+                <tui-data-list-wrapper
+                    *tuiDropdown
+                    [items]="assigneeIdItems()"
+                />
+            </tui-textfield>
+        </label>
+
+        <label class="edit-task-dialog__field">
+            <span class="edit-task-dialog__label">Story points</span>
+
+            <tui-textfield tuiTextfieldSize="m">
+                <input
+                    tuiInput
+                    type="number"
+                    min="0"
+                    placeholder="Например, 3"
+                    formControlName="storyPoints"
+                />
+            </tui-textfield>
+
+            <tui-error formControlName="storyPoints" [order]="['min']" />
+        </label>
+
+        <label class="edit-task-dialog__field">
+            <span class="edit-task-dialog__label">Дедлайн</span>
+
+            <tui-textfield tuiTextfieldSize="m">
+                <input
+                    tuiInputDate
+                    placeholder="Выберите дату"
+                    formControlName="dueDate"
+                />
+
+                <tui-calendar *tuiDropdown />
+            </tui-textfield>
+
+            <tui-error
+                formControlName="dueDate"
+                [order]="['notPastDate', 'date', 'invalidDate']"
+            />
+        </label>
+    </div>
+
+    <label class="edit-task-dialog__description">
+        <span class="edit-task-dialog__description-label">
+            Описание задачи
+        </span>
+
+        <tui-textfield tuiTextfieldSize="m">
+            <textarea
+                tuiTextarea
+                placeholder="Опишите задачу, требования или важные детали"
+                formControlName="description"
+            ></textarea>
+        </tui-textfield>
+
+        <tui-error formControlName="description" [order]="['maxlength']" />
+    </label>
+
+    <footer class="edit-task-dialog__footer">
+        <button
+            tuiButton
+            appearance="secondary"
+            type="button"
+            [disabled]="isSaving()"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button tuiButton type="submit" [disabled]="form.invalid || isSaving()">
+            Сохранить
+        </button>
+    </footer>
+</form>
