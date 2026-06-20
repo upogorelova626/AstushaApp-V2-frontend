@@ -24,6 +24,9 @@
 .my-tasks-list {
     width: 100%;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     &__table-wrapper {
         width: 100%;
@@ -138,23 +141,39 @@
     }
 
     &__footer {
-        padding: 14px 16px;
-        display: flex;
+        width: 100%;
+        min-width: 0;
+        padding: 10px 16px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
         align-items: center;
-        justify-content: space-between;
         gap: 16px;
-        border-top: 1px solid var(--color-card-border);
+        box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
+        border-radius: 5px;
+        background: var(--color-card-bg);
     }
 
     &__counter {
-        color: var(--color-text-muted);
-        font: var(--tui-typography-body-m);
+        overflow: hidden;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-l);
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__pagination {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
+    }
+
+    &__pagination-text,
+    &__page-size {
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+        white-space: nowrap;
     }
 }
 
@@ -170,11 +189,37 @@
     }
 }
 
+@media (max-width: 1024px) {
+    .my-tasks-list {
+        &__footer {
+            grid-template-columns: 1fr;
+            justify-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        &__counter {
+            white-space: normal;
+        }
+
+        &__pagination {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .my-tasks-list {
+        &__counter {
+            font: var(--tui-typography-body-l);
+        }
+    }
+}
+
 @media (max-width: 640px) {
     .my-tasks-list {
         &__footer {
-            align-items: stretch;
-            flex-direction: column;
+            padding: 12px;
         }
 
         &__pagination {

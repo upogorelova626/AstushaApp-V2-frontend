@@ -3,7 +3,7 @@
         <img
             class="my-tasks-empty__image"
             src="/images/no-tasks-img.png"
-            alt="Нет задач!"
+            alt="Нет задач"
         />
     </div>
 } @else {
@@ -25,7 +25,7 @@
                 </thead>
 
                 <tbody class="my-tasks-list__body">
-                    @for (task of tasks(); track task.id) {
+                    @for (task of paginatedTasks(); track task.id) {
                         <tr class="my-tasks-list__row">
                             <td class="my-tasks-list__cell">
                                 <div class="my-tasks-list__task">
@@ -40,15 +40,15 @@
                             </td>
 
                             <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__project">{{
-                                    task.project.title
-                                }}</span>
+                                <span class="my-tasks-list__project">
+                                    {{ task.project.title }}
+                                </span>
                             </td>
 
                             <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__stage">{{
-                                    task.workflowStage.name
-                                }}</span>
+                                <span class="my-tasks-list__stage">
+                                    {{ task.workflowStage.name }}
+                                </span>
                             </td>
 
                             <td class="my-tasks-list__cell">
@@ -61,15 +61,15 @@
                             </td>
 
                             <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__deadline">{{
-                                    task.dueDate | date
-                                }}</span>
+                                <span class="my-tasks-list__deadline">
+                                    {{ task.dueDate | date }}
+                                </span>
                             </td>
 
                             <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__updated">{{
-                                    task.updatedAt | date
-                                }}</span>
+                                <span class="my-tasks-list__updated">
+                                    {{ task.updatedAt | date }}
+                                </span>
                             </td>
 
                             <td
@@ -77,55 +77,71 @@
                             >
                                 <button
                                     tuiIconButton
+                                    type="button"
                                     appearance="flat"
                                     size="xs"
                                     iconStart="@tui.ellipsis"
                                     tuiHint="Подробнее о задаче"
                                     tuiHintDirection="top-start"
+                                    aria-label="Подробнее о задаче"
                                     [routerLink]="[
                                         '/dashboard/projects',
                                         task.projectId,
                                         'tasks',
                                         task.id
                                     ]"
-                                >
-                                </button>
+                                ></button>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-
             <footer class="my-tasks-list__footer">
-                <span class="my-tasks-list__counter">
-                    Показано 1–7 из 24 задач
+                <span
+                    class="my-tasks-list__counter"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    Показано {{ paginatedTasks().length }} из
+                    {{ tasks().length }} задач
                 </span>
 
-                <div class="my-tasks-list__pagination">
+                <div
+                    class="my-tasks-list__pagination"
+                    [tuiSkeleton]="isLoading()"
+                >
                     <button
                         tuiIconButton
+                        type="button"
                         appearance="flat"
                         size="s"
                         iconStart="@tui.chevron-left"
-                    >
-                        Назад
-                    </button>
+                        aria-label="Предыдущая страница"
+                        [disabled]="!canGoPrev()"
+                        (click)="goToPrevPage()"
+                    ></button>
 
-                    <button tuiButton size="s">1</button>
-
-                    <button tuiButton="flat" size="s"> 2 </button>
-
-                    <button tuiButton="flat" size="s"> 3 </button>
+                    <span class="my-tasks-list__pagination-text">
+                        Страница {{ currentPage() }} из {{ totalPages() }}
+                    </span>
 
                     <button
                         tuiIconButton
+                        type="button"
                         appearance="flat"
                         size="s"
                         iconStart="@tui.chevron-right"
-                    >
-                        Вперёд
-                    </button>
+                        aria-label="Следующая страница"
+                        [disabled]="!canGoNext()"
+                        (click)="goToNextPage()"
+                    ></button>
                 </div>
+
+                <span
+                    class="my-tasks-list__page-size"
+                    [tuiSkeleton]="isLoading()"
+                >
+                    Показывать: {{ pageSize }}
+                </span>
             </footer>
         </div>
     </div>
