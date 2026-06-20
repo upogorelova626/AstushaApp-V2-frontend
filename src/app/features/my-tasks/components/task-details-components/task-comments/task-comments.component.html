@@ -1,1 +1,62 @@
-<p>task-comments works!</p>
+<div class="task-comments-card">
+    <header class="task-comments-card__header">
+        <div>
+            <div class="task-comments-card__title-wrapper">
+                <h3 class="task-comments-card__title">Комментарии</h3>
+
+                <span class="task-comments-card__count">1</span>
+            </div>
+
+            <p class="task-comments-card__subtitle">
+                Обсудите детали задачи с командой
+            </p>
+        </div>
+    </header>
+
+    <form class="task-comments-card__form">
+        <tui-textfield tuiTextfieldSize="m">
+            <textarea
+                tuiTextarea
+                placeholder="Написать комментарий..."
+            ></textarea>
+        </tui-textfield>
+
+        <div class="task-comments-card__form-footer">
+            <button tuiButton type="button" size="s" iconStart="@tui.send">
+                Отправить
+            </button>
+        </div>
+    </form>
+
+    <div class="task-comments-card__list">
+        <article class="task-comments-card__comment">
+            <div class="task-comments-card__avatar">АК</div>
+
+            <div class="task-comments-card__comment-content">
+                <header class="task-comments-card__comment-header">
+                    <strong class="task-comments-card__author">
+                        Астюша Котикович
+                    </strong>
+
+                    <span class="task-comments-card__date">
+                        сегодня в 18:42
+                    </span>
+                </header>
+
+                <p class="task-comments-card__text">
+                    Надо не забыть проверить адаптив на странице профиля.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <!-- <div class="task-comments-card__empty">
+        <p class="task-comments-card__empty-title">
+            Комментариев пока нет
+        </p>
+
+        <p class="task-comments-card__empty-description">
+            Оставьте первый комментарий по этой задаче
+        </p>
+    </div> -->
+</div>

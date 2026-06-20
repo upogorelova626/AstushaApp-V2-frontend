@@ -1,1 +1,33 @@
-<p>task-content-card works!</p>
+<div class="task-description-card" [tuiSkeleton]="isLoading()">
+    <header class="task-description-card__header">
+        <div class="task-description-card__title-wrapper">
+            <tui-icon
+                class="task-description-card__icon"
+                icon="@tui.file-text"
+            />
+
+            <h3 class="task-description-card__title">Описание задачи</h3>
+        </div>
+    </header>
+
+    @if (task()?.description) {
+        <p class="task-description-card__text">
+            {{ task()?.description }}
+        </p>
+    } @else {
+        <div class="task-description-card__empty">
+            <div class="task-description-card__empty-icon">
+                <tui-icon icon="@tui.file-text" />
+            </div>
+
+            <p class="task-description-card__empty-title">
+                Описание пока не добавлено
+            </p>
+
+            <p class="task-description-card__empty-description">
+                Добавьте описание через редактирование задачи, чтобы команда
+                понимала контекст и требования
+            </p>
+        </div>
+    }
+</div>

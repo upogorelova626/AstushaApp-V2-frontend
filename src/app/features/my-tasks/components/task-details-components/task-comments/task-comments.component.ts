@@ -1,9 +1,18 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
+import {TuiButton, TuiCell, TuiInput, TuiTextfield} from '@taiga-ui/core';
+import {TuiAvatar, TuiTextarea} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-comments',
-    imports: [],
+    imports: [
+        TuiInput,
+        TuiTextfield,
+        TuiButton,
+        TuiAvatar,
+        TuiCell,
+        TuiTextarea
+    ],
     templateUrl: './task-comments.component.html',
     styleUrl: './task-comments.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

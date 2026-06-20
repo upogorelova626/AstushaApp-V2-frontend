@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {MyTask} from '../../../interfaces/my-tasks.interface';
 import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
+import {TuiButton, TuiIcon} from '@taiga-ui/core';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-content-card',
-    imports: [],
+    imports: [TuiIcon, TuiSkeleton, TuiButton],
     templateUrl: './task-content-card.component.html',
     styleUrl: './task-content-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

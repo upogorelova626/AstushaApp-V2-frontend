@@ -10,6 +10,7 @@
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+    margin-bottom: 10px;
 
     &__left-column,
     &__right-column {
@@ -24,6 +25,31 @@
     .task-page {
         grid-template-columns: 1fr;
         padding-right: 0;
+
+        &__left-column,
+        &__right-column {
+            display: contents;
+        }
+
+        app-task-main-card {
+            order: 1;
+        }
+
+        app-task-content-card {
+            order: 2;
+        }
+
+        app-task-files-card {
+            order: 3;
+        }
+
+        app-task-comments {
+            order: 4;
+        }
+
+        app-task-danger-zone {
+            order: 5;
+        }
     }
 }
 
@@ -31,9 +57,12 @@
     .task-page {
         gap: 14px;
 
-        &__left-column,
-        &__right-column {
-            gap: 14px;
+        app-task-main-card,
+        app-task-content-card,
+        app-task-files-card,
+        app-task-comments,
+        app-task-danger-zone {
+            min-width: 0;
         }
     }
 }

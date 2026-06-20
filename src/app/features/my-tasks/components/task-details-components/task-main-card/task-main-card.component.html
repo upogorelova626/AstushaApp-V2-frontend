@@ -65,10 +65,6 @@
                 {{ task()?.type || 'Тип задачи' }}
             </span>
         </div>
-
-        <p class="task-main-card__description" [tuiSkeleton]="isLoading()">
-            {{ task()?.description || 'Описание задачи пока не добавлено' }}
-        </p>
     </main>
 
     <footer class="task-main-card__footer">

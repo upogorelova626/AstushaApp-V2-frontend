@@ -1,0 +1,198 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.task-comments-card {
+    width: 100%;
+    min-width: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+
+    &__header {
+        min-width: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    &__title-wrapper {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h6);
+    }
+
+    &__count {
+        min-width: 24px;
+        height: 24px;
+        padding: 0 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        border-radius: 999px;
+        color: var(--color-primary-light);
+        background: var(--color-primary-soft);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__subtitle {
+        margin: 6px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &__form-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__list {
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        border-top: 1px solid var(--color-card-border);
+    }
+
+    &__comment {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr);
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    &__avatar {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 50%;
+        color: var(--color-text-primary);
+        background: var(--color-gradient-primary-soft);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__comment-content {
+        min-width: 0;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
+        border-radius: 5px;
+        background: var(--color-card-inner-bg);
+    }
+
+    &__comment-header {
+        min-width: 0;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__author {
+        overflow: hidden;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-body-l);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__date {
+        flex-shrink: 0;
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-m);
+        white-space: nowrap;
+    }
+
+    &__text {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-l);
+        line-height: 1.45;
+    }
+
+    &__empty {
+        min-height: 120px;
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-sizing: border-box;
+        border-top: 1px solid var(--color-card-border);
+        text-align: center;
+    }
+
+    &__empty-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-body-l);
+    }
+
+    &__empty-description {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+}
+
+@media (max-width: 640px) {
+    .task-comments-card {
+        padding: 18px;
+
+        &__comment {
+            grid-template-columns: 32px minmax(0, 1fr);
+            gap: 10px;
+        }
+
+        &__avatar {
+            width: 32px;
+            height: 32px;
+            font: var(--tui-typography-body-s);
+        }
+
+        &__comment-header {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        &__date {
+            white-space: normal;
+        }
+
+        &__form-footer {
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
