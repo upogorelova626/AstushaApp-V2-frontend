@@ -19,3 +19,10 @@ export enum UserMenuAction {
 }
 
 export type UserMenuActionOption = DropdownOption<UserMenuAction>;
+
+export enum CreateMenuAction {
+    CreateTeam = 'CREATE_TEAM',
+    CreateProject = 'CREATE_PROJECT'
+}
+
+export type CreateMenuActionOption = DropdownOption<CreateMenuAction>;

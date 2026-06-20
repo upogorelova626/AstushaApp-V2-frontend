@@ -41,6 +41,11 @@
             size="m"
             iconStart="@tui.plus"
             [tuiSkeleton]="skeleton"
+            [attr.aria-expanded]="openCreateMenu()"
+            [tuiDropdown]="createMenuDropdown"
+            [tuiDropdownManual]="openCreateMenu()"
+            (tuiDropdownOpenChange)="openCreateMenu.set($event)"
+            (click)="toggleCreateMenu($event)"
         >
             Создать
         </button>
@@ -52,6 +57,7 @@
             size="m"
             iconStart="@tui.bell"
             [tuiSkeleton]="skeleton"
+            tuiHint="В разработке"
         >
         </button>
 
@@ -62,6 +68,7 @@
             size="m"
             iconStart="@tui.circle-question-mark"
             [tuiSkeleton]="skeleton"
+            tuiHint="Помощь"
             (click)="openHelpDialog()"
         >
         </button>
@@ -75,9 +82,10 @@
             size="m"
             iconEnd="@tui.chevron-down"
             [tuiSkeleton]="skeleton || !profile"
-            [attr.aria-expanded]="open()"
+            [attr.aria-expanded]="openActionsMenu()"
             [tuiDropdown]="userMenuDropdown"
-            [tuiDropdownManual]="open()"
+            [tuiDropdownManual]="openActionsMenu()"
+            (tuiDropdownOpenChange)="openActionsMenu.set($event)"
             (click)="toggleUserMenu($event)"
         >
             @if (profile) {
@@ -121,6 +129,19 @@
             <tui-data-list>
                 @for (action of userMenuActions; track action.value) {
                     <button tuiOption (click)="onUserMenuAction(action.value)">
+                        {{ action.title }}
+                    </button>
+                }
+            </tui-data-list>
+        </ng-template>
+
+        <ng-template #createMenuDropdown>
+            <tui-data-list>
+                @for (action of createMenuActions; track action.value) {
+                    <button
+                        tuiOption
+                        (click)="onCreateMenuAction(action.value)"
+                    >
                         {{ action.title }}
                     </button>
                 }

@@ -10,6 +10,5 @@ import {injectContext} from '@taiga-ui/polymorpheus';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderHelpDialogComponent {
-    protected readonly context =
-        injectContext<TuiDialogContext<string, string>>();
+    protected readonly context = injectContext<TuiDialogContext<null, null>>();
 }
