@@ -1,23 +1,24 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    inject,
     OnInit,
+    computed,
+    inject,
     signal
 } from '@angular/core';
+import {catchError, EMPTY, finalize} from 'rxjs';
 import {MyTasksListComponent} from '../../components/my-tasks-page-components/my-task-list/my-tasks-list.component';
 import {MyTasksStatsComponent} from '../../components/my-tasks-page-components/my-tasks-stats/my-tasks-stats.component';
 import {MyTasksToolbarComponent} from '../../components/my-tasks-page-components/my-tasks-toolbar/my-tasks-toolbar.component';
-import {MyTasksService} from '../../services/my-tasks.service';
 import {MyTask} from '../../interfaces/my-tasks.interface';
-import {finalize} from 'rxjs';
+import {MyTasksService} from '../../services/my-tasks.service';
 
 @Component({
     selector: 'app-my-tasks-page',
     imports: [
-        MyTasksListComponent,
+        MyTasksToolbarComponent,
         MyTasksStatsComponent,
-        MyTasksToolbarComponent
+        MyTasksListComponent
     ],
     templateUrl: './my-tasks-page.component.html',
     styleUrl: './my-tasks-page.component.less',
@@ -28,12 +29,37 @@ export class MyTasksPageComponent implements OnInit {
 
     protected readonly tasks = signal<MyTask[]>([]);
     protected readonly isLoading = signal(false);
+    protected readonly searchQuery = signal('');
+
+    protected readonly filteredTasks = computed(() => {
+        const searchQuery = this.searchQuery().trim().toLowerCase();
+
+        if (!searchQuery) {
+            return this.tasks();
+        }
+
+        return this.tasks().filter(task => {
+            return task.title.toLowerCase().includes(searchQuery);
+        });
+    });
 
     ngOnInit() {
         this.isLoading.set(true);
+
         this.myTasksService
             .getAllMyTasks()
-            .pipe(finalize(() => this.isLoading.set(false)))
-            .subscribe(tasks => this.tasks.set(tasks));
+            .pipe(
+                catchError(() => EMPTY),
+                finalize(() => {
+                    this.isLoading.set(false);
+                })
+            )
+            .subscribe(tasks => {
+                this.tasks.set(tasks);
+            });
+    }
+
+    protected searchTasks(searchQuery: string) {
+        this.searchQuery.set(searchQuery);
     }
 }

@@ -1,7 +1,7 @@
 <div class="my-tasks-page__wrapper">
-    <app-my-tasks-toolbar />
+    <app-my-tasks-toolbar (searchChanged)="searchTasks($event)" />
 
     <app-my-tasks-stats [tasks]="tasks()" [isLoading]="isLoading()" />
 
-    <app-my-tasks-list [tasks]="tasks()" [isLoading]="isLoading()" />
+    <app-my-tasks-list [tasks]="filteredTasks()" [isLoading]="isLoading()" />
 </div>

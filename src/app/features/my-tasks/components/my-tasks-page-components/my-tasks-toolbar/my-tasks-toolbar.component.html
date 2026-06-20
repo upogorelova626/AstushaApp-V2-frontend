@@ -13,7 +13,12 @@
             tuiTextfieldSize="m"
             iconStart="@tui.search"
         >
-            <input tuiInput type="text" placeholder="Поиск по задачам" />
+            <input
+                tuiInput
+                type="text"
+                placeholder="Поиск по задачам"
+                [formControl]="search"
+            />
         </tui-textfield>
 
         <button
