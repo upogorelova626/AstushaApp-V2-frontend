@@ -56,46 +56,80 @@
         }
     </tui-files>
 
-    <main class="task-files-card__list" [tuiSkeleton]="isLoading()">
-        @for (attachment of previewAttachments(); track attachment.id) {
-            <div class="task-files-card__file">
-                <div class="task-files-card__file-icon">
-                    <tui-icon icon="@tui.paperclip" />
+    <div class="task-files-card__body" [tuiSkeleton]="isAttachmentsLoading()">
+        @if (taskAttachments().length === 0 && !isAttachmentsLoading()) {
+            <main class="task-files-card__empty-state">
+                <div class="task-files-card__empty-icon">
+                    <tui-icon icon="@tui.file" />
                 </div>
 
-                <div
-                    class="task-files-card__file-content"
-                    [tuiSkeleton]="isFilesSkeletonVisible()"
-                >
-                    <a
-                        class="task-files-card__file-name"
-                        [href]="attachment.fileUrl"
-                        target="_blank"
-                    >
-                        {{ attachment.originalName }}
-                    </a>
+                <h3 class="task-files-card__empty-title">
+                    К задаче пока не привязаны файлы
+                </h3>
 
-                    <span class="task-files-card__file-source">
-                        {{ attachment.mimeType }}
-                    </span>
-                </div>
-
-                <span class="task-files-card__file-size">
-                    {{ attachment.size / 1024 / 1024 | number: '1.1-2' }} МБ
-                </span>
+                <p class="task-files-card__empty-description">
+                    Прикрепите документы, изображения или другие материалы к
+                    задаче
+                </p>
 
                 <button
-                    tuiIconButton
+                    class="task-files-card__empty-action"
+                    tuiButton
                     appearance="flat"
                     size="s"
-                    iconStart="@tui.trash-2"
-                    class="task-files-card__delete"
-                    [tuiSkeleton]="isFilesSkeletonVisible()"
-                    (click)="deleteTaskAttachment(attachment.id)"
-                ></button>
-            </div>
+                    iconStart="@tui.plus"
+                    (click)="toggleFileInput()"
+                >
+                    Добавить файл
+                </button>
+            </main>
+        } @else {
+            <main class="task-files-card__list">
+                @for (attachment of previewAttachments(); track attachment.id) {
+                    <div class="task-files-card__file">
+                        <div class="task-files-card__file-icon">
+                            <tui-icon icon="@tui.paperclip" />
+                        </div>
+
+                        <div
+                            class="task-files-card__file-content"
+                            [tuiSkeleton]="isFilesSkeletonVisible()"
+                        >
+                            <a
+                                class="task-files-card__file-name"
+                                [href]="attachment.fileUrl"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ attachment.originalName }}
+                            </a>
+
+                            <span class="task-files-card__file-source">
+                                {{ attachment.mimeType }}
+                            </span>
+                        </div>
+
+                        <span class="task-files-card__file-size">
+                            {{
+                                attachment.size / 1024 / 1024 | number: '1.1-2'
+                            }}
+                            МБ
+                        </span>
+
+                        <button
+                            tuiIconButton
+                            appearance="flat"
+                            size="s"
+                            iconStart="@tui.trash-2"
+                            class="task-files-card__delete"
+                            [tuiSkeleton]="isFilesSkeletonVisible()"
+                            (click)="deleteTaskAttachment(attachment.id)"
+                        ></button>
+                    </div>
+                }
+            </main>
         }
-    </main>
+    </div>
 
     @if (attachmentsCount() > 3) {
         <button
