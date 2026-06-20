@@ -7,11 +7,13 @@
         />
 
         <app-task-content-card [task]="task()" [isLoading]="isLoading()" />
+
+        <app-task-danger-zone [task]="task()" />
     </div>
 
     <div class="task-page__right-column">
         <app-task-files-card [task]="task()" [isLoading]="isLoading()" />
 
-        <app-task-history-card [task]="task()" [isLoading]="isLoading()" />
+        <app-task-comments [task]="task()" [isLoading]="isLoading()" />
     </div>
 </div>

@@ -1,0 +1,30 @@
+<div class="delete-task-dialog">
+    <header class="delete-task-dialog__header">
+        <p class="delete-task-dialog__description">
+            Это действие нельзя отменить. Задача и связанные с ней данные будут
+            удалены.
+        </p>
+    </header>
+
+    <footer class="delete-task-dialog__footer">
+        <button
+            tuiButton
+            appearance="flat"
+            size="m"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button
+            tuiButton
+            appearance="negative"
+            size="m"
+            iconStart="@tui.trash-2"
+            [disabled]="isDeleting()"
+            (click)="deleteTask()"
+        >
+            Удалить задачу
+        </button>
+    </footer>
+</div>

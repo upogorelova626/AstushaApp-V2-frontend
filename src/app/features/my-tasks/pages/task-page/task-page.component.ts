@@ -11,8 +11,9 @@ import {ProjectTasksService} from '../../../projects/services/project-tasks.serv
 import {ProjectTask} from '../../../projects/interfaces/project-tasks.interface';
 import {TaskContentCardComponent} from '../../components/task-details-components/task-content-card/task-content-card.component';
 import {TaskFilesCardComponent} from '../../components/task-details-components/task-files-card/task-files-card.component';
-import {TaskHistoryCardComponent} from '../../components/task-details-components/task-history-card/task-history-card.component';
 import {TaskMainCardComponent} from '../../components/task-details-components/task-main-card/task-main-card.component';
+import {TaskCommentsComponent} from '../../components/task-details-components/task-comments/task-comments.component';
+import {TaskDangerZoneComponent} from '../../components/task-details-components/task-danger-zone/task-danger-zone.component';
 
 @Component({
     selector: 'app-task-page',
@@ -20,7 +21,8 @@ import {TaskMainCardComponent} from '../../components/task-details-components/ta
         TaskMainCardComponent,
         TaskContentCardComponent,
         TaskFilesCardComponent,
-        TaskHistoryCardComponent
+        TaskCommentsComponent,
+        TaskDangerZoneComponent
     ],
     templateUrl: './task-page.component.html',
     styleUrl: './task-page.component.less',
