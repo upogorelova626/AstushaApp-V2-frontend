@@ -5,14 +5,7 @@ import {TuiAvatar, TuiTextarea} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-comments',
-    imports: [
-        TuiInput,
-        TuiTextfield,
-        TuiButton,
-        TuiAvatar,
-        TuiCell,
-        TuiTextarea
-    ],
+    imports: [TuiInput, TuiTextfield, TuiButton, TuiTextarea],
     templateUrl: './task-comments.component.html',
     styleUrl: './task-comments.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

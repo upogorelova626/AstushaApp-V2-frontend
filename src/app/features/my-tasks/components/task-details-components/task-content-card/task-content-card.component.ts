@@ -5,7 +5,7 @@ import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-content-card',
-    imports: [TuiIcon, TuiSkeleton, TuiButton],
+    imports: [TuiIcon, TuiSkeleton],
     templateUrl: './task-content-card.component.html',
     styleUrl: './task-content-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

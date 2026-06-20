@@ -11,8 +11,10 @@ import {Router} from '@angular/router';
 import {
     TuiButton,
     TuiDataList,
+    TuiDialogService,
     TuiDropdown,
     TuiInput,
+    TuiNotificationService,
     TuiOption,
     TuiTextfield
 } from '@taiga-ui/core';
@@ -25,6 +27,8 @@ import {
 import {UsersService} from '../../../../features/users/services/users.service';
 import {AuthService} from '../../../../features/auth/services/auth.service';
 import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
+import {HeaderHelpDialogComponent} from './header-help-dialog/header-help-dialog.component';
 
 @Component({
     selector: 'app-header',
@@ -51,6 +55,8 @@ export class HeaderComponent implements OnInit {
     private readonly authService = inject(AuthService);
     private readonly router = inject(Router);
     private readonly location = inject(Location);
+    private readonly alerts = inject(TuiNotificationService);
+    private readonly dialogs = inject(TuiDialogService);
 
     protected readonly profile$ = this.usersService.profile$;
     protected readonly open = signal(false);
@@ -101,5 +107,18 @@ export class HeaderComponent implements OnInit {
 
     protected goBack(): void {
         this.location.back();
+    }
+
+    protected openHelpDialog() {
+        this.dialogs
+            .open<string>(
+                new PolymorpheusComponent(HeaderHelpDialogComponent),
+                {
+                    label: 'Помощь',
+                    size: 's'
+                }
+            )
+
+            .subscribe();
     }
 }

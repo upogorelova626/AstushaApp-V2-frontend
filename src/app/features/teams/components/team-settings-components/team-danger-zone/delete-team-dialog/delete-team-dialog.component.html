@@ -7,18 +7,16 @@
     </header>
 
     <footer class="delete-team-dialog__footer">
-        <button tuiButton appearance="flat" size="m" (click)="cancel()">
-            Отмена
-        </button>
-
         <button
             tuiButton
-            appearance="negative"
+            appearance="flat"
             size="m"
             iconStart="@tui.trash-2"
             (click)="deleteTeam()"
         >
             Удалить команду
         </button>
+
+        <button tuiButton size="m" (click)="cancel()"> Отмена </button>
     </footer>
 </div>

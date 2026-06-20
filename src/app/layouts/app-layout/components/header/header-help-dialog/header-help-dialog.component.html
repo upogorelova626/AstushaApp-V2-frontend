@@ -1,0 +1,39 @@
+<div class="support-dialog">
+    <div class="support-dialog__icon">
+        <tui-icon icon="@tui.circle-help" />
+    </div>
+
+    <h3 class="support-dialog__title">Нужна помощь?</h3>
+
+    <p class="support-dialog__description">
+        Если у вас возникли вопросы, ошибки или предложения по работе
+        приложения, напишите нам на почту.
+    </p>
+
+    <a
+        tuiLink
+        class="support-dialog__email"
+        href="mailto:upogorelova626@gmail.com"
+    >
+        support&#64;astusha.app
+    </a>
+
+    <footer class="support-dialog__footer">
+        <button
+            tuiButton
+            appearance="flat"
+            type="button"
+            (click)="context.$implicit.complete()"
+        >
+            Закрыть
+        </button>
+
+        <a
+            tuiButton
+            appearance="primary"
+            href="mailto:upogorelova626@gmail.com"
+        >
+            Написать
+        </a>
+    </footer>
+</div>

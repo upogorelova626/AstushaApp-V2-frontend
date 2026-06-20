@@ -11,20 +11,15 @@
             tuiButton
             appearance="flat"
             size="m"
-            (click)="context.$implicit.complete()"
-        >
-            Отмена
-        </button>
-
-        <button
-            tuiButton
-            appearance="negative"
-            size="m"
             iconStart="@tui.trash-2"
             [disabled]="isDeleting()"
             (click)="deleteTask()"
         >
             Удалить задачу
+        </button>
+
+        <button tuiButton size="m" (click)="context.$implicit.complete()">
+            Отмена
         </button>
     </footer>
 </div>
