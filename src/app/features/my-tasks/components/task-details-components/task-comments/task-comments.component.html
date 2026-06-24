@@ -4,7 +4,9 @@
             <div class="task-comments-card__title-wrapper">
                 <h3 class="task-comments-card__title">Комментарии</h3>
 
-                <span class="task-comments-card__count">1</span>
+                <span class="task-comments-card__count">
+                    {{ comments().length }}
+                </span>
             </div>
 
             <p class="task-comments-card__subtitle">
@@ -13,50 +15,81 @@
         </div>
     </header>
 
-    <form class="task-comments-card__form">
+    <form class="task-comments-card__form" (ngSubmit)="addComment()">
         <tui-textfield tuiTextfieldSize="m">
             <textarea
                 tuiTextarea
                 placeholder="Написать комментарий..."
+                [formControl]="comment"
             ></textarea>
         </tui-textfield>
 
+        <tui-error
+            [formControl]="comment"
+            [order]="['required', 'maxlength']"
+        />
+
         <div class="task-comments-card__form-footer">
-            <button tuiButton type="button" size="s" iconStart="@tui.send">
+            <span class="task-comments-card__limit">
+                {{ comment.value.length }}/2000
+            </span>
+
+            <button
+                tuiButton
+                type="button"
+                size="s"
+                iconStart="@tui.send"
+                [disabled]="
+                    isTaskLoading() ||
+                    isCommentsLoading() ||
+                    isCommentAdding() ||
+                    comment.invalid
+                "
+                (click)="addComment()"
+            >
                 Отправить
             </button>
         </div>
     </form>
 
-    <div class="task-comments-card__list">
-        <article class="task-comments-card__comment">
-            <div class="task-comments-card__avatar">АК</div>
+    @if (comments().length > 0) {
+        <div class="task-comments-card__list">
+            @for (commentItem of comments(); track commentItem.id) {
+                <article class="task-comments-card__comment">
+                    <div class="task-comments-card__avatar">
+                        {{ getAuthorInitials(commentItem) }}
+                    </div>
 
-            <div class="task-comments-card__comment-content">
-                <header class="task-comments-card__comment-header">
-                    <strong class="task-comments-card__author">
-                        Астюша Котикович
-                    </strong>
+                    <div class="task-comments-card__comment-content">
+                        <header class="task-comments-card__comment-header">
+                            <strong class="task-comments-card__author">
+                                {{ getAuthorName(commentItem) }}
+                            </strong>
 
-                    <span class="task-comments-card__date">
-                        сегодня в 18:42
-                    </span>
-                </header>
+                            <span class="task-comments-card__date">
+                                {{
+                                    commentItem.createdAt
+                                        | date: 'dd.MM.yyyy HH:mm'
+                                }}
+                            </span>
+                        </header>
 
-                <p class="task-comments-card__text">
-                    Надо не забыть проверить адаптив на странице профиля.
-                </p>
-            </div>
-        </article>
-    </div>
+                        <p class="task-comments-card__text">
+                            {{ commentItem.text }}
+                        </p>
+                    </div>
+                </article>
+            }
+        </div>
+    } @else if (!isCommentsLoading()) {
+        <div class="task-comments-card__empty">
+            <p class="task-comments-card__empty-title">
+                Комментариев пока нет
+            </p>
 
-    <!-- <div class="task-comments-card__empty">
-        <p class="task-comments-card__empty-title">
-            Комментариев пока нет
-        </p>
-
-        <p class="task-comments-card__empty-description">
-            Оставьте первый комментарий по этой задаче
-        </p>
-    </div> -->
+            <p class="task-comments-card__empty-description">
+                Оставьте первый комментарий по этой задаче
+            </p>
+        </div>
+    }
 </div>

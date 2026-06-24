@@ -57,14 +57,36 @@
     }
 
     &__form {
+        min-width: 0;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+    }
+
+    &__textarea {
+        width: 100%;
+        min-height: 96px;
+    }
+
+    &__error {
+        min-height: 18px;
     }
 
     &__form-footer {
         display: flex;
-        justify-content: flex-end;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__limit {
+        color: var(--color-text-muted);
+        font: var(--tui-typography-body-m);
+        white-space: nowrap;
+
+        &_error {
+            color: var(--color-danger);
+        }
     }
 
     &__list {
@@ -94,6 +116,7 @@
         color: var(--color-text-primary);
         background: var(--color-gradient-primary-soft);
         font: var(--tui-typography-body-m);
+        text-transform: uppercase;
     }
 
     &__comment-content {
@@ -136,6 +159,8 @@
         color: var(--color-text-secondary);
         font: var(--tui-typography-body-l);
         line-height: 1.45;
+        white-space: pre-line;
+        word-break: break-word;
     }
 
     &__empty {
@@ -168,6 +193,21 @@
     .task-comments-card {
         padding: 18px;
 
+        &__form-footer {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        &__limit {
+            align-self: flex-end;
+        }
+
+        &__form-footer {
+            button {
+                width: 100%;
+            }
+        }
+
         &__comment {
             grid-template-columns: 32px minmax(0, 1fr);
             gap: 10px;
@@ -187,12 +227,6 @@
 
         &__date {
             white-space: normal;
-        }
-
-        &__form-footer {
-            button {
-                width: 100%;
-            }
         }
     }
 }

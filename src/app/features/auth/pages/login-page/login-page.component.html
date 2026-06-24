@@ -6,7 +6,7 @@
 
 <h1 class="login-card__title"> Войдите, чтобы продолжить </h1>
 
-<form class="login-card__form" [formGroup]="form">
+<form class="login-card__form" [formGroup]="form" (ngSubmit)="login()">
     <label class="login-card__field">
         <span class="login-card__label"> Электронная почта </span>
 
@@ -53,15 +53,7 @@
     </label>
     <tui-error [formGroup]="form" [order]="['serverError']" />
 
-    <button
-        type="button"
-        tuiButton
-        class="login-card__submit"
-        size="l"
-        (click)="login()"
-    >
-        Продолжить
-    </button>
+    <button tuiButton class="login-card__submit" size="l"> Продолжить </button>
 
     <div class="login-card__divider"></div>
 

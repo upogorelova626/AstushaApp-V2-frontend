@@ -6,7 +6,11 @@
 
 <h1 class="register-card__title">Создайте аккаунт</h1>
 
-<form class="register-card__form" [formGroup]="form">
+<form
+    class="register-card__form"
+    [formGroup]="form"
+    (ngSubmit)="createAccount()"
+>
     <label class="register-card__field">
         <span class="register-card__label">Логин</span>
 
@@ -107,12 +111,7 @@
         class="checkbox-error"
     />
 
-    <button
-        type="button"
-        tuiButton
-        class="register-card__submit"
-        (click)="createAccount()"
-    >
+    <button tuiButton class="register-card__submit" (click)="createAccount()">
         Создать аккаунт
     </button>
 

@@ -20,6 +20,7 @@
         </div>
 
         <button
+            type="button"
             tuiButton
             class="profile-settings__edit-button"
             appearance="flat"
@@ -131,7 +132,7 @@
             }
         </div>
 
-        <form class="edit-info" [formGroup]="form">
+        <form class="edit-info" [formGroup]="form" (ngSubmit)="saveProfile()">
             <div class="edit-name-and-family">
                 <div class="edit-info__field">
                     <label tuiLabel>Имя</label>
@@ -235,7 +236,6 @@
 
             <div class="edit-info__actions">
                 <button
-                    type="button"
                     tuiButton
                     class="edit-info__save"
                     size="m"
@@ -247,7 +247,6 @@
                         form.invalid ||
                         form.pristine
                     "
-                    (click)="saveProfile()"
                 >
                     Сохранить изменения
                 </button>
