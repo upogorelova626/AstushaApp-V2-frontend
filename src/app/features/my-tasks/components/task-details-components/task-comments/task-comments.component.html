@@ -54,7 +54,7 @@
 
     @if (comments().length > 0) {
         <div class="task-comments-card__list">
-            @for (commentItem of comments(); track commentItem.id) {
+            @for (commentItem of previewComments(); track commentItem.id) {
                 <article class="task-comments-card__comment">
                     <div class="task-comments-card__avatar">
                         {{ getAuthorInitials(commentItem) }}
@@ -81,15 +81,22 @@
                 </article>
             }
         </div>
-    } @else if (!isCommentsLoading()) {
-        <div class="task-comments-card__empty">
-            <p class="task-comments-card__empty-title">
-                Комментариев пока нет
-            </p>
+    } @else {
+        @if (!isCommentsLoading()) {
+            <div class="task-comments-card__empty">
+                <p class="task-comments-card__empty-title">
+                    Комментариев пока нет
+                </p>
 
-            <p class="task-comments-card__empty-description">
-                Оставьте первый комментарий по этой задаче
-            </p>
-        </div>
+                <p class="task-comments-card__empty-description">
+                    Оставьте первый комментарий по этой задаче
+                </p>
+            </div>
+        }
+    }
+    @if (comments().length > 3) {
+        <button tuiButton appearance="flat" size="s" (click)="showAllComments()"
+            >Показать все комментарии</button
+        >
     }
 </div>

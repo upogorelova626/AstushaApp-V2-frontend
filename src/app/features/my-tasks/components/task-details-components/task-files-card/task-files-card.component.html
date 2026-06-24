@@ -10,17 +10,18 @@
                 {{ attachmentsCount() }}
             </span>
         </div>
-
-        <button
-            tuiButton
-            appearance="flat"
-            size="s"
-            iconStart="@tui.plus"
-            class="task-files-card__add-button"
-            (click)="toggleFileInput()"
-        >
-            Добавить файл
-        </button>
+        @if (taskAttachments().length > 0) {
+            <button
+                tuiButton
+                appearance="flat"
+                size="s"
+                iconStart="@tui.plus"
+                class="task-files-card__add-button"
+                (click)="toggleFileInput()"
+            >
+                Добавить файл
+            </button>
+        }
     </header>
 
     @if (isFileInputVisible() && !control.value) {

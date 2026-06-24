@@ -1,21 +1,32 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    computed,
     DestroyRef,
     effect,
     inject,
+    Injector,
     input,
     signal
 } from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TuiButton, TuiInput, TuiTextfield, TuiError} from '@taiga-ui/core';
+import {
+    TuiButton,
+    TuiInput,
+    TuiTextfield,
+    TuiError,
+    TuiDialogService,
+    TuiNotificationService
+} from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
-import {catchError, EMPTY, finalize} from 'rxjs';
+import {catchError, EMPTY, finalize, switchMap} from 'rxjs';
 import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
 import {TaskComment} from '../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../services/task-comments.service';
 import {DatePipe} from '@angular/common';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
+import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
 
 @Component({
     selector: 'app-task-comments',
@@ -35,6 +46,9 @@ import {DatePipe} from '@angular/common';
 export class TaskCommentsComponent {
     private readonly taskCommentsService = inject(TaskCommentsService);
     private readonly destroyRef = inject(DestroyRef);
+    private readonly dialogs = inject(TuiDialogService);
+    private readonly alerts = inject(TuiNotificationService);
+    private readonly injector = inject(Injector);
 
     readonly task = input<ProjectTask | null>(null);
     readonly isTaskLoading = input(false);
@@ -47,6 +61,10 @@ export class TaskCommentsComponent {
         nonNullable: true,
         validators: [Validators.required, Validators.maxLength(2000)]
     });
+
+    protected readonly previewComments = computed(() =>
+        [...this.comments()].reverse().slice(0, 3)
+    );
 
     private readonly loadCommentsEffect = effect(() => {
         const task = this.task();
@@ -125,5 +143,26 @@ export class TaskCommentsComponent {
         }
 
         return comment.author.login.slice(0, 2).toUpperCase();
+    }
+
+    protected showAllComments() {
+        const comments = this.comments();
+        if (!comments) {
+            return;
+        }
+        this.dialogs
+            .open<string>(
+                new PolymorpheusComponent(
+                    AllTaskCommentsComponent,
+                    this.injector
+                ),
+                {
+                    label: 'Все комментарии',
+                    size: 'l',
+                    data: comments
+                }
+            )
+            .pipe(switchMap(name => this.alerts.open(name)))
+            .subscribe();
     }
 }

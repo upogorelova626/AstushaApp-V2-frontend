@@ -1,0 +1,29 @@
+<div class="task-comments-dialog">
+    <div class="task-comments-dialog__list">
+        @for (commentItem of comments; track commentItem.id) {
+            <article class="task-comments-dialog__comment">
+                <div class="task-comments-dialog__avatar">
+                    {{ getAuthorInitials(commentItem) }}
+                </div>
+
+                <div class="task-comments-dialog__comment-content">
+                    <header class="task-comments-dialog__comment-header">
+                        <strong class="task-comments-dialog__author">
+                            {{ getAuthorName(commentItem) }}
+                        </strong>
+
+                        <span class="task-comments-dialog__date">
+                            {{
+                                commentItem.createdAt | date: 'dd.MM.yyyy HH:mm'
+                            }}
+                        </span>
+                    </header>
+
+                    <p class="task-comments-dialog__text">
+                        {{ commentItem.text }}
+                    </p>
+                </div>
+            </article>
+        }
+    </div>
+</div>
