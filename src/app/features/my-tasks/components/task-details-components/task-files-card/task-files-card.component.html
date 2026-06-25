@@ -58,7 +58,11 @@
     </tui-files>
 
     <div class="task-files-card__body" [tuiSkeleton]="isAttachmentsLoading()">
-        @if (taskAttachments().length === 0 && !isAttachmentsLoading()) {
+        @if (
+            taskAttachments().length === 0 &&
+            !isAttachmentsLoading() &&
+            !isLoading()
+        ) {
             <main class="task-files-card__empty-state">
                 <div class="task-files-card__empty-icon">
                     <tui-icon icon="@tui.file" />

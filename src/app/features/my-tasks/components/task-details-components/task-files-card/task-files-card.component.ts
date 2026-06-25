@@ -36,7 +36,8 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
         TuiFiles,
         DecimalPipe,
         ReactiveFormsModule,
-        AsyncPipe
+        AsyncPipe,
+        TuiSkeleton
     ],
     templateUrl: './task-files-card.component.html',
     styleUrl: './task-files-card.component.less',

@@ -18,10 +18,11 @@ import {filter, switchMap, tap, timer} from 'rxjs';
 import {DeleteTaskDialogComponent} from './delete-task-dialog/delete-task-dialog.component';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Location} from '@angular/common';
+import {TuiSkeleton} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-danger-zone',
-    imports: [TuiIcon, TuiButton],
+    imports: [TuiIcon, TuiButton, TuiSkeleton],
     templateUrl: './task-danger-zone.component.html',
     styleUrl: './task-danger-zone.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,6 +34,8 @@ export class TaskDangerZoneComponent {
     private readonly alerts = inject(TuiNotificationService);
     private readonly destroyRef = inject(DestroyRef);
     private readonly location = inject(Location);
+
+    readonly isLoading = input(false);
 
     protected openDeleteTaskDialog() {
         const task = this.task();

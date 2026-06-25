@@ -14,13 +14,12 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
     TuiButton,
-    TuiInput,
-    TuiTextfield,
-    TuiError,
     TuiDialogService,
-    TuiNotificationService
+    TuiError,
+    TuiNotificationService,
+    TuiTextfield
 } from '@taiga-ui/core';
-import {TuiTextarea} from '@taiga-ui/kit';
+import {TuiSkeleton, TuiTextarea} from '@taiga-ui/kit';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {catchError, EMPTY, finalize, switchMap} from 'rxjs';
 
@@ -30,17 +29,18 @@ import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interfa
 import {TaskComment} from '../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../services/task-comments.service';
 import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
+import {EditCommentDialogComponent} from './edit-comment-dialog/edit-comment-dialog.component';
 
 @Component({
     selector: 'app-task-comments',
     imports: [
-        TuiInput,
         TuiTextfield,
         TuiButton,
         TuiTextarea,
         ReactiveFormsModule,
         DatePipe,
-        TuiError
+        TuiError,
+        TuiSkeleton
     ],
     templateUrl: './task-comments.component.html',
     styleUrl: './task-comments.component.less',
@@ -125,12 +125,8 @@ export class TaskCommentsComponent {
     }
 
     protected showAllComments() {
-        const comments = this.comments();
-        if (!comments) {
-            return;
-        }
         this.dialogs
-            .open<string>(
+            .open<void>(
                 new PolymorpheusComponent(
                     AllTaskCommentsComponent,
                     this.injector
@@ -138,10 +134,10 @@ export class TaskCommentsComponent {
                 {
                     label: 'Все комментарии',
                     size: 'l',
-                    data: comments
+                    data: this.comments()
                 }
             )
-            .pipe(switchMap(name => this.alerts.open(name)))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe();
     }
 
@@ -149,7 +145,7 @@ export class TaskCommentsComponent {
         const projectId = this.task()?.projectId;
         const taskId = this.task()?.id;
 
-        if (!projectId || !taskId) {
+        if (!projectId || !taskId || !this.canDeleteComment(comment)) {
             return;
         }
 
@@ -165,11 +161,51 @@ export class TaskCommentsComponent {
             });
     }
 
-    protected openEditCommentDialog() {}
+    protected openEditCommentDialog(commentItem: TaskComment) {
+        const task = this.task();
+
+        if (!task) {
+            return;
+        }
+
+        this.dialogs
+            .open<TaskComment>(
+                new PolymorpheusComponent(
+                    EditCommentDialogComponent,
+                    this.injector
+                ),
+                {
+                    label: 'Редактировать комментарий',
+                    size: 's',
+                    data: {
+                        commentItem,
+                        task
+                    }
+                }
+            )
+            .pipe(
+                switchMap(updatedComment => {
+                    this.comments.update(comments =>
+                        comments.map(comment =>
+                            comment.id === updatedComment.id
+                                ? updatedComment
+                                : comment
+                        )
+                    );
+
+                    return this.alerts.open('Комментарий изменен', {
+                        label: 'Готово'
+                    });
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
+    }
 
     protected canDeleteComment(comment: TaskComment): boolean {
         const currentUser = this.currentUser();
         const task = this.task();
+
         if (!currentUser || !task) {
             return false;
         }
@@ -180,8 +216,9 @@ export class TaskCommentsComponent {
         );
     }
 
-    protected canManageProject(comment: TaskComment) {
+    protected canEditComment(comment: TaskComment): boolean {
         const currentUser = this.currentUser();
+
         if (!currentUser) {
             return false;
         }

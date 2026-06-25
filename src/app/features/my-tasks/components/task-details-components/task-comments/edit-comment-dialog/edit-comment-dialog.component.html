@@ -1,0 +1,35 @@
+<form class="edit-comment-dialog">
+    <tui-textfield tuiTextfieldSize="m">
+        <textarea
+            tuiTextarea
+            class="edit-comment-dialog__textarea"
+            placeholder="Редактировать комментарий..."
+            [formControl]="form"
+        ></textarea>
+    </tui-textfield>
+
+    <tui-error [formControl]="form" [order]="['required', 'maxlength']" />
+
+    <div class="edit-comment-dialog__footer">
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            appearance="flat"
+            (click)="context.$implicit.complete()"
+        >
+            Отмена
+        </button>
+
+        <button
+            tuiButton
+            type="button"
+            size="s"
+            iconStart="@tui.check"
+            [disabled]="form.invalid"
+            (click)="editComment()"
+        >
+            Сохранить
+        </button>
+    </div>
+</form>

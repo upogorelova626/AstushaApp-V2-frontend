@@ -1,5 +1,5 @@
 <div class="task-comments-card">
-    <header class="task-comments-card__header">
+    <header class="task-comments-card__header" [tuiSkeleton]="isTaskLoading()">
         <div>
             <div class="task-comments-card__title-wrapper">
                 <h3 class="task-comments-card__title">Комментарии</h3>
@@ -74,13 +74,14 @@
                                     }}
                                 </span>
 
-                                @if (canManageProject(commentItem)) {}
+                                @if (canEditComment(commentItem)) {}
                                 <button
                                     tuiButton
                                     type="button"
                                     appearance="flat"
                                     size="xs"
                                     iconStart="@tui.pen"
+                                    (click)="openEditCommentDialog(commentItem)"
                                 >
                                 </button>
 
