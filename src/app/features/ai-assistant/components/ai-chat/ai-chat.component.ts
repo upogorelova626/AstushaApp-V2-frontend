@@ -11,14 +11,7 @@ import {TuiTextarea} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-ai-chat',
-    imports: [
-        TuiIcon,
-        TuiInput,
-        TuiTextfield,
-        TuiLabel,
-        TuiButton,
-        TuiTextarea
-    ],
+    imports: [TuiIcon, TuiInput, TuiTextfield, TuiButton, TuiTextarea],
     templateUrl: './ai-chat.component.html',
     styleUrl: './ai-chat.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

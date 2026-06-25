@@ -66,12 +66,37 @@
                                 {{ getAuthorName(commentItem) }}
                             </strong>
 
-                            <span class="task-comments-card__date">
-                                {{
-                                    commentItem.createdAt
-                                        | date: 'dd.MM.yyyy HH:mm'
-                                }}
-                            </span>
+                            <div class="task-comments-card__comment-actions">
+                                <span class="task-comments-card__date">
+                                    {{
+                                        commentItem.createdAt
+                                            | date: 'dd.MM.yyyy HH:mm'
+                                    }}
+                                </span>
+
+                                @if (canManageProject(commentItem)) {}
+                                <button
+                                    tuiButton
+                                    type="button"
+                                    appearance="flat"
+                                    size="xs"
+                                    iconStart="@tui.pen"
+                                >
+                                </button>
+
+                                @if (canDeleteComment(commentItem)) {
+                                    <button
+                                        class="task-comments-card__delete-button"
+                                        tuiButton
+                                        type="button"
+                                        appearance="flat"
+                                        size="xs"
+                                        iconStart="@tui.trash"
+                                        (click)="deleteComment(commentItem)"
+                                    >
+                                    </button>
+                                }
+                            </div>
                         </header>
 
                         <p class="task-comments-card__text">

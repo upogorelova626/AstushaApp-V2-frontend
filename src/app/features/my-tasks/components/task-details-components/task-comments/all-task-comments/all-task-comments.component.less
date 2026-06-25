@@ -102,39 +102,3 @@
         word-break: break-word;
     }
 }
-
-@media (max-width: 640px) {
-    .task-comments-dialog {
-        max-height: 78vh;
-
-        &__list {
-            max-height: 68vh;
-            gap: 14px;
-        }
-
-        &__comment {
-            grid-template-columns: 32px minmax(0, 1fr);
-            gap: 10px;
-        }
-
-        &__avatar {
-            width: 32px;
-            height: 32px;
-            font: var(--tui-typography-body-s);
-        }
-
-        &__comment-content {
-            padding: 10px 12px;
-        }
-
-        &__comment-header {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        &__date {
-            white-space: normal;
-        }
-    }
-}

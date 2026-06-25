@@ -27,6 +27,8 @@ import {TaskCommentsService} from '../../../services/task-comments.service';
 import {DatePipe} from '@angular/common';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
+import {AuthService} from '../../../../auth/services/auth.service';
+import {AuthUser} from '../../../../auth/models/interfaces/auth.interface';
 
 @Component({
     selector: 'app-task-comments',
@@ -45,6 +47,7 @@ import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.co
 })
 export class TaskCommentsComponent {
     private readonly taskCommentsService = inject(TaskCommentsService);
+    private readonly authService = inject(AuthService);
     private readonly destroyRef = inject(DestroyRef);
     private readonly dialogs = inject(TuiDialogService);
     private readonly alerts = inject(TuiNotificationService);
@@ -56,6 +59,16 @@ export class TaskCommentsComponent {
     protected readonly isCommentAdding = signal(false);
     protected readonly isCommentsLoading = signal(false);
     protected readonly comments = signal<TaskComment[]>([]);
+    protected readonly currentUser = signal<AuthUser | null>(null);
+
+    constructor() {
+        this.authService
+            .me()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(user => {
+                this.currentUser.set(user);
+            });
+    }
 
     protected readonly comment = new FormControl('', {
         nonNullable: true,
@@ -164,5 +177,29 @@ export class TaskCommentsComponent {
             )
             .pipe(switchMap(name => this.alerts.open(name)))
             .subscribe();
+    }
+
+    protected deleteComment(comment: TaskComment) {}
+
+    protected canDeleteComment(comment: TaskComment): boolean {
+        const currentUser = this.currentUser();
+        const task = this.task();
+        if (!currentUser || !task) {
+            return false;
+        }
+
+        return (
+            currentUser.id === comment.author.id ||
+            task.createdBy?.id === currentUser.id
+        );
+    }
+
+    protected canManageProject(comment: TaskComment) {
+        const currentUser = this.currentUser();
+        if (!currentUser) {
+            return false;
+        }
+
+        return currentUser.id === comment.author.id;
     }
 }

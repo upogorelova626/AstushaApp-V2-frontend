@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {TuiButton, type TuiDialogContext, TuiInput} from '@taiga-ui/core';
+import {type TuiDialogContext, TuiInput} from '@taiga-ui/core';
 import {TaskComment} from '../../../../interfaces/task-comment.interface';
 import {DatePipe} from '@angular/common';
 
