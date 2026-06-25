@@ -1,3 +1,4 @@
+import {DatePipe} from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -20,15 +21,15 @@ import {
     TuiNotificationService
 } from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {catchError, EMPTY, finalize, switchMap} from 'rxjs';
+
+import {AuthUser} from '../../../../auth/models/interfaces/auth.interface';
+import {AuthService} from '../../../../auth/services/auth.service';
 import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
 import {TaskComment} from '../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../services/task-comments.service';
-import {DatePipe} from '@angular/common';
-import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
-import {AuthService} from '../../../../auth/services/auth.service';
-import {AuthUser} from '../../../../auth/models/interfaces/auth.interface';
 
 @Component({
     selector: 'app-task-comments',
@@ -61,15 +62,6 @@ export class TaskCommentsComponent {
     protected readonly comments = signal<TaskComment[]>([]);
     protected readonly currentUser = signal<AuthUser | null>(null);
 
-    constructor() {
-        this.authService
-            .me()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(user => {
-                this.currentUser.set(user);
-            });
-    }
-
     protected readonly comment = new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.maxLength(2000)]
@@ -90,6 +82,15 @@ export class TaskCommentsComponent {
 
         this.loadComments(task.projectId, task.id);
     });
+
+    constructor() {
+        this.authService
+            .me()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(user => {
+                this.currentUser.set(user);
+            });
+    }
 
     protected addComment() {
         const task = this.task();
@@ -123,41 +124,6 @@ export class TaskCommentsComponent {
             });
     }
 
-    private loadComments(projectId: string, taskId: string) {
-        this.isCommentsLoading.set(true);
-
-        this.taskCommentsService
-            .getTaskComments(projectId, taskId)
-            .pipe(
-                catchError(() => EMPTY),
-                finalize(() => {
-                    this.isCommentsLoading.set(false);
-                }),
-                takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe(comments => {
-                this.comments.set(comments);
-            });
-    }
-
-    protected getAuthorName(comment: TaskComment): string {
-        const fullName =
-            `${comment.author.firstName ?? ''} ${comment.author.lastName ?? ''}`.trim();
-
-        return fullName || comment.author.login;
-    }
-
-    protected getAuthorInitials(comment: TaskComment): string {
-        const firstName = comment.author.firstName?.trim();
-        const lastName = comment.author.lastName?.trim();
-
-        if (firstName || lastName) {
-            return `${firstName?.[0] ?? ''}${lastName?.[0] ?? ''}`.toUpperCase();
-        }
-
-        return comment.author.login.slice(0, 2).toUpperCase();
-    }
-
     protected showAllComments() {
         const comments = this.comments();
         if (!comments) {
@@ -179,7 +145,27 @@ export class TaskCommentsComponent {
             .subscribe();
     }
 
-    protected deleteComment(comment: TaskComment) {}
+    protected deleteComment(comment: TaskComment) {
+        const projectId = this.task()?.projectId;
+        const taskId = this.task()?.id;
+
+        if (!projectId || !taskId) {
+            return;
+        }
+
+        this.taskCommentsService
+            .deleteTaskComment(projectId, taskId, comment.id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.comments.update(comments =>
+                    comments.filter(
+                        commentItem => commentItem.id !== comment.id
+                    )
+                );
+            });
+    }
+
+    protected openEditCommentDialog() {}
 
     protected canDeleteComment(comment: TaskComment): boolean {
         const currentUser = this.currentUser();
@@ -201,5 +187,40 @@ export class TaskCommentsComponent {
         }
 
         return currentUser.id === comment.author.id;
+    }
+
+    protected getAuthorName(comment: TaskComment): string {
+        const fullName =
+            `${comment.author.firstName ?? ''} ${comment.author.lastName ?? ''}`.trim();
+
+        return fullName || comment.author.login;
+    }
+
+    protected getAuthorInitials(comment: TaskComment): string {
+        const firstName = comment.author.firstName?.trim();
+        const lastName = comment.author.lastName?.trim();
+
+        if (firstName || lastName) {
+            return `${firstName?.[0] ?? ''}${lastName?.[0] ?? ''}`.toUpperCase();
+        }
+
+        return comment.author.login.slice(0, 2).toUpperCase();
+    }
+
+    private loadComments(projectId: string, taskId: string) {
+        this.isCommentsLoading.set(true);
+
+        this.taskCommentsService
+            .getTaskComments(projectId, taskId)
+            .pipe(
+                catchError(() => EMPTY),
+                finalize(() => {
+                    this.isCommentsLoading.set(false);
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe(comments => {
+                this.comments.set(comments);
+            });
     }
 }
