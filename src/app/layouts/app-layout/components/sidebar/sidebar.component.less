@@ -168,12 +168,30 @@
     white-space: nowrap;
 }
 
-.sidebar__recent-more {
-    width: 16px;
-    height: 16px;
-    margin-left: auto;
-    flex-shrink: 0;
+.sidebar__recent-empty {
+    min-height: 88px;
+    padding: 14px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px dashed var(--color-card-border);
+    border-radius: 12px;
     color: var(--color-text-muted);
+    text-align: center;
+}
+
+.sidebar__recent-empty-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--color-primary-light);
+}
+
+.sidebar__recent-empty-text {
+    font-size: 12px;
+    line-height: 16px;
 }
 
 .sidebar__footer {
@@ -184,44 +202,6 @@
     flex-direction: column;
     gap: 10px;
     border-top: 1px solid var(--color-card-border);
-}
-
-.sidebar__support {
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 44px;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    border: 1px solid var(--color-card-border);
-    border-radius: 14px;
-    color: var(--color-text-secondary);
-    background: var(--color-card-bg);
-}
-
-.sidebar__support-icon {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    color: var(--color-primary-light);
-}
-
-.sidebar__support-text {
-    overflow: hidden;
-    font-size: 13px;
-    line-height: 18px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.sidebar__support-arrow {
-    width: 16px;
-    height: 16px;
-    margin-left: auto;
-    flex-shrink: 0;
-    color: var(--color-text-muted);
 }
 
 .sidebar__profile {
@@ -313,35 +293,6 @@
     color: var(--color-text-muted);
 }
 
-.sidebar__recent-empty {
-    min-height: 88px;
-    padding: 14px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 8px;
-    box-sizing: border-box;
-    border: 1px dashed var(--color-card-border);
-    border-radius: 12px;
-    color: var(--color-text-muted);
-    text-align: center;
-}
-
-.sidebar__recent-empty-icon {
-    width: 22px;
-    height: 22px;
-    color: var(--color-primary-light);
-}
-
-.sidebar__recent-empty-text {
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.sidebar__recent-item {
-}
-
 @media (max-width: 1200px) {
     :host {
         width: 104px;
@@ -358,8 +309,6 @@
     .sidebar__logo-text,
     .sidebar__nav-text,
     .sidebar__recent-projects,
-    .sidebar__support-text,
-    .sidebar__support-arrow,
     .sidebar__profile-info,
     .sidebar__profile-chevron {
         display: none;
@@ -383,14 +332,6 @@
 
     .sidebar__footer {
         align-items: center;
-    }
-
-    .sidebar__support {
-        width: 44px;
-        height: 44px;
-        min-height: 44px;
-        padding: 0;
-        justify-content: center;
     }
 
     .sidebar__profile {

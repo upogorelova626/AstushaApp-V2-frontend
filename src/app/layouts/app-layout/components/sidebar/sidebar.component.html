@@ -171,17 +171,6 @@
     </div>
 
     <div class="sidebar__footer">
-        <button tuiButton class="sidebar__support" appearance="flat" size="m">
-            <tui-icon class="sidebar__support-icon" icon="@tui.circle-help" />
-
-            <span class="sidebar__support-text">Помощь и поддержка</span>
-
-            <tui-icon
-                class="sidebar__support-arrow"
-                icon="@tui.chevron-right"
-            />
-        </button>
-
         @if (profile$ | async; as profile) {
             <button
                 tuiButton
