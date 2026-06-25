@@ -13,6 +13,7 @@ import {
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
+    TUI_VALIDATION_ERRORS,
     TuiButton,
     TuiDialogService,
     TuiError,
@@ -30,6 +31,7 @@ import {TaskComment} from '../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../services/task-comments.service';
 import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
 import {EditCommentDialogComponent} from './edit-comment-dialog/edit-comment-dialog.component';
+import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
 
 @Component({
     selector: 'app-task-comments',
@@ -44,7 +46,13 @@ import {EditCommentDialogComponent} from './edit-comment-dialog/edit-comment-dia
     ],
     templateUrl: './task-comments.component.html',
     styleUrl: './task-comments.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: VALIDATION_ERRORS
+        }
+    ]
 })
 export class TaskCommentsComponent {
     private readonly taskCommentsService = inject(TaskCommentsService);
@@ -125,6 +133,13 @@ export class TaskCommentsComponent {
     }
 
     protected showAllComments() {
+        const comments = this.comments();
+        const currentUser = this.currentUser();
+        const task = this.task();
+
+        if (!currentUser || !task) {
+            return;
+        }
         this.dialogs
             .open<void>(
                 new PolymorpheusComponent(
@@ -134,7 +149,7 @@ export class TaskCommentsComponent {
                 {
                     label: 'Все комментарии',
                     size: 'l',
-                    data: this.comments()
+                    data: {comments, currentUser, task}
                 }
             )
             .pipe(takeUntilDestroyed(this.destroyRef))

@@ -1,6 +1,6 @@
 <div class="task-comments-dialog">
     <div class="task-comments-dialog__list">
-        @for (commentItem of comments; track commentItem.id) {
+        @for (commentItem of comments(); track commentItem.id) {
             <article class="task-comments-dialog__comment">
                 <div class="task-comments-dialog__avatar">
                     {{ getAuthorInitials(commentItem) }}
@@ -12,11 +12,42 @@
                             {{ getAuthorName(commentItem) }}
                         </strong>
 
-                        <span class="task-comments-dialog__date">
-                            {{
-                                commentItem.createdAt | date: 'dd.MM.yyyy HH:mm'
-                            }}
-                        </span>
+                        <div class="task-comments-dialog__comment-meta">
+                            <span class="task-comments-dialog__date">
+                                {{
+                                    commentItem.createdAt
+                                        | date: 'dd.MM.yyyy HH:mm'
+                                }}
+                            </span>
+
+                            <div class="task-comments-dialog__actions">
+                                @if (canEditComment(commentItem)) {
+                                    <button
+                                        class="task-comments-dialog__action-button"
+                                        tuiButton
+                                        type="button"
+                                        appearance="flat"
+                                        size="xs"
+                                        iconStart="@tui.pencil"
+                                        (click)="
+                                            openEditCommentDialog(commentItem)
+                                        "
+                                    ></button>
+                                }
+
+                                @if (canDeleteComment(commentItem)) {
+                                    <button
+                                        class="task-comments-dialog__action-button task-comments-dialog__action-button_delete"
+                                        tuiButton
+                                        type="button"
+                                        appearance="flat"
+                                        size="xs"
+                                        iconStart="@tui.trash"
+                                        (click)="deleteComment(commentItem)"
+                                    ></button>
+                                }
+                            </div>
+                        </div>
                     </header>
 
                     <p class="task-comments-dialog__text">
@@ -24,6 +55,16 @@
                     </p>
                 </div>
             </article>
+        } @empty {
+            <div class="task-comments-dialog__empty">
+                <p class="task-comments-dialog__empty-title">
+                    Комментариев пока нет
+                </p>
+
+                <p class="task-comments-dialog__empty-description">
+                    Здесь появятся все комментарии по задаче
+                </p>
+            </div>
         }
     </div>
 </div>
