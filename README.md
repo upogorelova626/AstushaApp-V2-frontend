@@ -1,59 +1,164 @@
-# AstushaAppFrontend
+# AstushaApp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.26.
+**AstushaApp** - веб-приложение для управления командами, проектами и задачами.
 
-## Development server
+Приложение помогает организовать рабочий процесс: создавать команды, вести проекты, назначать задачи участникам, прикреплять файлы, добавлять ссылки на репозитории и обсуждать задачи в комментариях.
 
-To start a local development server, run:
+Проект разрабатывается как fullstack pet-project с frontend на Angular и backend на NestJS.
+
+## Возможности
+
+В приложении реализованы и дорабатываются следующие возможности:
+
+* регистрация и авторизация пользователя;
+* восстановление доступа к аккаунту;
+* редактирование профиля пользователя;
+* загрузка и удаление аватара;
+* создание команд;
+* просмотр команд и участников;
+* управление участниками команды;
+* создание проектов;
+* настройка проекта;
+* управление участниками проекта;
+* роли в проекте;
+* создание задач;
+* редактирование задач;
+* удаление задач;
+* назначение исполнителя задачи;
+* типы и приоритеты задач;
+* story points и дедлайны;
+* workflow-стадии задач;
+* прикрепление файлов к задаче;
+* удаление файлов задачи;
+* комментарии к задачам;
+* ссылки на репозитории проекта;
+* страница одной задачи;
+* страница одного проекта;
+* адаптивный интерфейс;
+* светлая и тёмная тема.
+
+## Стек технологий
+
+### Frontend
+
+* Angular
+* TypeScript
+* Angular Signals
+* RxJS
+* Reactive Forms
+* Angular Router
+* Taiga UI
+* LESS
+* HTTP Client
+
+### Backend
+
+* NestJS
+* TypeScript
+* Prisma ORM
+* PostgreSQL
+* JWT authentication
+* Swagger
+* Class Validator
+* Class Transformer
+* file upload
+
+### Инструменты
+
+* Git
+* GitHub
+* npm
+* Prisma Migrate
+* Swagger UI
+* Postman / Swagger для проверки API
+
+## Основные сущности
+
+* User
+* Team
+* TeamMember
+* Project
+* ProjectMember
+* ProjectWorkflowStage
+* Task
+* TaskComment
+* TaskAttachment
+* ProjectRepository
+* Sprint
+
+## Локальный запуск
+
+### 1. Клонировать репозиторий
 
 ```bash
-ng serve
+git clone <repository-url>
+cd AstushaApp
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 2. Установить зависимости frontend
 
 ```bash
-ng generate component component-name
+cd frontend
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 3. Установить зависимости backend
 
 ```bash
-ng generate --help
+cd backend/astusha-backend
+npm install
 ```
 
-## Building
+### 4. Настроить переменные окружения backend
 
-To build the project run:
+В папке backend необходимо создать `.env` файл.
+
+Пример:
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/astusha_db"
+JWT_SECRET="your-jwt-secret"
+JWT_REFRESH_SECRET="your-refresh-secret"
+```
+
+### 5. Запустить миграции Prisma
 
 ```bash
-ng build
+npx prisma migrate dev
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 6. Запустить backend
 
 ```bash
-ng test
+npm run start:dev
 ```
 
-## Running end-to-end tests
+Backend будет доступен по адресу:
 
-For end-to-end (e2e) testing, run:
+```text
+http://localhost:3000
+```
+
+### 7. Запустить frontend
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Frontend будет доступен по адресу:
 
-## Additional Resources
+```text
+http://localhost:4200
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Swagger
+
+После запуска backend документация API доступна через Swagger:
+
+```text
+http://localhost:3000/api
+```
+
+Проект разработан как pet-project для практики fullstack-разработки на Angular и NestJS.
+
+
