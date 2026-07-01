@@ -18,6 +18,7 @@ import {
     tap
 } from 'rxjs';
 import {AuthService} from '../../auth/services/auth.service';
+import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +26,7 @@ import {AuthService} from '../../auth/services/auth.service';
 export class UsersService {
     private readonly http = inject(HttpClient);
     private readonly authService = inject(AuthService);
+    private readonly astushaIdAuthService = inject(AstushaIdAuthService);
 
     private readonly baseApiUrl = 'http://localhost:3000';
 
@@ -56,7 +58,7 @@ export class UsersService {
     }
 
     getMyProfile() {
-        return this.http.get<AuthUser>(`${this.baseApiUrl}/users/profile`).pipe(
+        return this.astushaIdAuthService.getMe().pipe(
             tap(profile => {
                 this.setProfile(profile);
             })

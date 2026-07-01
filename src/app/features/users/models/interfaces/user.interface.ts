@@ -41,3 +41,15 @@ export interface ChangePasswordRequest {
 export interface SuccessResponse {
     success: boolean;
 }
+
+export interface AstushaUser {
+    id: string;
+    login: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+    avatarUrl: string | null;
+    position: string | null;
+    about: string | null;
+    theme: 'LIGHT' | 'DARK' | 'SYSTEM';
+}

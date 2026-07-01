@@ -9,16 +9,20 @@ import {
     throwError
 } from 'rxjs';
 
-import {AuthService} from '../services/auth.service';
+import {AstushaIdAuthService} from '../services/astusha-id-auth.service';
 
-const baseApiUrl = 'http://localhost:3000';
+const ASTUSHA_APP_API_URL = 'http://localhost:3000';
+const ASTUSHA_ID_API_URL = 'http://localhost:3002';
 
 let refreshRequest$: Observable<unknown> | null = null;
 
 export const credentialsInterceptor: HttpInterceptorFn = (request, next) => {
-    const authService = inject(AuthService);
+    const astushaIdAuthService = inject(AstushaIdAuthService);
 
-    if (!request.url.startsWith(baseApiUrl)) {
+    const isAstushaAppRequest = request.url.startsWith(ASTUSHA_APP_API_URL);
+    const isAstushaIdRequest = request.url.startsWith(ASTUSHA_ID_API_URL);
+
+    if (!isAstushaAppRequest && !isAstushaIdRequest) {
         return next(request);
     }
 
@@ -31,23 +35,19 @@ export const credentialsInterceptor: HttpInterceptorFn = (request, next) => {
             const isUnauthorized =
                 error instanceof HttpErrorResponse && error.status === 401;
 
-            const isRefreshRequest = request.url.includes('/auth/refresh');
-            const isLoginRequest = request.url.includes('/auth/login');
-            const isRegisterRequest = request.url.includes('/auth/register');
-            const isLogoutRequest = request.url.includes('/auth/logout');
+            const isAuthRequest =
+                request.url.includes('/auth/login') ||
+                request.url.includes('/auth/create-account') ||
+                request.url.includes('/auth/register') ||
+                request.url.includes('/auth/refresh') ||
+                request.url.includes('/auth/logout');
 
-            if (
-                !isUnauthorized ||
-                isRefreshRequest ||
-                isLoginRequest ||
-                isRegisterRequest ||
-                isLogoutRequest
-            ) {
+            if (!isUnauthorized || isAuthRequest) {
                 return throwError(() => error);
             }
 
             if (!refreshRequest$) {
-                refreshRequest$ = authService.refresh().pipe(
+                refreshRequest$ = astushaIdAuthService.refresh().pipe(
                     shareReplay(1),
                     finalize(() => {
                         refreshRequest$ = null;
@@ -57,7 +57,9 @@ export const credentialsInterceptor: HttpInterceptorFn = (request, next) => {
 
             return refreshRequest$.pipe(
                 switchMap(() => next(requestWithCredentials)),
-                catchError(refreshError => throwError(() => refreshError))
+                catchError((refreshError: unknown) =>
+                    throwError(() => refreshError)
+                )
             );
         })
     );
