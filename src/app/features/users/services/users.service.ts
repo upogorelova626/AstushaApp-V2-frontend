@@ -28,7 +28,8 @@ export class UsersService {
     private readonly authService = inject(AuthService);
     private readonly astushaIdAuthService = inject(AstushaIdAuthService);
 
-    private readonly baseApiUrl = 'http://localhost:3000';
+    private readonly astushaAppApiUrl = 'http://localhost:3000';
+    private readonly astushaIdApiUrl = 'http://localhost:3000';
 
     private readonly profileSubject = new BehaviorSubject<AuthUser | null>(
         null
@@ -67,7 +68,7 @@ export class UsersService {
 
     changeMyProfile(formData: FormData) {
         return this.http
-            .patch<AuthUser>(`${this.baseApiUrl}/users/profile`, formData)
+            .patch<AuthUser>(`${this.astushaAppApiUrl}/users/profile`, formData)
             .pipe(
                 tap(profile => {
                     this.setProfile(profile);
@@ -77,14 +78,14 @@ export class UsersService {
 
     deleteMyProfile() {
         return this.http.delete<SuccessResponse>(
-            `${this.baseApiUrl}/users/profile`
+            `${this.astushaAppApiUrl}/users/profile`
         );
     }
 
     changePassword(payload: ChangePasswordRequest) {
         return this.http
             .patch<SuccessResponse>(
-                `${this.baseApiUrl}/users/profile/password`,
+                `${this.astushaAppApiUrl}/users/profile/password`,
                 payload
             )
             .pipe(
@@ -97,7 +98,7 @@ export class UsersService {
 
     lookupUser(identifier: string) {
         return this.http.get<UserLookupResult | null>(
-            `${this.baseApiUrl}/users/lookup`,
+            `${this.astushaAppApiUrl}/users/lookup`,
             {
                 params: {
                     identifier
@@ -108,7 +109,7 @@ export class UsersService {
 
     deleteMyAvatar() {
         return this.http
-            .delete<AuthUser>(`${this.baseApiUrl}/users/profile/avatar`)
+            .delete<AuthUser>(`${this.astushaAppApiUrl}/users/profile/avatar`)
             .pipe(
                 tap(profile => {
                     this.setProfile(profile);
@@ -118,7 +119,10 @@ export class UsersService {
 
     changeTheme(payload: ChangeThemeRequest) {
         return this.http
-            .patch<AuthUser>(`${this.baseApiUrl}/users/profile/theme`, payload)
+            .patch<AuthUser>(
+                `${this.astushaAppApiUrl}/users/profile/theme`,
+                payload
+            )
             .pipe(
                 tap(profile => {
                     this.setProfile(profile);

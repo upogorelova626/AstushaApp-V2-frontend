@@ -39,13 +39,13 @@ export const routes: Routes = [
         },
         children: [
             {
-                path: 'settings',
+                path: 'profile',
                 loadComponent: () =>
                     import('./features/settings/settings-page/settings-page.component').then(
                         m => m.SettingsPageComponent
                     ),
                 data: {
-                    breadcrumb: 'Настройки'
+                    breadcrumb: 'Профиль'
                 }
             },
             {

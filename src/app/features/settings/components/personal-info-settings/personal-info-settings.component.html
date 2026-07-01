@@ -1,270 +1,133 @@
-<div class="edit-card">
-    <div class="profile-settings__header">
-        <div class="profile-settings__header-left">
-            <div
-                tuiAvatar="@tui.user"
-                class="profile-settings__icon"
-                [tuiSkeleton]="isProfileLoading()"
-            ></div>
+<section class="profile-card">
+    <header class="profile-card__header">
+        <div class="profile-card__header-left">
+            <div tuiAvatar="@tui.user" class="profile-card__icon"></div>
 
-            <div class="profile-settings__header-text">
-                <h2 class="profile-settings__title">
+            <div class="profile-card__header-text">
+                <h2 class="profile-card__title">
                     Профиль и личная информация
                 </h2>
 
-                <p class="profile-settings__description">
-                    Эти данные видны вашей команде и могут быть изменены в любое
-                    время
+                <p class="profile-card__description">
+                    Эти данные используются в экосистеме Astusha и управляются
+                    через Astusha ID.
                 </p>
             </div>
         </div>
+    </header>
 
-        <button
-            type="button"
-            tuiButton
-            class="profile-settings__edit-button"
-            appearance="flat"
-            size="s"
-            iconStart="@tui.pencil"
-            [disabled]="isProfileLoading() || isEditing() || isSaving()"
-            (click)="startEditing()"
-        >
-            Редактировать
-        </button>
-    </div>
-
-    <div class="edit">
-        <div class="edit-photo">
-            <div class="edit-photo__avatar" [tuiSkeleton]="isProfileLoading()">
-                @if (avatarPreviewUrl() || form.controls.avatarUrl.value) {
+    <main class="profile-card__content">
+        <aside class="profile-card__avatar-section">
+            <div
+                class="profile-card__avatar"
+                [tuiSkeleton]="isProfileLoading()"
+            >
+                @if (me()?.avatarUrl) {
                     <img
-                        class="edit-photo__img"
-                        [src]="
-                            avatarPreviewUrl() || form.controls.avatarUrl.value
-                        "
+                        class="profile-card__avatar-image"
+                        [src]="me()?.avatarUrl"
                         alt="Аватар профиля"
                     />
                 } @else {
                     <div
                         tuiAvatar="@tui.user"
-                        class="edit-photo__fallback-avatar"
+                        class="profile-card__avatar-fallback"
                     ></div>
                 }
-
-                @if (isEditing()) {
-                    <button
-                        tuiButton
-                        class="edit-photo__camera"
-                        appearance="primary"
-                        size="xs"
-                        iconStart="@tui.camera"
-                        [disabled]="isProfileLoading() || isSaving()"
-                        (click)="avatarInput.click()"
-                    ></button>
-                }
             </div>
+        </aside>
 
-            <input
-                #avatarInput
-                class="edit-photo__file-input"
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                tabindex="-1"
-                [disabled]="isProfileLoading() || isSaving() || !isEditing()"
-                (change)="onAvatarSelected($event)"
-            />
-
-            @if (isEditing()) {
-                <button
-                    tuiButton
-                    class="edit-photo__change-button"
-                    appearance="flat"
-                    size="s"
-                    [disabled]="isProfileLoading() || isSaving()"
-                    (click)="avatarInput.click()"
-                >
-                    Изменить фото
-                </button>
-            }
-
-            <tui-files class="edit-photo__files">
-                @if (loadedAvatarFile$ | async; as file) {
-                    <tui-file
-                        size="l"
-                        [file]="file"
-                        (remove)="removeAvatarFile()"
-                    />
-                }
-
-                @if (failedAvatarFile$ | async; as file) {
-                    <tui-file
-                        state="error"
-                        [file]="file"
-                        (remove)="removeAvatarFile()"
-                    />
-                }
-
-                @if (loadingAvatarFile$ | async; as file) {
-                    <tui-file
-                        state="loading"
-                        [file]="file"
-                        (remove)="removeAvatarFile()"
-                    />
-                }
-            </tui-files>
-
-            <p class="edit-photo__hint">
-                JPG, PNG или WEBP<br />
-                до 5 МБ
-            </p>
-
-            @if (form.controls.avatarUrl.value && isEditing()) {
-                <button
-                    tuiButton
-                    class="edit-photo__delete-button"
-                    appearance="flat"
-                    size="s"
-                    [disabled]="isProfileLoading() || isSaving()"
-                    (click)="deleteAvatar()"
-                >
-                    Удалить фото
-                </button>
-            }
-        </div>
-
-        <form class="edit-info" [formGroup]="form" (ngSubmit)="saveProfile()">
-            <div class="edit-name-and-family">
-                <div class="edit-info__field">
+        <div class="profile-card__info">
+            <div class="profile-card__row">
+                <div class="profile-card__field">
                     <label tuiLabel>Имя</label>
 
                     <tui-textfield
-                        class="edit-info__input"
+                        class="profile-card__input"
                         [tuiSkeleton]="isProfileLoading()"
                     >
                         <input
                             tuiInput
-                            type="text"
-                            placeholder="Введите имя"
-                            formControlName="firstName"
+                            disabled
+                            [value]="me()?.firstName || 'Не указано'"
                         />
                     </tui-textfield>
-
-                    <tui-error
-                        [formControl]="form.controls.firstName"
-                        [order]="['minlength', 'maxlength']"
-                    />
                 </div>
 
-                <div class="edit-info__field">
+                <div class="profile-card__field">
                     <label tuiLabel>Фамилия</label>
 
                     <tui-textfield
-                        class="edit-info__input"
+                        class="profile-card__input"
                         [tuiSkeleton]="isProfileLoading()"
                     >
                         <input
                             tuiInput
-                            type="text"
-                            placeholder="Введите фамилию"
-                            formControlName="lastName"
+                            disabled
+                            [value]="me()?.lastName || 'Не указано'"
                         />
                     </tui-textfield>
-
-                    <tui-error
-                        [formControl]="form.controls.lastName"
-                        [order]="['minlength', 'maxlength']"
-                    />
                 </div>
             </div>
 
-            <div class="edit-info__field">
+            <div class="profile-card__field">
                 <label tuiLabel>Email</label>
 
                 <tui-textfield
-                    class="edit-info__input edit-info__input_disabled"
+                    class="profile-card__input"
                     [tuiSkeleton]="isProfileLoading()"
                 >
                     <input
                         tuiInput
-                        type="email"
-                        placeholder="Email"
-                        formControlName="email"
+                        disabled
+                        [value]="me()?.email || 'Не указано'"
                     />
                 </tui-textfield>
             </div>
 
-            <div class="edit-info__field">
+            <div class="profile-card__field">
                 <label tuiLabel>Должность</label>
 
                 <tui-textfield
-                    class="edit-info__input"
+                    class="profile-card__input"
                     [tuiSkeleton]="isProfileLoading()"
                 >
                     <input
                         tuiInput
-                        type="text"
-                        placeholder="Введите должность"
-                        formControlName="position"
+                        disabled
+                        [value]="me()?.position || 'Не указано'"
                     />
                 </tui-textfield>
-
-                <tui-error
-                    [formControl]="form.controls.position"
-                    [order]="['minlength', 'maxlength']"
-                />
             </div>
 
-            <div class="edit-info__field">
+            <div class="profile-card__field">
                 <label tuiLabel>О себе</label>
 
                 <tui-textfield
-                    class="edit-info__textarea"
+                    class="profile-card__textarea"
                     [tuiSkeleton]="isProfileLoading()"
                 >
                     <textarea
                         tuiTextarea
-                        placeholder="Расскажите немного о себе"
-                        formControlName="about"
+                        disabled
+                        [value]="me()?.about || 'Не указано'"
                     ></textarea>
                 </tui-textfield>
-
-                <tui-error
-                    [formControl]="form.controls.about"
-                    [order]="['maxlength']"
-                />
             </div>
 
-            <div class="edit-info__actions">
+            <div class="profile-card__actions">
                 <button
                     tuiButton
-                    class="edit-info__save"
-                    size="m"
-                    iconStart="@tui.check"
-                    [disabled]="
-                        isProfileLoading() ||
-                        !isEditing() ||
-                        isSaving() ||
-                        form.invalid ||
-                        form.pristine
-                    "
-                >
-                    Сохранить изменения
-                </button>
-
-                <button
                     type="button"
-                    tuiButton
-                    class="edit-info__cancel"
+                    class="profile-card__action"
                     appearance="flat"
                     size="m"
-                    [disabled]="
-                        isProfileLoading() || !isEditing() || isSaving()
-                    "
-                    (click)="cancelEditing()"
+                    iconEnd="@tui.chevron-right"
+                    (click)="openAstushaIdProfileSettings()"
                 >
-                    Отменить
+                    Редактировать в Astusha ID
                 </button>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+    </main>
+</section>

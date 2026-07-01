@@ -1,9 +1,9 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router} from '@angular/router';
 import {catchError, forkJoin, map, of} from 'rxjs';
-import {AuthService} from '../../auth/services/auth.service';
 import {TeamMembersService} from '../services/team-members.service';
 import {TeamRole} from '../interfaces/team-members.interface';
+import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
 
 function getTeamId(route: ActivatedRouteSnapshot): string | null {
     let currentRoute: ActivatedRouteSnapshot | null = route;
@@ -23,7 +23,7 @@ function getTeamId(route: ActivatedRouteSnapshot): string | null {
 
 export const teamManageGuard: CanActivateFn = route => {
     const router = inject(Router);
-    const authService = inject(AuthService);
+    const astushaIdAuthService = inject(AstushaIdAuthService);
     const teamMembersService = inject(TeamMembersService);
 
     const teamId = getTeamId(route);
@@ -33,19 +33,21 @@ export const teamManageGuard: CanActivateFn = route => {
     }
 
     return forkJoin({
-        me: authService.me(),
+        me: astushaIdAuthService.getMe(),
         members: teamMembersService.getTeamMembers(teamId)
     }).pipe(
         map(({me, members}) => {
             const currentTeamMember = members.find(member => {
-                return member.user.id === me.id;
+                return (
+                    member.user.email.toLowerCase() === me.email.toLowerCase()
+                );
             });
 
-            const canManageProject =
+            const canManageTeam =
                 currentTeamMember?.role === TeamRole.Admin ||
                 currentTeamMember?.role === TeamRole.Owner;
 
-            if (canManageProject) {
+            if (canManageTeam) {
                 return true;
             }
 
