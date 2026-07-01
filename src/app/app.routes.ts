@@ -6,10 +6,7 @@ import {teamManageGuard} from './features/teams/guards/team-manage.guard';
 export const routes: Routes = [
     {
         path: 'auth',
-        loadComponent: () =>
-            import('./layouts/auth-layout/auth-layout.component').then(
-                m => m.AuthLayoutComponent
-            ),
+
         children: [
             {
                 path: '',
@@ -19,23 +16,13 @@ export const routes: Routes = [
             {
                 path: 'login',
                 loadComponent: () =>
-                    import('./features/auth/pages/login-page/login-page.component').then(
-                        m => m.LoginPageComponent
+                    import('./features/auth/pages/auth-redirect-page/auth-redirect-page.component').then(
+                        m => m.AuthRedirectPageComponent
                     )
             },
             {
-                path: 'create-account',
-                loadComponent: () =>
-                    import('./features/auth/pages/create-account/create-account.component').then(
-                        m => m.CreateAccountComponent
-                    )
-            },
-            {
-                path: 'forgot-password',
-                loadComponent: () =>
-                    import('./features/auth/pages/forgot-password/forgot-password.component').then(
-                        m => m.ForgotPasswordComponent
-                    )
+                path: '**',
+                redirectTo: 'login'
             }
         ]
     },

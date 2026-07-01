@@ -20,7 +20,6 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar, TuiBreadcrumbs, TuiSkeleton} from '@taiga-ui/kit';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {AuthService} from '../../../../features/auth/services/auth.service';
 import {
     CreateMenuAction,
     CreateMenuActionOption,
@@ -30,6 +29,8 @@ import {
 import {UsersService} from '../../../../features/users/services/users.service';
 import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
 import {HeaderHelpDialogComponent} from './header-help-dialog/header-help-dialog.component';
+import {AstushaIdAuthService} from '../../../../features/auth/services/astusha-id-auth.service';
+import {catchError, EMPTY, finalize} from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -54,7 +55,7 @@ import {HeaderHelpDialogComponent} from './header-help-dialog/header-help-dialog
 })
 export class HeaderComponent implements OnInit {
     private readonly usersService = inject(UsersService);
-    private readonly authService = inject(AuthService);
+    private readonly astushaIdAuthService = inject(AstushaIdAuthService);
     private readonly router = inject(Router);
     private readonly location = inject(Location);
     private readonly dialogs = inject(TuiDialogService);
@@ -145,9 +146,18 @@ export class HeaderComponent implements OnInit {
     }
 
     private logout() {
-        this.authService.logout().subscribe(() => {
-            this.usersService.clearProfile();
-            void this.router.navigate(['/auth/login']);
-        });
+        this.astushaIdAuthService
+            .logout()
+            .pipe(
+                catchError(() => EMPTY),
+                finalize(() => {
+                    this.usersService.clearProfile();
+
+                    const returnUrl = window.location.origin;
+
+                    window.location.href = `http://localhost:4202/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`;
+                })
+            )
+            .subscribe();
     }
 }
