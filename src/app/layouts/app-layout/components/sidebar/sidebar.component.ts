@@ -8,15 +8,23 @@ import {
 } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiIcon} from '@taiga-ui/core';
-import {TuiSkeleton} from '@taiga-ui/kit';
+import {TuiSkeleton, TuiAvatar} from '@taiga-ui/kit';
 import {UsersService} from '../../../../features/users/services/users.service';
 import {ProjectsService} from '../../../../features/projects/services/projects.service';
 import {Project} from '../../../../features/projects/interfaces/project.interface';
-import {filter, finalize, map} from 'rxjs';
+import {finalize, map} from 'rxjs';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [TuiIcon, TuiButton, RouterLink, TuiHint, TuiSkeleton, AsyncPipe],
+    imports: [
+        TuiIcon,
+        TuiButton,
+        RouterLink,
+        TuiHint,
+        TuiSkeleton,
+        TuiAvatar,
+        AsyncPipe
+    ],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush

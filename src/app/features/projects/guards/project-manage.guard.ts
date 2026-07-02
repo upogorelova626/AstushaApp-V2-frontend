@@ -1,9 +1,8 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router} from '@angular/router';
 import {catchError, forkJoin, map, of} from 'rxjs';
-
-import {AuthService} from '../../auth/services/auth.service';
 import {ProjectsService} from '../services/projects.service';
+import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
 
 function getProjectId(route: ActivatedRouteSnapshot): string | null {
     let currentRoute: ActivatedRouteSnapshot | null = route;
@@ -23,7 +22,7 @@ function getProjectId(route: ActivatedRouteSnapshot): string | null {
 
 export const projectManageGuard: CanActivateFn = route => {
     const router = inject(Router);
-    const authService = inject(AuthService);
+    const astushaIdAuthService = inject(AstushaIdAuthService);
     const projectsService = inject(ProjectsService);
 
     const projectId = getProjectId(route);
@@ -34,7 +33,7 @@ export const projectManageGuard: CanActivateFn = route => {
 
     return forkJoin({
         project: projectsService.getOneProject(projectId),
-        me: authService.me()
+        me: astushaIdAuthService.getMe()
     }).pipe(
         map(({project, me}) => {
             const currentProjectMember = project.members.find(member => {

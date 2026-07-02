@@ -38,9 +38,7 @@ export const teamManageGuard: CanActivateFn = route => {
     }).pipe(
         map(({me, members}) => {
             const currentTeamMember = members.find(member => {
-                return (
-                    member.user.email.toLowerCase() === me.email.toLowerCase()
-                );
+                return member.user.id === me.id;
             });
 
             const canManageTeam =

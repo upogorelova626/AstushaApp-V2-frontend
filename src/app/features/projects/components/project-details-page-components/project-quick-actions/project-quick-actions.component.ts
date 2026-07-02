@@ -8,9 +8,8 @@ import {
 import {toSignal} from '@angular/core/rxjs-interop';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-
-import {AuthService} from '../../../../auth/services/auth.service';
 import {Project} from '../../../interfaces/project.interface';
+import {AstushaIdAuthService} from '../../../../auth/services/astusha-id-auth.service';
 
 @Component({
     selector: 'app-project-quick-actions',
@@ -20,12 +19,12 @@ import {Project} from '../../../interfaces/project.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectQuickActionsComponent {
-    private readonly authService = inject(AuthService);
+    private readonly astushaIdAuthService = inject(AstushaIdAuthService);
 
     readonly project = input<Project | null>(null);
     readonly canManageProject = input(false);
 
-    private readonly me = toSignal(this.authService.me(), {
+    private readonly me = toSignal(this.astushaIdAuthService.getMe(), {
         initialValue: null
     });
 }

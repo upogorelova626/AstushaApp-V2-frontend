@@ -1,23 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
-import {
-    ChangePasswordRequest,
-    SuccessResponse,
-    UserLookupResult
-} from '../models/interfaces/user.interface';
-import {
-    AuthUser,
-    ChangeThemeRequest
-} from '../../auth/models/interfaces/auth.interface';
-import {
-    BehaviorSubject,
-    catchError,
-    Observable,
-    of,
-    switchMap,
-    tap
-} from 'rxjs';
-import {AuthService} from '../../auth/services/auth.service';
+import {UserLookupResult} from '../models/interfaces/user.interface';
+import {AuthUser} from '../../auth/models/interfaces/auth.interface';
+import {BehaviorSubject, catchError, Observable, of, tap} from 'rxjs';
+
 import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
 
 @Injectable({
@@ -25,7 +11,6 @@ import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service'
 })
 export class UsersService {
     private readonly http = inject(HttpClient);
-    private readonly authService = inject(AuthService);
     private readonly astushaIdAuthService = inject(AstushaIdAuthService);
 
     private readonly astushaAppApiUrl = 'http://localhost:3000';
@@ -66,36 +51,6 @@ export class UsersService {
         );
     }
 
-    changeMyProfile(formData: FormData) {
-        return this.http
-            .patch<AuthUser>(`${this.astushaAppApiUrl}/users/profile`, formData)
-            .pipe(
-                tap(profile => {
-                    this.setProfile(profile);
-                })
-            );
-    }
-
-    deleteMyProfile() {
-        return this.http.delete<SuccessResponse>(
-            `${this.astushaAppApiUrl}/users/profile`
-        );
-    }
-
-    changePassword(payload: ChangePasswordRequest) {
-        return this.http
-            .patch<SuccessResponse>(
-                `${this.astushaAppApiUrl}/users/profile/password`,
-                payload
-            )
-            .pipe(
-                switchMap(() => this.authService.logout()),
-                tap(() => {
-                    this.clearProfile();
-                })
-            );
-    }
-
     lookupUser(identifier: string) {
         return this.http.get<UserLookupResult | null>(
             `${this.astushaAppApiUrl}/users/lookup`,
@@ -105,28 +60,5 @@ export class UsersService {
                 }
             }
         );
-    }
-
-    deleteMyAvatar() {
-        return this.http
-            .delete<AuthUser>(`${this.astushaAppApiUrl}/users/profile/avatar`)
-            .pipe(
-                tap(profile => {
-                    this.setProfile(profile);
-                })
-            );
-    }
-
-    changeTheme(payload: ChangeThemeRequest) {
-        return this.http
-            .patch<AuthUser>(
-                `${this.astushaAppApiUrl}/users/profile/theme`,
-                payload
-            )
-            .pipe(
-                tap(profile => {
-                    this.setProfile(profile);
-                })
-            );
     }
 }

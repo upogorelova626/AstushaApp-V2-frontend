@@ -9,10 +9,10 @@ import {
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {TuiSkeleton} from '@taiga-ui/kit';
-import {AuthService} from '../../features/auth/services/auth.service';
 import {ProjectNavigateComponent} from '../../features/projects/components/project-details-page-components/project-navigate/project-navigate.component';
 import {Project} from '../../features/projects/interfaces/project.interface';
 import {ProjectsService} from '../../features/projects/services/projects.service';
+import {AstushaIdAuthService} from '../../features/auth/services/astusha-id-auth.service';
 
 @Component({
     selector: 'app-project-layout',
@@ -24,11 +24,11 @@ import {ProjectsService} from '../../features/projects/services/projects.service
 export class ProjectLayoutComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly projectsService = inject(ProjectsService);
-    private readonly authService = inject(AuthService);
+    private readonly astushaIdAuthService = inject(AstushaIdAuthService);
 
     protected readonly project = signal<Project | null>(null);
 
-    private readonly me = toSignal(this.authService.me(), {
+    private readonly me = toSignal(this.astushaIdAuthService.getMe(), {
         initialValue: null
     });
 

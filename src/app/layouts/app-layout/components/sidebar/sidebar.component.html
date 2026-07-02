@@ -109,27 +109,7 @@
             ></a>
         </div>
 
-        <div class="sidebar__recent-list">
-            @if (isLoading()) {
-                <button
-                    tuiButton
-                    class="sidebar__recent-item"
-                    appearance="flat"
-                    size="m"
-                    iconStart="@tui.folder"
-                    [tuiSkeleton]="isLoading()"
-                >
-                    <span class="sidebar__recent-info">
-                        <span class="sidebar__recent-title">
-                            Название проекта
-                        </span>
-
-                        <span class="sidebar__recent-status">
-                            Статус проекта
-                        </span>
-                    </span>
-                </button>
-            }
+        <div class="sidebar__recent-list" [tuiSkeleton]="isLoading()">
             @if (projects().length > 0) {
                 @for (project of projects(); track project.id) {
                     <a
