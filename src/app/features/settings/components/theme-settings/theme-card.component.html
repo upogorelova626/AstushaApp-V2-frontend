@@ -8,7 +8,7 @@
             <h2 class="theme-card__title">Внешний вид</h2>
 
             <p class="theme-card__description">
-                Настройте внешний вид приложения
+                Настройки оформления и языка управляются через Астюша ID
             </p>
         </div>
     </div>
@@ -21,41 +21,24 @@
                 </div>
 
                 <div class="theme-card__section-text">
-                    <h3 class="theme-card__section-title"> Тема интерфейса </h3>
+                    <h3 class="theme-card__section-title">Тема интерфейса</h3>
 
                     <p class="theme-card__section-description">
-                        Выберите, как будет выглядеть AstushaApp
+                        Выберите светлое или тёмное оформление для аккаунта
                     </p>
                 </div>
             </div>
 
-            <div class="theme-card__actions">
-                <button
-                    tuiButton
-                    type="button"
-                    size="s"
-                    iconStart="@tui.sun"
-                    [appearance]="
-                        profile()?.theme === Theme.LIGHT ? 'primary' : 'flat'
-                    "
-                    (click)="changeTheme(Theme.LIGHT)"
-                >
-                    Светлая
-                </button>
-
-                <button
-                    tuiButton
-                    type="button"
-                    size="s"
-                    iconStart="@tui.moon"
-                    [appearance]="
-                        profile()?.theme === Theme.DARK ? 'primary' : 'flat'
-                    "
-                    (click)="changeTheme(Theme.DARK)"
-                >
-                    Тёмная
-                </button>
-            </div>
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconEnd="@tui.chevron-right"
+                (click)="openAstushaIdProfileSettings()"
+            >
+                Настроить тему
+            </button>
         </div>
 
         <div class="theme-card__section">
@@ -65,7 +48,7 @@
                 </div>
 
                 <div class="theme-card__section-text">
-                    <h3 class="theme-card__section-title"> Язык интерфейса </h3>
+                    <h3 class="theme-card__section-title">Язык интерфейса</h3>
 
                     <p class="theme-card__section-description">
                         Сейчас используется русский язык
@@ -75,12 +58,14 @@
 
             <button
                 tuiButton
+                type="button"
                 appearance="flat"
                 size="s"
-                iconEnd="@tui.chevron-down"
-                tuiHint="В данный момент доступен только русский язык. Следите за обновлениями"
+                iconEnd="@tui.chevron-right"
+                tuiHint="Пока доступен только русский язык. Позже здесь появится выбор языка"
+                (click)="openAstushaIdProfileSettings()"
             >
-                Русский
+                Настроить язык
             </button>
         </div>
     </div>

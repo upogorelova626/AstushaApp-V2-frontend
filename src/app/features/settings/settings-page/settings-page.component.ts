@@ -1,18 +1,18 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {PersonalInfoSettinsComponent} from '../components/personal-info-settings/personal-info-settings.component';
-import {DeleteProfileComponent} from '../components/delete-profile/delete-profile.component';
-import {SecuritySettingsComponent} from '../components/security-settings/security-settings.component';
-import {ThemeSettingsComponent} from '../components/theme-settings/theme-settings.component';
-import {NotificationsSettingsComponent} from '../components/notifications-settings/notifications-settings.component';
+import {PersonalInfoCardComponent} from '../components/personal-info-settings/personal-info-card.component';
+import {DeleteProfileCardComponent} from '../components/delete-profile/delete-profile-card.component';
+import {SecurityCardComponent} from '../components/security-settings/security-card.component';
+import {ThemeCardComponent} from '../components/theme-settings/theme-settings.component';
+import {NotificationsCardComponent} from '../components/notifications-settings/notifications-card.component';
 
 @Component({
     selector: 'app-settings-page',
     imports: [
-        PersonalInfoSettinsComponent,
-        DeleteProfileComponent,
-        SecuritySettingsComponent,
-        ThemeSettingsComponent,
-        NotificationsSettingsComponent
+        PersonalInfoCardComponent,
+        DeleteProfileCardComponent,
+        SecurityCardComponent,
+        ThemeCardComponent,
+        NotificationsCardComponent
     ],
     templateUrl: './settings-page.component.html',
     styleUrl: './settings-page.component.less',

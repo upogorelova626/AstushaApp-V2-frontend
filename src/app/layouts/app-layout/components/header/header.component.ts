@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
 
     protected readonly userMenuActions: readonly UserMenuActionOption[] = [
         {
-            title: 'Настройки',
+            title: 'Профиль',
             value: UserMenuAction.OpenSettings
         },
         {
@@ -103,7 +103,7 @@ export class HeaderComponent implements OnInit {
 
         switch (action) {
             case UserMenuAction.OpenSettings:
-                void this.router.navigate(['/dashboard/settings']);
+                void this.router.navigate(['/dashboard/profile']);
                 return;
 
             case UserMenuAction.Logout:

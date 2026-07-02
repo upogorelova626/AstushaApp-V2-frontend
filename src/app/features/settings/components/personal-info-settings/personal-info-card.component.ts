@@ -17,7 +17,7 @@ import {UsersService} from '../../../users/services/users.service';
 import {AuthUser} from '../../../auth/models/interfaces/auth.interface';
 
 @Component({
-    selector: 'app-personal-info-settins',
+    selector: 'app-personal-info-card',
     imports: [
         TuiAvatar,
         TuiButton,
@@ -27,11 +27,11 @@ import {AuthUser} from '../../../auth/models/interfaces/auth.interface';
         TuiTextarea,
         TuiSkeleton
     ],
-    templateUrl: './personal-info-settings.component.html',
-    styleUrl: './personal-info-settings.component.less',
+    templateUrl: './personal-info-card.component.html',
+    styleUrl: './personal-info-card.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PersonalInfoSettinsComponent implements OnInit {
+export class PersonalInfoCardComponent implements OnInit {
     private readonly usersService = inject(UsersService);
 
     protected readonly isProfileLoading = signal(true);

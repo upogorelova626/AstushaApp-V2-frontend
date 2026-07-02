@@ -8,7 +8,7 @@
             <h2 class="security-card__title">Безопасность</h2>
 
             <p class="security-card__description">
-                Управление паролями и двухфакторной защитой
+                Настройки защиты аккаунта управляются через Астюша ID
             </p>
         </div>
     </div>
@@ -24,7 +24,8 @@
                     <h3 class="security-card__item-title">Пароль</h3>
 
                     <p class="security-card__item-description">
-                        Измените пароль для входа в аккаунт
+                        Обновите пароль, который используется для входа в
+                        аккаунт
                     </p>
                 </div>
             </div>
@@ -35,7 +36,7 @@
                 appearance="flat"
                 size="s"
                 iconEnd="@tui.chevron-right"
-                (click)="openChangePasswordDialog()"
+                (click)="openAstushaIdProfileSettings()"
             >
                 Изменить пароль
             </button>
@@ -53,7 +54,8 @@
                     </h3>
 
                     <p class="security-card__item-description">
-                        Добавьте дополнительную защиту аккаунта
+                        Усильте защиту аккаунта с помощью дополнительного
+                        подтверждения входа
                     </p>
                 </div>
             </div>
@@ -64,8 +66,9 @@
                 appearance="flat"
                 size="s"
                 iconEnd="@tui.chevron-right"
+                (click)="openAstushaIdProfileSettings()"
             >
-                Включить
+                Настроить 2FA
             </button>
         </div>
     </div>
