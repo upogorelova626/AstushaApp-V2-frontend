@@ -1,5 +1,21 @@
-.my-tasks-page__wrapper {
-    margin-right: 10px;
+:host {
+    display: block;
+    min-width: 0;
+}
+
+.wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding-right: 10px;
     display: grid;
-    grid-gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 1024px) {
+    .wrapper {
+        padding-right: 0px;
+        gap: 10px;
+    }
 }

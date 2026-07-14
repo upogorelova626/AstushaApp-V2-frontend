@@ -1,22 +1,37 @@
-<div class="board-task-card">
-    <header class="board-task-card__header">
-        <span class="board-task-card__number">#{{ task().number }}</span>
+<article class="card">
+    <header class="header">
+        <span class="number">#{{ task().number }}</span>
 
-        <div>
-            <span
-                class="board-task-card__priority"
-                [style.color]="getPriorityColor()"
-                [style.background]="getPriorityBackground()"
-            >
-                {{ task().priority }}
-            </span>
+        <div class="actions">
+            @if (task().priority === 'LOW') {
+                <div tuiBadge class="priority" appearance="positive">
+                    {{ task().priority }}
+                </div>
+            }
+            @if (task().priority === 'MEDIUM') {
+                <div tuiBadge class="priority" appearance="warning">
+                    {{ task().priority }}
+                </div>
+            }
+            @if (task().priority === 'HIGH') {
+                <div tuiBadge class="priority" appearance="accent">
+                    {{ task().priority }}
+                </div>
+            }
+            @if (task().priority === 'CRITICAL') {
+                <div tuiBadge class="priority" appearance="negative">
+                    {{ task().priority }}
+                </div>
+            }
 
             <a
                 tuiButton
+                class="details-button"
                 appearance="flat"
                 iconStart="@tui.ellipsis"
                 tuiHint="Подробнее о задаче"
                 tuiHintDirection="top-end"
+                aria-label="Подробнее о задаче"
                 [routerLink]="[
                     '/dashboard/projects',
                     task().projectId,
@@ -27,31 +42,28 @@
         </div>
     </header>
 
-    <h3 class="board-task-card__title">
+    <h3 class="title">
         {{ task().title }}
     </h3>
 
-    <p class="board-task-card__description">
+    <p class="description">
         {{ task().description || 'Описание не добавлено' }}
     </p>
 
-    <footer class="board-task-card__footer">
-        <div class="board-task-card__assignee">
+    <footer class="footer">
+        <div class="assignee">
             @if (task().assignee; as assignee) {
                 @if (assignee.avatarUrl) {
                     <img
-                        class="board-task-card__avatar-img"
+                        class="avatar-image"
                         [src]="assignee.avatarUrl"
                         alt="Аватар исполнителя"
                     />
                 } @else {
-                    <div
-                        tuiAvatar="@tui.user"
-                        class="board-task-card__avatar"
-                    ></div>
+                    <div tuiAvatar="@tui.user" class="avatar"></div>
                 }
 
-                <span class="board-task-card__assignee-name">
+                <span class="assignee-name">
                     {{
                         (
                             (assignee.firstName ?? '') +
@@ -61,25 +73,18 @@
                     }}
                 </span>
             } @else {
-                <div
-                    tuiAvatar="@tui.user"
-                    class="board-task-card__avatar"
-                ></div>
+                <div tuiAvatar="@tui.user" class="avatar"></div>
 
-                <span class="board-task-card__assignee-name">
-                    Не назначен
-                </span>
+                <span class="assignee-name">Не назначен</span>
             }
         </div>
 
-        <div class="board-task-card__meta">
-            <span class="board-task-card__story-points">
-                {{ task().storyPoints ?? 0 }} SP
-            </span>
+        <div class="meta">
+            <span class="story-points"> {{ task().storyPoints ?? 0 }} SP </span>
 
-            <span class="board-task-card__deadline">
+            <span class="deadline">
                 {{ task().dueDate | date }}
             </span>
         </div>
     </footer>
-</div>
+</article>

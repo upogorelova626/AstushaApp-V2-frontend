@@ -1,30 +1,25 @@
-<div class="task-description-card" [tuiSkeleton]="isLoading()">
-    <header class="task-description-card__header">
-        <div class="task-description-card__title-wrapper">
-            <tui-icon
-                class="task-description-card__icon"
-                icon="@tui.file-text"
-            />
+<div class="card" [tuiSkeleton]="isLoading()">
+    <header class="header">
+        <div class="title-wrapper">
+            <tui-icon class="icon" icon="@tui.file-text" />
 
-            <h3 class="task-description-card__title">Описание задачи</h3>
+            <h3 class="title">Описание задачи</h3>
         </div>
     </header>
 
     @if (task()?.description) {
-        <p class="task-description-card__text">
+        <p class="text">
             {{ task()?.description }}
         </p>
     } @else {
-        <div class="task-description-card__empty">
-            <div class="task-description-card__empty-icon">
+        <div class="empty">
+            <div class="empty-icon">
                 <tui-icon icon="@tui.file-text" />
             </div>
 
-            <p class="task-description-card__empty-title">
-                Описание пока не добавлено
-            </p>
+            <p class="empty-title"> Описание пока не добавлено </p>
 
-            <p class="task-description-card__empty-description">
+            <p class="empty-description">
                 Добавьте описание через редактирование задачи, чтобы команда
                 понимала контекст и требования
             </p>

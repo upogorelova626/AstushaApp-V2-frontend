@@ -1,60 +1,15 @@
-<div class="my-tasks-stats__wrapper">
-    <div class="my-tasks-stats__card">
-        <div tuiAvatar="@tui.mail-open" class="my-tasks-stats__icon"></div>
+<div class="wrapper">
+    @for (item of cards(); track $index) {
+        <div class="card">
+            <div [tuiAvatar]="item.icon" size="l" appearance="info"></div>
 
-        <div class="my-tasks-stats__content">
-            <div class="my-tasks-stats__title">Все задачи</div>
+            <div class="content">
+                <div class="title">{{ item.label }}</div>
 
-            <div class="my-tasks-stats__value" [tuiSkeleton]="isLoading()">
-                {{ allMyTasks() }}</div
-            >
-        </div>
-    </div>
-    <div class="my-tasks-stats__card">
-        <div tuiAvatar="@tui.circle" class="my-tasks-stats__icon"></div>
-
-        <div class="my-tasks-stats__content">
-            <div class="my-tasks-stats__title">К выполнению</div>
-
-            <div class="my-tasks-stats__value" [tuiSkeleton]="isLoading()"
-                >{{ todoCount() }}
+                <div class="value" [tuiSkeleton]="isLoading()">
+                    {{ item.value }}</div
+                >
             </div>
         </div>
-    </div>
-    <div class="my-tasks-stats__card">
-        <div tuiAvatar="@tui.alarm-clock" class="my-tasks-stats__icon"></div>
-
-        <div class="my-tasks-stats__content">
-            <div class="my-tasks-stats__title">В работе</div>
-
-            <div class="my-tasks-stats__value" [tuiSkeleton]="isLoading()"
-                >{{ inWork() }}
-            </div>
-        </div>
-    </div>
-    <div class="my-tasks-stats__card">
-        <div
-            tuiAvatar="@tui.circle-check-big"
-            class="my-tasks-stats__icon"
-        ></div>
-
-        <div class="my-tasks-stats__content">
-            <div class="my-tasks-stats__title">Завершено</div>
-
-            <div class="my-tasks-stats__value" [tuiSkeleton]="isLoading()">
-                {{ done() }}</div
-            >
-        </div>
-    </div>
-    <div class="my-tasks-stats__card">
-        <div tuiAvatar="@tui.clock-4" class="my-tasks-stats__icon"></div>
-
-        <div class="my-tasks-stats__content">
-            <div class="my-tasks-stats__title">Просрочено</div>
-
-            <div class="my-tasks-stats__value" [tuiSkeleton]="isLoading()">
-                {{ overdueCount() }}</div
-            >
-        </div>
-    </div>
+    }
 </div>

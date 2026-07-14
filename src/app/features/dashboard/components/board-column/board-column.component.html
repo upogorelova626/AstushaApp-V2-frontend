@@ -1,27 +1,28 @@
-<div class="board-column">
-    <header class="board-column__header">
-        <div class="board-column__title-block">
-            <h3 class="board-column__title">
+<div class="column">
+    <header class="header">
+        <div class="title-block">
+            <h3 class="title">
                 {{ stage().name }}
             </h3>
 
-            <span class="board-column__count">
+            <span class="count">
                 {{ tasksCount() }}
             </span>
         </div>
 
         <button
             tuiIconButton
+            class="add-button"
+            type="button"
             appearance="flat"
             size="xs"
             iconStart="@tui.plus"
-            class="board-column__add-button"
         ></button>
     </header>
 
     <main
         cdkDropList
-        class="board-column__tasks"
+        class="tasks"
         [id]="dropListId()"
         [cdkDropListData]="tasks()"
         [cdkDropListConnectedTo]="connectedDropLists()"
@@ -30,7 +31,7 @@
         @for (task of tasks(); track task.id) {
             <app-board-task-card cdkDrag [cdkDragData]="task" [task]="task" />
         } @empty {
-            <div class="board-column__empty"> Нет задач </div>
+            <div class="empty">Нет задач</div>
         }
     </main>
 </div>

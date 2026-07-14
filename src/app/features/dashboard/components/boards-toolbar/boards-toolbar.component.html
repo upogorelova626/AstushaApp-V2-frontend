@@ -1,18 +1,19 @@
-<div class="boards-toolbar">
-    <header class="boards-toolbar__header">
-        <div class="boards-toolbar__title-block">
-            <h1 class="boards-toolbar__title">Доски</h1>
+<div class="toolbar">
+    <header class="header">
+        <div class="title-block">
+            <h1 class="title">Доски</h1>
 
-            <p class="boards-toolbar__description">
+            <p class="description">
                 Выберите проект и управляйте задачами по этапам
             </p>
         </div>
 
         <button
             tuiButton
+            class="create-button"
+            type="button"
             size="m"
             iconStart="@tui.plus"
-            class="boards-toolbar__create-button"
             [disabled]="!selectedProjectId() || isLoading()"
             [routerLink]="['/dashboard/projects', selectedProjectId(), 'tasks']"
         >
@@ -20,18 +21,15 @@
         </button>
     </header>
 
-    <div class="boards-toolbar__controls">
-        <label class="boards-toolbar__control boards-toolbar__control_project">
-            <span class="boards-toolbar__label">Проект</span>
+    <div class="controls">
+        <label class="control project-control">
+            <span class="label">Проект</span>
 
-            <div class="boards-toolbar__select-wrapper">
-                <tui-icon
-                    class="boards-toolbar__control-icon"
-                    icon="@tui.folder"
-                />
+            <div class="select-wrapper">
+                <tui-icon class="control-icon" icon="@tui.folder" />
 
                 <select
-                    class="boards-toolbar__select"
+                    class="select"
                     [value]="selectedProjectId() ?? ''"
                     [disabled]="isLoading()"
                     (change)="selectProject($event)"
@@ -45,24 +43,18 @@
                     }
                 </select>
 
-                <tui-icon
-                    class="boards-toolbar__chevron"
-                    icon="@tui.chevron-down"
-                />
+                <tui-icon class="chevron" icon="@tui.chevron-down" />
             </div>
         </label>
 
-        <label class="boards-toolbar__control">
-            <span class="boards-toolbar__label">Исполнитель</span>
+        <label class="control">
+            <span class="label">Исполнитель</span>
 
-            <div class="boards-toolbar__select-wrapper">
-                <tui-icon
-                    class="boards-toolbar__control-icon"
-                    icon="@tui.user"
-                />
+            <div class="select-wrapper">
+                <tui-icon class="control-icon" icon="@tui.user" />
 
                 <select
-                    class="boards-toolbar__select"
+                    class="select"
                     [value]="selectedAssigneeId() ?? ''"
                     [disabled]="!selectedProjectId() || isLoading()"
                     (change)="selectAssignee($event)"
@@ -77,24 +69,18 @@
                     }
                 </select>
 
-                <tui-icon
-                    class="boards-toolbar__chevron"
-                    icon="@tui.chevron-down"
-                />
+                <tui-icon class="chevron" icon="@tui.chevron-down" />
             </div>
         </label>
 
-        <label class="boards-toolbar__control">
-            <span class="boards-toolbar__label">Приоритет</span>
+        <label class="control">
+            <span class="label">Приоритет</span>
 
-            <div class="boards-toolbar__select-wrapper">
-                <tui-icon
-                    class="boards-toolbar__control-icon"
-                    icon="@tui.flag"
-                />
+            <div class="select-wrapper">
+                <tui-icon class="control-icon" icon="@tui.flag" />
 
                 <select
-                    class="boards-toolbar__select"
+                    class="select"
                     [value]="selectedPriority() ?? ''"
                     [disabled]="!selectedProjectId() || isLoading()"
                     (change)="selectPriority($event)"
@@ -108,14 +94,11 @@
                     }
                 </select>
 
-                <tui-icon
-                    class="boards-toolbar__chevron"
-                    icon="@tui.chevron-down"
-                />
+                <tui-icon class="chevron" icon="@tui.chevron-down" />
             </div>
         </label>
 
-        <label class="boards-toolbar__only-mine">
+        <label class="only-mine">
             <input
                 tuiSwitch
                 type="checkbox"
@@ -124,7 +107,7 @@
                 (change)="onOnlyMineChange($event)"
             />
 
-            <span class="boards-toolbar__only-mine-text">Только мои</span>
+            <span class="only-mine-text">Только мои</span>
         </label>
     </div>
 </div>

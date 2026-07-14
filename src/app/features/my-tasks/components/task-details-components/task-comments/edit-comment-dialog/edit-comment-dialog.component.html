@@ -1,8 +1,8 @@
-<form class="edit-comment-dialog">
+<form class="dialog">
     <tui-textfield tuiTextfieldSize="m">
         <textarea
             tuiTextarea
-            class="edit-comment-dialog__textarea"
+            class="textarea"
             placeholder="Редактировать комментарий..."
             [formControl]="form"
         ></textarea>
@@ -10,7 +10,7 @@
 
     <tui-error [formControl]="form" [order]="['required', 'maxlength']" />
 
-    <div class="edit-comment-dialog__footer">
+    <div class="footer">
         <button
             tuiButton
             type="button"

@@ -1,80 +1,112 @@
 @if (tasks().length === 0 && !isLoading()) {
-    <div class="my-tasks-empty">
+    <div class="empty">
         <img
-            class="my-tasks-empty__image"
+            class="empty-image"
             src="/images/no-tasks-img.png"
             alt="Нет задач"
         />
     </div>
 } @else {
-    <div class="my-tasks-list" [tuiSkeleton]="isLoading()">
-        <div class="my-tasks-list__table-wrapper">
-            <table class="my-tasks-list__table">
-                <thead class="my-tasks-list__head">
-                    <tr class="my-tasks-list__head-row">
-                        <th class="my-tasks-list__head-cell">Задача</th>
-                        <th class="my-tasks-list__head-cell">Проект</th>
-                        <th class="my-tasks-list__head-cell">Этап</th>
-                        <th class="my-tasks-list__head-cell">Приоритет</th>
-                        <th class="my-tasks-list__head-cell">Дедлайн</th>
-                        <th class="my-tasks-list__head-cell">Обновлено</th>
+    <div class="list" [tuiSkeleton]="isLoading()">
+        <div class="table-wrapper">
+            <table tuiTable class="table">
+                <thead tuiThead>
+                    <tr tuiThGroup>
+                        <th tuiTh>Задача</th>
+                        <th tuiTh>Проект</th>
+                        <th tuiTh>Этап</th>
+                        <th tuiTh>Приоритет</th>
+                        <th tuiTh>Дедлайн</th>
+                        <th tuiTh>Обновлено</th>
                         <th
-                            class="my-tasks-list__head-cell my-tasks-list__actions-cell"
+                            tuiTh
+                            class="actions-cell"
+                            aria-label="Действия"
                         ></th>
                     </tr>
                 </thead>
 
-                <tbody class="my-tasks-list__body">
+                <tbody tuiTbody>
                     @for (task of paginatedTasks(); track task.id) {
-                        <tr class="my-tasks-list__row">
-                            <td class="my-tasks-list__cell">
-                                <div class="my-tasks-list__task">
-                                    <span class="my-tasks-list__task-title">
+                        <tr>
+                            <td tuiTd>
+                                <div class="task">
+                                    <span class="task-title">
                                         {{ task.title }}
                                     </span>
 
-                                    <span class="my-tasks-list__task-meta">
+                                    <span class="task-meta">
                                         Назначена вам • #{{ task.project.key }}
                                     </span>
                                 </div>
                             </td>
 
-                            <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__project">
+                            <td tuiTd>
+                                <span class="project">
                                     {{ task.project.title }}
                                 </span>
                             </td>
 
-                            <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__stage">
+                            <td tuiTd>
+                                <div tuiBadge size="xl" appearance="info">
                                     {{ task.workflowStage.name }}
+                                </div>
+                            </td>
+
+                            <td tuiTd>
+                                <span class="priority">
+                                    @if (task.priority === 'LOW') {
+                                        <div
+                                            tuiBadge
+                                            size="xl"
+                                            appearance="positive"
+                                        >
+                                            {{ task.priority }}
+                                        </div>
+                                    }
+                                    @if (task.priority === 'MEDIUM') {
+                                        <div
+                                            tuiBadge
+                                            size="xl"
+                                            appearance="warning"
+                                        >
+                                            {{ task.priority }}
+                                        </div>
+                                    }
+                                    @if (task.priority === 'HIGH') {
+                                        <div
+                                            tuiBadge
+                                            size="xl"
+                                            appearance="accent"
+                                        >
+                                            {{ task.priority }}
+                                        </div>
+                                    }
+                                    @if (task.priority === 'CRITICAL') {
+                                        <div
+                                            tuiBadge
+                                            size="xl"
+                                            appearance="negative"
+                                        >
+                                            {{ task.priority }}
+                                        </div>
+                                    }
                                 </span>
                             </td>
 
-                            <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__priority">
-                                    <span
-                                        class="my-tasks-list__priority-dot"
-                                    ></span>
-                                    {{ task.priority }}
-                                </span>
-                            </td>
-
-                            <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__deadline">
+                            <td tuiTd>
+                                <span class="deadline">
                                     {{ task.dueDate | date }}
                                 </span>
                             </td>
 
-                            <td class="my-tasks-list__cell">
-                                <span class="my-tasks-list__updated">
+                            <td tuiTd>
+                                <span class="updated">
                                     {{ task.updatedAt | date }}
                                 </span>
                             </td>
 
-                            <td
-                                class="my-tasks-list__cell my-tasks-list__actions-cell"
-                            >
+                            <td tuiTd class="actions-cell">
                                 <button
                                     tuiIconButton
                                     type="button"
@@ -96,19 +128,14 @@
                     }
                 </tbody>
             </table>
-            <footer class="my-tasks-list__footer">
-                <span
-                    class="my-tasks-list__counter"
-                    [tuiSkeleton]="isLoading()"
-                >
+
+            <footer class="footer">
+                <span class="counter" [tuiSkeleton]="isLoading()">
                     Показано {{ paginatedTasks().length }} из
                     {{ tasks().length }} задач
                 </span>
 
-                <div
-                    class="my-tasks-list__pagination"
-                    [tuiSkeleton]="isLoading()"
-                >
+                <div class="pagination" [tuiSkeleton]="isLoading()">
                     <button
                         tuiIconButton
                         type="button"
@@ -120,7 +147,7 @@
                         (click)="goToPrevPage()"
                     ></button>
 
-                    <span class="my-tasks-list__pagination-text">
+                    <span class="pagination-text">
                         Страница {{ currentPage() }} из {{ totalPages() }}
                     </span>
 
@@ -136,10 +163,7 @@
                     ></button>
                 </div>
 
-                <span
-                    class="my-tasks-list__page-size"
-                    [tuiSkeleton]="isLoading()"
-                >
+                <span class="page-size" [tuiSkeleton]="isLoading()">
                     Показывать: {{ pageSize }}
                 </span>
             </footer>

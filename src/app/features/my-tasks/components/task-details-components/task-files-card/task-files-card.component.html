@@ -1,22 +1,21 @@
-<div class="task-files-card">
-    <header class="task-files-card__header" [tuiSkeleton]="isLoading()">
-        <div class="task-files-card__title-wrapper">
-            <h3 class="task-files-card__title">Файлы</h3>
+<div class="card">
+    <header class="header" [tuiSkeleton]="isLoading()">
+        <div class="title-wrapper">
+            <h3 class="title">Файлы</h3>
 
-            <span
-                class="task-files-card__count"
-                [tuiSkeleton]="isFilesSkeletonVisible()"
-            >
+            <span class="count" [tuiSkeleton]="isFilesSkeletonVisible()">
                 {{ attachmentsCount() }}
             </span>
         </div>
+
         @if (taskAttachments().length > 0) {
             <button
                 tuiButton
+                class="add-button"
+                type="button"
                 appearance="flat"
                 size="s"
                 iconStart="@tui.plus"
-                class="task-files-card__add-button"
                 (click)="toggleFileInput()"
             >
                 Добавить файл
@@ -25,7 +24,7 @@
     </header>
 
     @if (isFileInputVisible() && !control.value) {
-        <label tuiInputFiles class="task-files-card__input">
+        <label tuiInputFiles class="input">
             <input
                 tuiInputFiles
                 accept="image/*,.pdf,.doc,.docx,.txt,.zip"
@@ -34,10 +33,13 @@
         </label>
     }
 
-    <tui-files class="task-files-card__upload-list">
+    <tui-files class="upload-list">
         @if (
             control.value
-                | tuiFileRejected: {accept: 'image/*,.pdf,.doc,.docx,.txt,.zip'}
+                | tuiFileRejected
+                    : {
+                          accept: 'image/*,.pdf,.doc,.docx,.txt,.zip'
+                      }
                 | async;
             as file
         ) {
@@ -57,29 +59,28 @@
         }
     </tui-files>
 
-    <div class="task-files-card__body" [tuiSkeleton]="isAttachmentsLoading()">
+    <div class="body" [tuiSkeleton]="isAttachmentsLoading()">
         @if (
             taskAttachments().length === 0 &&
             !isAttachmentsLoading() &&
             !isLoading()
         ) {
-            <main class="task-files-card__empty-state">
-                <div class="task-files-card__empty-icon">
+            <main class="empty">
+                <div class="empty-icon">
                     <tui-icon icon="@tui.file" />
                 </div>
 
-                <h3 class="task-files-card__empty-title">
-                    К задаче пока не привязаны файлы
-                </h3>
+                <h3 class="empty-title"> К задаче пока не привязаны файлы </h3>
 
-                <p class="task-files-card__empty-description">
+                <p class="empty-description">
                     Прикрепите документы, изображения или другие материалы к
                     задаче
                 </p>
 
                 <button
-                    class="task-files-card__empty-action"
                     tuiButton
+                    class="empty-action"
+                    type="button"
                     appearance="flat"
                     size="s"
                     iconStart="@tui.plus"
@@ -89,19 +90,19 @@
                 </button>
             </main>
         } @else {
-            <main class="task-files-card__list">
+            <main class="list">
                 @for (attachment of previewAttachments(); track attachment.id) {
-                    <div class="task-files-card__file">
-                        <div class="task-files-card__file-icon">
+                    <div class="file">
+                        <div class="file-icon">
                             <tui-icon icon="@tui.paperclip" />
                         </div>
 
                         <div
-                            class="task-files-card__file-content"
+                            class="file-content"
                             [tuiSkeleton]="isFilesSkeletonVisible()"
                         >
                             <a
-                                class="task-files-card__file-name"
+                                class="file-name"
                                 [href]="attachment.fileUrl"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -109,12 +110,12 @@
                                 {{ attachment.originalName }}
                             </a>
 
-                            <span class="task-files-card__file-source">
+                            <span class="file-source">
                                 {{ attachment.mimeType }}
                             </span>
                         </div>
 
-                        <span class="task-files-card__file-size">
+                        <span class="file-size">
                             {{
                                 attachment.size / 1024 / 1024 | number: '1.1-2'
                             }}
@@ -123,10 +124,12 @@
 
                         <button
                             tuiIconButton
+                            class="delete-button"
+                            type="button"
                             appearance="flat"
                             size="s"
                             iconStart="@tui.trash-2"
-                            class="task-files-card__delete"
+                            aria-label="Удалить файл"
                             [tuiSkeleton]="isFilesSkeletonVisible()"
                             (click)="deleteTaskAttachment(attachment.id)"
                         ></button>
@@ -139,9 +142,10 @@
     @if (attachmentsCount() > 3) {
         <button
             tuiButton
+            class="show-all"
+            type="button"
             appearance="flat"
             size="s"
-            class="task-files-card__show-all"
             [tuiSkeleton]="isLoading()"
             (click)="showAllFiles()"
         >

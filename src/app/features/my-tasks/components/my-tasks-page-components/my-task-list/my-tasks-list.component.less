@@ -3,227 +3,188 @@
     width: 100%;
 }
 
-.my-tasks-empty {
+.empty {
+    box-sizing: border-box;
     width: 100%;
     min-height: 360px;
+    padding: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    box-sizing: border-box;
 }
 
-.my-tasks-empty__image {
+.empty-image {
+    display: block;
     width: 400px;
     max-width: 70%;
     height: auto;
-    display: block;
     object-fit: contain;
 }
 
-.my-tasks-list {
+.list {
     width: 100%;
+    min-width: 0;
+}
+
+.table-wrapper {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+}
+
+.table {
+    width: 100%;
+}
+
+.table th {
+    padding: 16px;
+    color: var(--color-text-muted);
+    font: var(--tui-typography-body-m);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 16px;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-body-l);
+    vertical-align: middle;
+}
+
+.table th:first-child,
+.table td:first-child {
+    width: 30%;
+}
+
+.table .actions-cell {
+    width: 56px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.task {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
+}
 
-    &__table-wrapper {
-        width: 100%;
-        min-width: 0;
-        overflow: hidden;
-        border: 1px solid var(--color-card-border);
-        border-radius: 5px;
-        background: var(--color-card-bg);
-    }
+.task-title {
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-body-l);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    &__table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed;
-    }
+.task-meta {
+    overflow: hidden;
+    color: var(--color-text-muted);
+    font: var(--tui-typography-body-m);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    &__head-cell,
-    &__cell {
-        padding: 16px;
-        border-bottom: 1px solid var(--color-card-border);
-        text-align: left;
-        vertical-align: middle;
-    }
+.project,
+.updated {
+    overflow: hidden;
+    display: block;
+    color: var(--color-text-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    &__head-cell {
-        color: var(--color-text-muted);
-        font: var(--tui-typography-body-m);
-        white-space: nowrap;
-    }
+.priority-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-danger);
+}
 
-    &__cell {
-        color: var(--color-text-primary);
-        font: var(--tui-typography-body-l);
-    }
+.deadline {
+    color: var(--color-danger);
+    font: var(--tui-typography-body-l);
+    white-space: nowrap;
+}
 
-    &__head-cell:first-child,
-    &__cell:first-child {
-        width: 30%;
-    }
+.footer {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 10px 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 16px;
+    border-top: 1px solid var(--color-card-border);
+    background: var(--color-card-bg);
+}
 
-    &__actions-cell {
-        width: 56px;
-        padding-right: 20px;
-        text-align: right;
-    }
+.counter {
+    overflow: hidden;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-body-l);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    &__task {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 
-    &__task-title {
-        overflow: hidden;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-body-l);
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__task-meta {
-        overflow: hidden;
-        color: var(--color-text-muted);
-        font: var(--tui-typography-body-m);
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__project,
-    &__updated {
-        overflow: hidden;
-        display: block;
-        color: var(--color-text-secondary);
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__stage {
-        width: fit-content;
-        min-height: 28px;
-        padding: 0 12px;
-        display: inline-flex;
-        align-items: center;
-        border-radius: 999px;
-        color: var(--color-primary-light);
-        background: var(--color-stat-blue-bg);
-        font: var(--tui-typography-body-m);
-        white-space: nowrap;
-    }
-
-    &__priority {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--color-text-primary);
-        white-space: nowrap;
-    }
-
-    &__priority-dot {
-        width: 9px;
-        height: 9px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        background: var(--color-danger);
-    }
-
-    &__deadline {
-        color: var(--color-danger);
-        font: var(--tui-typography-body-l);
-        white-space: nowrap;
-    }
-
-    &__footer {
-        width: 100%;
-        min-width: 0;
-        padding: 10px 16px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto auto;
-        align-items: center;
-        gap: 16px;
-        box-sizing: border-box;
-        border: 1px solid var(--color-card-border);
-        border-radius: 5px;
-        background: var(--color-card-bg);
-    }
-
-    &__counter {
-        overflow: hidden;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-l);
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__pagination {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    &__pagination-text,
-    &__page-size {
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-m);
-        white-space: nowrap;
-    }
+.pagination-text,
+.page-size {
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-body-m);
+    white-space: nowrap;
 }
 
 @media (max-width: 1200px) {
-    .my-tasks-list {
-        &__table-wrapper {
-            overflow-x: auto;
-        }
+    .table-wrapper {
+        overflow-x: auto;
+    }
 
-        &__table {
-            min-width: 920px;
-        }
+    .table {
+        min-width: 900px;
     }
 }
 
 @media (max-width: 1024px) {
-    .my-tasks-list {
-        &__footer {
-            grid-template-columns: 1fr;
-            justify-items: center;
-            gap: 12px;
-            text-align: center;
-        }
+    .footer {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 12px;
+        text-align: center;
+    }
 
-        &__counter {
-            white-space: normal;
-        }
+    .counter {
+        white-space: normal;
+    }
 
-        &__pagination {
-            width: 100%;
-        }
+    .pagination {
+        width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .my-tasks-list {
-        &__counter {
-            font: var(--tui-typography-body-l);
-        }
+    .counter {
+        font: var(--tui-typography-body-l);
     }
 }
 
 @media (max-width: 640px) {
-    .my-tasks-list {
-        &__footer {
-            padding: 12px;
-        }
+    .footer {
+        padding: 12px;
+    }
 
-        &__pagination {
-            justify-content: center;
-        }
+    .pagination {
+        justify-content: center;
     }
 }

@@ -3,100 +3,92 @@
     width: 100%;
 }
 
-.my-tasks-stats {
-    &__wrapper {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 12px;
-        width: 100%;
-        min-width: 0;
-    }
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
 
-    &__card {
-        min-width: 0;
-        min-height: 116px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        box-sizing: border-box;
-        overflow: hidden;
-        border: 1px solid var(--color-card-border);
-        border-radius: 5px;
-        background: var(--color-card-bg);
-    }
+.card {
+    min-width: 0;
+    min-height: 116px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+}
 
-    &__icon {
-        width: 46px;
-        height: 46px;
-        flex-shrink: 0;
-        color: var(--color-primary-light);
-        background: var(--color-stat-blue-bg);
-    }
+.icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    color: var(--color-primary-light);
+    background: var(--color-stat-blue-bg);
+}
 
-    &__content {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
+.content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
 
-    &__title {
-        overflow: hidden;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-m);
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+.title {
+    overflow: hidden;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-body-m);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    &__value {
-        color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h4);
-        line-height: 1;
-    }
+.value {
+    color: var(--color-text-primary);
+    font: var(--tui-typography-heading-h4);
+    line-height: 1;
 }
 
 @media (max-width: 1440px) {
-    .my-tasks-stats {
-        &__wrapper {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
+    .wrapper {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 900px) {
-    .my-tasks-stats {
-        &__wrapper {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+    .wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
-        &__card {
-            min-height: 104px;
-            padding: 18px;
-        }
+    .card {
+        min-height: 104px;
+        padding: 18px;
     }
 }
 
 @media (max-width: 560px) {
-    .my-tasks-stats {
-        &__wrapper {
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
+    .wrapper {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 
-        &__card {
-            min-height: 92px;
-            padding: 16px;
-            border-radius: 18px;
-        }
+    .card {
+        min-height: 92px;
+        padding: 16px;
+        border-radius: 18px;
+    }
 
-        &__icon {
-            width: 42px;
-            height: 42px;
-        }
+    .icon {
+        width: 42px;
+        height: 42px;
+    }
 
-        &__value {
-            font: var(--tui-typography-heading-h5);
-        }
+    .value {
+        font: var(--tui-typography-heading-h5);
     }
 }

@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {TuiButton} from '@taiga-ui/core';
-
 import {BoardTaskCardComponent} from '../board-task-card/board-task-card.component';
 import {ProjectWorkflowStage} from '../../../projects/interfaces/project.interface';
 import {ProjectBoardTask} from '../../../projects/interfaces/board.interface';

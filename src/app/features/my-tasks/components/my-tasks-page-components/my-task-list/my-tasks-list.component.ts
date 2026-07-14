@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiHintDirective} from '@taiga-ui/core';
-import {TuiSkeleton} from '@taiga-ui/kit';
-
+import {TuiBadge, TuiSkeleton} from '@taiga-ui/kit';
 import {MyTask} from '../../../interfaces/my-tasks.interface';
+import {TuiTable} from '@taiga-ui/addon-table';
 
 @Component({
     selector: 'app-my-tasks-list',
@@ -20,6 +20,8 @@ import {MyTask} from '../../../interfaces/my-tasks.interface';
         DatePipe,
         TuiHintDirective,
         TuiHint,
+        TuiTable,
+        TuiBadge,
         RouterLink
     ],
     templateUrl: './my-tasks-list.component.html',

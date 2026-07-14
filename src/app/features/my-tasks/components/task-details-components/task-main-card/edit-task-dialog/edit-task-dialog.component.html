@@ -1,7 +1,7 @@
-<form class="edit-task-dialog" [formGroup]="form" (ngSubmit)="saveTask()">
-    <div class="edit-task-dialog__grid">
-        <label class="edit-task-dialog__field edit-task-dialog__field_title">
-            <span class="edit-task-dialog__label">Название задачи</span>
+<form class="dialog" [formGroup]="form" (ngSubmit)="saveTask()">
+    <div class="grid">
+        <label class="field title-field">
+            <span class="label">Название задачи</span>
 
             <tui-textfield tuiTextfieldSize="m">
                 <input
@@ -18,8 +18,8 @@
             />
         </label>
 
-        <label class="edit-task-dialog__field">
-            <span class="edit-task-dialog__label">Тип задачи</span>
+        <label class="field">
+            <span class="label">Тип задачи</span>
 
             <tui-textfield tuiTextfieldSize="m" tuiChevron>
                 <input
@@ -37,8 +37,8 @@
             <tui-error formControlName="type" [order]="['required']" />
         </label>
 
-        <label class="edit-task-dialog__field">
-            <span class="edit-task-dialog__label">Приоритет</span>
+        <label class="field">
+            <span class="label">Приоритет</span>
 
             <tui-textfield tuiTextfieldSize="m" tuiChevron>
                 <input
@@ -59,8 +59,8 @@
             <tui-error formControlName="priority" [order]="['required']" />
         </label>
 
-        <label class="edit-task-dialog__field">
-            <span class="edit-task-dialog__label">Исполнитель</span>
+        <label class="field">
+            <span class="label">Исполнитель</span>
 
             <tui-textfield tuiTextfieldSize="m" tuiChevron>
                 <input
@@ -79,8 +79,8 @@
             </tui-textfield>
         </label>
 
-        <label class="edit-task-dialog__field">
-            <span class="edit-task-dialog__label">Story points</span>
+        <label class="field">
+            <span class="label">Story points</span>
 
             <tui-textfield tuiTextfieldSize="m">
                 <input
@@ -95,8 +95,8 @@
             <tui-error formControlName="storyPoints" [order]="['min']" />
         </label>
 
-        <label class="edit-task-dialog__field">
-            <span class="edit-task-dialog__label">Дедлайн</span>
+        <label class="field">
+            <span class="label">Дедлайн</span>
 
             <tui-textfield tuiTextfieldSize="m">
                 <input
@@ -115,10 +115,8 @@
         </label>
     </div>
 
-    <label class="edit-task-dialog__description">
-        <span class="edit-task-dialog__description-label">
-            Описание задачи
-        </span>
+    <label class="description">
+        <span class="label">Описание задачи</span>
 
         <tui-textfield tuiTextfieldSize="m">
             <textarea
@@ -131,11 +129,11 @@
         <tui-error formControlName="description" [order]="['maxlength']" />
     </label>
 
-    <footer class="edit-task-dialog__footer">
+    <footer class="footer">
         <button
             tuiButton
-            appearance="secondary"
             type="button"
+            appearance="secondary"
             [disabled]="isSaving()"
             (click)="context.$implicit.complete()"
         >

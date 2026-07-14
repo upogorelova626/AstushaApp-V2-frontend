@@ -1,21 +1,19 @@
-<div class="task-comments-card">
-    <header class="task-comments-card__header" [tuiSkeleton]="isTaskLoading()">
+<div class="card">
+    <header class="header" [tuiSkeleton]="isTaskLoading()">
         <div>
-            <div class="task-comments-card__title-wrapper">
-                <h3 class="task-comments-card__title">Комментарии</h3>
+            <div class="title-wrapper">
+                <h3 class="title">Комментарии</h3>
 
-                <span class="task-comments-card__count">
+                <span class="count">
                     {{ comments().length }}
                 </span>
             </div>
 
-            <p class="task-comments-card__subtitle">
-                Обсудите детали задачи с командой
-            </p>
+            <p class="subtitle"> Обсудите детали задачи с командой </p>
         </div>
     </header>
 
-    <form class="task-comments-card__form" (ngSubmit)="addComment()">
+    <form class="form" (ngSubmit)="addComment()">
         <tui-textfield tuiTextfieldSize="m">
             <textarea
                 tuiTextarea
@@ -29,14 +27,12 @@
             [order]="['required', 'maxlength']"
         />
 
-        <div class="task-comments-card__form-footer">
-            <span class="task-comments-card__limit">
-                {{ comment.value.length }}/2000
-            </span>
+        <div class="form-footer">
+            <span class="limit"> {{ comment.value.length }}/2000 </span>
 
             <button
                 tuiButton
-                type="button"
+                type="submit"
                 size="s"
                 iconStart="@tui.send"
                 [disabled]="
@@ -45,7 +41,6 @@
                     isCommentAdding() ||
                     comment.invalid
                 "
-                (click)="addComment()"
             >
                 Отправить
             </button>
@@ -53,76 +48,83 @@
     </form>
 
     @if (comments().length > 0) {
-        <div class="task-comments-card__list">
+        <div class="list">
             @for (commentItem of previewComments(); track commentItem.id) {
-                <article class="task-comments-card__comment">
-                    <div class="task-comments-card__avatar">
+                <article class="comment">
+                    <div class="avatar">
                         {{ getAuthorInitials(commentItem) }}
                     </div>
 
-                    <div class="task-comments-card__comment-content">
-                        <header class="task-comments-card__comment-header">
-                            <strong class="task-comments-card__author">
+                    <div class="comment-content">
+                        <header class="comment-header">
+                            <strong class="author">
                                 {{ getAuthorName(commentItem) }}
                             </strong>
 
-                            <div class="task-comments-card__comment-actions">
-                                <span class="task-comments-card__date">
+                            <div class="comment-actions">
+                                <span class="date">
                                     {{
                                         commentItem.createdAt
                                             | date: 'dd.MM.yyyy HH:mm'
                                     }}
                                 </span>
 
-                                @if (canEditComment(commentItem)) {}
-                                <button
-                                    tuiButton
-                                    type="button"
-                                    appearance="flat"
-                                    size="xs"
-                                    iconStart="@tui.pen"
-                                    (click)="openEditCommentDialog(commentItem)"
-                                >
-                                </button>
+                                @if (canEditComment(commentItem)) {
+                                    <button
+                                        tuiIconButton
+                                        type="button"
+                                        appearance="flat"
+                                        size="xs"
+                                        iconStart="@tui.pen"
+                                        aria-label="Редактировать комментарий"
+                                        (click)="
+                                            openEditCommentDialog(commentItem)
+                                        "
+                                    ></button>
+                                }
 
                                 @if (canDeleteComment(commentItem)) {
                                     <button
-                                        class="task-comments-card__delete-button"
-                                        tuiButton
+                                        tuiIconButton
+                                        class="delete-button"
                                         type="button"
                                         appearance="flat"
                                         size="xs"
                                         iconStart="@tui.trash"
+                                        aria-label="Удалить комментарий"
                                         (click)="deleteComment(commentItem)"
-                                    >
-                                    </button>
+                                    ></button>
                                 }
                             </div>
                         </header>
 
-                        <p class="task-comments-card__text">
+                        <p class="text">
                             {{ commentItem.text }}
                         </p>
                     </div>
                 </article>
             }
         </div>
-    } @else {
-        @if (!isCommentsLoading()) {
-            <div class="task-comments-card__empty">
-                <p class="task-comments-card__empty-title">
-                    Комментариев пока нет
-                </p>
+    } @else if (!isCommentsLoading()) {
+        <div class="empty">
+            <p class="empty-title"> Комментариев пока нет </p>
 
-                <p class="task-comments-card__empty-description">
-                    Оставьте первый комментарий по этой задаче
-                </p>
-            </div>
-        }
+            <p class="empty-description">
+                Оставьте первый комментарий по этой задаче
+            </p>
+        </div>
     }
+
     @if (comments().length > 3) {
-        <button tuiButton appearance="flat" size="s" (click)="showAllComments()"
-            >Показать все комментарии</button
+        <button
+            tuiButton
+            class="show-all"
+            type="button"
+            appearance="flat"
+            size="s"
+            (click)="showAllComments()"
         >
+            Показать все комментарии
+        </button>
     }
 </div>

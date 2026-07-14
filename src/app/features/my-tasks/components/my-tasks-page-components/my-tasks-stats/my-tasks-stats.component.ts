@@ -37,8 +37,6 @@ export class MyTasksStatsComponent {
         }).length;
     });
 
-    //protected readonly inCheck = computed(() => {});
-
     protected readonly done = computed(() => {
         return this.tasks().filter(task => {
             return task.workflowStage.isFinal === true;
@@ -56,4 +54,20 @@ export class MyTasksStatsComponent {
             return new Date(task.dueDate) < today;
         }).length;
     });
+
+    protected readonly cards = computed(() => [
+        {
+            icon: '@tui.mail-open',
+            label: 'Все задачи',
+            value: this.allMyTasks()
+        },
+        {
+            icon: '@tui.circle',
+            label: 'К выполнению',
+            value: this.todoCount()
+        },
+        {icon: '@tui.alarm-clock', label: 'В работе', value: this.inWork()},
+        {icon: '@tui.circle-check-big', label: 'Завершено', value: this.done()},
+        {icon: '@tui.clock-4', label: 'Просрочено', value: this.overdueCount()}
+    ]);
 }

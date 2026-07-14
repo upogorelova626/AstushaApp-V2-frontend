@@ -19,6 +19,7 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {switchMap, tap} from 'rxjs';
 import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
 import {EditTaskDialogComponent} from './edit-task-dialog/edit-task-dialog.component';
+import {TuiBadge} from '@taiga-ui/kit';
 
 @Component({
     selector: 'app-task-main-card',
@@ -29,7 +30,8 @@ import {EditTaskDialogComponent} from './edit-task-dialog/edit-task-dialog.compo
         TuiHint,
         TuiSkeleton,
         DatePipe,
-        TuiAvatar
+        TuiAvatar,
+        TuiBadge
     ],
     templateUrl: './task-main-card.component.html',
     styleUrl: './task-main-card.component.less',

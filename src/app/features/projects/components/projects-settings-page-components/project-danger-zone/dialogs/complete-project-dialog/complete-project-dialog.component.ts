@@ -25,7 +25,7 @@ export class CompleteProjectDialogComponent {
 
     protected completeProject() {
         this.projectsService
-            .completeProject(this.projectId, {})
+            .completeProject(this.projectId)
             .pipe(
                 catchError(() => {
                     this.alerts

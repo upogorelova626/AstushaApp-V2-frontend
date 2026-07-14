@@ -3,7 +3,7 @@
     width: 100%;
 }
 
-.task-description-card {
+.card {
     width: 100%;
     min-width: 0;
     padding: 24px;
@@ -14,97 +14,97 @@
     border: 1px solid var(--color-card-border);
     border-radius: 5px;
     background: var(--color-card-bg);
+}
 
-    &__header {
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-    }
+.header {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
 
-    &__title-wrapper {
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+.title-wrapper {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-    &__icon {
-        flex-shrink: 0;
-        color: var(--color-primary-light);
-    }
+.icon {
+    flex-shrink: 0;
+    color: var(--color-primary-light);
+}
 
-    &__title {
-        margin: 0;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-heading-h6);
-    }
+.title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-heading-h6);
+}
 
-    &__content {
-        min-width: 0;
-    }
+.content {
+    min-width: 0;
+}
 
-    &__text {
-        margin: 0;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-l);
-        white-space: pre-line;
-        word-break: break-word;
-    }
+.text {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-body-l);
+    white-space: pre-line;
+    word-break: break-word;
+}
 
-    &__empty {
-        min-height: 150px;
-        padding: 24px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        box-sizing: border-box;
-        text-align: center;
-    }
+.empty {
+    min-height: 150px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
 
-    &__empty-icon {
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 4px;
-        box-sizing: border-box;
-        border: 1px solid var(--color-card-border);
-        border-radius: 12px;
-        color: var(--color-primary-light);
-        background: var(--color-card-inner-bg);
-    }
+.empty-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 12px;
+    color: var(--color-primary-light);
+    background: var(--color-card-inner-bg);
+}
 
-    &__empty-title {
-        margin: 0;
-        color: var(--color-text-primary);
-        font: var(--tui-typography-body-l);
-    }
+.empty-title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font: var(--tui-typography-body-l);
+}
 
-    &__empty-description {
-        max-width: 420px;
-        margin: 0;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-body-m);
-    }
+.empty-description {
+    max-width: 420px;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-body-m);
 }
 
 @media (max-width: 640px) {
-    .task-description-card {
+    .card {
         padding: 18px;
+    }
 
-        &__empty {
-            min-height: 140px;
-            padding: 20px 14px;
-        }
+    .empty {
+        min-height: 140px;
+        padding: 20px 14px;
+    }
 
-        &__empty-icon {
-            width: 40px;
-            height: 40px;
-        }
+    .empty-icon {
+        width: 40px;
+        height: 40px;
     }
 }
