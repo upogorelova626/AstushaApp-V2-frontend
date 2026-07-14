@@ -17,7 +17,7 @@ import {
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {switchMap, tap} from 'rxjs';
-import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {EditTaskDialogComponent} from './edit-task-dialog/edit-task-dialog.component';
 import {TuiBadge} from '@taiga-ui/kit';
 

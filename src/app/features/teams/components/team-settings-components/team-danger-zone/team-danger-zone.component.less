@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-.team-danger-zone-card {
+.card {
     width: 100%;
     min-width: 0;
     padding: 24px;
@@ -16,92 +16,71 @@
     box-sizing: border-box;
     border: 1px solid var(--color-danger);
     border-radius: 5px;
-    background: var(--color-card-bg);
+}
 
-    &__content {
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
+.content {
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
 
-    &__icon {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        border: 1px solid var(--color-danger);
-        border-radius: 14px;
-        color: var(--color-danger);
-        background: var(--color-danger-bg-soft);
-    }
+.icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
 
-    &__text {
-        min-width: 0;
-    }
+.text {
+    min-width: 0;
+}
 
-    &__title {
-        margin: 0;
-        color: var(--color-danger);
-        font: var(--tui-typography-heading-h5);
-    }
+.title {
+    margin: 0;
+    color: var(--color-danger);
+    font: var(--tui-typography-heading-h5);
+}
 
-    &__description {
-        margin: 4px 0 0;
-        color: var(--color-text-secondary);
-        font: var(--tui-typography-ui-m);
-        line-height: 1.4;
-    }
+.description {
+    margin: 4px 0 0;
+    color: var(--color-text-secondary);
+    font: var(--tui-typography-ui-m);
+    line-height: 1.4;
 }
 
 @media (max-width: 900px) {
-    .team-danger-zone-card {
+    .card {
         padding: 20px;
         gap: 18px;
+    }
 
-        &__icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-        }
-
-        &__title {
-            font: var(--tui-typography-heading-h6);
-        }
+    .title {
+        font: var(--tui-typography-heading-h6);
     }
 }
 
 @media (max-width: 640px) {
-    .team-danger-zone-card {
+    .card {
         padding: 16px;
         align-items: stretch;
         flex-direction: column;
         gap: 16px;
+    }
 
-        &__content {
-            align-items: flex-start;
-        }
+    .content {
+        align-items: flex-start;
+    }
 
-        &__description {
-            font: var(--tui-typography-ui-s);
-        }
+    .description {
+        font: var(--tui-typography-ui-s);
     }
 }
 
 @media (max-width: 420px) {
-    .team-danger-zone-card {
+    .card {
         padding: 14px;
+    }
 
-        &__content {
-            gap: 12px;
-        }
-
-        &__icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-        }
+    .content {
+        gap: 12px;
     }
 }

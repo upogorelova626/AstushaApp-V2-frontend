@@ -10,9 +10,9 @@ import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {TuiSkeleton} from '@taiga-ui/kit';
 import {ProjectNavigateComponent} from '../../features/projects/components/project-details-page-components/project-navigate/project-navigate.component';
-import {Project} from '../../features/projects/interfaces/project.interface';
-import {ProjectsService} from '../../features/projects/services/projects.service';
-import {AstushaIdAuthService} from '../../features/auth/services/astusha-id-auth.service';
+import {Project} from '../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../shared/services/projects.service';
+import {AstushaIdAuthService} from '../../shared/services/astusha-id-auth.service';
 
 @Component({
     selector: 'app-project-layout',

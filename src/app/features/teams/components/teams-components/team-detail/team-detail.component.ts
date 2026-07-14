@@ -18,8 +18,11 @@ import {
 import {TuiAvatar, TuiDataListWrapper, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize, forkJoin, startWith} from 'rxjs';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
-import {Team} from '../../../interfaces/team.interface';
-import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
+import {Team} from '../../../../../shared/interfaces/team.interface';
+import {
+    TeamMember,
+    TeamRole
+} from '../../../../../shared/interfaces/team-members.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {TeamsService} from '../../../services/teams.service';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';

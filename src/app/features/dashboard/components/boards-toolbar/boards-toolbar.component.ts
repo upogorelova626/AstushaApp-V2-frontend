@@ -2,9 +2,9 @@ import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiIcon, TuiInput, TuiTextfield} from '@taiga-ui/core';
 import {TuiSwitch} from '@taiga-ui/kit';
-import {Project} from '../../../projects/interfaces/project.interface';
-import {ProjectMember} from '../../../projects/interfaces/project-member.interface';
-import {TaskPriority} from '../../../projects/interfaces/project-tasks.interface';
+import {Project} from '../../../../shared/interfaces/project.interface';
+import {ProjectMember} from '../../../../shared/interfaces/interfaces/project-member.interface';
+import {TaskPriority} from '../../../../shared/interfaces/project-tasks.interface';
 @Component({
     selector: 'app-boards-toolbar',
     imports: [

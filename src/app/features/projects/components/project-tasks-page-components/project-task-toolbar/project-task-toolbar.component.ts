@@ -6,9 +6,9 @@ import {
     input,
     output
 } from '@angular/core';
-import {ProjectTask} from '../../../interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {TuiButton, TuiInput} from '@taiga-ui/core';
-import {Project} from '../../../interfaces/project.interface';
+import {Project} from '../../../../../shared/interfaces/project.interface';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {startWith} from 'rxjs';

@@ -2,7 +2,7 @@ import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router} from '@angular/router';
 import {catchError, forkJoin, map, of} from 'rxjs';
 import {ProjectsService} from '../services/projects.service';
-import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
+import {AstushaIdAuthService} from '../services/astusha-id-auth.service';
 
 function getProjectId(route: ActivatedRouteSnapshot): string | null {
     let currentRoute: ActivatedRouteSnapshot | null = route;

@@ -1,14 +1,14 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 
-import {ProjectMember} from '../interfaces/project-member.interface';
+import {ProjectMember} from '../../../shared/interfaces/interfaces/project-member.interface';
 import {
     CreateProjectRequest,
     Project,
     UpdateProjectRequest
 } from '../interfaces/project.interface';
 import {ProjectBoardStage} from '../interfaces/board.interface';
-import {ProjectTeam, Team} from '../../teams/interfaces/team.interface';
+import {ProjectTeam, Team} from '../interfaces/team.interface';
 
 @Injectable({
     providedIn: 'root'

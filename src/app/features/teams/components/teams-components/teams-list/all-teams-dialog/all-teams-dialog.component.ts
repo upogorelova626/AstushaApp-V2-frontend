@@ -6,7 +6,7 @@ import {
     TuiInput,
     TuiIcon
 } from '@taiga-ui/core';
-import {Team} from '../../../../interfaces/team.interface';
+import {Team} from '../../../../../../shared/interfaces/team.interface';
 import {TeamRoleLabelPipe} from '../../../../../../shared/pipes/team-role-label.pipe';
 
 @Component({

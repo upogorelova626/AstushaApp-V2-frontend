@@ -9,10 +9,10 @@ import {
 } from '@taiga-ui/core';
 import {TuiTextarea} from '@taiga-ui/kit';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {ProjectTask} from '../../../../../projects/interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../../shared/interfaces/project-tasks.interface';
 import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-errors';
-import {TaskComment} from '../../../../interfaces/task-comment.interface';
-import {TaskCommentsService} from '../../../../services/task-comments.service';
+import {TaskComment} from '../../../../../../shared/interfaces/task-comment.interface';
+import {TaskCommentsService} from '../../../../../../shared/services/task-comments.service';
 
 interface EditCommentDialogData {
     commentItem: TaskComment;

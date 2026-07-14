@@ -1,5 +1,6 @@
 import {Location} from '@angular/common';
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
 import {TuiButton} from '@taiga-ui/core';
 
 @Component({
@@ -10,9 +11,14 @@ import {TuiButton} from '@taiga-ui/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundPageComponent {
+    private readonly router = inject(Router);
     private readonly location = inject(Location);
 
     protected goBack() {
         this.location.back();
+    }
+
+    protected goToMain() {
+        this.router.navigate(['/account/profile']);
     }
 }

@@ -12,7 +12,7 @@ import {
     TuiIcon,
     TuiNotificationService
 } from '@taiga-ui/core';
-import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {filter, switchMap, tap, timer} from 'rxjs';
 import {DeleteTaskDialogComponent} from './delete-task-dialog/delete-task-dialog.component';

@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import {
     CreateProjectRepositoryRequest,
     ProjectRepository
-} from '../interfaces/project-repositore.interface';
+} from '../../../shared/interfaces/project-repositore.interface';
 
 @Injectable({
     providedIn: 'root'

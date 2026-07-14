@@ -16,9 +16,9 @@ import {ProjectCardComponent} from '../../components/project-details-page-compon
 import {ProjectQuickActionsComponent} from '../../components/project-details-page-components/project-quick-actions/project-quick-actions.component';
 import {ProjectRepositoriesComponent} from '../../components/project-details-page-components/project-repositories/project-repositories.component';
 import {ProjectTeamCardComponent} from '../../components/project-details-page-components/project-team-card/project-team-card.component';
-import {Project} from '../../interfaces/project.interface';
-import {ProjectsService} from '../../services/projects.service';
-import {Team} from '../../../teams/interfaces/team.interface';
+import {Project} from '../../../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../../../shared/services/projects.service';
+import {Team} from '../../../../shared/interfaces/team.interface';
 
 @Component({
     selector: 'app-project-detail-page',

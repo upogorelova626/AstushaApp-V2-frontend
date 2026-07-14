@@ -39,13 +39,13 @@ import {
 import {
     ProjectPriorityOption,
     WorkflowTypeOption
-} from '../../../../interfaces/workflow-and-priority.interface';
-import {CreateProjectRequest} from '../../../../interfaces/project.interface';
+} from '../../../../../../shared/interfaces/workflow-and-priority.interface';
+import {CreateProjectRequest} from '../../../../../../shared/interfaces/project.interface';
 import {
     ProjectPriority,
     ProjectWorkflowType
-} from '../../../../interfaces/project.enums';
-import {ProjectsService} from '../../../../services/projects.service';
+} from '../../../../../../shared/interfaces/project.enums';
+import {ProjectsService} from '../../../../../../shared/services/projects.service';
 import {tuiDayToDateString} from '../../../../../../shared/utils/tui-day-to-date-string';
 import {
     PROJECT_PRIORITY_OPTIONS,

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {TuiIcon} from '@taiga-ui/core';
 import {TuiSkeleton} from '@taiga-ui/kit';
 

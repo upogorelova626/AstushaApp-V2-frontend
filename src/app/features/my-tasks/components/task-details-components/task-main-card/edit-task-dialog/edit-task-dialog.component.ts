@@ -43,9 +43,9 @@ import {
     TaskPriority,
     TaskType,
     UpdateProjectTaskRequest
-} from '../../../../../projects/interfaces/project-tasks.interface';
+} from '../../../../../../shared/interfaces/project-tasks.interface';
 import {ProjectTasksService} from '../../../../../projects/services/project-tasks.service';
-import {ProjectsService} from '../../../../../projects/services/projects.service';
+import {ProjectsService} from '../../../../../../shared/services/projects.service';
 import {notPastDateValidator} from '../../../../../projects/validators/project-dates.validator';
 
 const EMPTY_ASSIGNEE_LABEL = 'Без исполнителя';

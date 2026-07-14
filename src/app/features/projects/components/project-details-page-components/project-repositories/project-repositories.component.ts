@@ -18,8 +18,8 @@ import {
 } from '@taiga-ui/core';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {filter, finalize, switchMap, tap} from 'rxjs';
-import {Project} from '../../../interfaces/project.interface';
-import {ProjectRepository} from '../../../interfaces/project-repositore.interface';
+import {Project} from '../../../../../shared/interfaces/project.interface';
+import {ProjectRepository} from '../../../../../shared/interfaces/project-repositore.interface';
 import {ProjectRepositoriesService} from '../../../services/project-repositories.service';
 import {AddRepoLinkComponent} from './add-repo-link/add-repo-link.component';
 import {RepositoryHrefPipe} from '../../../../../shared/pipes/repository-href.pipe';

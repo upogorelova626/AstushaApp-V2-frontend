@@ -10,7 +10,7 @@ import {ProjectDangerZoneComponent} from '../../components/projects-settings-pag
 import {ProjectMainSettingsComponent} from '../../components/projects-settings-page-components/project-main-settings/project-main-settings.component';
 import {ProjectTeamSettingsComponent} from '../../components/projects-settings-page-components/project-team-settings/project-team-settings.component';
 import {ProjectWorkflowSettingsComponent} from '../../components/projects-settings-page-components/project-workflow-settings/project-workflow-settings.component';
-import {Project} from '../../interfaces/project.interface';
+import {Project} from '../../../../shared/interfaces/project.interface';
 import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
 import {ProjectRepositoriesComponent} from '../../components/project-details-page-components/project-repositories/project-repositories.component';
 import {ProjectSprintsSettingsComponent} from '../../components/projects-settings-page-components/project-sprints-settings/project-sprints-settings.component';

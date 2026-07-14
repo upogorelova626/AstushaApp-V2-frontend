@@ -8,9 +8,12 @@ import {
     signal
 } from '@angular/core';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-import {Team} from '../../../interfaces/team.interface';
+import {Team} from '../../../../../shared/interfaces/team.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
-import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
+import {
+    TeamMember,
+    TeamRole
+} from '../../../../../shared/interfaces/team-members.interface';
 import {finalize} from 'rxjs';
 
 @Component({
@@ -28,7 +31,7 @@ export class TeamRolesSettingsComponent implements OnInit {
     protected readonly teamMembers = signal<TeamMember[]>([]);
     protected readonly isLoading = signal(false);
 
-    protected adminCount = computed(() => {
+    protected readonly adminCount = computed(() => {
         const teamMembers = this.teamMembers();
         if (!teamMembers) {
             return;
@@ -38,7 +41,7 @@ export class TeamRolesSettingsComponent implements OnInit {
             .length;
     });
 
-    protected memberCount = computed(() => {
+    protected readonly memberCount = computed(() => {
         const teamMembers = this.teamMembers();
         if (!teamMembers) {
             return;
@@ -65,4 +68,22 @@ export class TeamRolesSettingsComponent implements OnInit {
                 this.teamMembers.set(teamMembers);
             });
     }
+
+    protected readonly rolesButtons = computed(() => [
+        {
+            role: 'Создатель',
+            info: 'Полный доступ ко всем настройкам',
+            count: 1
+        },
+        {
+            role: 'Администратор',
+            info: 'Управление участниками и проектами',
+            count: this.adminCount()
+        },
+        {
+            role: 'Участник',
+            info: 'Доступ к проектам и задачам команды',
+            count: this.memberCount()
+        }
+    ]);
 }

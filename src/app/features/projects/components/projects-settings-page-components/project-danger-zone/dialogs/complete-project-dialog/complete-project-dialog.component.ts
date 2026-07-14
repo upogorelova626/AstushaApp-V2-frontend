@@ -5,7 +5,7 @@ import {
     TuiNotificationService
 } from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {ProjectsService} from '../../../../../services/projects.service';
+import {ProjectsService} from '../../../../../../../shared/services/projects.service';
 import {catchError, EMPTY} from 'rxjs';
 
 @Component({

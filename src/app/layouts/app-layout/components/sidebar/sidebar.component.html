@@ -10,65 +10,19 @@
     </div>
 
     <nav class="sidebar__nav">
-        <a
-            tuiButton
-            class="sidebar__nav-item"
-            routerLink="/dashboard"
-            routerLinkActive="sidebar__nav-item_active"
-            appearance="flat"
-            size="m"
-        >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.kanban" />
-            <span class="sidebar__nav-text">Доски</span>
-        </a>
-
-        <a
-            tuiButton
-            class="sidebar__nav-item"
-            routerLink="/dashboard/projects"
-            routerLinkActive="sidebar__nav-item_active"
-            appearance="flat"
-            size="m"
-        >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.folder" />
-            <span class="sidebar__nav-text">Проекты</span>
-        </a>
-
-        <a
-            tuiButton
-            class="sidebar__nav-item"
-            routerLink="/dashboard/my-tasks"
-            routerLinkActive="sidebar__nav-item_active"
-            appearance="flat"
-            size="m"
-        >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.circle-check" />
-            <span class="sidebar__nav-text">Мои задачи</span>
-        </a>
-
-        <a
-            tuiButton
-            class="sidebar__nav-item"
-            routerLink="/dashboard/teams"
-            routerLinkActive="sidebar__nav-item_active"
-            appearance="flat"
-            size="m"
-        >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.users" />
-            <span class="sidebar__nav-text">Команды</span>
-        </a>
-
-        <a
-            tuiButton
-            class="sidebar__nav-item"
-            routerLink="/dashboard/profile"
-            routerLinkActive="sidebar__nav-item_active"
-            appearance="flat"
-            size="m"
-        >
-            <tui-icon class="sidebar__nav-icon" icon="@tui.user" />
-            <span class="sidebar__nav-text">Профиль</span>
-        </a>
+        @for (button of sidebarButtons; track $index) {
+            <a
+                tuiButton
+                class="sidebar__nav-item"
+                [routerLink]="button.link"
+                routerLinkActive="sidebar__nav-item_active"
+                appearance="flat"
+                size="m"
+            >
+                <tui-icon class="sidebar__nav-icon" [icon]="button.icon" />
+                <span class="sidebar__nav-text">{{ button.text }}</span>
+            </a>
+        }
     </nav>
 
     <div class="sidebar__recent-projects">

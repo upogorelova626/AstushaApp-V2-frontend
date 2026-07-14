@@ -21,7 +21,7 @@ import {catchError, EMPTY, finalize} from 'rxjs';
 
 import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-errors';
 import {notBlankValidator} from '../../../../../teams/validators/search-identifier.validator';
-import {Project} from '../../../../interfaces/project.interface';
+import {Project} from '../../../../../../shared/interfaces/project.interface';
 import {ProjectRepositoriesService} from '../../../../services/project-repositories.service';
 import {repositoryUrlValidator} from '../../../../validators/repository-url.validator';
 

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {TuiDialogContext} from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {ProjectsService} from '../../../../../services/projects.service';
+import {ProjectsService} from '../../../../../../../shared/services/projects.service';
 import {TuiButton} from '@taiga-ui/core';
 
 @Component({

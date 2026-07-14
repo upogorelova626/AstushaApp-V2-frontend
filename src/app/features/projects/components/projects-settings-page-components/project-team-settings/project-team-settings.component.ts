@@ -14,8 +14,8 @@ import {
 } from '@taiga-ui/core';
 import {finalize, switchMap, tap} from 'rxjs';
 import {TuiSkeleton} from '@taiga-ui/kit';
-import {Team} from '../../../../teams/interfaces/team.interface';
-import {ProjectsService} from '../../../services/projects.service';
+import {Team} from '../../../../../shared/interfaces/team.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {PluralizeRuPipe} from '../../../../../shared/pipes/pluralize-ru.pipe';
 import {RouterLink} from '@angular/router';
 

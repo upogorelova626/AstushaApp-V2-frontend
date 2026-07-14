@@ -16,12 +16,12 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
 import {finalize, forkJoin, startWith} from 'rxjs';
-import {ProjectMember} from '../../../interfaces/project-member.interface';
-import {ProjectsService} from '../../../services/projects.service';
+import {ProjectMember} from '../../../../../shared/interfaces/interfaces/project-member.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {TuiSkeleton} from '@taiga-ui/kit';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {ProjectTasksService} from '../../../services/project-tasks.service';
-import {ProjectTask} from '../../../interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
 

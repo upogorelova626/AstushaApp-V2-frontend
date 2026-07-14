@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
-import {AuthUser} from '../models/interfaces/auth.interface';
+import {AuthUser} from '../interfaces/auth.interface';
 
 const ASTUSHA_ID_API_URL = 'http://localhost:3002';
 

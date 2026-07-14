@@ -20,8 +20,8 @@ import {finalize, Observable, of, Subject, switchMap} from 'rxjs';
 import {
     ProjectTask,
     TaskAttachment
-} from '../../../../projects/interfaces/project-tasks.interface';
-import {TaskAttachmentsService} from '../../../../projects/services/task-attachments.service';
+} from '../../../../../shared/interfaces/project-tasks.interface';
+import {TaskAttachmentsService} from '../../../../../shared/services/task-attachments.service';
 import {AllTaskFilesDialogComponent} from './all-task-files-dialog/all-task-files-dialog.component';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 

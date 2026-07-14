@@ -1,10 +1,11 @@
-<div class="team-main-settings-card">
-    <header class="team-main-settings-card__header">
-        <h2 class="team-main-settings-card__title"> Информация о команде </h2>
+<div class="card">
+    <header class="header">
+        <h2 class="title">Информация о команде</h2>
 
         <button
             tuiButton
-            class="team-main-settings-card__edit-button"
+            class="edit-button"
+            type="button"
             appearance="flat"
             size="s"
             iconStart="@tui.pencil"
@@ -14,17 +15,15 @@
         </button>
     </header>
 
-    <div class="team-main-settings-card__content">
-        <div class="team-main-settings-card__avatar-wrapper">
-            <div
-                class="team-main-settings-card__avatar"
-                [tuiSkeleton]="isLoading()"
-                >AI</div
-            >
+    <div class="content">
+        <div class="avatar-wrapper">
+            <div class="avatar" [tuiSkeleton]="isLoading()">AI</div>
 
             <button
-                tuiIconButton
-                class="team-main-settings-card__avatar-button"
+                tuiButton
+                class="avatar-button"
+                type="button"
+                appearance="flat"
                 size="s"
                 iconStart="@tui.camera"
             >
@@ -32,11 +31,9 @@
             </button>
         </div>
 
-        <form class="team-main-settings-card__form" [formGroup]="form">
-            <label class="team-main-settings-card__field">
-                <span class="team-main-settings-card__label">
-                    Название команды
-                </span>
+        <form class="form" [formGroup]="form">
+            <label class="field">
+                <span class="label">Название команды</span>
 
                 <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isLoading()">
                     <input
@@ -48,26 +45,32 @@
                 </tui-textfield>
             </label>
 
-            <label class="team-main-settings-card__field">
-                <span class="team-main-settings-card__label"> Описание </span>
+            <label class="field">
+                <span class="label">Описание</span>
 
                 <tui-textfield tuiTextfieldSize="m" [tuiSkeleton]="isLoading()">
                     <textarea
                         tuiTextarea
-                        placeholder="Расскажите, чем занимается команда"
                         formControlName="description"
+                        placeholder="Расскажите, чем занимается команда"
                     ></textarea>
                 </tui-textfield>
             </label>
 
-            <footer class="team-main-settings-card__footer">
-                <button type="button" tuiButton size="m" (click)="saveTeam()">
+            <footer class="footer">
+                <button
+                    tuiButton
+                    type="button"
+                    size="m"
+                    [disabled]="form.invalid"
+                    (click)="saveTeam()"
+                >
                     Сохранить изменения
                 </button>
 
                 <button
-                    type="button"
                     tuiButton
+                    type="button"
                     appearance="flat"
                     size="m"
                     (click)="cancelEditing()"

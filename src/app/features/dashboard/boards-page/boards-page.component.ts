@@ -13,17 +13,17 @@ import {catchError, EMPTY, finalize, forkJoin, switchMap} from 'rxjs';
 
 import {BoardsToolbarComponent} from '../components/boards-toolbar/boards-toolbar.component';
 import {BoardColumnComponent} from '../components/board-column/board-column.component';
-import {ProjectsService} from '../../projects/services/projects.service';
-import {Project} from '../../projects/interfaces/project.interface';
+import {ProjectsService} from '../../../shared/services/projects.service';
+import {Project} from '../../../shared/interfaces/project.interface';
 import {ProjectTasksService} from '../../projects/services/project-tasks.service';
 import {
     ProjectBoardStage,
     ProjectBoardTask
-} from '../../projects/interfaces/board.interface';
+} from '../../../shared/interfaces/board.interface';
 import {UsersService} from '../../users/services/users.service';
-import {AuthUser} from '../../auth/models/interfaces/auth.interface';
-import {ProjectMember} from '../../projects/interfaces/project-member.interface';
-import {TaskPriority} from '../../projects/interfaces/project-tasks.interface';
+import {AuthUser} from '../../../shared/interfaces/auth.interface';
+import {ProjectMember} from '../../../shared/interfaces/interfaces/project-member.interface';
+import {TaskPriority} from '../../../shared/interfaces/project-tasks.interface';
 
 @Component({
     selector: 'app-boards-page',

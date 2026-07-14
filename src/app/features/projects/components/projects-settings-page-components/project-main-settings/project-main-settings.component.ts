@@ -31,14 +31,14 @@ import {TuiChevron, TuiInputDateDirective, TuiTextarea} from '@taiga-ui/kit';
 import {finalize, take} from 'rxjs';
 import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
 import {PROJECT_PRIORITY_OPTIONS} from '../../../constants/project-options';
-import {ProjectPriority} from '../../../interfaces/project.enums';
+import {ProjectPriority} from '../../../../../shared/interfaces/project.enums';
 import {
     Project,
     ProjectListItem,
     ProjectSettingsFormValue,
     UpdateProjectRequest
-} from '../../../interfaces/project.interface';
-import {ProjectsService} from '../../../services/projects.service';
+} from '../../../../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {
     deadlineAfterStartDateValidator,
     notPastDateValidator

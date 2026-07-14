@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {TeamRole} from '../../features/teams/interfaces/team-members.interface';
+import {TeamRole} from '../interfaces/team-members.interface';
 
 @Pipe({
     name: 'teamRoleLabel'

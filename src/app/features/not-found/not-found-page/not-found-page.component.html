@@ -1,20 +1,41 @@
-<div class="not-found-page">
-    <button
-        tuiButton
-        class="not-found-page__back-button"
-        appearance="flat"
-        size="m"
-        iconStart="@tui.arrow-left"
-        (click)="goBack()"
-    >
-        Вернуться назад
-    </button>
+<div class="page">
+    <main class="content">
+        <section class="info">
+            <div class="code">404</div>
 
-    <div class="not-found-page__image-wrapper">
-        <img
-            class="not-found-page__image"
-            src="/images/404-error-img.png"
-            alt="Страница не найдена"
-        />
-    </div>
+            <h1 class="title">Страница не найдена</h1>
+
+            <p class="description">
+                Информация по указанному адресу не найдена или страница была
+                перемещена.
+            </p>
+        </section>
+
+        <div class="actions">
+            <button
+                tuiButton
+                type="button"
+                iconStart="@tui.house"
+                (click)="goToMain()"
+            >
+                На главную
+            </button>
+
+            <button
+                tuiButton
+                type="button"
+                iconStart="@tui.arrow-left"
+                appearance="flat"
+                (click)="goBack()"
+            >
+                Вернуться назад
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <span class="brand">Astusha ID</span>
+
+        <span class="copyright"> © 2026 Astusha ID. Все права защищены. </span>
+    </footer>
 </div>

@@ -1,7 +1,4 @@
-import {
-    TaskPriority,
-    TaskType
-} from '../../projects/interfaces/project-tasks.interface';
+import {TaskPriority, TaskType} from './project-tasks.interface';
 
 export interface ProjectBoardStage {
     id: string;

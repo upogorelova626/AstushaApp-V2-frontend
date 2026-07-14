@@ -41,13 +41,13 @@ import {
     TASK_PRIORITY_ITEMS,
     TASK_TYPE_ITEMS
 } from '../../../constants/project-task-create-form.const';
-import {Project} from '../../../interfaces/project.interface';
+import {Project} from '../../../../../shared/interfaces/project.interface';
 import {
     CreateProjectTaskRequest,
     ProjectTask,
     TaskPriority,
     TaskType
-} from '../../../interfaces/project-tasks.interface';
+} from '../../../../../shared/interfaces/project-tasks.interface';
 import {ProjectTasksService} from '../../../services/project-tasks.service';
 import {notPastDateValidator} from '../../../validators/project-dates.validator';
 

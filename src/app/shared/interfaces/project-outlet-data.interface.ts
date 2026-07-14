@@ -1,4 +1,4 @@
-import {Project} from '../../features/projects/interfaces/project.interface';
+import {Project} from './project.interface';
 
 export interface ProjectOutletData {
     project: Project;

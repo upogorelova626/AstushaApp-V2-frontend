@@ -1,14 +1,9 @@
-<div class="team-members-settings-card">
-    <header class="team-members-settings-card__header">
-        <div class="team-members-settings-card__title-wrapper">
-            <h2 class="team-members-settings-card__title">
-                Участники команды
-            </h2>
+<div class="card">
+    <header class="header">
+        <div class="title-wrapper">
+            <h2 class="title">Участники команды</h2>
 
-            <span
-                class="team-members-settings-card__count"
-                [tuiSkeleton]="isLoading()"
-            >
+            <span class="count" [tuiSkeleton]="isLoading()">
                 {{
                     teamMembers().length
                         | pluralizeRu: 'участник' : 'участника' : 'участников'
@@ -16,15 +11,15 @@
             </span>
         </div>
 
-        <div class="team-members-settings-card__actions">
+        <div class="actions">
             <tui-textfield
-                class="team-members-settings-card__search"
+                class="search"
                 tuiTextfieldSize="s"
                 iconStart="@tui.search"
             >
                 <input
                     tuiInput
-                    type="text"
+                    type="search"
                     placeholder="Поиск по участникам..."
                 />
             </tui-textfield>
@@ -32,7 +27,8 @@
             <button
                 tuiButton
                 tuiChevron
-                class="team-members-settings-card__role-filter"
+                class="filter-button"
+                type="button"
                 appearance="flat"
                 size="s"
             >
@@ -41,96 +37,78 @@
         </div>
     </header>
 
-    <div
-        class="team-members-settings-card__table-wrapper"
-        [tuiSkeleton]="isLoading()"
-    >
-        <table class="team-members-settings-card__table">
-            <thead class="team-members-settings-card__table-head">
-                <tr class="team-members-settings-card__head-row">
-                    <th class="team-members-settings-card__head-cell">
-                        Участник
-                    </th>
-
-                    <th class="team-members-settings-card__head-cell">
-                        Роль
-                    </th>
-
-                    <th class="team-members-settings-card__head-cell">
-                        Должность
-                    </th>
-
-                    <th class="team-members-settings-card__head-cell">
-                        Статус
-                    </th>
-
-                    <th
-                        class="team-members-settings-card__head-cell team-members-settings-card__actions-cell"
-                    >
-                        Действия
-                    </th>
+    <div class="table-wrapper" [tuiSkeleton]="isLoading()">
+        <table tuiTable class="table">
+            <thead tuiThead>
+                <tr tuiThGroup>
+                    <th tuiTh>Участник</th>
+                    <th tuiTh>Роль</th>
+                    <th tuiTh>Должность</th>
+                    <th tuiTh>Статус</th>
+                    <th tuiTh class="actions-cell">Действия</th>
                 </tr>
             </thead>
 
-            <tbody class="team-members-settings-card__table-body">
+            <tbody tuiTbody>
                 @for (member of teamMembers(); track member.id) {
-                    <tr class="team-members-settings-card__row">
-                        <td class="team-members-settings-card__cell">
-                            <div class="team-members-settings-card__member">
-                                <div
-                                    tuiAvatar="@tui.user"
-                                    class="team-members-settings-card__avatar"
-                                ></div>
+                    <tr>
+                        <td tuiTd>
+                            <div class="member">
+                                @if (member.user.avatarUrl) {
+                                    <img
+                                        class="avatar-image"
+                                        [src]="member.user.avatarUrl"
+                                        alt="Аватар участника"
+                                    />
+                                } @else {
+                                    <div
+                                        tuiAvatar="@tui.user"
+                                        class="avatar"
+                                    ></div>
+                                }
 
-                                <div
-                                    class="team-members-settings-card__member-info"
-                                >
-                                    <span
-                                        class="team-members-settings-card__member-name"
-                                    >
-                                        {{ member.user.firstName }}
-                                        {{ member.user.lastName }}
+                                <div class="member-info">
+                                    <span class="member-name">
+                                        {{
+                                            (
+                                                (member.user.firstName ?? '') +
+                                                ' ' +
+                                                (member.user.lastName ?? '')
+                                            ).trim() || member.user.login
+                                        }}
                                     </span>
 
-                                    <span
-                                        class="team-members-settings-card__email"
-                                    >
+                                    <span class="email">
                                         {{ member.user.email }}
                                     </span>
                                 </div>
                             </div>
                         </td>
 
-                        <td class="team-members-settings-card__cell">
-                            <span
-                                class="team-members-settings-card__role team-members-settings-card__role_creator"
-                            >
+                        <td tuiTd>
+                            <span class="role">
                                 {{ member.role | teamRoleLabel }}
                             </span>
                         </td>
 
-                        <td class="team-members-settings-card__cell">
-                            <span
-                                class="team-members-settings-card__projects-count"
-                            >
+                        <td tuiTd>
+                            <span class="position">
                                 {{ member.user.position || '—' }}
                             </span>
                         </td>
 
-                        <td class="team-members-settings-card__cell">
-                            <span class="team-members-settings-card__status">
-                                Активен
-                            </span>
+                        <td tuiTd>
+                            <span class="status">Активен</span>
                         </td>
 
-                        <td
-                            class="team-members-settings-card__cell team-members-settings-card__actions-cell"
-                        >
+                        <td tuiTd class="actions-cell">
                             <button
                                 tuiIconButton
+                                type="button"
                                 appearance="flat"
                                 size="xs"
                                 iconStart="@tui.ellipsis-vertical"
+                                aria-label="Действия с участником"
                                 [attr.aria-expanded]="
                                     openedMemberId() === member.id
                                 "
@@ -156,6 +134,7 @@
                                         @if (canShowAction(action, member)) {
                                             <button
                                                 tuiOption
+                                                type="button"
                                                 (click)="
                                                     onMemberAction(
                                                         action.value,

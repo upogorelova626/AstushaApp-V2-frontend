@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 
-import {ProjectWorkflowStage} from '../../../../interfaces/project.interface';
+import {ProjectWorkflowStage} from '../../../../../../shared/interfaces/project.interface';
 
 @Component({
     selector: 'app-project-workflow-stage-card',

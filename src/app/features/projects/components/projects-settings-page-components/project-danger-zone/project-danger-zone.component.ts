@@ -7,13 +7,13 @@ import {
     signal
 } from '@angular/core';
 import {TuiButton, TuiIcon, TuiNotificationService} from '@taiga-ui/core';
-import {ProjectsService} from '../../../services/projects.service';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {Router} from '@angular/router';
 import {CompleteProjectDialogComponent} from './dialogs/complete-project-dialog/complete-project-dialog.component';
 import {DeleteProjectDialogComponent} from './dialogs/delete-project-dialog/delete-project-dialog.component';
 import {TuiDialogService} from '@taiga-ui/core';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
-import {ProjectStatus} from '../../../interfaces/project.enums';
+import {ProjectStatus} from '../../../../../shared/interfaces/project.enums';
 
 @Component({
     selector: 'app-project-danger-zone',

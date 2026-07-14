@@ -10,7 +10,7 @@ import {TeamInviteMemberComponent} from '../components/team-settings-components/
 import {TeamMembersSettingsComponent} from '../components/team-settings-components/team-members-settings/team-members-settings.component';
 import {TeamRolesSettingsComponent} from '../components/team-settings-components/team-roles-settings/team-roles-settings.component';
 import {TeamDangerZoneComponent} from '../components/team-settings-components/team-danger-zone/team-danger-zone.component';
-import {Team} from '../interfaces/team.interface';
+import {Team} from '../../../shared/interfaces/team.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TeamsService} from '../services/teams.service';
 import {catchError, EMPTY, tap} from 'rxjs';

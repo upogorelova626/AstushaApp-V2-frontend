@@ -10,9 +10,9 @@ import {
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize, forkJoin, map} from 'rxjs';
 
-import {ProjectMember} from '../../../interfaces/project-member.interface';
-import {ProjectRole} from '../../../interfaces/project.enums';
-import {ProjectsService} from '../../../services/projects.service';
+import {ProjectMember} from '../../../../../shared/interfaces/interfaces/project-member.interface';
+import {ProjectRole} from '../../../../../shared/interfaces/project.enums';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {ProjectTasksService} from '../../../services/project-tasks.service';
 
 @Component({

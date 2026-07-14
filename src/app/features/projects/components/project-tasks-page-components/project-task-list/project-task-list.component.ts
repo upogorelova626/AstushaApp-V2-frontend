@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {ProjectTask} from '../../../interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
 import {DatePipe} from '@angular/common';
 import {TuiButton, TuiHintDirective} from '@taiga-ui/core';
 import {RouterLink} from '@angular/router';

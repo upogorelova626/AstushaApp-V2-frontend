@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
-import {authGuard} from './features/auth/guards/auth.guard';
-import {projectManageGuard} from './features/projects/guards/project-manage.guard';
+import {authGuard} from './shared/guards/auth.guard';
+import {projectManageGuard} from './shared/guards/project-manage.guard';
 import {teamManageGuard} from './features/teams/guards/team-manage.guard';
 
 export const routes: Routes = [
@@ -41,8 +41,8 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 loadComponent: () =>
-                    import('./features/settings/settings-page/settings-page.component').then(
-                        m => m.SettingsPageComponent
+                    import('./features/profile/profile-page/profile-page.component').then(
+                        m => m.ProfilePageComponent
                     ),
                 data: {
                     breadcrumb: 'Профиль'

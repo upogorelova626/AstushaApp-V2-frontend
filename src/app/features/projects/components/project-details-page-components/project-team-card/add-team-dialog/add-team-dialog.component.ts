@@ -30,8 +30,8 @@ import {
 import {
     ProjectTeam,
     Team
-} from '../../../../../teams/interfaces/team.interface';
-import {ProjectsService} from '../../../../services/projects.service';
+} from '../../../../../../shared/interfaces/team.interface';
+import {ProjectsService} from '../../../../../../shared/services/projects.service';
 
 @Component({
     selector: 'app-add-team-dialog',

@@ -1,11 +1,11 @@
 import {
     ProjectPriority,
     ProjectWorkflowType
-} from '../interfaces/project.enums';
+} from '../../../shared/interfaces/project.enums';
 import {
     ProjectPriorityOption,
     WorkflowTypeOption
-} from '../interfaces/workflow-and-priority.interface';
+} from '../../../shared/interfaces/workflow-and-priority.interface';
 
 export const PROJECT_WORKFLOW_TYPE_OPTIONS: readonly WorkflowTypeOption[] = [
     {

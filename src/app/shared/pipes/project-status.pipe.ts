@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ProjectStatus} from '../../features/projects/interfaces/project.enums';
+import {ProjectStatus} from '../interfaces/project.enums';
 
 @Pipe({
     name: 'projectStatus'

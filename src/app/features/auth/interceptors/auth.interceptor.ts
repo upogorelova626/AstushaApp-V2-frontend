@@ -9,7 +9,7 @@ import {
     throwError
 } from 'rxjs';
 
-import {AstushaIdAuthService} from '../services/astusha-id-auth.service';
+import {AstushaIdAuthService} from '../../../shared/services/astusha-id-auth.service';
 
 const ASTUSHA_APP_API_URL = 'http://localhost:3000';
 const ASTUSHA_ID_API_URL = 'http://localhost:3002';

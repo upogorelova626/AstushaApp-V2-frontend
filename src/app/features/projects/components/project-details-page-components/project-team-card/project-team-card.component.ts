@@ -16,9 +16,12 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {RouterLink} from '@angular/router';
 import {catchError, EMPTY, switchMap, tap} from 'rxjs';
 
-import {ProjectTeam, Team} from '../../../../teams/interfaces/team.interface';
-import {ProjectListItem} from '../../../interfaces/project.interface';
-import {ProjectsService} from '../../../services/projects.service';
+import {
+    ProjectTeam,
+    Team
+} from '../../../../../shared/interfaces/team.interface';
+import {ProjectListItem} from '../../../../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {AddTeamDialogComponent} from './add-team-dialog/add-team-dialog.component';
 
 @Component({

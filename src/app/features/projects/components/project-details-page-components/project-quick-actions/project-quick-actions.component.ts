@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-import {Project} from '../../../interfaces/project.interface';
-import {AstushaIdAuthService} from '../../../../auth/services/astusha-id-auth.service';
+import {Project} from '../../../../../shared/interfaces/project.interface';
+import {AstushaIdAuthService} from '../../../../../shared/services/astusha-id-auth.service';
 
 @Component({
     selector: 'app-project-quick-actions',

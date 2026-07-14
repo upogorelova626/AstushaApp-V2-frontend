@@ -17,15 +17,18 @@ import {
 } from '@taiga-ui/core';
 import {TuiAvatar, TuiChevron, TuiSkeleton} from '@taiga-ui/kit';
 import {TuiObscured} from '@taiga-ui/cdk/directives/obscured';
-
 import {PluralizeRuPipe} from '../../../../../shared/pipes/pluralize-ru.pipe';
-import {TeamMember, TeamRole} from '../../../interfaces/team-members.interface';
+import {
+    TeamMember,
+    TeamRole
+} from '../../../../../shared/interfaces/team-members.interface';
 import {
     TeamMemberAction,
     TeamMemberActionOption
-} from '../../../interfaces/dropdowns.interface';
+} from '../../../../../shared/interfaces/dropdowns.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
+import {TuiTable} from '@taiga-ui/addon-table';
 
 @Component({
     selector: 'app-team-members-settings',
@@ -42,7 +45,8 @@ import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pip
         TuiTitle,
         PluralizeRuPipe,
         TeamRoleLabelPipe,
-        TuiSkeleton
+        TuiSkeleton,
+        TuiTable
     ],
     templateUrl: './team-members-settings.component.html',
     styleUrl: './team-members-settings.component.less',

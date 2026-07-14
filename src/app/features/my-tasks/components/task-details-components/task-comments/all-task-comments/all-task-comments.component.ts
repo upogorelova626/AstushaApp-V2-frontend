@@ -17,10 +17,10 @@ import {
 import {injectContext, PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {switchMap} from 'rxjs';
 
-import {AuthUser} from '../../../../../auth/models/interfaces/auth.interface';
-import {ProjectTask} from '../../../../../projects/interfaces/project-tasks.interface';
-import {TaskComment} from '../../../../interfaces/task-comment.interface';
-import {TaskCommentsService} from '../../../../services/task-comments.service';
+import {AuthUser} from '../../../../../../shared/interfaces/auth.interface';
+import {ProjectTask} from '../../../../../../shared/interfaces/project-tasks.interface';
+import {TaskComment} from '../../../../../../shared/interfaces/task-comment.interface';
+import {TaskCommentsService} from '../../../../../../shared/services/task-comments.service';
 import {EditCommentDialogComponent} from '../edit-comment-dialog/edit-comment-dialog.component';
 
 interface AllCommentDialogData {

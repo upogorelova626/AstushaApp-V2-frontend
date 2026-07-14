@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import {TuiDialogContext, TuiIcon, TuiButton} from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {TaskAttachment} from '../../../../../projects/interfaces/project-tasks.interface';
+import {TaskAttachment} from '../../../../../../shared/interfaces/project-tasks.interface';
 import {DecimalPipe} from '@angular/common';
-import {TaskAttachmentsService} from '../../../../../projects/services/task-attachments.service';
+import {TaskAttachmentsService} from '../../../../../../shared/services/task-attachments.service';
 import {MyTask} from '../../../../interfaces/my-tasks.interface';
 
 interface AllTaskFilesDialogData {

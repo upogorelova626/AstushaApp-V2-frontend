@@ -35,11 +35,11 @@ import {
 } from '@taiga-ui/core';
 import {TuiChevron, TuiTextarea} from '@taiga-ui/kit';
 
-import {Roles} from '../../../interfaces/roles.interface';
+import {Roles} from '../../../../../shared/interfaces/roles.interface';
 import {
     TeamMemberCandidate,
     TeamRole
-} from '../../../interfaces/team-members.interface';
+} from '../../../../../shared/interfaces/team-members.interface';
 import {TeamMembersService} from '../../../services/team-members.service';
 import {
     noSpacesValidator,

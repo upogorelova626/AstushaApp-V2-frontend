@@ -7,7 +7,7 @@ import {
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {TuiButton, type TuiDialogContext} from '@taiga-ui/core';
 import {ProjectTasksService} from '../../../../../projects/services/project-tasks.service';
-import {ProjectTask} from '../../../../../projects/interfaces/project-tasks.interface';
+import {ProjectTask} from '../../../../../../shared/interfaces/project-tasks.interface';
 import {finalize} from 'rxjs';
 
 @Component({

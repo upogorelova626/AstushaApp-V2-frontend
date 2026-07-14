@@ -8,10 +8,9 @@ import {
 } from '@angular/core';
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
-
-import {ProjectListItem} from '../../../interfaces/project.interface';
-import {ProjectsService} from '../../../services/projects.service';
-import {ProjectStatus} from '../../../interfaces/project.enums';
+import {ProjectListItem} from '../../../../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
+import {ProjectStatus} from '../../../../../shared/interfaces/project.enums';
 
 @Component({
     selector: 'app-projects-stats',

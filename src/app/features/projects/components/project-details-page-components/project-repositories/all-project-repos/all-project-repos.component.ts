@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {TuiDialogContext, TuiIcon, TuiButton} from '@taiga-ui/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import {ProjectRepository} from '../../../../interfaces/project-repositore.interface';
+import {ProjectRepository} from '../../../../../../shared/interfaces/project-repositore.interface';
 import {ProjectRepositoriesService} from '../../../../services/project-repositories.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 

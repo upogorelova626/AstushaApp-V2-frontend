@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 
-import {SuccessResponse} from '../../users/models/interfaces/user.interface';
+import {SuccessResponse} from '../interfaces/user.interface';
 import {
     CreateTaskCommentRequest,
     TaskComment,

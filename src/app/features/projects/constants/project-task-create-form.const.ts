@@ -1,4 +1,7 @@
-import {TaskPriority, TaskType} from '../interfaces/project-tasks.interface';
+import {
+    TaskPriority,
+    TaskType
+} from '../../../shared/interfaces/project-tasks.interface';
 
 export interface SelectOption<T> {
     label: string;

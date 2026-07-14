@@ -16,7 +16,7 @@ import {TuiButton, TuiInput, TuiTextfield} from '@taiga-ui/core';
 import {TuiSkeleton, TuiTextarea} from '@taiga-ui/kit';
 import {finalize} from 'rxjs';
 
-import {Team} from '../../../interfaces/team.interface';
+import {Team} from '../../../../../shared/interfaces/team.interface';
 import {TeamsService} from '../../../services/teams.service';
 
 interface TeamMainSettingsFormValue {

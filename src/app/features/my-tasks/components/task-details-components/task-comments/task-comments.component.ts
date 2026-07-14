@@ -23,14 +23,14 @@ import {
 import {TuiSkeleton, TuiTextarea} from '@taiga-ui/kit';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {catchError, EMPTY, finalize, switchMap} from 'rxjs';
-import {AuthUser} from '../../../../auth/models/interfaces/auth.interface';
-import {ProjectTask} from '../../../../projects/interfaces/project-tasks.interface';
-import {TaskComment} from '../../../interfaces/task-comment.interface';
-import {TaskCommentsService} from '../../../services/task-comments.service';
+import {AuthUser} from '../../../../../shared/interfaces/auth.interface';
+import {ProjectTask} from '../../../../../shared/interfaces/project-tasks.interface';
+import {TaskComment} from '../../../../../shared/interfaces/task-comment.interface';
+import {TaskCommentsService} from '../../../../../shared/services/task-comments.service';
 import {AllTaskCommentsComponent} from './all-task-comments/all-task-comments.component';
 import {EditCommentDialogComponent} from './edit-comment-dialog/edit-comment-dialog.component';
 import {VALIDATION_ERRORS} from '../../../../../shared/constants/validation-errors';
-import {AstushaIdAuthService} from '../../../../auth/services/astusha-id-auth.service';
+import {AstushaIdAuthService} from '../../../../../shared/services/astusha-id-auth.service';
 
 @Component({
     selector: 'app-task-comments',

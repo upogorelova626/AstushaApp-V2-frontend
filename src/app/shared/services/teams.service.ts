@@ -5,7 +5,7 @@ import {
     DeleteTeamResponse,
     Team,
     UpdateTeamRequest
-} from '../interfaces/team.interface';
+} from '../../../shared/interfaces/team.interface';
 
 @Injectable({
     providedIn: 'root'

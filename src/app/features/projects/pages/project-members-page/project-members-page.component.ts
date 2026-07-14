@@ -9,7 +9,7 @@ import {ProjectMembersComponent} from '../../components/project-members-page-com
 import {ProjectMembersStatsComponent} from '../../components/project-members-page-components/project-members-stats/project-members-stats.component';
 import {ROUTER_OUTLET_DATA} from '@angular/router';
 import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
-import {Project} from '../../interfaces/project.interface';
+import {Project} from '../../../../shared/interfaces/project.interface';
 
 @Component({
     selector: 'app-project-members-page',

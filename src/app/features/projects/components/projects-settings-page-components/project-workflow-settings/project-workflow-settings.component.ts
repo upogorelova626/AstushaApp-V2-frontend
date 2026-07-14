@@ -7,10 +7,10 @@ import {
     signal
 } from '@angular/core';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
-import {Project} from '../../../interfaces/project.interface';
-import {ProjectsService} from '../../../services/projects.service';
+import {Project} from '../../../../../shared/interfaces/project.interface';
+import {ProjectsService} from '../../../../../shared/services/projects.service';
 import {ProjectWorkflowPipe} from '../../../../../shared/pipes/project-workflow.pipe';
-import {ProjectWorkflowType} from '../../../interfaces/project.enums';
+import {ProjectWorkflowType} from '../../../../../shared/interfaces/project.enums';
 import {ProjectWorkflowStageCardComponent} from './project-workflow-stage-card/project-workflow-stage-card.component';
 import {TuiSkeleton} from '@taiga-ui/kit';
 

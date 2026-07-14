@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {UserLookupResult} from '../models/interfaces/user.interface';
-import {AuthUser} from '../../auth/models/interfaces/auth.interface';
+import {AuthUser} from '../../../shared/interfaces/auth.interface';
 import {BehaviorSubject, catchError, Observable, of, tap} from 'rxjs';
 
 import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';

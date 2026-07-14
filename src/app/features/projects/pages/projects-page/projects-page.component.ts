@@ -9,8 +9,8 @@ import {
 import {ProjectsStatsComponent} from '../../components/projects-page-components/projects-stats/projects-stats.component';
 import {ProjectsSearchingComponent} from '../../components/projects-page-components/projects-searching/projects-searching.component';
 import {ProjectsListComponent} from '../../components/projects-page-components/projects-list/projects-list.component';
-import {ProjectsService} from '../../services/projects.service';
-import {Project} from '../../interfaces/project.interface';
+import {ProjectsService} from '../../../../shared/services/projects.service';
+import {Project} from '../../../../shared/interfaces/project.interface';
 import {finalize} from 'rxjs';
 
 @Component({

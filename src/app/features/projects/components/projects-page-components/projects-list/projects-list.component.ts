@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {TuiButton, TuiHint} from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
-import {Project} from '../../../interfaces/project.interface';
+import {Project} from '../../../../../shared/interfaces/project.interface';
 import {DatePipe} from '@angular/common';
 import {ProjectStatusPipe} from '../../../../../shared/pipes/project-status.pipe';
 import {TuiSkeleton} from '@taiga-ui/kit';

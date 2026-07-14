@@ -1,90 +1,29 @@
-<div class="team-roles-settings-card">
-    <header class="team-roles-settings-card__header">
-        <h2 class="team-roles-settings-card__title">Роли и права</h2>
+<div class="card">
+    <header class="header">
+        <h2 class="title">Роли и права</h2>
 
-        <p class="team-roles-settings-card__description">
-            Настройте роли и права доступа в команде
-        </p>
+        <p class="description"> Настройте роли и права доступа в команде </p>
     </header>
 
-    <div class="team-roles-settings-card__list">
-        <button
-            tuiButton
-            appearance="flat"
-            class="team-roles-settings-card__item"
-        >
-            <div class="team-roles-settings-card__item-info">
-                <span class="team-roles-settings-card__role-name">
-                    Создатель
-                </span>
+    <div class="list">
+        @for (button of rolesButtons(); track $index) {
+            <button tuiButton appearance="flat" class="item">
+                <div class="item-info">
+                    <span class="role">
+                        {{ button.role }}
+                    </span>
 
-                <span class="team-roles-settings-card__role-description">
-                    Полный доступ ко всем настройкам
-                </span>
-            </div>
+                    <span class="role-description">
+                        {{ button.info }}
+                    </span>
+                </div>
 
-            <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">1</span>
+                <div class="action">
+                    <span class="count">{{ button.count }}</span>
 
-                <tui-icon
-                    class="team-roles-settings-card__chevron"
-                    icon="@tui.chevron-right"
-                />
-            </div>
-        </button>
-
-        <button
-            tuiButton
-            appearance="flat"
-            class="team-roles-settings-card__item"
-        >
-            <div class="team-roles-settings-card__item-info">
-                <span class="team-roles-settings-card__role-name">
-                    Администратор
-                </span>
-
-                <span class="team-roles-settings-card__role-description">
-                    Управление участниками и проектами
-                </span>
-            </div>
-
-            <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">{{
-                    adminCount()
-                }}</span>
-
-                <tui-icon
-                    class="team-roles-settings-card__chevron"
-                    icon="@tui.chevron-right"
-                />
-            </div>
-        </button>
-
-        <button
-            tuiButton
-            appearance="flat"
-            class="team-roles-settings-card__item"
-        >
-            <div class="team-roles-settings-card__item-info">
-                <span class="team-roles-settings-card__role-name">
-                    Участник
-                </span>
-
-                <span class="team-roles-settings-card__role-description">
-                    Доступ к проектам и задачам команды
-                </span>
-            </div>
-
-            <div class="team-roles-settings-card__item-action">
-                <span class="team-roles-settings-card__count">{{
-                    memberCount()
-                }}</span>
-
-                <tui-icon
-                    class="team-roles-settings-card__chevron"
-                    icon="@tui.chevron-right"
-                />
-            </div>
-        </button>
+                    <tui-icon icon="@tui.chevron-right" />
+                </div>
+            </button>
+        }
     </div>
 </div>

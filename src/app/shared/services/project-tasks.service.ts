@@ -6,7 +6,7 @@ import {
     MoveProjectTaskRequest,
     ProjectTask,
     UpdateProjectTaskRequest
-} from '../interfaces/project-tasks.interface';
+} from '../../../shared/interfaces/project-tasks.interface';
 
 @Injectable({
     providedIn: 'root'

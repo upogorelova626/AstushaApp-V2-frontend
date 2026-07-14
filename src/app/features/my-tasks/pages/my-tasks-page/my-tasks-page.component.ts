@@ -10,8 +10,8 @@ import {catchError, EMPTY, finalize} from 'rxjs';
 import {MyTasksListComponent} from '../../components/my-tasks-page-components/my-task-list/my-tasks-list.component';
 import {MyTasksStatsComponent} from '../../components/my-tasks-page-components/my-tasks-stats/my-tasks-stats.component';
 import {MyTasksToolbarComponent} from '../../components/my-tasks-page-components/my-tasks-toolbar/my-tasks-toolbar.component';
-import {MyTask} from '../../interfaces/my-tasks.interface';
-import {MyTasksService} from '../../services/my-tasks.service';
+import {MyTask} from '../../../../shared/interfaces/my-tasks.interface';
+import {MyTasksService} from '../../../../shared/services/my-tasks.service';
 
 @Component({
     selector: 'app-my-tasks-page',
