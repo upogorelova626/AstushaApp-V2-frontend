@@ -6,12 +6,7 @@ import {
     input,
     signal
 } from '@angular/core';
-import {
-    TuiButton,
-    TuiDialog,
-    TuiIcon,
-    TuiNotificationService
-} from '@taiga-ui/core';
+import {TuiButton, TuiIcon, TuiNotificationService} from '@taiga-ui/core';
 import {ProjectsService} from '../../../services/projects.service';
 import {Router} from '@angular/router';
 import {CompleteProjectDialogComponent} from './dialogs/complete-project-dialog/complete-project-dialog.component';

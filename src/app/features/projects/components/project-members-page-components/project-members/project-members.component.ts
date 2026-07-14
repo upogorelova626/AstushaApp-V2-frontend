@@ -20,7 +20,6 @@ import {ProjectMember} from '../../../interfaces/project-member.interface';
 import {ProjectsService} from '../../../services/projects.service';
 import {TuiSkeleton} from '@taiga-ui/kit';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
-import {Project} from '../../../interfaces/project.interface';
 import {ProjectTasksService} from '../../../services/project-tasks.service';
 import {ProjectTask} from '../../../interfaces/project-tasks.interface';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';

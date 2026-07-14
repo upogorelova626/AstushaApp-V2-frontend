@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {
     TuiButton,

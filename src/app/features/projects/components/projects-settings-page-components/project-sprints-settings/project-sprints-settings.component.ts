@@ -1,4 +1,3 @@
-import {DatePipe} from '@angular/common';
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {TuiIcon} from '@taiga-ui/core';
 

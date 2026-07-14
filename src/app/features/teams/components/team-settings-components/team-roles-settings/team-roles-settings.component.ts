@@ -34,9 +34,8 @@ export class TeamRolesSettingsComponent implements OnInit {
             return;
         }
 
-        return teamMembers.filter(member => {
-            member.role === TeamRole.Admin;
-        }).length;
+        return teamMembers.filter(member => member.role === TeamRole.Admin)
+            .length;
     });
 
     protected memberCount = computed(() => {
@@ -45,9 +44,8 @@ export class TeamRolesSettingsComponent implements OnInit {
             return;
         }
 
-        return teamMembers.filter(member => {
-            member.role === TeamRole.Member;
-        }).length;
+        return teamMembers.filter(member => member.role === TeamRole.Member)
+            .length;
     });
 
     ngOnInit() {

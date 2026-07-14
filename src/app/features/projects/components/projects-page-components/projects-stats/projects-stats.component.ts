@@ -3,6 +3,7 @@ import {
     Component,
     computed,
     inject,
+    OnInit,
     signal
 } from '@angular/core';
 import {TuiAvatar, TuiSkeleton} from '@taiga-ui/kit';
@@ -19,7 +20,7 @@ import {ProjectStatus} from '../../../interfaces/project.enums';
     styleUrl: './projects-stats.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsStatsComponent {
+export class ProjectsStatsComponent implements OnInit {
     private readonly projectsService = inject(ProjectsService);
 
     protected readonly projects = signal<ProjectListItem[]>([]);

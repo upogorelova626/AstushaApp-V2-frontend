@@ -19,11 +19,11 @@ import {finalize} from 'rxjs';
 import {Team} from '../../../interfaces/team.interface';
 import {TeamsService} from '../../../services/teams.service';
 
-type TeamMainSettingsFormValue = {
+interface TeamMainSettingsFormValue {
     name: string;
     description: string;
     avatarUrl: string;
-};
+}
 
 @Component({
     selector: 'app-team-main-settings',

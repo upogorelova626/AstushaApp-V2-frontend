@@ -23,11 +23,11 @@ import {TaskComment} from '../../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../../services/task-comments.service';
 import {EditCommentDialogComponent} from '../edit-comment-dialog/edit-comment-dialog.component';
 
-type AllCommentDialogData = {
+interface AllCommentDialogData {
     comments: TaskComment[];
     currentUser: AuthUser;
     task: ProjectTask;
-};
+}
 
 @Component({
     selector: 'app-all-task-comments',

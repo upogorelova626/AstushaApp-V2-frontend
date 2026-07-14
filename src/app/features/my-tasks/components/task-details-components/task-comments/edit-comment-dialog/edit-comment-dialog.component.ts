@@ -14,10 +14,10 @@ import {VALIDATION_ERRORS} from '../../../../../../shared/constants/validation-e
 import {TaskComment} from '../../../../interfaces/task-comment.interface';
 import {TaskCommentsService} from '../../../../services/task-comments.service';
 
-type EditCommentDialogData = {
+interface EditCommentDialogData {
     commentItem: TaskComment;
     task: ProjectTask;
-};
+}
 
 @Component({
     selector: 'app-edit-comment-dialog',

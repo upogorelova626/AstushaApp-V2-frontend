@@ -6,10 +6,7 @@ import {
     input
 } from '@angular/core';
 import {TuiAvatar} from '@taiga-ui/kit';
-import {
-    ProjectTask,
-    TaskPriority
-} from '../../../projects/interfaces/project-tasks.interface';
+import {TaskPriority} from '../../../projects/interfaces/project-tasks.interface';
 import {TuiButton, TuiHintDirective} from '@taiga-ui/core';
 import {RouterLink} from '@angular/router';
 import {ProjectBoardTask} from '../../../projects/interfaces/board.interface';

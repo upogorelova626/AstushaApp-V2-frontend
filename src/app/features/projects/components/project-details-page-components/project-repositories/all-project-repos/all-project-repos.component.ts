@@ -10,10 +10,10 @@ import {ProjectRepository} from '../../../../interfaces/project-repositore.inter
 import {ProjectRepositoriesService} from '../../../../services/project-repositories.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-type AllReposDialogData = {
+interface AllReposDialogData {
     repos: ProjectRepository[];
     canManageProject: boolean;
-};
+}
 
 @Component({
     selector: 'app-all-project-repos',

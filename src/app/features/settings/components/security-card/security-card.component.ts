@@ -16,5 +16,7 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SecurityCardComponent {
-    protected openAstushaIdProfileSettings() {}
+    protected openAstushaIdProfileSettings() {
+        return null;
+    }
 }

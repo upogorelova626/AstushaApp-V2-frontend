@@ -58,7 +58,9 @@ function removeControlError(control: AbstractControl, errorKey: string): void {
         return;
     }
 
-    const {[errorKey]: _, ...restErrors} = errors;
+    const restErrors = {...errors};
+
+    delete restErrors[errorKey];
 
     control.setErrors(Object.keys(restErrors).length ? restErrors : null);
 }

@@ -22,7 +22,6 @@ import {
     TaskAttachment
 } from '../../../../projects/interfaces/project-tasks.interface';
 import {TaskAttachmentsService} from '../../../../projects/services/task-attachments.service';
-import {MyTask} from '../../../interfaces/my-tasks.interface';
 import {AllTaskFilesDialogComponent} from './all-task-files-dialog/all-task-files-dialog.component';
 import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 

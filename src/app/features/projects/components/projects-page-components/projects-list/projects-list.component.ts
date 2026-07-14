@@ -2,19 +2,16 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    inject,
     input,
-    OnInit,
     signal
 } from '@angular/core';
 import {TuiButton, TuiHint} from '@taiga-ui/core';
 import {TuiAvatar} from '@taiga-ui/kit';
-import {Project, ProjectListItem} from '../../../interfaces/project.interface';
+import {Project} from '../../../interfaces/project.interface';
 import {DatePipe} from '@angular/common';
 import {ProjectStatusPipe} from '../../../../../shared/pipes/project-status.pipe';
 import {TuiSkeleton} from '@taiga-ui/kit';
 import {RouterLink} from '@angular/router';
-import {ProjectTasksService} from '../../../services/project-tasks.service';
 
 @Component({
     selector: 'app-projects-list',

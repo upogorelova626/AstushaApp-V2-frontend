@@ -64,21 +64,7 @@ export const routes: Routes = [
                     }
                 ]
             },
-            {
-                path: 'astusha-ai',
-                data: {
-                    breadcrumb: 'Atusha-AI'
-                },
-                children: [
-                    {
-                        path: '',
-                        loadComponent: () =>
-                            import('./features/ai-assistant/page/astusha-ai-page/astusha-ai-page.component').then(
-                                m => m.AstushaAiPageComponent
-                            )
-                    }
-                ]
-            },
+
             {
                 path: 'teams',
 

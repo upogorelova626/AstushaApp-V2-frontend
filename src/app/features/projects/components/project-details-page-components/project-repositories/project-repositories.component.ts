@@ -22,7 +22,6 @@ import {Project} from '../../../interfaces/project.interface';
 import {ProjectRepository} from '../../../interfaces/project-repositore.interface';
 import {ProjectRepositoriesService} from '../../../services/project-repositories.service';
 import {AddRepoLinkComponent} from './add-repo-link/add-repo-link.component';
-import {RepositoryNamePipe} from '../../../../../shared/pipes/reposirory-name.pipe';
 import {RepositoryHrefPipe} from '../../../../../shared/pipes/repository-href.pipe';
 import {TuiSkeleton} from '@taiga-ui/kit';
 import {AllProjectReposComponent} from './all-project-repos/all-project-repos.component';

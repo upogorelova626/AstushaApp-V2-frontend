@@ -13,6 +13,7 @@ import {TeamDangerZoneComponent} from '../components/team-settings-components/te
 import {Team} from '../interfaces/team.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TeamsService} from '../services/teams.service';
+import {catchError, EMPTY, tap} from 'rxjs';
 
 @Component({
     selector: 'app-team-settings-page',
@@ -52,15 +53,20 @@ export class TeamSettingsPageComponent implements OnInit {
         this.teamId.set(teamId);
         this.isLoading.set(true);
 
-        this.teamsService.getOneTeam(teamId).subscribe({
-            next: team => {
-                this.team.set(team);
-                this.isLoading.set(false);
-            },
-            error: error => {
-                this.isLoading.set(false);
-                void this.router.navigate(['/dashboard/teams']);
-            }
-        });
+        this.teamsService
+            .getOneTeam(teamId)
+            .pipe(
+                tap(team => {
+                    this.team.set(team);
+                    this.isLoading.set(false);
+                }),
+
+                catchError(() => {
+                    this.isLoading.set(false);
+                    this.router.navigate(['/dashboard/teams']);
+                    return EMPTY;
+                })
+            )
+            .subscribe();
     }
 }

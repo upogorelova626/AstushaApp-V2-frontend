@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {TuiIcon} from '@taiga-ui/core';
+
 import {ProjectWorkflowStage} from '../../../../interfaces/project.interface';
 
 @Component({
