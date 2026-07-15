@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {finalize} from 'rxjs';
-import {ProjectTasksService} from '../../../projects/services/project-tasks.service';
+import {ProjectTasksService} from '../../../../shared/services/project-tasks.service';
 import {ProjectTask} from '../../../../shared/interfaces/project-tasks.interface';
 import {TaskContentCardComponent} from '../../components/task-details-components/task-content-card/task-content-card.component';
 import {TaskFilesCardComponent} from '../../components/task-details-components/task-files-card/task-files-card.component';

@@ -20,7 +20,7 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {filter, finalize, switchMap, tap} from 'rxjs';
 import {Project} from '../../../../../shared/interfaces/project.interface';
 import {ProjectRepository} from '../../../../../shared/interfaces/project-repositore.interface';
-import {ProjectRepositoriesService} from '../../../services/project-repositories.service';
+import {ProjectRepositoriesService} from '../../../../../shared/services/project-repositories.service';
 import {AddRepoLinkComponent} from './add-repo-link/add-repo-link.component';
 import {RepositoryHrefPipe} from '../../../../../shared/pipes/repository-href.pipe';
 import {TuiSkeleton} from '@taiga-ui/kit';

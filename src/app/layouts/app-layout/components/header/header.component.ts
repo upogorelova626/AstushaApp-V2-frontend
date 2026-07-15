@@ -26,7 +26,7 @@ import {
     UserMenuAction,
     UserMenuActionOption
 } from '../../../../shared/interfaces/dropdowns.interface';
-import {UsersService} from '../../../../features/users/services/users.service';
+import {UsersService} from '../../../../shared/services/users.service';
 import {BreadcrumbsComponent} from '../breadcrumbs/breadcrumbs.component';
 import {HeaderHelpDialogComponent} from './header-help-dialog/header-help-dialog.component';
 import {AstushaIdAuthService} from '../../../../shared/services/astusha-id-auth.service';

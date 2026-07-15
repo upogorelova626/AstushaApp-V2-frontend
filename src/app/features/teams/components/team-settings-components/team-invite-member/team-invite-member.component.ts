@@ -40,11 +40,11 @@ import {
     TeamMemberCandidate,
     TeamRole
 } from '../../../../../shared/interfaces/team-members.interface';
-import {TeamMembersService} from '../../../services/team-members.service';
+import {TeamMembersService} from '../../../../../shared/services/team-members.service';
 import {
     noSpacesValidator,
     notBlankValidator
-} from '../../../validators/search-identifier.validator';
+} from '../../../../../shared/validators/search-identifier.validator';
 
 @Component({
     selector: 'app-team-invite-member',

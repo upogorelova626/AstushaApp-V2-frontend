@@ -15,14 +15,14 @@ import {BoardsToolbarComponent} from '../components/boards-toolbar/boards-toolba
 import {BoardColumnComponent} from '../components/board-column/board-column.component';
 import {ProjectsService} from '../../../shared/services/projects.service';
 import {Project} from '../../../shared/interfaces/project.interface';
-import {ProjectTasksService} from '../../projects/services/project-tasks.service';
+import {ProjectTasksService} from '../../../shared/services/project-tasks.service';
 import {
     ProjectBoardStage,
     ProjectBoardTask
 } from '../../../shared/interfaces/board.interface';
-import {UsersService} from '../../users/services/users.service';
+import {UsersService} from '../../../shared/services/users.service';
 import {AuthUser} from '../../../shared/interfaces/auth.interface';
-import {ProjectMember} from '../../../shared/interfaces/interfaces/project-member.interface';
+import {ProjectMember} from '../../../shared/interfaces/project-member.interface';
 import {TaskPriority} from '../../../shared/interfaces/project-tasks.interface';
 
 @Component({

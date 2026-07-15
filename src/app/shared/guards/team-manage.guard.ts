@@ -2,8 +2,8 @@ import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router} from '@angular/router';
 import {catchError, forkJoin, map, of} from 'rxjs';
 import {TeamMembersService} from '../services/team-members.service';
-import {TeamRole} from '../../../shared/interfaces/team-members.interface';
-import {AstushaIdAuthService} from '../../auth/services/astusha-id-auth.service';
+import {TeamRole} from '../interfaces/team-members.interface';
+import {AstushaIdAuthService} from '../services/astusha-id-auth.service';
 
 function getTeamId(route: ActivatedRouteSnapshot): string | null {
     let currentRoute: ActivatedRouteSnapshot | null = route;

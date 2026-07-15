@@ -1,0 +1,103 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.security-card {
+    width: 100%;
+    min-width: 0;
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+
+    &__header {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    &__icon,
+    &__item-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 12px;
+        color: var(--color-primary-light);
+        background: var(--color-gradient-primary-soft);
+    }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    &__item-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    &__header-text {
+        min-width: 0;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+
+    &__description {
+        margin: 4px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-l);
+    }
+
+    &__list {
+        display: grid;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    &__item {
+        min-width: 0;
+        min-height: 64px;
+        padding: 12px 14px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        align-items: center;
+        gap: 16px;
+        box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
+        border-radius: 5px;
+        background: var(--color-card-bg);
+    }
+
+    &__item-info {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr);
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__item-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-body-l);
+    }
+
+    &__item-description {
+        margin: 2px 0 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+
+    &__item button {
+        flex-shrink: 0;
+    }
+}

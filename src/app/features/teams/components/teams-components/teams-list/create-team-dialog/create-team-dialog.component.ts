@@ -5,7 +5,7 @@ import {
     Validators,
     FormGroup
 } from '@angular/forms';
-import {TeamsService} from '../../../../services/teams.service';
+import {TeamsService} from '../../../../../../shared/services/teams.service';
 import {injectContext} from '@taiga-ui/polymorpheus';
 import {
     TuiError,

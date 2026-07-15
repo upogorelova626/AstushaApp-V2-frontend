@@ -23,8 +23,8 @@ import {
     TeamMember,
     TeamRole
 } from '../../../../../shared/interfaces/team-members.interface';
-import {TeamMembersService} from '../../../services/team-members.service';
-import {TeamsService} from '../../../services/teams.service';
+import {TeamMembersService} from '../../../../../shared/services/team-members.service';
+import {TeamsService} from '../../../../../shared/services/teams.service';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
 

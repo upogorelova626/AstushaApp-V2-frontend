@@ -1,9 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {
-    CreateProjectRepositoryRequest,
-    ProjectRepository
-} from '../../../shared/interfaces/project-repositore.interface';
+    ProjectRepository,
+    CreateProjectRepositoryRequest
+} from '../interfaces/project-repositore.interface';
 
 @Injectable({
     providedIn: 'root'

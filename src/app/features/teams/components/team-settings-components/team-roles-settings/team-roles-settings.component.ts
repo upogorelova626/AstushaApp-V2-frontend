@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import {TuiButton, TuiIcon} from '@taiga-ui/core';
 import {Team} from '../../../../../shared/interfaces/team.interface';
-import {TeamMembersService} from '../../../services/team-members.service';
+import {TeamMembersService} from '../../../../../shared/services/team-members.service';
 import {
     TeamMember,
     TeamRole

@@ -8,7 +8,7 @@ import {
 import {TuiAvatar, TuiBadge} from '@taiga-ui/kit';
 import {TuiButton, TuiHintDirective} from '@taiga-ui/core';
 import {RouterLink} from '@angular/router';
-import {ProjectBoardTask} from '../../../projects/interfaces/board.interface';
+import {ProjectBoardTask} from '../../../../shared/interfaces/board.interface';
 
 @Component({
     selector: 'app-board-task-card',

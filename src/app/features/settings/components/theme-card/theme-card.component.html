@@ -1,0 +1,72 @@
+<div class="theme-card">
+    <div class="theme-card__header">
+        <div class="theme-card__icon">
+            <tui-icon icon="@tui.palette" />
+        </div>
+
+        <div class="theme-card__header-text">
+            <h2 class="theme-card__title">Внешний вид</h2>
+
+            <p class="theme-card__description">
+                Настройки оформления и языка управляются через Астюша ID
+            </p>
+        </div>
+    </div>
+
+    <div class="theme-card__content">
+        <div class="theme-card__section">
+            <div class="theme-card__section-info">
+                <div class="theme-card__section-icon">
+                    <tui-icon icon="@tui.paintbrush" />
+                </div>
+
+                <div class="theme-card__section-text">
+                    <h3 class="theme-card__section-title">Тема интерфейса</h3>
+
+                    <p class="theme-card__section-description">
+                        Выберите светлое или тёмное оформление для аккаунта
+                    </p>
+                </div>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconEnd="@tui.chevron-right"
+                (click)="openAstushaIdProfileSettings()"
+            >
+                Настроить тему
+            </button>
+        </div>
+
+        <div class="theme-card__section">
+            <div class="theme-card__section-info">
+                <div class="theme-card__section-icon">
+                    <tui-icon icon="@tui.languages" />
+                </div>
+
+                <div class="theme-card__section-text">
+                    <h3 class="theme-card__section-title">Язык интерфейса</h3>
+
+                    <p class="theme-card__section-description">
+                        Сейчас используется русский язык
+                    </p>
+                </div>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconEnd="@tui.chevron-right"
+                tuiHint="Пока доступен только русский язык. Позже здесь появится выбор языка"
+                (click)="openAstushaIdProfileSettings()"
+            >
+                Настроить язык
+            </button>
+        </div>
+    </div>
+</div>

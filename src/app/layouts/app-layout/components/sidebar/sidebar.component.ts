@@ -9,7 +9,7 @@ import {
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiIcon} from '@taiga-ui/core';
 import {TuiSkeleton, TuiAvatar} from '@taiga-ui/kit';
-import {UsersService} from '../../../../features/users/services/users.service';
+import {UsersService} from '../../../../shared/services/users.service';
 import {ProjectsService} from '../../../../shared/services/projects.service';
 import {Project} from '../../../../shared/interfaces/project.interface';
 import {finalize, map} from 'rxjs';

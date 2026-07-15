@@ -1,0 +1,75 @@
+<div class="notifications-card">
+    <div class="notifications-card__header">
+        <div class="notifications-card__icon">
+            <tui-icon icon="@tui.bell" />
+        </div>
+
+        <div class="notifications-card__header-text">
+            <h2 class="notifications-card__title">Уведомления</h2>
+
+            <p class="notifications-card__description">
+                Настройки уведомлений управляются через Астюша ID
+            </p>
+        </div>
+    </div>
+
+    <div class="notifications-card__list">
+        <div class="notifications-card__item">
+            <div class="notifications-card__item-icon">
+                <tui-icon icon="@tui.mail" />
+            </div>
+
+            <div class="notifications-card__item-text">
+                <span class="notifications-card__item-title">
+                    Email-уведомления
+                </span>
+
+                <span class="notifications-card__item-description">
+                    Настройте получение важных уведомлений на почту
+                </span>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconEnd="@tui.chevron-right"
+                (click)="openAstushaIdNotificationsSettings()"
+            >
+                Настроить email
+            </button>
+        </div>
+
+        <div class="notifications-card__item">
+            <div class="notifications-card__item-icon">
+                <tui-icon icon="@tui.monitor" />
+            </div>
+
+            <div class="notifications-card__item-text">
+                <span class="notifications-card__item-title">
+                    Push-уведомления
+                </span>
+
+                <span
+                    class="notifications-card__item-description"
+                    tuiHint="Уведомления в браузере пока недоступны. Позже здесь появится настройка push-уведомлений"
+                >
+                    Управляйте уведомлениями, которые будут приходить в браузере
+                </span>
+            </div>
+
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="s"
+                iconEnd="@tui.chevron-right"
+                tuiHint="Push-уведомления пока недоступны"
+                (click)="openAstushaIdNotificationsSettings()"
+            >
+                Настроить push
+            </button>
+        </div>
+    </div>
+</div>

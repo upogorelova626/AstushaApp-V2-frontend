@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 
-import {ProjectMember} from '../../../shared/interfaces/interfaces/project-member.interface';
+import {ProjectMember} from '../interfaces/project-member.interface';
 import {
     CreateProjectRequest,
     Project,

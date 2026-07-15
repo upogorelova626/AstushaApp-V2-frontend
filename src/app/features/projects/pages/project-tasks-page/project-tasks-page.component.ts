@@ -14,7 +14,7 @@ import {ProjectTaskListComponent} from '../../components/project-tasks-page-comp
 import {ProjectTaskToolbarComponent} from '../../components/project-tasks-page-components/project-task-toolbar/project-task-toolbar.component';
 import {Project} from '../../../../shared/interfaces/project.interface';
 import {ProjectTask} from '../../../../shared/interfaces/project-tasks.interface';
-import {ProjectTasksService} from '../../services/project-tasks.service';
+import {ProjectTasksService} from '../../../../shared/services/project-tasks.service';
 import {ProjectOutletData} from '../../../../shared/interfaces/project-outlet-data.interface';
 import {finalize} from 'rxjs';
 

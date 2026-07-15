@@ -1,4 +1,4 @@
-import {ProjectTaskProject} from '../../my-tasks/interfaces/my-tasks.interface';
+import {ProjectTaskProject} from './my-tasks.interface';
 import {ProjectUser} from './project-user.interface';
 
 export enum TaskType {

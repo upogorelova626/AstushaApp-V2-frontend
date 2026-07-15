@@ -21,7 +21,7 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 import {filter, finalize, startWith} from 'rxjs';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {Team} from '../../../../../shared/interfaces/team.interface';
-import {TeamsService} from '../../../services/teams.service';
+import {TeamsService} from '../../../../../shared/services/teams.service';
 import {AllTeamsDialogComponent} from './all-teams-dialog/all-teams-dialog.component';
 import {CreateTeamDialogComponent} from './create-team-dialog/create-team-dialog.component';
 import {ReactiveFormsModule, FormControl} from '@angular/forms';

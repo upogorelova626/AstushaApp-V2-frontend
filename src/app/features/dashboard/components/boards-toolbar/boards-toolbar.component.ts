@@ -3,7 +3,7 @@ import {RouterLink} from '@angular/router';
 import {TuiButton, TuiIcon, TuiInput, TuiTextfield} from '@taiga-ui/core';
 import {TuiSwitch} from '@taiga-ui/kit';
 import {Project} from '../../../../shared/interfaces/project.interface';
-import {ProjectMember} from '../../../../shared/interfaces/interfaces/project-member.interface';
+import {ProjectMember} from '../../../../shared/interfaces/project-member.interface';
 import {TaskPriority} from '../../../../shared/interfaces/project-tasks.interface';
 @Component({
     selector: 'app-boards-toolbar',

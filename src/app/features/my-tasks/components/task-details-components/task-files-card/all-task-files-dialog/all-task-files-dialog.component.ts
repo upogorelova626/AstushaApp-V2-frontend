@@ -9,7 +9,7 @@ import {injectContext} from '@taiga-ui/polymorpheus';
 import {TaskAttachment} from '../../../../../../shared/interfaces/project-tasks.interface';
 import {DecimalPipe} from '@angular/common';
 import {TaskAttachmentsService} from '../../../../../../shared/services/task-attachments.service';
-import {MyTask} from '../../../../interfaces/my-tasks.interface';
+import {MyTask} from '../../../../../../shared/interfaces/my-tasks.interface';
 
 interface AllTaskFilesDialogData {
     attachments: TaskAttachment[];

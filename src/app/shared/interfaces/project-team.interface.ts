@@ -1,4 +1,4 @@
-import {Team} from '../../../features/teams/interfaces/team.interface';
+import {Team} from './team.interface';
 
 export interface ProjectTeam {
     id: string;

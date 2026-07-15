@@ -9,7 +9,7 @@ import {
 import {RouterLink} from '@angular/router';
 import {TuiButton, TuiHint, TuiHintDirective} from '@taiga-ui/core';
 import {TuiBadge, TuiSkeleton} from '@taiga-ui/kit';
-import {MyTask} from '../../../interfaces/my-tasks.interface';
+import {MyTask} from '../../../../../shared/interfaces/my-tasks.interface';
 import {TuiTable} from '@taiga-ui/addon-table';
 
 @Component({

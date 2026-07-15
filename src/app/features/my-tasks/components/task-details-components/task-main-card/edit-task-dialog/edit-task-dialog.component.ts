@@ -44,7 +44,7 @@ import {
     TaskType,
     UpdateProjectTaskRequest
 } from '../../../../../../shared/interfaces/project-tasks.interface';
-import {ProjectTasksService} from '../../../../../projects/services/project-tasks.service';
+import {ProjectTasksService} from '../../../../../../shared/services/project-tasks.service';
 import {ProjectsService} from '../../../../../../shared/services/projects.service';
 import {notPastDateValidator} from '../../../../../projects/validators/project-dates.validator';
 

@@ -26,7 +26,7 @@ import {
     TeamMemberAction,
     TeamMemberActionOption
 } from '../../../../../shared/interfaces/dropdowns.interface';
-import {TeamMembersService} from '../../../services/team-members.service';
+import {TeamMembersService} from '../../../../../shared/services/team-members.service';
 import {TeamRoleLabelPipe} from '../../../../../shared/pipes/team-role-label.pipe';
 import {TuiTable} from '@taiga-ui/addon-table';
 

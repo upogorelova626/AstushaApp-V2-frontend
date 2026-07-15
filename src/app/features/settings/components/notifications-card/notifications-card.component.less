@@ -1,0 +1,96 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.notifications-card {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-card-border);
+    border-radius: 5px;
+    background: var(--color-card-bg);
+
+    &__header {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    &__icon,
+    &__item-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 12px;
+        color: var(--color-primary-light);
+        background: var(--color-gradient-primary-soft);
+    }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    &__item-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    &__header-text,
+    &__item-text {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font: var(--tui-typography-heading-h5);
+    }
+
+    &__description {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-l);
+    }
+
+    &__list {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__item {
+        min-width: 0;
+        min-height: 64px;
+        padding: 12px 14px;
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr) max-content;
+        align-items: center;
+        gap: 12px;
+        box-sizing: border-box;
+        border: 1px solid var(--color-card-border);
+        border-radius: 5px;
+        background: var(--color-card-bg);
+        cursor: pointer;
+    }
+
+    &__item-title {
+        color: var(--color-text-primary);
+        font: var(--tui-typography-body-l);
+    }
+
+    &__item-description {
+        color: var(--color-text-secondary);
+        font: var(--tui-typography-body-m);
+    }
+}

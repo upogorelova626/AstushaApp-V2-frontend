@@ -48,7 +48,7 @@ import {
     TaskPriority,
     TaskType
 } from '../../../../../shared/interfaces/project-tasks.interface';
-import {ProjectTasksService} from '../../../services/project-tasks.service';
+import {ProjectTasksService} from '../../../../../shared/services/project-tasks.service';
 import {notPastDateValidator} from '../../../validators/project-dates.validator';
 
 @Component({

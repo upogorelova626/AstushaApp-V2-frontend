@@ -6,7 +6,7 @@ import {
     AddTeamMemberRequest,
     UpdateTeamMemberRequest,
     SuccessResponse
-} from '../../../shared/interfaces/team-members.interface';
+} from '../interfaces/team-members.interface';
 
 @Injectable({
     providedIn: 'root'

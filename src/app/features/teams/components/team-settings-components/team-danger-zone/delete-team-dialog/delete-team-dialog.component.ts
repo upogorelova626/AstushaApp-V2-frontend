@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {TuiButton, type TuiDialogContext} from '@taiga-ui/core';
-import {TeamsService} from '../../../../services/teams.service';
+import {TeamsService} from '../../../../../../shared/services/teams.service';
 import {injectContext} from '@taiga-ui/polymorpheus';
 
 @Component({

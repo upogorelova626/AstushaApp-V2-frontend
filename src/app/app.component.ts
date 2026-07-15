@@ -7,7 +7,7 @@ import {
 import {RouterOutlet} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {TuiRoot} from '@taiga-ui/core';
-import {UsersService} from './features/users/services/users.service';
+import {UsersService} from './shared/services/users.service';
 import {Theme} from './shared/interfaces/auth.interface';
 
 @Component({

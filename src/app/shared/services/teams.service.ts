@@ -1,11 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {
+    Team,
     CreateTeamRequest,
     DeleteTeamResponse,
-    Team,
     UpdateTeamRequest
-} from '../../../shared/interfaces/team.interface';
+} from '../interfaces/team.interface';
 
 @Injectable({
     providedIn: 'root'

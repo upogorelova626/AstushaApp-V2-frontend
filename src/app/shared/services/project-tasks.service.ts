@@ -2,11 +2,11 @@ import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 
 import {
+    ProjectTask,
     CreateProjectTaskRequest,
     MoveProjectTaskRequest,
-    ProjectTask,
     UpdateProjectTaskRequest
-} from '../../../shared/interfaces/project-tasks.interface';
+} from '../interfaces/project-tasks.interface';
 
 @Injectable({
     providedIn: 'root'
